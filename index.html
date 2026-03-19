@@ -154,11 +154,57 @@ body.presentation .crow-obs { font-size: 16px; }
 body.presentation .bar-num { font-size: 20px; }
 body.presentation .improved-box { font-size: 20px; }
 body.presentation .prob-text { font-size: 17px; }
-body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box { display: none; }
-@media print { body { background: #fff !important; color: #222 !important; } .header, .nav, .card, .tier, .footer, details, .export-bar, .reeval-btn, .cta-box, .pres-toggle { display: none !important; } .wrap { max-width: 100%; padding: 0; } .rcard, .total, .summary { background: #f8f8f8 !important; border-color: #ddd !important; box-shadow: none !important; } .crow-name, .prob-text { color: #222 !important; } .crow-obs, .total-sub, .improved-expl { color: #555 !important; } }
+body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar { display: none; }
+/* === GATE MODAL === */
+.gate-overlay { position: fixed; inset: 0; background: rgba(10,20,28,0.92); backdrop-filter: blur(12px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
+.gate-overlay.hidden { display: none; }
+.gate-modal { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; padding: 36px 28px; max-width: 420px; width: 100%; border: 1px solid #4FC1E925; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+.gate-modal h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 24px; color: #fff; text-align: center; margin-bottom: 6px; }
+.gate-modal .gate-sub { font-size: 14px; color: #8fb0c0; text-align: center; margin-bottom: 24px; line-height: 1.5; }
+.gate-field { margin-bottom: 14px; }
+.gate-field label { display: block; font-size: 12px; font-weight: 700; color: #4FC1E9; margin-bottom: 6px; letter-spacing: 0.5px; }
+.gate-field input { width: 100%; padding: 12px 16px; border-radius: 10px; border: 1.5px solid #2f4f5f; background: #0f1f28; color: #e8f0f4; font-family: 'Source Sans 3', sans-serif; font-size: 15px; outline: none; transition: all 0.25s; }
+.gate-field input:focus { border-color: #4FC1E9; box-shadow: 0 0 0 3px #4FC1E920; }
+.gate-field input::placeholder { color: #3a5565; }
+.gate-field .field-err { font-size: 11px; color: #e8899a; margin-top: 4px; display: none; }
+.gate-submit { width: 100%; margin-top: 20px; padding: 16px 24px; border-radius: 12px; border: none; cursor: pointer; font-size: 16px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+.gate-submit:hover { box-shadow: 0 6px 28px #F6D44C40; transform: translateY(-1px); }
+.gate-submit:disabled { background: #1a3040; color: #3a5565; box-shadow: none; cursor: default; border: 1px solid #2f4f5f; }
+.gate-privacy { font-size: 11px; color: #506a78; text-align: center; margin-top: 14px; line-height: 1.4; }
+.gate-skip { display: block; margin: 16px auto 0; padding: 8px 16px; border: none; background: none; color: #506a78; font-size: 13px; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: color 0.2s; }
+.gate-skip:hover { color: #8fb0c0; }
+.gate-err-msg { font-size: 13px; color: #e8899a; text-align: center; margin-top: 12px; }
+/* === LOCK BADGE === */
+.lock-icon { display: inline-block; margin-left: 4px; font-size: 11px; vertical-align: middle; }
+/* === SHARE BAR === */
+.share-bar { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.share-btn { flex: 1; min-width: 100px; padding: 11px 14px; border-radius: 10px; border: none; cursor: pointer; font-size: 12px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.share-btn:hover { transform: translateY(-1px); }
+.share-wa { background: #25D366; color: #fff; }
+.share-wa:hover { box-shadow: 0 4px 16px #25D36640; }
+.share-fb { background: #1877F2; color: #fff; }
+.share-fb:hover { box-shadow: 0 4px 16px #1877F240; }
+.share-copy { background: #4FC1E920; color: #4FC1E9; border: 1px solid #4FC1E940; }
+.share-copy:hover { background: #4FC1E930; }
+.share-btn svg { width: 14px; height: 14px; }
+@media print { body { background: #fff !important; color: #222 !important; } .header, .nav, .card, .tier, .footer, details, .export-bar, .reeval-btn, .cta-box, .pres-toggle, .share-bar, .gate-overlay { display: none !important; } .wrap { max-width: 100%; padding: 0; } .rcard, .total, .summary { background: #f8f8f8 !important; border-color: #ddd !important; box-shadow: none !important; } .crow-name, .prob-text { color: #222 !important; } .crow-obs, .total-sub, .improved-expl { color: #555 !important; } }
 </style>
 </head>
 <body>
+<!-- GATE MODAL -->
+<div class="gate-overlay hidden" id="gate-overlay">
+  <div class="gate-modal">
+    <h2>Deblochez evaluarea avansată</h2>
+    <div class="gate-sub">Completează datele de mai jos pentru acces complet la toate funcțiile: evaluare pe 9 criterii, versiune îmbunătățită, mod antrenament și bibliotecă.</div>
+    <div class="gate-field"><label>Nume complet</label><input type="text" id="gate-name" placeholder="ex: Maria Ionescu"><div class="field-err" id="err-name">Completează numele</div></div>
+    <div class="gate-field"><label>Email</label><input type="email" id="gate-email" placeholder="ex: maria@email.com"><div class="field-err" id="err-email">Introdu un email valid</div></div>
+    <div class="gate-field"><label>Telefon</label><input type="tel" id="gate-phone" placeholder="ex: 0722 123 456"><div class="field-err" id="err-phone">Completează telefonul</div></div>
+    <div class="gate-err-msg" id="gate-err-msg"></div>
+    <button class="gate-submit" id="gate-submit" onclick="submitGate()">Activează accesul complet</button>
+    <div class="gate-privacy">Datele tale sunt în siguranță. Nu facem spam.</div>
+    <button class="gate-skip" onclick="hideGate()">Continuă doar cu evaluarea de bază →</button>
+  </div>
+</div>
 <div class="header">
   <button class="pres-toggle" onclick="togglePresentation()" title="Mod Prezentare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></button>
   <div class="brand">Puterea Minții</div>
@@ -175,7 +221,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 <div class="wrap">
   <div class="tier">
     <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de bază</div><div class="ts">3 criterii</div></button>
-    <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare avansată</div><div class="ts">9 criterii + rescriere</div></button>
+    <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare avansată <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">9 criterii + rescriere</div></button>
   </div>
   <div class="card">
     <div class="example-row"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
@@ -273,14 +319,45 @@ var LIBRARY=[
 ];
 var STEPS_B=["Analizez formularea...","Verific specificitatea...","Testez timpul verbal...","Calculez scorul final..."];
 var STEPS_A=["Analizez structura sugestiei...","Verific formularea pozitivă...","Testez ancorarea senzorială VAKOG...","Evaluez ritmul și cadența...","Verific pattern-urile lingvistice...","Analizez obiectivul terapeutic...","Generez versiunea îmbunătățită...","Finalizez raportul..."];
-var PB="Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 3 criterii fundamentale, returnezi JSON strict.\n\nCRITERII:\n1. Formulare pozitivă (1-10): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\n3 FILTRE: 1. Înlocuiești subiectul și merge la fel→prea generală. 2. Are film clar? 3. Filmul e cel intenționat?\n\nCalculează scor_total normalizat la 100: suma celor 3 scoruri impartita la 30 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[\"...\",\"...\"],\"sumar\":\"...\"}\n\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
-var PA="Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 9 criterii obiective, returnezi JSON strict.\n\nBLOC A — STRUCTURALE:\n1. Formulare pozitivă (1-10): 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): 9-10=precise, concrete. 1-2=vagi.\n3. Timp verbal corect (1-10): 9-10=prezent consistent. 1-2=viitor/condițional.\n4. Gradualitate și progresie (1-10): 9-10=progresie naturală. 1-2=salt brusc.\n\nBLOC B — LIMBAJ:\n5. Ancorare senzorială VAKOG (1-10): 9-10=3+ canale. 1-2=zero ancore.\n6. Ritm și cadență (1-10): 9-10=ritm hipnotic. 1-2=text dens.\n7. Pattern-uri lingvistice (1-10): 9-10=corecte, variate. 1-2=greșite.\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic clar (1-10): 9-10=unic și clar. 1-2=contradictorii.\n9. Activare emoțională (1-10): CREEAZĂ starea. 9-10=palpabilă. 1-2=plat.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCalculează scor_total normalizat la 100: suma celor 9 scoruri impartita la 90 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":4,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":5,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":6,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":7,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":8,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":9,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[\"...\",\"...\",\"...\"],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
+var PB="Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 3 criterii fundamentale, returnezi JSON strict.\n\nCRITERII:\n1. Formulare pozitivă (1-10): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru perfecțiune teoretică.\n- Dacă o sugestie are zero negații → criteriul 1 = 10.\n- Dacă toate propozițiile sunt la prezent → criteriul 3 = 10.\n- Dacă fiecare propoziție creează o imagine senzorială concretă → criteriul 2 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Scorul 100/100 este complet posibil pentru o sugestie care respectă toate criteriile.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\n3 FILTRE: 1. Înlocuiești subiectul și merge la fel→prea generală. 2. Are film clar? 3. Filmul e cel intenționat?\n\nCalculează scor_total normalizat la 100: suma celor 3 scoruri impartita la 30 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente.\n\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
+var PA="Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 9 criterii obiective, returnezi JSON strict.\n\nBLOC A — STRUCTURALE:\n1. Formulare pozitivă (1-10): 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): 9-10=precise, concrete. 1-2=vagi.\n3. Timp verbal corect (1-10): 9-10=prezent consistent. 1-2=viitor/condițional.\n4. Gradualitate și progresie (1-10): 9-10=progresie naturală. 1-2=salt brusc.\n\nBLOC B — LIMBAJ:\n5. Ancorare senzorială VAKOG (1-10): 9-10=3+ canale. 1-2=zero ancore.\n6. Ritm și cadență (1-10): 9-10=ritm hipnotic. 1-2=text dens.\n7. Pattern-uri lingvistice (1-10): 9-10=corecte, variate. 1-2=greșite.\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic clar (1-10): 9-10=unic și clar. 1-2=contradictorii.\n9. Activare emoțională (1-10): CREEAZĂ starea. 9-10=palpabilă. 1-2=plat.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru o perfecțiune teoretică imposibilă.\n- Zero negații → criteriul 1 = 10. Toate propozițiile la prezent → criteriul 3 = 10. Progresie clară corp→emoție→identitate → criteriul 4 = 10.\n- 3+ canale senzoriale activate natural → criteriul 5 = 9 sau 10. Propoziții scurte cu ritm de respirație → criteriul 6 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Un scor total de 100/100 este complet posibil pentru o sugestie care respectă excelent toate cele 9 criterii.\n- O sugestie bună poate primi 10 pe unele criterii și 7-8 pe altele. Nu trage toate scorurile în jos doar pentru că un criteriu e mai slab.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCalculează scor_total normalizat la 100: suma celor 9 scoruri impartita la 90 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":4,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":5,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":6,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":7,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":8,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":9,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente. Dacă sugestia e excelentă, versiune_imbunatatita poate fi identică sau cu ajustări minore.\n\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
 
 /* === STATE === */
 var tier='basic',lastImproved='',prevScore=null,loadingInterval=null,isPresentation=false;
 
+/* === GATE LOGIC === */
+function isUnlocked(){try{return !!localStorage.getItem('user_unlocked');}catch(e){return false;}}
+function getUserData(){try{return JSON.parse(localStorage.getItem('user_data')||'null');}catch(e){return null;}}
+function showGate(){document.getElementById('gate-overlay').classList.remove('hidden');}
+function hideGate(){document.getElementById('gate-overlay').classList.add('hidden');}
+function updateLockIcon(){var lock=document.getElementById('lock-adv');if(lock)lock.style.display=isUnlocked()?'none':'inline';}
+function requireGate(){if(isUnlocked())return true;showGate();return false;}
+async function submitGate(){
+  var name=document.getElementById('gate-name').value.trim();
+  var email=document.getElementById('gate-email').value.trim();
+  var phone=document.getElementById('gate-phone').value.trim();
+  var ok=true;
+  document.querySelectorAll('.field-err').forEach(function(e){e.style.display='none';});
+  document.getElementById('gate-err-msg').textContent='';
+  if(!name){document.getElementById('err-name').style.display='block';ok=false;}
+  if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('err-email').style.display='block';ok=false;}
+  if(!phone||phone.replace(/\D/g,'').length<8){document.getElementById('err-phone').style.display='block';ok=false;}
+  if(!ok)return;
+  var btn=document.getElementById('gate-submit');
+  btn.disabled=true;btn.textContent='Se activează...';
+  try{
+    await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,phone:phone})}).catch(function(){});
+    localStorage.setItem('user_unlocked','1');
+    localStorage.setItem('user_data',JSON.stringify({name:name,email:email,phone:phone}));
+    hideGate();updateLockIcon();
+    if(tier==='basic')setTier('advanced');
+  }catch(e){document.getElementById('gate-err-msg').textContent='Eroare de conexiune. Încearcă din nou.';}
+  finally{btn.disabled=false;btn.textContent='Activează accesul complet';}
+}
+
 /* === TABS === */
 function showTab(id,btn){
+  if((id==='antrenament'||id==='biblioteca')&&!requireGate())return;
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
   document.getElementById('tab-'+id).classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b){b.classList.remove('on');});
@@ -298,13 +375,21 @@ function togglePresentation(){
 }
 
 /* === TIER === */
-function setTier(t){tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();}
+function setTier(t){
+  if(t==='advanced'&&!requireGate())return;
+  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();}
 function renderRef(){var l=tier==='basic'?BC:AC;document.getElementById('ref-summary').textContent='Referință criterii ('+l.length+')';document.getElementById('ref-list').innerHTML=l.map(function(c){return '<div><span class="rn">'+c.id+'. '+c.name+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
 
 /* === HELPERS === */
 function gbc(s){if(s<=3)return'#e8506a';if(s<=5)return'#e8945a';if(s<=7)return'#F6D44C';if(s<=8)return'#5dd9a6';return'#4FC1E9';}
 function glv(s,m){var p=Math.round((s/m)*100);if(p>=90)return{l:'Excelent',c:'#4FC1E9',d:'Gata de utilizare profesională'};if(p>=75)return{l:'Bun',c:'#5dd9a6',d:'Cu mici ajustări devine excelent'};if(p>=60)return{l:'Mediu',c:'#F6D44C',d:'Necesită îmbunătățiri pe 2-3 criterii'};if(p>=40)return{l:'Slab',c:'#e8945a',d:'Probleme structurale semnificative'};return{l:'Inadecvat',c:'#e8506a',d:'Rescrie de la zero'};}
 function gpc(i){if(i===0)return{b:'#e8506a28',f:'#e8899a'};if(i===1)return{b:'#e8945a22',f:'#e8945a'};return{b:'#F6D44C18',f:'#F6D44C'};}
+
+/* === SHARE === */
+function getShareText(score){return 'Am obținut '+score+'/100 la Evaluatorul de Sugestii Hipnotice de la Puterea Minții! 🎯\n\nTesteaz\u0103 și tu sugestiile tale:\nhttps://evaluator-sugestii.vercel.app';}
+function shareWhatsApp(score){window.open('https://wa.me/?text='+encodeURIComponent(getShareText(score)),'_blank');}
+function shareFacebook(score){window.open('https://www.facebook.com/sharer/sharer.php?quote='+encodeURIComponent(getShareText(score))+'&u='+encodeURIComponent('https://evaluator-sugestii.vercel.app'),'_blank','width=600,height=400');}
+function copyShareText(score){navigator.clipboard.writeText(getShareText(score)).then(function(){var btn=document.getElementById('share-copy-btn');if(btn){btn.classList.add('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Copiat!';setTimeout(function(){btn.classList.remove('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază link';},2000);}});}
 
 /* === EXAMPLE === */
 function loadExample(){var ex=EXAMPLES[Math.floor(Math.random()*EXAMPLES.length)];document.getElementById('text').value=ex.text;document.getElementById('tip').value=ex.tip==='auto'?'auto':ex.tip;document.getElementById('obiectiv').value=ex.obiectiv||'';document.getElementById('text').focus();}
@@ -350,6 +435,7 @@ function renderResult(r){
   h+='<div class="export-bar"><button class="export-btn" id="copy-btn" onclick="copyResult()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază rezultatul</button><button class="export-btn" onclick="downloadImage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă imagine</button></div>';
   if(pct<60)h+='<div class="cta-box" style="background:#F6D44C08;border-color:#F6D44C30"><p style="color:#F6D44C">Sugestiile hipnotice eficiente se construiesc pe principii precise. În <strong>Training-ul Profesional de Hipnoză</strong> înveți exact cum să le creezi de la zero.</p><a href="https://putereamintii.ro" target="_blank" style="background:#F6D44C;color:#0f1f28">Află mai multe despre Training</a></div>';
   else if(pct>=80)h+='<div class="cta-box" style="background:#5dd9a608;border-color:#5dd9a630"><p style="color:#5dd9a6">Scor excelent! Ai un simț natural pentru limbajul hipnotic. <strong>Training-ul Profesional de Hipnoză</strong> te poate duce la nivel expert.</p><a href="https://putereamintii.ro" target="_blank" style="background:#5dd9a6;color:#0f1f28">Descoperă Training-ul Profesional</a></div>';
+  if(pct>=80)h+='<div class="share-bar"><button class="share-btn share-wa" onclick="shareWhatsApp('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.467A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.19-.587-5.932-1.61l-.424-.254-2.744.87.872-2.694-.278-.44A9.78 9.78 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818S21.818 6.58 21.818 12s-4.398 9.818-9.818 9.818z"/></svg>WhatsApp</button><button class="share-btn share-fb" onclick="shareFacebook('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</button><button class="share-btn share-copy" id="share-copy-btn" onclick="copyShareText('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază link</button></div>';
   document.getElementById('results').innerHTML='<div class="result">'+h+'</div>';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});}
 
 /* === EXPORT: COPY === */
@@ -425,7 +511,7 @@ function renderTrainResult(r,container){var cr=AC;var fc=(r.criterii||[]).filter
 function renderLibrary(){var el=document.getElementById('lib-content');if(el.innerHTML)return;var h='';
   LIBRARY.forEach(function(cat,ci){h+='<div class="lib-cat"><div class="lib-cat-title">'+cat.cat+'</div>';
     cat.items.forEach(function(item,ii){h+='<div class="lib-item"><div class="lib-type">'+item.type+'</div><div class="lib-sugestie">'+item.text+'</div><div class="lib-why">'+item.why+'</div><button class="lib-eval-btn" onclick="loadFromLib('+ci+','+ii+')">→ Evaluează această sugestie</button></div>';});h+='</div>';});el.innerHTML=h;}
-function loadFromLib(ci,ii){var item=LIBRARY[ci].items[ii];
+function loadFromLib(ci,ii){if(!requireGate())return;var item=LIBRARY[ci].items[ii];
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
   document.getElementById('text').value=item.text;document.getElementById('tip').value='auto';document.getElementById('obiectiv').value='';
@@ -433,6 +519,7 @@ function loadFromLib(ci,ii){var item=LIBRARY[ci].items[ii];
 
 /* === INIT === */
 renderRef();
+updateLockIcon();
 </script>
 </body>
 </html>
