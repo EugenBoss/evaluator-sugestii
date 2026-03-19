@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluator Sugestii Hipnotice — Puterea Minții</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+::selection { background: #4FC1E960; color: #fff; }
+body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a35 30%, #1a3040 70%, #12242e 100%); font-family: 'Source Sans 3', -apple-system, sans-serif; color: #e8f0f4; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes glow { 0%, 100% { box-shadow: 0 0 20px #4FC1E920; } 50% { box-shadow: 0 0 35px #4FC1E935; } }
+.header { padding: 40px 24px 32px; text-align: center; border-bottom: 1px solid #4FC1E920; background: linear-gradient(180deg, #4FC1E90D 0%, transparent 60%); position: relative; }
+.header::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #4FC1E9, transparent); }
+.brand { font-size: 12px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; background: linear-gradient(135deg, #F6D44C, #f0c030); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+.header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 32px; font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 20px rgba(79,193,233,0.15); }
+.header p { font-size: 14px; color: #8fb0c0; max-width: 440px; margin: 0 auto; line-height: 1.5; }
+.wrap { max-width: 660px; margin: 0 auto; padding: 32px 16px 60px; }
+.tier { display: flex; border-radius: 14px; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); padding: 5px; margin-bottom: 28px; gap: 5px; border: 1px solid #4FC1E915; }
+.tier button { flex: 1; padding: 14px 8px; border: none; border-radius: 10px; cursor: pointer; background: transparent; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; }
+.tier button.on { background: linear-gradient(135deg, #223a47, #1d3340); box-shadow: 0 0 0 1px #4FC1E960, 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 #4FC1E920; }
+.tier .tl { font-size: 14px; font-weight: 500; color: #607a88; transition: color 0.3s; }
+.tier button.on .tl { font-weight: 700; color: #4FC1E9; }
+.tier .ts { font-size: 11px; color: #405560; margin-top: 3px; transition: color 0.3s; }
+.tier button.on .ts { color: #7fa8b8; }
+.card { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 18px; padding: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(79,193,233,0.06); border: 1px solid #4FC1E918; }
+.lbl { display: block; font-size: 13px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px; color: #4FC1E9; text-shadow: 0 0 20px #4FC1E930; }
+.lbl-s { display: block; font-size: 12px; font-weight: 600; color: #7fa8b8; margin-bottom: 5px; }
+textarea, select, .inp { width: 100%; border-radius: 12px; border: 1.5px solid #2f4f5f; font-family: 'Source Sans 3', sans-serif; color: #e8f0f4; background: #0f1f28; outline: none; transition: all 0.25s; }
+textarea { padding: 16px 18px; font-size: 15px; line-height: 1.7; resize: vertical; min-height: 130px; }
+select, .inp { padding: 10px 14px; font-size: 14px; }
+select { cursor: pointer; }
+textarea:focus, select:focus, .inp:focus { border-color: #4FC1E9; box-shadow: 0 0 0 3px #4FC1E920, 0 0 20px #4FC1E910; }
+textarea::placeholder, .inp::placeholder { color: #3a5565; }
+.opts { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+.opts > div:first-child { flex: 1; min-width: 140px; }
+.opts > div:last-child { flex: 2; min-width: 200px; }
+.cta { width: 100%; margin-top: 24px; padding: 16px 24px; border-radius: 12px; border: none; cursor: pointer; font-size: 16px; font-weight: 700; letter-spacing: 1px; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; text-transform: uppercase; }
+.cta:hover:not(:disabled) { box-shadow: 0 6px 28px #F6D44C40; transform: translateY(-1px); }
+.cta:disabled { background: #1a3040; color: #3a5565; box-shadow: none; cursor: default; border: 1px solid #2f4f5f; }
+.spinner { width: 18px; height: 18px; border: 2.5px solid #4FC1E930; border-top-color: #4FC1E9; border-radius: 50%; display: inline-block; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 10px; }
+.loading-text { color: #4FC1E9; text-transform: none; letter-spacing: 0; }
+.result { margin-top: 32px; animation: fadeIn 0.5s ease-out; }
+.badge { display: inline-block; padding: 7px 18px; border-radius: 24px; background: linear-gradient(135deg, #4FC1E918, #4FC1E908); border: 1px solid #4FC1E940; font-size: 13px; font-weight: 700; color: #4FC1E9; margin-bottom: 20px; text-shadow: 0 0 15px #4FC1E930; }
+.total { display: flex; align-items: center; gap: 22px; padding: 22px 26px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 16px; animation: glow 3s ease-in-out infinite; }
+.total-circle { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; font-weight: 700; }
+.total-label { font-size: 24px; font-weight: 700; font-family: 'DM Serif Display', Georgia, serif; }
+.total-sub { font-size: 13px; color: #8fb0c0; margin-top: 4px; }
+.rcard { margin-top: 22px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 16px; overflow: hidden; border: 1px solid #4FC1E915; box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+.rcard-head { padding: 16px 22px; border-bottom: 1px solid #4FC1E915; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; background: linear-gradient(135deg, #F6D44C, #e8b820); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.crow { padding: 16px 22px; display: flex; flex-direction: column; gap: 7px; border-bottom: 1px solid #ffffff08; transition: background 0.2s; }
+.crow:hover { background: rgba(79,193,233,0.03); }
+.crow:last-child { border-bottom: none; }
+.crow-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.crow-name { font-size: 14px; font-weight: 600; color: #e8f0f4; }
+.crow-block { font-size: 11px; color: #4a6a78; margin-top: 2px; }
+.crow-obs { font-size: 13px; color: #8fb0c0; line-height: 1.55; }
+.bar-wrap { width: 130px; display: flex; align-items: center; gap: 8px; }
+.bar-bg { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.04); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.7s cubic-bezier(0.22,1,0.36,1); }
+.bar-num { font-weight: 800; font-size: 15px; min-width: 28px; text-align: right; }
+.prob { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.prob:last-child { margin-bottom: 0; }
+.prob-num { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+.prob-text { font-size: 14px; color: #e8f0f4; line-height: 1.5; }
+.summary { margin-top: 22px; padding: 18px 22px; border-radius: 14px; background: linear-gradient(135deg, #4FC1E908, #4FC1E904); border: 1px solid #4FC1E920; font-size: 14px; color: #8fb0c0; line-height: 1.65; }
+.improved-box { padding: 20px 22px; border-radius: 14px; background: linear-gradient(135deg, rgba(93,217,166,0.1), rgba(79,193,233,0.06)); border: 1px solid rgba(93,217,166,0.25); font-size: 15px; line-height: 1.8; color: #c8f0e0; font-style: italic; }
+.improved-expl { margin-top: 16px; font-size: 13px; color: #8fb0c0; line-height: 1.6; }
+.improved-expl strong { font-weight: 700; color: #5dd9a6; }
+.rejected { padding: 20px 24px; border-radius: 16px; margin-bottom: 22px; background: linear-gradient(135deg, #9B3A4D18, #9B3A4D08); border: 2px solid #9B3A4D80; box-shadow: 0 0 20px #9B3A4D15; }
+.rejected-title { font-size: 16px; font-weight: 700; color: #e8899a; margin-bottom: 6px; }
+.rejected-text { font-size: 14px; color: #c07080; }
+.err { margin-top: 18px; padding: 16px 20px; border-radius: 12px; background: #9B3A4D15; border: 1px solid #9B3A4D35; color: #e8899a; font-size: 14px; }
+details { margin-top: 36px; }
+summary { font-size: 13px; font-weight: 600; color: #607a88; cursor: pointer; padding: 10px 0; transition: color 0.2s; }
+summary:hover { color: #4FC1E9; }
+.ref { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 14px; padding: 18px; margin-top: 10px; border: 1px solid #4FC1E915; font-size: 13px; }
+.ref div { margin-bottom: 10px; }
+.ref div:last-child { margin-bottom: 0; }
+.ref .rn { font-weight: 700; color: #4FC1E9; }
+.ref .rd { color: #7fa8b8; }
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ffffff08; font-size: 11px; color: #3a5565; }
+.footer a { color: #4FC1E9; text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="brand">Puterea Minții</div>
+  <h1>Evaluator Sugestii Hipnotice</h1>
+  <p>Introdu o sugestie și primești scor obiectiv + feedback pe criterii profesionale</p>
+</div>
+<div class="wrap">
+  <div class="tier">
+    <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de bază</div><div class="ts">4 criterii</div></button>
+    <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare avansată</div><div class="ts">10 criterii + rescriere</div></button>
+  </div>
+  <div class="card">
+    <label class="lbl">Sugestia hipnotică</label>
+    <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..."></textarea>
+    <div class="opts">
+      <div><label class="lbl-s">Tip sugestie</label><select id="tip"><option value="auto">Auto-detect</option><option value="directă">Directă</option><option value="indirectă">Indirectă (Milton Model)</option><option value="mixtă">Mixtă</option></select></div>
+      <div><label class="lbl-s">Obiectiv terapeutic (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
+    </div>
+    <button class="cta" id="cta" onclick="evaluate()">Evaluează sugestia</button>
+  </div>
+  <div id="error"></div>
+  <div id="results"></div>
+  <details><summary id="ref-summary">Referință criterii (4)</summary><div class="ref" id="ref-list"></div></details>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+</div>
+<script>
+const BC=[{id:1,name:"Formulare pozitivă",block:"A",desc:"Zero negații — subconștientul nu procesează negația"},{id:2,name:"Specificitate și claritate",block:"A",desc:"Imagini senzoriale concrete, nu abstracțiuni"},{id:3,name:"Timp verbal corect",block:"A",desc:"Prezent, nu viitor sau condițional"},{id:10,name:"Siguranță și etică",block:"D",desc:"Zero promisiuni medicale, respectă autonomia"}];
+const AC=[{id:1,name:"Formulare pozitivă",block:"A · Structurale",desc:"Zero negații — subconștientul nu procesează negația"},{id:2,name:"Specificitate și claritate",block:"A · Structurale",desc:"Imagini senzoriale concrete, nu abstracțiuni"},{id:3,name:"Timp verbal corect",block:"A · Structurale",desc:"Prezent, nu viitor sau condițional"},{id:4,name:"Gradualitate și progresie",block:"A · Structurale",desc:"Schimbare treptată, nu salt brusc"},{id:5,name:"Ancorare senzorială VAKOG",block:"B · Limbaj",desc:"Minim 2 canale senzoriale activate"},{id:6,name:"Ritm și cadență",block:"B · Limbaj",desc:"Propoziții scurte, ritm de respirație"},{id:7,name:"Pattern-uri lingvistice",block:"B · Limbaj",desc:"Corecte pentru tipul de sugestie"},{id:8,name:"Obiectiv terapeutic clar",block:"C · Eficacitate",desc:"Direcție unică, fiecare propoziție contribuie"},{id:9,name:"Activare emoțională",block:"C · Eficacitate",desc:"Creează starea, nu doar o descrie"},{id:10,name:"Siguranță și etică",block:"D · Siguranță",desc:"Zero promisiuni medicale, respectă autonomia"}];
+const PB=`Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 4 criterii fundamentale, returnezi JSON strict.\n\nCRITERII:\n1. Formulare pozitivă (1-10): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n10. Siguranță și etică (1-10): Zero promisiuni medicale. RED FLAGS=scor 0.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\n3 FILTRE: 1. Înlocuiești subiectul și merge la fel→prea generală. 2. Are film clar? 3. Filmul e cel intenționat?\n\nCalculează scor_total normalizat la 100: suma celor 4 scoruri × 2.5, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{"tip_detectat":"directă|indirectă|mixtă","criterii":[{"id":1,"scor":X,"observatie":"..."},{"id":2,"scor":X,"observatie":"..."},{"id":3,"scor":X,"observatie":"..."},{"id":10,"scor":X,"observatie":"..."}],"scor_total":X,"scor_maxim":100,"top_probleme":["...","..."],"respins":false,"motiv_respingere":null,"sumar":"..."}\n\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj.`;
+const PA=`Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 10 criterii obiective, returnezi JSON strict.\n\nBLOC A—STRUCTURALE (40%): 1.Formulare pozitivă(1-10) 2.Specificitate și claritate(1-10) 3.Timp verbal corect(1-10) 4.Gradualitate și progresie(1-10)\nBLOC B—LIMBAJ (30%): 5.Ancorare senzorială VAKOG(1-10) 6.Ritm și cadență(1-10) 7.Pattern-uri lingvistice(1-10)\nBLOC C—EFICACITATE (20%): 8.Obiectiv terapeutic clar(1-10) 9.Activare emoțională(1-10)\nBLOC D—SIGURANȚĂ (10%): 10.Siguranță și etică(1-10) RED FLAGS=scor 0+RESPINS.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent. INTERZISE: "dacă","încearcă".\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{"tip_detectat":"directă|indirectă|mixtă","criterii":[{"id":1,"scor":X,"observatie":"..."},{"id":2,"scor":X,"observatie":"..."},{"id":3,"scor":X,"observatie":"..."},{"id":4,"scor":X,"observatie":"..."},{"id":5,"scor":X,"observatie":"..."},{"id":6,"scor":X,"observatie":"..."},{"id":7,"scor":X,"observatie":"..."},{"id":8,"scor":X,"observatie":"..."},{"id":9,"scor":X,"observatie":"..."},{"id":10,"scor":X,"observatie":"..."}],"scor_total":X,"scor_maxim":100,"top_probleme":["...","...","..."],"respins":false,"motiv_respingere":null,"versiune_imbunatatita":"...","explicatii_schimbari":"...","sumar":"..."}\n\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj.`;
+let tier='basic';
+function setTier(t){tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';renderRef();}
+function renderRef(){const l=tier==='basic'?BC:AC;document.getElementById('ref-summary').textContent=`Referință criterii (${l.length})`;document.getElementById('ref-list').innerHTML=l.map(c=>`<div><span class="rn">${c.id}. ${c.name}</span> <span class="rd">— ${c.desc}</span></div>`).join('');}
+function gbc(s){if(s<=3)return'#e8506a';if(s<=5)return'#e8945a';if(s<=7)return'#F6D44C';if(s<=8)return'#5dd9a6';return'#4FC1E9';}
+function glv(s,m){const p=Math.round((s/m)*100);if(p>=90)return{l:'Excelent',c:'#4FC1E9',d:'Gata de utilizare profesională'};if(p>=75)return{l:'Bun',c:'#5dd9a6',d:'Cu mici ajustări devine excelent'};if(p>=60)return{l:'Mediu',c:'#F6D44C',d:'Necesită îmbunătățiri pe 2-3 criterii'};if(p>=40)return{l:'Slab',c:'#e8945a',d:'Probleme structurale semnificative'};return{l:'Inadecvat',c:'#e8506a',d:'Rescrie de la zero'};}
+function gpc(i){if(i===0)return{b:'#e8506a28',f:'#e8899a'};if(i===1)return{b:'#e8945a22',f:'#e8945a'};return{b:'#F6D44C18',f:'#F6D44C'};}
+async function evaluate(){const text=document.getElementById('text').value.trim();if(!text)return;const tip=document.getElementById('tip').value;const ob=document.getElementById('obiectiv').value.trim();const cta=document.getElementById('cta');const eD=document.getElementById('error');const rD=document.getElementById('results');cta.disabled=true;cta.innerHTML='<span class="spinner"></span><span class="loading-text">Se evaluează...</span>';eD.innerHTML='';rD.innerHTML='';let um=`Evaluează această sugestie hipnotică:\n\n"""${text}"""`;if(tip!=='auto')um+=`\n\nTip declarat: ${tip}`;if(ob)um+=`\nObiectiv terapeutic: ${ob}`;try{const rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});if(!rsp.ok){const e=await rsp.json().catch(()=>null);throw new Error(e?.error?.message||`Eroare: ${rsp.status}`);}const data=await rsp.json();const raw=(data.content||[]).map(c=>c.text||'').join('');const clean=raw.replace(/```json|```/g,'').trim();const r=JSON.parse(clean);renderResult(r);}catch(e){eD.innerHTML=`<div class="err">${e.message}</div>`;}finally{cta.disabled=false;cta.textContent='Evaluează sugestia';}}
+function renderResult(r){const cr=tier==='basic'?BC:AC;const lv=glv(r.scor_total,r.scor_maxim);const pct=Math.round((r.scor_total/r.scor_maxim)*100);let h='';if(r.respins){h+=`<div class="rejected"><div class="rejected-title">RESPINSĂ — Red Flag detectat</div><div class="rejected-text">${r.motiv_respingere||''}</div></div>`;}h+=`<div class="badge">Tip detectat: ${r.tip_detectat}</div>`;h+=`<div class="total" style="border:2px solid ${lv.c}35"><div class="total-circle" style="background:${lv.c}20;border:3px solid ${lv.c};color:${lv.c};text-shadow:0 0 20px ${lv.c}40">${r.scor_total}</div><div><div class="total-label" style="color:${lv.c};text-shadow:0 0 15px ${lv.c}25">${lv.l}</div><div class="total-sub">${r.scor_total} / ${r.scor_maxim} (${pct}%) — ${lv.d}</div></div></div>`;h+=`<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>`;(r.criterii||[]).forEach(c=>{const m=cr.find(x=>x.id===c.id)||{};const cl=gbc(c.scor);const pb=(c.scor/10)*100;h+=`<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">${c.id}. ${m.name||'Criteriu '+c.id}</div>${m.block?`<div class="crow-block">${m.block}</div>`:''}</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:${pb}%;background:${cl};box-shadow:0 0 8px ${cl}30"></div></div><div class="bar-num" style="color:${cl}">${c.scor}</div></div></div><div class="crow-obs">${c.observatie}</div></div>`;});h+='</div>';if(r.top_probleme&&r.top_probleme.length){h+=`<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>`;r.top_probleme.forEach((p,i)=>{const pc=gpc(i);h+=`<div class="prob"><div class="prob-num" style="background:${pc.b};color:${pc.f}">${i+1}</div><div class="prob-text">${p}</div></div>`;});h+='</div>';}if(r.sumar){h+=`<div class="summary">${r.sumar}</div>`;}if(tier==='advanced'&&r.versiune_imbunatatita){h+=`<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#5dd9a6;color:#5dd9a6">Versiune îmbunătățită</div><div class="improved-box">${r.versiune_imbunatatita}</div>${r.explicatii_schimbari?`<div class="improved-expl"><strong>Ce s-a schimbat: </strong>${r.explicatii_schimbari}</div>`:''}</div>`;}document.getElementById('results').innerHTML=`<div class="result">${h}</div>`;document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});}
+renderRef();
+</script>
+</body>
+</html>
