@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluator Sugestii Hipnotice — Puterea Minții</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+::selection { background: #4FC1E960; color: #fff; }
+body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a35 30%, #1a3040 70%, #12242e 100%); font-family: 'Source Sans 3', -apple-system, sans-serif; color: #e8f0f4; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes glow { 0%, 100% { box-shadow: 0 0 20px #4FC1E920; } 50% { box-shadow: 0 0 35px #4FC1E935; } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+.header { padding: 40px 24px 32px; text-align: center; border-bottom: 1px solid #4FC1E920; background: linear-gradient(180deg, #4FC1E90D 0%, transparent 60%); position: relative; }
+.header::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #4FC1E9, transparent); }
+.brand { font-size: 12px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; background: linear-gradient(135deg, #F6D44C, #f0c030); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+.header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 32px; font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 20px rgba(79,193,233,0.15); }
+.header p { font-size: 14px; color: #8fb0c0; max-width: 440px; margin: 0 auto; line-height: 1.5; }
+.pres-toggle { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 10px; border: 1px solid #4FC1E930; background: transparent; cursor: pointer; color: #607a88; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+.pres-toggle:hover { color: #4FC1E9; border-color: #4FC1E960; background: #4FC1E910; }
+.pres-toggle svg { width: 18px; height: 18px; }
+.nav { display: flex; max-width: 660px; margin: 0 auto; padding: 16px 16px 0; gap: 4px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.nav button { padding: 10px 16px; border: none; border-radius: 10px 10px 0 0; cursor: pointer; background: transparent; font-family: 'Source Sans 3', sans-serif; font-size: 13px; font-weight: 600; color: #506a78; white-space: nowrap; transition: all 0.3s; border-bottom: 2px solid transparent; }
+.nav button.on { color: #4FC1E9; background: #4FC1E910; border-bottom: 2px solid #4FC1E9; }
+.nav button:hover:not(.on) { color: #8fb0c0; }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+.wrap { max-width: 660px; margin: 0 auto; padding: 32px 16px 60px; }
+.tier { display: flex; border-radius: 14px; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); padding: 5px; margin-bottom: 28px; gap: 5px; border: 1px solid #4FC1E915; }
+.tier button { flex: 1; padding: 14px 8px; border: none; border-radius: 10px; cursor: pointer; background: transparent; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; }
+.tier button.on { background: linear-gradient(135deg, #223a47, #1d3340); box-shadow: 0 0 0 1px #4FC1E960, 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 #4FC1E920; }
+.tier .tl { font-size: 14px; font-weight: 500; color: #607a88; transition: color 0.3s; }
+.tier button.on .tl { font-weight: 700; color: #4FC1E9; }
+.tier .ts { font-size: 11px; color: #405560; margin-top: 3px; transition: color 0.3s; }
+.tier button.on .ts { color: #7fa8b8; }
+.card { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 18px; padding: 28px; box-shadow: 0 8px 32px rgba(0,0,0,0.3), inset 0 1px 0 rgba(79,193,233,0.06); border: 1px solid #4FC1E918; }
+.lbl { display: block; font-size: 13px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px; color: #4FC1E9; text-shadow: 0 0 20px #4FC1E930; }
+.lbl-s { display: block; font-size: 12px; font-weight: 600; color: #7fa8b8; margin-bottom: 5px; }
+textarea, select, .inp { width: 100%; border-radius: 12px; border: 1.5px solid #2f4f5f; font-family: 'Source Sans 3', sans-serif; color: #e8f0f4; background: #0f1f28; outline: none; transition: all 0.25s; }
+textarea { padding: 16px 18px; font-size: 15px; line-height: 1.7; resize: vertical; min-height: 130px; }
+select, .inp { padding: 10px 14px; font-size: 14px; }
+select { cursor: pointer; }
+textarea:focus, select:focus, .inp:focus { border-color: #4FC1E9; box-shadow: 0 0 0 3px #4FC1E920, 0 0 20px #4FC1E910; }
+textarea::placeholder, .inp::placeholder { color: #3a5565; }
+.opts { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
+.opts > div:first-child { flex: 1; min-width: 140px; }
+.opts > div:last-child { flex: 2; min-width: 200px; }
+.example-row { display: flex; justify-content: flex-end; margin-bottom: 10px; }
+.example-btn { padding: 7px 14px; border-radius: 8px; border: 1px solid #F6D44C30; background: #F6D44C10; color: #F6D44C; font-size: 12px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; gap: 6px; }
+.example-btn:hover { background: #F6D44C20; border-color: #F6D44C50; }
+.example-btn svg { width: 14px; height: 14px; }
+.cta { width: 100%; margin-top: 24px; padding: 16px 24px; border-radius: 12px; border: none; cursor: pointer; font-size: 16px; font-weight: 700; letter-spacing: 1px; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; text-transform: uppercase; }
+.cta:hover:not(:disabled) { box-shadow: 0 6px 28px #F6D44C40; transform: translateY(-1px); }
+.cta:disabled { background: #1a3040; color: #3a5565; box-shadow: none; cursor: default; border: 1px solid #2f4f5f; }
+.spinner { width: 18px; height: 18px; border: 2.5px solid #4FC1E930; border-top-color: #4FC1E9; border-radius: 50%; display: inline-block; animation: spin 0.7s linear infinite; vertical-align: middle; margin-right: 10px; }
+.loading-text { color: #4FC1E9; text-transform: none; letter-spacing: 0; animation: pulse 1.5s ease-in-out infinite; }
+.result { margin-top: 32px; animation: fadeIn 0.5s ease-out; }
+.badge { display: inline-block; padding: 7px 18px; border-radius: 24px; background: linear-gradient(135deg, #4FC1E918, #4FC1E908); border: 1px solid #4FC1E940; font-size: 13px; font-weight: 700; color: #4FC1E9; margin-bottom: 20px; text-shadow: 0 0 15px #4FC1E930; }
+.total { display: flex; align-items: center; gap: 22px; padding: 22px 26px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 16px; animation: glow 3s ease-in-out infinite; }
+.total-circle { width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; font-weight: 700; }
+.total-label { font-size: 24px; font-weight: 700; font-family: 'DM Serif Display', Georgia, serif; }
+.total-sub { font-size: 13px; color: #8fb0c0; margin-top: 4px; }
+.rcard { margin-top: 22px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 16px; overflow: hidden; border: 1px solid #4FC1E915; box-shadow: 0 6px 24px rgba(0,0,0,0.2); }
+.rcard-head { padding: 16px 22px; border-bottom: 1px solid #4FC1E915; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; background: linear-gradient(135deg, #F6D44C, #e8b820); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.crow { padding: 16px 22px; display: flex; flex-direction: column; gap: 7px; border-bottom: 1px solid #ffffff08; transition: background 0.2s; }
+.crow:hover { background: rgba(79,193,233,0.03); }
+.crow:last-child { border-bottom: none; }
+.crow-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+.crow-name { font-size: 14px; font-weight: 600; color: #e8f0f4; }
+.crow-block { font-size: 11px; color: #4a6a78; margin-top: 2px; }
+.crow-obs { font-size: 13px; color: #8fb0c0; line-height: 1.55; }
+.bar-wrap { width: 130px; display: flex; align-items: center; gap: 8px; }
+.bar-bg { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.04); overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.7s cubic-bezier(0.22,1,0.36,1); }
+.bar-num { font-weight: 800; font-size: 15px; min-width: 28px; text-align: right; }
+.prob { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 14px; }
+.prob:last-child { margin-bottom: 0; }
+.prob-num { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+.prob-text { font-size: 14px; color: #e8f0f4; line-height: 1.5; }
+.summary { margin-top: 22px; padding: 18px 22px; border-radius: 14px; background: linear-gradient(135deg, #4FC1E908, #4FC1E904); border: 1px solid #4FC1E920; font-size: 14px; color: #8fb0c0; line-height: 1.65; }
+.improved-box { padding: 20px 22px; border-radius: 14px; background: linear-gradient(135deg, rgba(93,217,166,0.1), rgba(79,193,233,0.06)); border: 1px solid rgba(93,217,166,0.25); font-size: 15px; line-height: 1.8; color: #c8f0e0; font-style: italic; }
+.improved-expl { margin-top: 16px; font-size: 13px; color: #8fb0c0; line-height: 1.6; }
+.improved-expl strong { font-weight: 700; color: #5dd9a6; }
+.reeval-btn { width: 100%; margin-top: 18px; padding: 14px 20px; border-radius: 12px; border: 1.5px solid #5dd9a650; cursor: pointer; font-size: 14px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; background: linear-gradient(135deg, #5dd9a615, #5dd9a608); color: #5dd9a6; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.reeval-btn:hover { background: linear-gradient(135deg, #5dd9a625, #5dd9a615); border-color: #5dd9a680; box-shadow: 0 4px 20px #5dd9a620; transform: translateY(-1px); }
+.reeval-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+.export-bar { display: flex; gap: 10px; margin-top: 22px; }
+.export-btn { flex: 1; padding: 12px 16px; border-radius: 10px; border: 1px solid #4FC1E930; background: #4FC1E910; color: #4FC1E9; font-size: 13px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.export-btn:hover { background: #4FC1E920; border-color: #4FC1E960; }
+.export-btn svg { width: 14px; height: 14px; }
+.export-ok { color: #5dd9a6 !important; border-color: #5dd9a650 !important; }
+.compare-banner { display: flex; align-items: center; justify-content: center; gap: 16px; padding: 16px 22px; margin-bottom: 20px; border-radius: 14px; background: linear-gradient(135deg, #4FC1E915, #5dd9a610); border: 1px solid #4FC1E930; animation: fadeIn 0.5s ease-out; flex-wrap: wrap; }
+.compare-score { text-align: center; }
+.compare-score .cs-num { font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; font-weight: 700; }
+.compare-score .cs-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #7fa8b8; margin-top: 2px; }
+.compare-arrow { font-size: 22px; color: #5dd9a6; }
+.compare-diff { font-size: 14px; font-weight: 800; padding: 4px 12px; border-radius: 20px; }
+.cta-box { margin-top: 22px; padding: 22px; border-radius: 16px; text-align: center; border: 1px solid; animation: fadeIn 0.5s ease-out; }
+.cta-box p { font-size: 15px; line-height: 1.6; margin-bottom: 14px; }
+.cta-box a { display: inline-block; padding: 12px 28px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 14px; transition: all 0.3s; }
+.cta-box a:hover { transform: translateY(-1px); }
+.brief-card { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 16px; padding: 24px; border: 1px solid #4FC1E918; margin-bottom: 24px; }
+.brief-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.brief-tag { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; background: #4FC1E915; color: #4FC1E9; border: 1px solid #4FC1E930; }
+.brief-tag.type { background: #F6D44C15; color: #F6D44C; border-color: #F6D44C30; }
+.brief-text { font-size: 15px; color: #e8f0f4; line-height: 1.6; margin-bottom: 8px; }
+.brief-constraint { font-size: 13px; color: #e8945a; font-weight: 600; }
+.new-brief-btn { padding: 10px 20px; border-radius: 10px; border: 1px solid #F6D44C40; background: #F6D44C15; color: #F6D44C; font-size: 13px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.3s; }
+.new-brief-btn:hover { background: #F6D44C25; border-color: #F6D44C60; }
+.lib-cat { margin-bottom: 28px; }
+.lib-cat-title { font-family: 'DM Serif Display', Georgia, serif; font-size: 20px; color: #4FC1E9; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid #4FC1E920; }
+.lib-item { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 14px; padding: 20px; margin-bottom: 12px; border: 1px solid #4FC1E915; }
+.lib-type { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #F6D44C; margin-bottom: 8px; }
+.lib-sugestie { font-size: 15px; line-height: 1.8; color: #c8f0e0; font-style: italic; margin-bottom: 12px; padding: 14px; border-radius: 10px; background: rgba(93,217,166,0.08); border: 1px solid rgba(93,217,166,0.15); }
+.lib-why { font-size: 13px; color: #8fb0c0; line-height: 1.55; }
+.lib-why strong { color: #5dd9a6; font-weight: 700; }
+.lib-eval-btn { margin-top: 10px; padding: 8px 16px; border-radius: 8px; border: 1px solid #4FC1E930; background: #4FC1E910; color: #4FC1E9; font-size: 12px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.3s; }
+.lib-eval-btn:hover { background: #4FC1E920; border-color: #4FC1E960; }
+.hist-empty { text-align: center; padding: 40px 20px; color: #506a78; font-size: 14px; }
+.hist-item { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 14px; margin-bottom: 10px; border: 1px solid #4FC1E915; cursor: pointer; transition: all 0.2s; }
+.hist-item:hover { border-color: #4FC1E940; background: linear-gradient(145deg, #223a49, #1d3444); }
+.hist-score { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'DM Serif Display', Georgia, serif; font-size: 18px; font-weight: 700; flex-shrink: 0; }
+.hist-info { flex: 1; min-width: 0; }
+.hist-text { font-size: 14px; color: #e8f0f4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hist-date { font-size: 11px; color: #506a78; margin-top: 3px; }
+.hist-tier { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; padding: 3px 8px; border-radius: 6px; background: #4FC1E915; color: #4FC1E9; flex-shrink: 0; }
+.hist-clear { display: block; margin: 20px auto 0; padding: 10px 24px; border-radius: 10px; border: 1px solid #9B3A4D40; background: #9B3A4D15; color: #e8899a; font-size: 13px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.3s; }
+.hist-clear:hover { background: #9B3A4D25; border-color: #9B3A4D60; }
+.err { margin-top: 18px; padding: 16px 20px; border-radius: 12px; background: #9B3A4D15; border: 1px solid #9B3A4D35; color: #e8899a; font-size: 14px; }
+details { margin-top: 36px; }
+summary { font-size: 13px; font-weight: 600; color: #607a88; cursor: pointer; padding: 10px 0; transition: color 0.2s; }
+summary:hover { color: #4FC1E9; }
+.ref { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 14px; padding: 18px; margin-top: 10px; border: 1px solid #4FC1E915; font-size: 13px; }
+.ref div { margin-bottom: 10px; }
+.ref div:last-child { margin-bottom: 0; }
+.ref .rn { font-weight: 700; color: #4FC1E9; }
+.ref .rd { color: #7fa8b8; }
+.footer { text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #ffffff08; font-size: 11px; color: #3a5565; }
+.footer a { color: #4FC1E9; text-decoration: none; }
+body.presentation .nav { display: none; }
+body.presentation .header p { display: none; }
+body.presentation .header h1 { font-size: 44px; }
+body.presentation .wrap { max-width: 800px; }
+body.presentation textarea { font-size: 20px; min-height: 160px; }
+body.presentation .cta { font-size: 20px; padding: 20px 28px; }
+body.presentation .total-circle { width: 110px; height: 110px; font-size: 42px; }
+body.presentation .total-label { font-size: 32px; }
+body.presentation .total-sub { font-size: 16px; }
+body.presentation .crow-name { font-size: 18px; }
+body.presentation .crow-obs { font-size: 16px; }
+body.presentation .bar-num { font-size: 20px; }
+body.presentation .improved-box { font-size: 20px; }
+body.presentation .prob-text { font-size: 17px; }
+body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box { display: none; }
+@media print { body { background: #fff !important; color: #222 !important; } .header, .nav, .card, .tier, .footer, details, .export-bar, .reeval-btn, .cta-box, .pres-toggle { display: none !important; } .wrap { max-width: 100%; padding: 0; } .rcard, .total, .summary { background: #f8f8f8 !important; border-color: #ddd !important; box-shadow: none !important; } .crow-name, .prob-text { color: #222 !important; } .crow-obs, .total-sub, .improved-expl { color: #555 !important; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <button class="pres-toggle" onclick="togglePresentation()" title="Mod Prezentare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></button>
+  <div class="brand">Puterea Minții</div>
+  <h1>Evaluator Sugestii Hipnotice</h1>
+  <p>Introdu o sugestie și primești scor obiectiv + feedback pe criterii profesionale</p>
+</div>
+<div class="nav" id="main-nav">
+  <button class="on" onclick="showTab('evaluare',this)">Evaluare</button>
+  <button onclick="showTab('antrenament',this)">Antrenament</button>
+  <button onclick="showTab('biblioteca',this)">Bibliotecă</button>
+  <button onclick="showTab('istoric',this)">Istoric</button>
+</div>
+<div id="tab-evaluare" class="tab-content active">
+<div class="wrap">
+  <div class="tier">
+    <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de bază</div><div class="ts">3 criterii</div></button>
+    <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare avansată</div><div class="ts">9 criterii + rescriere</div></button>
+  </div>
+  <div class="card">
+    <div class="example-row"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
+    <label class="lbl">Sugestia hipnotică</label>
+    <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..."></textarea>
+    <div class="opts">
+      <div><label class="lbl-s">Tip sugestie</label><select id="tip"><option value="auto">Auto-detect</option><option value="directă">Directă</option><option value="indirectă">Indirectă (Milton Model)</option><option value="mixtă">Mixtă</option></select></div>
+      <div><label class="lbl-s">Obiectiv terapeutic (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
+    </div>
+    <button class="cta" id="cta" onclick="runEval()">Evaluează sugestia</button>
+  </div>
+  <div id="error"></div>
+  <div id="results"></div>
+  <details><summary id="ref-summary">Referință criterii (3)</summary><div class="ref" id="ref-list"></div></details>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+</div>
+</div>
+<div id="tab-antrenament" class="tab-content">
+<div class="wrap">
+  <div style="text-align:center;margin-bottom:24px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#fff;margin-bottom:8px">Mod Antrenament</div><div style="font-size:14px;color:#8fb0c0">Primești un brief, scrii sugestia, primești evaluare. Practică face perfect.</div></div>
+  <div id="brief-area"></div>
+  <div class="card">
+    <label class="lbl">Sugestia ta</label>
+    <textarea id="train-text" rows="5" placeholder="Scrie sugestia conform briefului de mai sus..."></textarea>
+    <button class="cta" id="train-cta" onclick="runTrainEval()">Evaluează sugestia</button>
+  </div>
+  <div id="train-error"></div>
+  <div id="train-results"></div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+</div>
+</div>
+<div id="tab-biblioteca" class="tab-content">
+<div class="wrap">
+  <div style="text-align:center;margin-bottom:28px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#fff;margin-bottom:8px">Biblioteca de Sugestii Model</div><div style="font-size:14px;color:#8fb0c0">Exemple excelente pe categorii terapeutice. Studiază, analizează, învață.</div></div>
+  <div id="lib-content"></div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+</div>
+</div>
+<div id="tab-istoric" class="tab-content">
+<div class="wrap">
+  <div style="text-align:center;margin-bottom:28px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#fff;margin-bottom:8px">Istoricul Evaluărilor</div><div style="font-size:14px;color:#8fb0c0">Ultimele 20 de evaluări, salvate local pe dispozitivul tău.</div></div>
+  <div id="hist-content"></div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+</div>
+</div>
+<script>
+/* === DATA === */
+var BC=[{id:1,name:"Formulare pozitivă",block:"A",desc:"Zero negații — subconștientul nu procesează negația"},{id:2,name:"Specificitate și claritate",block:"A",desc:"Imagini senzoriale concrete, nu abstracțiuni"},{id:3,name:"Timp verbal corect",block:"A",desc:"Prezent, nu viitor sau condițional"}];
+var AC=[{id:1,name:"Formulare pozitivă",block:"A · Structurale",desc:"Zero negații — subconștientul nu procesează negația"},{id:2,name:"Specificitate și claritate",block:"A · Structurale",desc:"Imagini senzoriale concrete, nu abstracțiuni"},{id:3,name:"Timp verbal corect",block:"A · Structurale",desc:"Prezent, nu viitor sau condițional"},{id:4,name:"Gradualitate și progresie",block:"A · Structurale",desc:"Schimbare treptată, nu salt brusc"},{id:5,name:"Ancorare senzorială VAKOG",block:"B · Limbaj",desc:"Minim 2 canale senzoriale activate"},{id:6,name:"Ritm și cadență",block:"B · Limbaj",desc:"Propoziții scurte, ritm de respirație"},{id:7,name:"Pattern-uri lingvistice",block:"B · Limbaj",desc:"Corecte pentru tipul de sugestie"},{id:8,name:"Obiectiv terapeutic clar",block:"C · Eficacitate",desc:"Direcție unică, fiecare propoziție contribuie"},{id:9,name:"Activare emoțională",block:"C · Eficacitate",desc:"Creează starea, nu doar o descrie"}];
+var EXAMPLES=[
+  {label:"Bună — Anxietate",tip:"directă",obiectiv:"Reducerea anxietății",text:"Cu fiecare respirație, simt cum o căldură blândă se răspândește din centrul pieptului. Mușchii umerilor mei se topesc ușor. Mâinile devin grele și calde. Sunt calm. Sunt în siguranță. Corpul meu se destinde tot mai profund cu fiecare expirație."},
+  {label:"Bună — Încredere",tip:"directă",obiectiv:"Creșterea încrederii în sine",text:"Spatele meu este drept. Vocea mea este clară și fermă. Cu fiecare pas pe care îl fac, simt pământul ferm sub tălpi. Privesc înainte cu ochi deschiși. Sunt prezent. Sunt puternic. Sunt exact unde trebuie să fiu."},
+  {label:"Bună — Somn",tip:"indirectă",obiectiv:"Inducerea somnului profund",text:"Și pe măsură ce asculți aceste cuvinte... pleoapele devin tot mai grele... ca niște perdele moi care se lasă ușor... și poate observi cum corpul tău găsește poziția perfectă... fiecare mușchi cedează gravitației... iar mintea plutește lin... ca o frunză pe un râu liniștit, într-o seară caldă de vară..."},
+  {label:"Slabă — Anxietate",tip:"auto",obiectiv:"",text:"Nu voi mai fi anxios și nu voi mai avea atacuri de panică. Voi încerca să fiu mai calm și să nu mă mai stresez atât de mult pe viitor."},
+  {label:"Slabă — Încredere",tip:"auto",obiectiv:"",text:"Ar trebui să am mai multă încredere în mine. Dacă voi reuși să depășesc fricile, viața mea va fi probabil mai bună și mai frumoasă cumva."},
+  {label:"Slabă — Somn",tip:"auto",obiectiv:"",text:"Nu vreau să mă mai trezesc noaptea. Sper că mâine voi fi mai odihnit. Trebuie să încerc să dorm mai bine și să nu mă mai gândesc la probleme."}
+];
+var BRIEFS=[
+  {cat:"Anxietate",type:"directă",task:"Scrie o sugestie directă pentru reducerea anxietății sociale.",constraint:"Canal senzorial predominant: kinestezic (senzații corporale)."},
+  {cat:"Stimă de sine",type:"directă",task:"Scrie o sugestie directă pentru creșterea încrederii în sine.",constraint:"Folosește minim 3 canale senzoriale VAKOG."},
+  {cat:"Somn",type:"indirectă",task:"Scrie o sugestie indirectă (Milton Model) pentru inducerea somnului profund.",constraint:"Folosește presupuneri și limbaj permisiv (poate, pe măsură ce...)."},
+  {cat:"Motivație",type:"directă",task:"Scrie o sugestie directă pentru depășirea procrastinării.",constraint:"Maxim 5 propoziții. Fiecare propoziție creează o imagine concretă."},
+  {cat:"Copil interior",type:"indirectă",task:"Scrie o sugestie indirectă pentru vindecarea copilului interior.",constraint:"Include o metaforă cu un loc sigur, descris cu minim 2 canale senzoriale."},
+  {cat:"Burnout",type:"directă",task:"Scrie o sugestie directă pentru recuperarea din epuizare cronică.",constraint:"Gradualitate: începe cu corp, apoi emoție, apoi energie."},
+  {cat:"Relații",type:"indirectă",task:"Scrie o sugestie indirectă pentru deschiderea către relații sănătoase.",constraint:"Folosește limbaj de posibilitate (poți observa, e posibil să descoperi...)."},
+  {cat:"Frici",type:"directă",task:"Scrie o sugestie directă pentru transformarea fricii în curaj.",constraint:"Ancorare kinestezică puternică. Descrie senzațiile fizice ale curajului."},
+  {cat:"Bani",type:"directă",task:"Scrie o sugestie directă pentru o relație sănătoasă cu banii.",constraint:"Evită abstracțiunile. Fiecare propoziție creează un film mental clar."},
+  {cat:"Sănătate",type:"indirectă",task:"Scrie o sugestie indirectă pentru activarea energiei vitale.",constraint:"Interspersal: sugestia principală presărată natural în text narativ."}
+];
+var LIBRARY=[
+  {cat:"Anxietate, frici și atacuri de panică",items:[
+    {type:"Directă",text:"Cu fiecare respirație, pieptul meu se deschide ușor. Simt aerul cald intrând prin nări. O greutate plăcută se așterne peste umeri. Mâinile mele sunt calde. Picioarele sunt grele și ferme pe podea. Sunt aici. Sunt în siguranță. Cu fiecare expirație, corpul meu se eliberează tot mai mult.",why:"<strong>De ce funcționează:</strong> Formulare 100% pozitivă, prezent continuu, progresie de la respirație → corp → stare. Activează 3 canale VAKOG (kinestezic, olfactiv, vizual). Fiecare propoziție creează o imagine senzorială concretă."},
+    {type:"Indirectă (Milton Model)",text:"Și poate observi cum, în timp ce asculți aceste cuvinte, respirația se domolește de la sine... și nu e nevoie să faci nimic special... pentru că uneori corpul știe mai bine decât mintea cum să găsească liniștea... și pe măsură ce fiecare mușchi cedează ușor... descoperi o stare pe care o cunoști deja, din acele momente când totul era bine...",why:"<strong>De ce funcționează:</strong> Limbaj permisiv (poate, nu e nevoie), presupuneri (în timp ce asculți), truisme (corpul știe), regresie la resursă (stare pe care o cunoști deja). Ritm lent, propoziții legate natural."}
+  ]},
+  {cat:"Stimă de sine și încredere",items:[
+    {type:"Directă",text:"Spatele meu este drept. Umerii sunt relaxați și deschiși. Privesc lumea cu ochi calmi și curioși. Vocea mea este clară — fiecare cuvânt are greutate. Cu fiecare pas pe care îl fac, simt pământul ferm sub tălpi. Sunt prezent. Sunt complet. Sunt exact cine trebuie să fiu.",why:"<strong>De ce funcționează:</strong> Postură corporală concretă care ancorează starea (drept, deschiși, ferm). Progresie: corp → percepție → voce → mișcare → identitate. Respectă Cei 3P: Personală, Pozitivă, Prezent."},
+    {type:"Directă",text:"Mă privesc în oglindă și văd o persoană care a trecut prin multe. Și tocmai de aceea este puternică. Ochii mei strălucesc cu o lumină caldă. Zâmbetul meu este autentic. Cu fiecare zi, mă accept tot mai profund — exact așa cum sunt.",why:"<strong>De ce funcționează:</strong> Vizualizare concretă (oglindă), reframing al experiențelor trecute ca sursă de putere, ancorare vizuală (ochi, zâmbet), gradualitate (cu fiecare zi, tot mai profund)."}
+  ]},
+  {cat:"Somn și relaxare profundă",items:[
+    {type:"Indirectă (Milton Model)",text:"Și pe măsură ce te lași tot mai ușor în pernă... pleoapele devin grele, ca niște perdele moi... și poate auzi un sunet lin undeva departe... și nu contează ce este... pentru că fiecare sunet devine o invitație să mergi mai adânc... și corpul tău știe deja drumul... ca o piatră netedă care se scufundă încet într-un lac liniștit...",why:"<strong>De ce funcționează:</strong> Metaforă senzorială puternică (piatra în lac), limbaj permisiv, truisme (corpul tău știe), gradualitate naturală. VAKOG complet: kinestezic (greutate), vizual (perdele, lac), auditiv (sunet)."},
+    {type:"Directă",text:"Pleoapa dreaptă este grea. Pleoapa stângă este și mai grea. Maxilarul se destinde. Limba se odihnește moale în gură. Umerii cad ușor. Brațele sunt grele și calde. Cu fiecare expirație, mă scufund mai adânc în pernă. Somnul vine natural, ușor, profund.",why:"<strong>De ce funcționează:</strong> Scanare corporală descendentă (ochi → maxilar → umeri → brațe), fiecare propoziție — un singur element concret, ritm lent de respirație, gradualitate perfectă, zero abstracțiuni."}
+  ]},
+  {cat:"Motivație și depășirea procrastinării",items:[
+    {type:"Directă",text:"Mă ridic. Fac primul pas. Asta e tot ce am de făcut acum — un singur pas. Simt energia urcând din picioare prin coloană. Mâinile mele sunt pregătite să creeze. Mintea mea este clară ca un cer de dimineață. Fac ceea ce am de făcut, acum, cu ușurință.",why:"<strong>De ce funcționează:</strong> Acțiuni concrete imediate (mă ridic, fac primul pas), descompunere în micro-acțiuni, ancorare kinestezică (energie prin coloană), metaforă vizuală (cer de dimineață), prezent continuu."},
+    {type:"Directă",text:"Corpul meu este plin de energie. Mintea mea este focalizată pe un singur lucru — cel mai important lucru pe care îl fac acum. Fiecare minut pe care îl investesc aduce rezultate. Simt satisfacția crescând cu fiecare sarcină finalizată. Acționez. Creez. Livrez.",why:"<strong>De ce funcționează:</strong> Direcție unică (focalizare), ancorare emoțională (satisfacție), propoziții scurte cu ritm de acțiune, finalul staccato creează urgență pozitivă, zero condiționări."}
+  ]},
+  {cat:"Vindecare emoțională și copil interior",items:[
+    {type:"Indirectă (Milton Model)",text:"Și pe măsură ce te relaxezi... poți observa cum undeva, adânc înăuntru, există un loc pe care îl cunoști... poate e o cameră caldă cu lumină aurie... poate e o pajiște cu iarbă moale sub picioare... și acolo, cineva mic te așteaptă de mult timp... și tot ce are nevoie este să știe că a venit cineva... că nu mai este singur...",why:"<strong>De ce funcționează:</strong> Creează un spațiu sigur cu detalii senzoriale (lumină aurie, iarbă moale), limbaj de posibilitate (poate), personificarea copilului interior fără a forța, gradualitate emoțională, lasă subiectul să completeze detaliile."},
+    {type:"Indirectă (Milton Model)",text:"Și uneori, cele mai profunde vindecări încep cu un gest simplu... ca atunci când pui o mână caldă pe umărul cuiva care plânge... și nu spui nimic... doar ești acolo... și poate descoperi că poți face asta pentru tine... o mână pe inimă... un gest de blândețe... pentru acea parte din tine care a așteptat atât de mult...",why:"<strong>De ce funcționează:</strong> Metaforă relațională concretă (mâna pe umăr), tranziție de la extern la intern (altcineva → tu), ancorare kinestezică profundă (mâna pe inimă), activare emoțională prin simplitate, respectă autonomia subiectului."}
+  ]},
+  {cat:"Sănătate fizică și energie",items:[
+    {type:"Directă",text:"Cu fiecare respirație, fiecare celulă din corpul meu primește oxigen curat. Sângele circulă liber și cald. Mușchii sunt flexibili și puternici. Energia crește de la baza coloanei, urcă prin piept și se răspândește în brațe, în degete, în întregul corp. Sunt plin de vitalitate.",why:"<strong>De ce funcționează:</strong> Scanare corporală ascendentă, ancorare kinestezică dominantă cu componente vizuale, fiecare propoziție concretă și specifică, gradualitate (respirație → celulă → sânge → mușchi → tot corpul), obiectiv unic: vitalitate."},
+    {type:"Directă",text:"Corpul meu știe să se vindece. Știe asta de când s-a născut. Cu fiecare oră de somn, celulele se regenerează. Cu fiecare masă, primesc exact ce am nevoie. Cu fiecare pas în aer liber, plămânii mei se umplu cu putere. Sunt sănătos. Sunt puternic. Corpul meu lucrează pentru mine, în fiecare clipă.",why:"<strong>De ce funcționează:</strong> Truism puternic la deschidere (corpul știe), repetiție structurală (cu fiecare...), concretizare prin acțiuni zilnice (somn, masă, mers), evită orice promisiune medicală, finalizare cu declarație identitară."}
+  ]}
+];
+var STEPS_B=["Analizez formularea...","Verific specificitatea...","Testez timpul verbal...","Calculez scorul final..."];
+var STEPS_A=["Analizez structura sugestiei...","Verific formularea pozitivă...","Testez ancorarea senzorială VAKOG...","Evaluez ritmul și cadența...","Verific pattern-urile lingvistice...","Analizez obiectivul terapeutic...","Generez versiunea îmbunătățită...","Finalizez raportul..."];
+var PB="Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 3 criterii fundamentale, returnezi JSON strict.\n\nCRITERII:\n1. Formulare pozitivă (1-10): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\n3 FILTRE: 1. Înlocuiești subiectul și merge la fel→prea generală. 2. Are film clar? 3. Filmul e cel intenționat?\n\nCalculează scor_total normalizat la 100: suma celor 3 scoruri impartita la 30 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[\"...\",\"...\"],\"sumar\":\"...\"}\n\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
+var PA="Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 9 criterii obiective, returnezi JSON strict.\n\nBLOC A — STRUCTURALE:\n1. Formulare pozitivă (1-10): 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): 9-10=precise, concrete. 1-2=vagi.\n3. Timp verbal corect (1-10): 9-10=prezent consistent. 1-2=viitor/condițional.\n4. Gradualitate și progresie (1-10): 9-10=progresie naturală. 1-2=salt brusc.\n\nBLOC B — LIMBAJ:\n5. Ancorare senzorială VAKOG (1-10): 9-10=3+ canale. 1-2=zero ancore.\n6. Ritm și cadență (1-10): 9-10=ritm hipnotic. 1-2=text dens.\n7. Pattern-uri lingvistice (1-10): 9-10=corecte, variate. 1-2=greșite.\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic clar (1-10): 9-10=unic și clar. 1-2=contradictorii.\n9. Activare emoțională (1-10): CREEAZĂ starea. 9-10=palpabilă. 1-2=plat.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCalculează scor_total normalizat la 100: suma celor 9 scoruri impartita la 90 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":4,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":5,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":6,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":7,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":8,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":9,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[\"...\",\"...\",\"...\"],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
+
+/* === STATE === */
+var tier='basic',lastImproved='',prevScore=null,loadingInterval=null,isPresentation=false;
+
+/* === TABS === */
+function showTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll('#main-nav button').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  if(id==='antrenament'&&!document.getElementById('brief-area').innerHTML)generateBrief();
+  if(id==='biblioteca')renderLibrary();
+  if(id==='istoric')renderHistory();
+}
+
+/* === PRESENTATION === */
+function togglePresentation(){
+  isPresentation=!isPresentation;
+  document.body.classList.toggle('presentation',isPresentation);
+  if(isPresentation){document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');}
+}
+
+/* === TIER === */
+function setTier(t){tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();}
+function renderRef(){var l=tier==='basic'?BC:AC;document.getElementById('ref-summary').textContent='Referință criterii ('+l.length+')';document.getElementById('ref-list').innerHTML=l.map(function(c){return '<div><span class="rn">'+c.id+'. '+c.name+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
+
+/* === HELPERS === */
+function gbc(s){if(s<=3)return'#e8506a';if(s<=5)return'#e8945a';if(s<=7)return'#F6D44C';if(s<=8)return'#5dd9a6';return'#4FC1E9';}
+function glv(s,m){var p=Math.round((s/m)*100);if(p>=90)return{l:'Excelent',c:'#4FC1E9',d:'Gata de utilizare profesională'};if(p>=75)return{l:'Bun',c:'#5dd9a6',d:'Cu mici ajustări devine excelent'};if(p>=60)return{l:'Mediu',c:'#F6D44C',d:'Necesită îmbunătățiri pe 2-3 criterii'};if(p>=40)return{l:'Slab',c:'#e8945a',d:'Probleme structurale semnificative'};return{l:'Inadecvat',c:'#e8506a',d:'Rescrie de la zero'};}
+function gpc(i){if(i===0)return{b:'#e8506a28',f:'#e8899a'};if(i===1)return{b:'#e8945a22',f:'#e8945a'};return{b:'#F6D44C18',f:'#F6D44C'};}
+
+/* === EXAMPLE === */
+function loadExample(){var ex=EXAMPLES[Math.floor(Math.random()*EXAMPLES.length)];document.getElementById('text').value=ex.text;document.getElementById('tip').value=ex.tip==='auto'?'auto':ex.tip;document.getElementById('obiectiv').value=ex.obiectiv||'';document.getElementById('text').focus();}
+
+/* === LOADING STEPS === */
+function startLoading(btn,isTrain){var steps=(isTrain||tier==='advanced')?STEPS_A:STEPS_B;var idx=0;btn.innerHTML='<span class="spinner"></span><span class="loading-text">'+steps[0]+'</span>';loadingInterval=setInterval(function(){idx=(idx+1)%steps.length;var lt=btn.querySelector('.loading-text');if(lt)lt.textContent=steps[idx];},2000);}
+function stopLoading(){if(loadingInterval){clearInterval(loadingInterval);loadingInterval=null;}}
+
+/* === RE-EVALUATE === */
+function reEval(){if(!lastImproved)return;var circle=document.querySelector('.total-circle');prevScore=circle?parseInt(circle.textContent)||null:null;document.getElementById('text').value=lastImproved;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){runEval();},300);}
+
+/* === MAIN EVAL === */
+async function runEval(){
+  var text=document.getElementById('text').value.trim();if(!text)return;
+  var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
+  var cta=document.getElementById('cta');var eD=document.getElementById('error');var rD=document.getElementById('results');
+  cta.disabled=true;startLoading(cta,false);eD.innerHTML='';rD.innerHTML='';
+  var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
+  if(tip!=='auto')um+='\n\nTip declarat: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
+  try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});
+  if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
+  var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();var r=JSON.parse(clean);
+  renderResult(r);saveHistory(text,r);}catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
+  finally{stopLoading();cta.disabled=false;cta.textContent='Evaluează sugestia';}}
+
+/* === RENDER RESULT === */
+function renderResult(r){
+  var cr=tier==='basic'?BC:AC;var validIds=cr.map(function(x){return x.id;});
+  var fc=(r.criterii||[]).filter(function(c){return validIds.indexOf(c.id)!==-1;});
+  var lv=glv(r.scor_total,r.scor_maxim);var pct=Math.round((r.scor_total/r.scor_maxim)*100);var h='';
+  if(prevScore!==null&&prevScore!==r.scor_total){var diff=r.scor_total-prevScore;var dc=diff>0?'#5dd9a6':'#e8506a';var ds=diff>0?'+':'';
+    h+='<div class="compare-banner"><div class="compare-score"><div class="cs-num" style="color:#e8945a">'+prevScore+'</div><div class="cs-label">Original</div></div><div class="compare-arrow">→</div><div class="compare-score"><div class="cs-num" style="color:#5dd9a6">'+r.scor_total+'</div><div class="cs-label">Îmbunătățită</div></div><div class="compare-diff" style="color:'+dc+';background:'+dc+'18">'+ds+diff+' puncte</div></div>';prevScore=null;}
+  h+='<div class="badge">Tip detectat: '+r.tip_detectat+'</div>';
+  h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
+  h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>';
+  fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
+    h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
+  h+='</div>';
+  if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
+  if(r.sumar)h+='<div class="summary">'+r.sumar+'</div>';
+  if(tier==='advanced'&&r.versiune_imbunatatita){lastImproved=r.versiune_imbunatatita;
+    h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#5dd9a6;color:#5dd9a6">Versiune îmbunătățită</div><div class="improved-box">'+r.versiune_imbunatatita+'</div>'+(r.explicatii_schimbari?'<div class="improved-expl"><strong>Ce s-a schimbat: </strong>'+r.explicatii_schimbari+'</div>':'')+'<button class="reeval-btn" onclick="reEval()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Re-evaluează versiunea îmbunătățită</button></div>';}else{lastImproved='';}
+  h+='<div class="export-bar"><button class="export-btn" id="copy-btn" onclick="copyResult()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază rezultatul</button><button class="export-btn" onclick="downloadImage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă imagine</button></div>';
+  if(pct<60)h+='<div class="cta-box" style="background:#F6D44C08;border-color:#F6D44C30"><p style="color:#F6D44C">Sugestiile hipnotice eficiente se construiesc pe principii precise. În <strong>Training-ul Profesional de Hipnoză</strong> înveți exact cum să le creezi de la zero.</p><a href="https://putereamintii.ro" target="_blank" style="background:#F6D44C;color:#0f1f28">Află mai multe despre Training</a></div>';
+  else if(pct>=80)h+='<div class="cta-box" style="background:#5dd9a608;border-color:#5dd9a630"><p style="color:#5dd9a6">Scor excelent! Ai un simț natural pentru limbajul hipnotic. <strong>Training-ul Profesional de Hipnoză</strong> te poate duce la nivel expert.</p><a href="https://putereamintii.ro" target="_blank" style="background:#5dd9a6;color:#0f1f28">Descoperă Training-ul Profesional</a></div>';
+  document.getElementById('results').innerHTML='<div class="result">'+h+'</div>';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});}
+
+/* === EXPORT: COPY === */
+function copyResult(){var r=document.getElementById('results');if(!r.textContent.trim())return;var lines=[];
+  var badge=r.querySelector('.badge');if(badge)lines.push(badge.textContent);
+  var circle=r.querySelector('.total-circle');var label=r.querySelector('.total-label');var sub=r.querySelector('.total-sub');
+  if(circle&&label)lines.push('\n'+label.textContent+': '+circle.textContent+'/100'+(sub?' — '+sub.textContent:''));
+  lines.push('\nScoruri pe criterii:');
+  r.querySelectorAll('.crow').forEach(function(c){var n=c.querySelector('.crow-name');var num=c.querySelector('.bar-num');var obs=c.querySelector('.crow-obs');if(n&&num)lines.push('  '+n.textContent+': '+num.textContent+'/10'+(obs?' — '+obs.textContent:''));});
+  var probs=r.querySelectorAll('.prob-text');if(probs.length){lines.push('\nProbleme principale:');probs.forEach(function(p,i){lines.push('  '+(i+1)+'. '+p.textContent);});}
+  var sum=r.querySelector('.summary');if(sum)lines.push('\n'+sum.textContent);
+  var imp=r.querySelector('.improved-box');if(imp)lines.push('\nVersiune îmbunătățită:\n'+imp.textContent);
+  var expl=r.querySelector('.improved-expl');if(expl)lines.push('\n'+expl.textContent);
+  lines.push('\n— Evaluator Sugestii Hipnotice · Puterea Minții');
+  navigator.clipboard.writeText(lines.join('\n')).then(function(){var btn=document.getElementById('copy-btn');btn.classList.add('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Copiat!';setTimeout(function(){btn.classList.remove('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază rezultatul';},2000);});}
+
+/* === EXPORT: IMAGE === */
+function downloadImage(){var circle=document.querySelector('.total-circle');var label=document.querySelector('.total-label');if(!circle)return;
+  var score=circle.textContent;var level=label?label.textContent:'';var lv=glv(parseInt(score),100);
+  var canvas=document.createElement('canvas');canvas.width=600;canvas.height=340;var ctx=canvas.getContext('2d');
+  var bg=ctx.createLinearGradient(0,0,600,340);bg.addColorStop(0,'#0f1f28');bg.addColorStop(1,'#1a3040');ctx.fillStyle=bg;ctx.fillRect(0,0,600,340);
+  ctx.strokeStyle='#4FC1E930';ctx.lineWidth=2;ctx.strokeRect(20,20,560,300);
+  ctx.fillStyle='#F6D44C';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText('PUTEREA MINȚII',300,55);
+  ctx.fillStyle='#ffffff';ctx.font='22px serif';ctx.fillText('Evaluator Sugestii Hipnotice',300,85);
+  ctx.beginPath();ctx.arc(300,170,55,0,Math.PI*2);ctx.fillStyle=lv.c+'25';ctx.fill();ctx.strokeStyle=lv.c;ctx.lineWidth=3;ctx.stroke();
+  ctx.fillStyle=lv.c;ctx.font='bold 36px serif';ctx.fillText(score,300,185);
+  ctx.font='bold 20px serif';ctx.fillText(level,300,250);
+  ctx.fillStyle='#8fb0c0';ctx.font='13px sans-serif';ctx.fillText(lv.d,300,275);
+  ctx.fillStyle='#3a5565';ctx.font='10px sans-serif';ctx.fillText('putereamintii.ro',300,325);
+  var link=document.createElement('a');link.download='evaluare-sugestie-'+score+'p.png';link.href=canvas.toDataURL('image/png');link.click();}
+
+/* === HISTORY === */
+function getHist(){try{return JSON.parse(localStorage.getItem('eval_hist')||'[]');}catch(e){return[];}}
+function saveHistory(text,r){try{var h=getHist();h.unshift({d:new Date().toISOString(),t:text.substring(0,120),tier:tier,s:r.scor_total,m:r.scor_maxim,tip:r.tip_detectat});if(h.length>20)h=h.slice(0,20);localStorage.setItem('eval_hist',JSON.stringify(h));}catch(e){}}
+function renderHistory(){var hist=getHist();var el=document.getElementById('hist-content');
+  if(!hist.length){el.innerHTML='<div class="hist-empty">Nicio evaluare încă. Evaluările tale vor apărea aici automat.</div>';return;}
+  var h='';hist.forEach(function(item){var lv=glv(item.s,item.m||100);var d=new Date(item.d);var ds=d.toLocaleDateString('ro-RO',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
+    h+='<div class="hist-item" onclick="loadFromHist(\''+encodeURIComponent(item.t)+'\')"><div class="hist-score" style="background:'+lv.c+'20;border:2px solid '+lv.c+';color:'+lv.c+'">'+item.s+'</div><div class="hist-info"><div class="hist-text">'+item.t+'</div><div class="hist-date">'+ds+' · '+item.tip+'</div></div><div class="hist-tier">'+(item.tier==='basic'?'3':'9')+'</div></div>';});
+  h+='<button class="hist-clear" onclick="clearHist()">Șterge tot istoricul</button>';el.innerHTML=h;}
+function loadFromHist(enc){var text=decodeURIComponent(enc);
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
+  document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
+  document.getElementById('text').value=text;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});}
+function clearHist(){if(!confirm('Sigur vrei să ștergi tot istoricul evaluărilor?'))return;try{localStorage.removeItem('eval_hist');}catch(e){}renderHistory();}
+
+/* === TRAINING === */
+function generateBrief(){var b=BRIEFS[Math.floor(Math.random()*BRIEFS.length)];
+  document.getElementById('brief-area').innerHTML='<div class="brief-card"><div class="brief-meta"><span class="brief-tag">'+b.cat+'</span><span class="brief-tag type">'+b.type+'</span></div><div class="brief-text">'+b.task+'</div><div class="brief-constraint">⚡ '+b.constraint+'</div></div><div style="text-align:right;margin-bottom:16px"><button class="new-brief-btn" onclick="generateBrief()">↻ Alt exercițiu</button></div>';
+  document.getElementById('train-text').value='';document.getElementById('train-results').innerHTML='';document.getElementById('train-error').innerHTML='';}
+async function runTrainEval(){var text=document.getElementById('train-text').value.trim();if(!text)return;
+  var cta=document.getElementById('train-cta');var eD=document.getElementById('train-error');var rD=document.getElementById('train-results');
+  cta.disabled=true;startLoading(cta,true);eD.innerHTML='';rD.innerHTML='';
+  var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
+  try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:PA,messages:[{role:'user',content:um}]})});
+  if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
+  var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();var r=JSON.parse(clean);
+  renderTrainResult(r,rD);saveHistory(text,r);}catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
+  finally{stopLoading();cta.disabled=false;cta.textContent='Evaluează sugestia';}}
+function renderTrainResult(r,container){var cr=AC;var fc=(r.criterii||[]).filter(function(c){return c.id>=1&&c.id<=9;});
+  var lv=glv(r.scor_total,r.scor_maxim);var pct=Math.round((r.scor_total/r.scor_maxim)*100);var h='';
+  h+='<div class="badge">Tip detectat: '+r.tip_detectat+'</div>';
+  h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
+  h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>';
+  fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
+    h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
+  h+='</div>';
+  if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
+  if(r.sumar)h+='<div class="summary">'+r.sumar+'</div>';
+  if(r.versiune_imbunatatita)h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#5dd9a6;color:#5dd9a6">Versiune îmbunătățită</div><div class="improved-box">'+r.versiune_imbunatatita+'</div>'+(r.explicatii_schimbari?'<div class="improved-expl"><strong>Ce s-a schimbat: </strong>'+r.explicatii_schimbari+'</div>':'')+'</div>';
+  container.innerHTML='<div class="result">'+h+'</div>';container.scrollIntoView({behavior:'smooth',block:'start'});}
+
+/* === LIBRARY === */
+function renderLibrary(){var el=document.getElementById('lib-content');if(el.innerHTML)return;var h='';
+  LIBRARY.forEach(function(cat,ci){h+='<div class="lib-cat"><div class="lib-cat-title">'+cat.cat+'</div>';
+    cat.items.forEach(function(item,ii){h+='<div class="lib-item"><div class="lib-type">'+item.type+'</div><div class="lib-sugestie">'+item.text+'</div><div class="lib-why">'+item.why+'</div><button class="lib-eval-btn" onclick="loadFromLib('+ci+','+ii+')">→ Evaluează această sugestie</button></div>';});h+='</div>';});el.innerHTML=h;}
+function loadFromLib(ci,ii){var item=LIBRARY[ci].items[ii];
+  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
+  document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
+  document.getElementById('text').value=item.text;document.getElementById('tip').value='auto';document.getElementById('obiectiv').value='';
+  setTier('advanced');document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});}
+
+/* === INIT === */
+renderRef();
+</script>
+</body>
+</html>
