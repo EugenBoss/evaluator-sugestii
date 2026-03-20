@@ -77,7 +77,7 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${resendKey}` },
       body: JSON.stringify({
-        from: 'Puterea Mintii <onboarding@resend.dev>',
+        from: 'Puterea Mintii <noreply@verificare.putereamintii.ro>',
         to: [email.trim()],
         subject: 'Codul tău de verificare — Evaluator Sugestii',
         html: `<div style="font-family:Arial,sans-serif;max-width:480px;margin:0 auto;padding:30px;background:#f8f9fa;border-radius:12px">
