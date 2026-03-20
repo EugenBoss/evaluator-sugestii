@@ -68,6 +68,11 @@ textarea::placeholder, .inp::placeholder { color: #3a5565; }
 .crow { padding: 16px 22px; display: flex; flex-direction: column; gap: 7px; border-bottom: 1px solid #ffffff08; transition: background 0.2s; }
 .crow:hover { background: rgba(79,193,233,0.03); }
 .crow:last-child { border-bottom: none; }
+.crow-locked { position: relative; cursor: pointer; user-select: none; }
+.crow-locked .crow-top, .crow-locked .crow-obs { filter: blur(5px); pointer-events: none; }
+.crow-locked::after { content: '🔒 Deblochează evaluarea avansată'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #4FC1E9; background: rgba(15,31,40,0.5); border-radius: 0; z-index: 1; transition: background 0.2s; }
+.crow-locked:hover::after { background: rgba(15,31,40,0.7); text-decoration: underline; }
+.locked-divider { padding: 14px 22px; text-align: center; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #F6D44C; border-bottom: 1px solid #ffffff08; background: linear-gradient(135deg, #F6D44C08, transparent); }
 .crow-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .crow-name { font-size: 14px; font-weight: 600; color: #e8f0f4; }
 .crow-block { font-size: 11px; color: #4a6a78; margin-top: 2px; }
@@ -444,6 +449,13 @@ function renderResult(r){
   h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>';
   fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
     h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
+  if(tier==='basic'&&!isUnlocked()){
+    var xc=[{id:4,n:'Gradualitate și progresie',b:'A · Structurale'},{id:5,n:'Ancorare senzorială VAKOG',b:'B · Limbaj'},{id:6,n:'Ritm și cadență',b:'B · Limbaj'},{id:7,n:'Pattern-uri lingvistice',b:'B · Limbaj'},{id:8,n:'Obiectiv terapeutic clar',b:'C · Eficacitate'},{id:9,n:'Activare emoțională',b:'C · Eficacitate'}];
+    h+='<div class="locked-divider">+ 6 criterii avansate</div>';
+    xc.forEach(function(ec){var fs=Math.floor(Math.random()*4)+5;var fp=(fs/10)*100;var fcl=gbc(fs);
+      h+='<div class="crow crow-locked" onclick="showGate()"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+ec.id+'. '+ec.n+'</div><div class="crow-block">'+ec.b+'</div></div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+fp+'%;background:'+fcl+'"></div></div><div class="bar-num" style="color:'+fcl+'">'+fs+'</div></div></div><div class="crow-obs">Analiza detaliată este disponibilă în evaluarea avansată.</div></div>';
+    });
+  }
   h+='</div>';
   if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
   if(r.sumar)h+='<div class="summary">'+r.sumar+'</div>';
