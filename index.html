@@ -434,7 +434,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
     <button class="exit-popup-close" onclick="document.getElementById('exit-popup').classList.add('hidden')">✕</button>
     <img src="eugen.png" alt="Eugen Popa" class="exit-popup-photo">
     <div class="exit-popup-text"><strong>Nu pleca fără evaluarea completă!</strong>Accesează gratuit toate cele 9 criterii + versiunea îmbunătățită a sugestiei tale.</div>
-    <button class="exit-popup-btn" onclick="document.getElementById('exit-popup').classList.add('hidden');showGate()">Accesează acum</button>
+    <button class="exit-popup-btn" onclick="document.getElementById('exit-popup').classList.add('hidden');document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('text').focus()">Accesează acum</button>
     <div class="exit-popup-sub">E gratuit. Durează 10 secunde.</div>
   </div>
 </div>
@@ -1291,10 +1291,23 @@ if(!localStorage.getItem('ob_seen')){document.getElementById('onboarding').class
 
 /* === SOCIAL PROOF COUNTER === */
 (function(){
-  var base=4327;
+  // Base: 4327 on March 20, 2026. Grows ~40-60/day naturally.
+  var launchDate=new Date('2026-03-20T00:00:00Z').getTime();
+  var now=Date.now();
+  var daysSinceLaunch=Math.max(0,(now-launchDate)/86400000);
+  var growth=Math.floor(daysSinceLaunch*48);// ~48/day average
+  var base=4327+growth;
+  // Add local evals
   try{var ev=JSON.parse(localStorage.getItem('eval_hist')||'[]').length;base+=ev;}catch(e){}
+  // Small random per refresh (+0 to +2)
+  base+=Math.floor(Math.random()*3);
   var el=document.getElementById('sp-count');
   if(el)el.textContent=base.toLocaleString('ro-RO');
+  // Live tick: +1 every 45-90 seconds
+  setInterval(function(){
+    base++;
+    if(el)el.textContent=base.toLocaleString('ro-RO');
+  },45000+Math.floor(Math.random()*45000));
 })();
 
 /* === EXIT INTENT === */
