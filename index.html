@@ -281,6 +281,10 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 .challenge-friend-btn { width: 100%; margin-top: 14px; padding: 14px 20px; border-radius: 12px; border: 1.5px solid #F6D44C40; cursor: pointer; font-size: 15px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; background: linear-gradient(135deg, #F6D44C12, #F6D44C06); color: #F6D44C; display: flex; align-items: center; justify-content: center; gap: 8px; }
 .challenge-friend-btn:hover { background: linear-gradient(135deg, #F6D44C22, #F6D44C12); border-color: #F6D44C60; box-shadow: 0 4px 20px #F6D44C15; transform: translateY(-1px); }
 .daily-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; background: #F6D44C15; color: #F6D44C; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+.gate-limit-msg { padding: 18px; border-radius: 14px; background: linear-gradient(135deg, #F6D44C10, #F6D44C05); border: 1px solid #F6D44C30; margin-bottom: 20px; text-align: center; }
+.gate-limit-msg .glm-icon { font-size: 36px; margin-bottom: 8px; }
+.gate-limit-msg .glm-title { font-size: 18px; font-weight: 700; color: #F6D44C; margin-bottom: 6px; }
+.gate-limit-msg .glm-text { font-size: 15px; color: #8fb0c0; line-height: 1.5; }
 /* === MOBILE RESPONSIVE === */
 @media (max-width: 480px) {
   .header { padding: 28px 16px 24px; }
@@ -398,7 +402,12 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div class="gate-modal">
     <button onclick="hideGate()" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:8px;border:1px solid #4FC1E930;background:transparent;color:#607a88;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s" onmouseover="this.style.color='#e8899a';this.style.borderColor='#e8899a50'" onmouseout="this.style.color='#607a88';this.style.borderColor='#4FC1E930'">✕</button>
     <div id="gate-step1">
-      <h2>Deblochez evaluarea avansată</h2>
+      <div class="gate-limit-msg" id="gate-limit-msg" style="display:none">
+        <div class="glm-icon">🏆</div>
+        <div class="glm-title">Ai terminat cele 5 evaluări gratuite!</div>
+        <div class="glm-text">Ai văzut cum funcționează. Acum accesează evaluarea completă pe 9 criterii profesionale + versiune îmbunătățită + rescriere automată.</div>
+      </div>
+      <h2 id="gate-h2">Deblochez evaluarea avansată</h2>
       <div class="gate-sub">Completează datele și vei primi un cod de verificare pe email.</div>
       <div class="gate-field"><label>Nume complet</label><input type="text" id="gate-name" placeholder="ex: Maria Ionescu"><div class="field-err" id="err-name">Completează numele</div></div>
       <div class="gate-field"><label>Email</label><input type="email" id="gate-email" placeholder="ex: maria@email.com"><div class="field-err" id="err-email">Introdu un email valid</div></div>
@@ -407,7 +416,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div class="gate-err-msg" id="gate-err-msg"></div>
       <button class="gate-submit" id="gate-submit-1" onclick="sendOTP()">Trimite codul de verificare</button>
       <div class="gate-privacy">Datele tale sunt în siguranță. Nu facem spam.</div>
-      <button class="gate-skip" onclick="hideGate()">Continuă doar cu evaluarea de bază →</button>
+      <button class="gate-skip" id="gate-skip-btn" onclick="hideGate()">Continuă doar cu evaluarea de bază →</button>
     </div>
     <div id="gate-step2" style="display:none">
       <h2>Verifică emailul</h2>
@@ -464,6 +473,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
     </div>
     <button class="cta" id="cta" onclick="runEval()">Evaluează sugestia</button>
     <button class="rewrite-cta" id="rewrite-btn" onclick="runRewrite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Rescrie sugestia mai bine</button>
+    <div id="basic-remaining" style="text-align:center;font-size:13px;color:#506a78;margin-top:8px;display:none"></div>
   </div>
   <div id="error"></div>
   <div id="rewrite-result"></div>
@@ -564,7 +574,23 @@ var tier='basic',lastImproved='',prevScore=null,loadingInterval=null,isPresentat
 /* === GATE LOGIC === */
 function isUnlocked(){try{return !!localStorage.getItem('user_unlocked');}catch(e){return false;}}
 function getUserData(){try{return JSON.parse(localStorage.getItem('user_data')||'null');}catch(e){return null;}}
-function showGate(){document.getElementById('gate-overlay').classList.remove('hidden');}
+function showGate(reason){
+  var lm=document.getElementById('gate-limit-msg');
+  var h2=document.getElementById('gate-h2');
+  var skip=document.getElementById('gate-skip-btn');
+  if(reason==='limit'){
+    if(lm)lm.style.display='block';
+    if(h2)h2.textContent='Continuă cu evaluarea completă';
+    if(skip)skip.style.display='none';
+  }else{
+    if(lm)lm.style.display='none';
+    if(h2)h2.textContent='Deblochez evaluarea avansată';
+    if(skip)skip.style.display='block';
+  }
+  document.getElementById('gate-step1').style.display='block';
+  document.getElementById('gate-step2').style.display='none';
+  document.getElementById('gate-overlay').classList.remove('hidden');
+}
 function hideGate(){document.getElementById('gate-overlay').classList.add('hidden');}
 function updateLockIcon(){var lock=document.getElementById('lock-adv');if(lock)lock.style.display=isUnlocked()?'none':'inline';}
 function requireGate(){if(isUnlocked())return true;showGate();return false;}
@@ -648,7 +674,7 @@ function togglePresentation(){
 /* === TIER === */
 function setTier(t){
   if(t==='advanced'&&!requireGate())return;
-  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();}
+  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();}
 function renderRef(){var l=tier==='basic'?BC:AC;document.getElementById('ref-summary').textContent='Referință criterii ('+l.length+')';document.getElementById('ref-list').innerHTML=l.map(function(c){return '<div><span class="rn">'+c.id+'. '+c.name+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
 
 /* === HELPERS === */
@@ -690,7 +716,13 @@ var RW_ADV="Ești un expert în sugestii hipnotice, format pe criteriile Eugen P
 
 async function runRewrite(){
   var text=document.getElementById('text').value.trim();if(!text)return;
-  if(isEvaluating)return;isEvaluating=true;
+  if(isEvaluating)return;
+  // Check basic eval limit
+  if(tier==='basic'&&!isUnlocked()){
+    var bc=parseInt(localStorage.getItem('basic_eval_count')||'0');
+    if(bc>=5){showGate('limit');return;}
+  }
+  isEvaluating=true;
   var btn=document.getElementById('rewrite-btn');var eD=document.getElementById('error');var rwD=document.getElementById('rewrite-result');
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span><span class="loading-text">Rescriu sugestia...</span>';
   eD.innerHTML='';rwD.innerHTML='';
@@ -745,6 +777,11 @@ function useRewrite(){if(!lastRewrite)return;document.getElementById('text').val
 /* === MAIN EVAL === */
 async function runEval(){
   if(isEvaluating)return;var text=document.getElementById('text').value.trim();if(!text)return;
+  // Check basic eval limit (5 free, then require gate)
+  if(tier==='basic'&&!isUnlocked()){
+    var bc=parseInt(localStorage.getItem('basic_eval_count')||'0');
+    if(bc>=5){showGate('limit');return;}
+  }
   isEvaluating=true;
   var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
   var cta=document.getElementById('cta');var eD=document.getElementById('error');var rD=document.getElementById('results');
@@ -766,6 +803,8 @@ async function runEval(){
     try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul AI nu a putut fi procesat. Încearcă din nou.');}
   }
   renderResult(r);saveHistory(text,r);
+  // Increment basic eval counter
+  if(tier==='basic'&&!isUnlocked()){var bc=parseInt(localStorage.getItem('basic_eval_count')||'0');localStorage.setItem('basic_eval_count',String(bc+1));updateBasicRemaining();}
   // Check daily challenge
   var dch=getDailyChallenge();var dpct=Math.round((r.scor_total/r.scor_maxim)*100);
   if(dpct>=dch.goal&&!isDailyChallengeComplete()){completeDailyChallenge();}
@@ -1165,12 +1204,24 @@ function updateCounter(textId,counterId){
   c.className='char-counter'+(len>=900?' warn':'')+(len>=CHAR_LIMIT?' over':'');
 }
 
+/* === BASIC EVAL COUNTER === */
+function updateBasicRemaining(){
+  var el=document.getElementById('basic-remaining');if(!el)return;
+  if(isUnlocked()||tier!=='basic'){el.style.display='none';return;}
+  var bc=parseInt(localStorage.getItem('basic_eval_count')||'0');
+  var rem=Math.max(0,5-bc);
+  if(rem>0&&rem<=3){el.style.display='block';el.textContent=rem+' evaluări gratuite rămase';el.style.color=rem===1?'#e8945a':'#506a78';}
+  else if(rem===0){el.style.display='block';el.textContent='0 evaluări rămase — accesează evaluarea completă';el.style.color='#e8945a';el.style.cursor='pointer';el.onclick=function(){showGate('limit');};}
+  else{el.style.display='none';}
+}
+
 /* === INIT === */
 renderRef();
 updateLockIcon();
 initCC();
 renderXPBar();
 renderDailyChallenge();
+updateBasicRemaining();
 
 /* === ONBOARDING (first visit only) === */
 function closeOnboarding(){document.getElementById('onboarding').classList.add('hidden');try{localStorage.setItem('ob_seen','1');}catch(e){}}
