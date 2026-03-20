@@ -473,7 +473,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div style="font-size:16px;font-weight:600;color:#4FC1E9;margin-bottom:6px">Nivelul tău de comunicare cu subconștientul</div>
       <div style="font-size:14px;color:#8fb0c0;margin-bottom:14px;font-weight:400" id="xp-desc">Cu fiecare evaluare, înveți ce funcționează și ce nu. Practică mai mult pentru a urca în nivel.</div>
       <div class="xp-bar"><span class="xp-level" id="xp-level">Începător</span><div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div><span class="xp-text" id="xp-text">0 XP</span></div>
-      <div style="font-size:13px;color:#506a78;margin-top:10px;font-weight:400" id="xp-next-hint">Următorul nivel: 📝 Practicant — la 50 XP</div>
+      <div style="font-size:15px;color:#8fb0c0;margin-top:10px;font-weight:400" id="xp-next-hint">Următorul nivel: 📝 Practicant — la 50 XP</div>
     </div>
   </div>
   <div id="daily-challenge" style="margin-top:20px"></div>
@@ -713,7 +713,7 @@ function renderRef(){var l=tier==='basic'?BC:AC;var tierName=tier==='basic'?'Eva
 
 /* === HELPERS === */
 function gbc(s){if(s<=3)return'#e8506a';if(s<=5)return'#e8945a';if(s<=7)return'#F6D44C';if(s<=8)return'#5dd9a6';return'#4FC1E9';}
-function glv(s,m){var p=Math.round((s/m)*100);if(p>=90)return{l:'Excelent',c:'#4FC1E9',d:'Gata de utilizare profesională'};if(p>=75)return{l:'Bun',c:'#5dd9a6',d:'Cu mici ajustări devine excelent'};if(p>=60)return{l:'Mediu',c:'#F6D44C',d:'Necesită îmbunătățiri pe 2-3 criterii'};if(p>=40)return{l:'Slab',c:'#e8945a',d:'Probleme structurale semnificative'};return{l:'Inadecvat',c:'#e8506a',d:'Rescrie de la zero'};}
+function glv(s,m){var p=Math.round((s/m)*100);if(p>=90)return{l:'Rezultat: Excelent',c:'#4FC1E9',d:'Gata de utilizare profesională'};if(p>=75)return{l:'Rezultat: Bun',c:'#5dd9a6',d:'Cu mici ajustări devine excelent'};if(p>=60)return{l:'Rezultat: Mediu',c:'#F6D44C',d:'Necesită îmbunătățiri pe 2-3 criterii'};if(p>=40)return{l:'Rezultat: Slab',c:'#e8945a',d:'Probleme structurale semnificative'};return{l:'Rezultat: Inadecvat',c:'#e8506a',d:'Rescrie de la zero'};}
 function gpc(i){if(i===0)return{b:'#e8506a28',f:'#e8899a'};if(i===1)return{b:'#e8945a22',f:'#e8945a'};return{b:'#F6D44C18',f:'#F6D44C'};}
 
 /* === SHARE === */
@@ -890,7 +890,6 @@ function renderResult(r){
   if(tier==='basic'&&!isUnlocked()){
     h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' — evaluare parțială pe 3 criterii</div></div></div>';
     if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:14px;color:#e8f0f4;margin-bottom:8px;font-weight:400">Vrei să afli cum se scrie corect?</div><div style="font-size:18px;font-weight:700;color:#0f1f28;display:inline-block;padding:10px 28px;border-radius:10px;background:linear-gradient(135deg,#4FC1E9,#3aa8d4);box-shadow:0 4px 16px #4FC1E930">Rescrie acum, corect</div></div>';}
-    h+='<div onclick="showGate()" style="cursor:pointer;margin-top:12px;padding:14px 20px;border-radius:12px;background:linear-gradient(135deg,#F6D44C10,#F6D44C05);border:1px solid #F6D44C30;text-align:center;transition:all 0.2s"><span style="font-size:14px;font-weight:700;color:#F6D44C">🔒 Vrei scorul complet pe 9 criterii?</span><br><span style="font-size:12px;color:#8fb0c0">Deblochează gratuit evaluarea avansată</span></div>';
   }else{
     h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
     if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:14px;color:#e8f0f4;margin-bottom:8px;font-weight:400">Vrei să afli cum se scrie corect?</div><div style="font-size:18px;font-weight:700;color:#0f1f28;display:inline-block;padding:10px 28px;border-radius:10px;background:linear-gradient(135deg,#4FC1E9,#3aa8d4);box-shadow:0 4px 16px #4FC1E930">Rescrie acum, corect</div></div>';}
@@ -899,7 +898,7 @@ function renderResult(r){
   fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
     h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
   if(tier==='basic'&&!isUnlocked()){
-    h+='<div class="locked-divider" onclick="showGate()" style="cursor:pointer;padding:28px 22px"><div style="font-size:20px;margin-bottom:8px">🔒</div><div style="font-size:14px;color:#F6D44C;font-weight:700;margin-bottom:6px">+ 6 criterii avansate disponibile</div><div style="font-size:12px;color:#8fb0c0;text-transform:none;letter-spacing:0;font-weight:400">Gradualitate · VAKOG · Ritm · Pattern-uri · Obiectiv terapeutic · Activare emoțională</div><div style="margin-top:14px;display:inline-block;padding:10px 24px;border-radius:10px;background:#F6D44C;color:#0f1f28;font-size:13px;font-weight:700;letter-spacing:0;text-transform:none">Deblochează gratuit</div></div>';
+    h+='<div class="locked-divider" onclick="showGate()" style="cursor:pointer;padding:28px 22px"><div style="font-size:18px;color:#e8f0f4;font-weight:400;margin-bottom:6px;text-transform:none;letter-spacing:0">Vrei o evaluare completă?</div><div style="font-size:14px;color:#8fb0c0;text-transform:none;letter-spacing:0;font-weight:400;margin-bottom:14px">Gradualitate · VAKOG · Ritm · Pattern-uri · Obiectiv terapeutic · Activare emoțională</div><div style="display:inline-block;padding:14px 32px;border-radius:12px;background:#F6D44C;color:#0f1f28;font-size:18px;font-weight:700;letter-spacing:0;text-transform:none">Dă click aici și deblochează Gratuit</div></div>';
   }
   h+='</div>';
   if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
@@ -1161,7 +1160,7 @@ var BADGES=[
   {id:'rewrite',icon:'📝',name:'Rescriere',desc:'Ai folosit rescrierea'},
   {id:'train5',icon:'💪',name:'Antrenament 5',desc:'5 exerciții în Antrenament'},
   {id:'adv10',icon:'🎓',name:'10 Avansate',desc:'10 evaluări avansate'},
-  {id:'daily',icon:'📅',name:'Challenge zilnic',desc:'Completat un challenge'},
+  {id:'daily',icon:'📅',name:'Provocare zilnică',desc:'Ai completat o provocare zilnică'},
   {id:'friend',icon:'🤝',name:'Provocator',desc:'Ai provocat un prieten'}
 ];
 function getBadges(){try{return JSON.parse(localStorage.getItem('user_badges')||'[]');}catch(e){return[];}}
@@ -1223,7 +1222,7 @@ function renderLeaderboard(){
   h+='</div>';el.innerHTML=h;
 }
 
-/* === GAMIFICATION: DAILY CHALLENGE === */
+/* === GAMIFICATION: PROVOCAREA ZILNICĂ === */
 var DAILY_CHALLENGES=[
   {text:'Scrie o sugestie directă pentru reducerea anxietății. Folosește doar canal vizual și kinestezic.',goal:70,cat:'Anxietate'},
   {text:'Creează o sugestie indirectă pentru încredere în sine. Minim 3 canale VAKOG.',goal:75,cat:'Încredere'},
@@ -1250,8 +1249,8 @@ function completeDailyChallenge(){
 function renderDailyChallenge(){
   var el=document.getElementById('daily-challenge');if(!el)return;
   var ch=getDailyChallenge();var done=isDailyChallengeComplete();
-  if(done){el.innerHTML='<div style="padding:18px 22px;border-radius:12px;background:#5dd9a610;border:1px solid #5dd9a625;text-align:center"><span class="daily-badge" style="background:#5dd9a615;color:#5dd9a6;font-size:14px">✅ Challenge completat</span><div style="font-size:18px;color:#5dd9a6;margin-top:8px">Revino mâine pentru un nou challenge!</div></div>';return;}
-  el.innerHTML='<div style="padding:24px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #F6D44C25"><span class="daily-badge" style="font-size:14px">📅 Challenge zilnic</span><div style="font-size:20px;color:#e8f0f4;line-height:1.6;margin-bottom:10px">'+ch.text+'</div><div style="font-size:17px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+ch.goal+' · Categorie: '+ch.cat+'</div><button onclick="loadDailyChallenge()" style="margin-top:14px;padding:12px 22px;border-radius:10px;border:1px solid #F6D44C40;background:#F6D44C15;color:#F6D44C;font-size:17px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s">Acceptă challenge-ul →</button></div>';
+  if(done){el.innerHTML='<div style="padding:18px 22px;border-radius:12px;background:#5dd9a610;border:1px solid #5dd9a625;text-align:center"><span class="daily-badge" style="background:#5dd9a615;color:#5dd9a6;font-size:14px">✅ Provocare completată</span><div style="font-size:18px;color:#5dd9a6;margin-top:8px">Revino mâine pentru o nouă provocare!</div></div>';return;}
+  el.innerHTML='<div style="padding:24px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #F6D44C25"><span class="daily-badge" style="font-size:14px">📅 Provocarea Zilnică</span><div style="font-size:13px;color:#7fa8b8;margin-bottom:10px;font-weight:400">Te ajută să comunici mai eficient cu Subconștientul tău</div><div style="font-size:20px;color:#e8f0f4;line-height:1.6;margin-bottom:10px">'+ch.text+'</div><div style="font-size:17px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+ch.goal+' · Categorie: '+ch.cat+'</div><button onclick="loadDailyChallenge()" style="margin-top:14px;padding:12px 22px;border-radius:10px;border:1px solid #F6D44C40;background:#F6D44C15;color:#F6D44C;font-size:17px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s">Acceptă provocarea →</button></div>';
 }
 function loadDailyChallenge(){
   var ch=getDailyChallenge();
