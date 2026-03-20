@@ -56,7 +56,6 @@ function checkIPLimits(ip) {
 // --- Protection: Allowed Origins ---
 const ALLOWED_ORIGINS = [
   'https://evaluator-sugestii.vercel.app',
-  'https://evaluator-sugestii-eugenboss-projects.vercel.app',
   'https://putereamintii.ro',
   'http://localhost:3000',
 ];
@@ -65,7 +64,12 @@ function isOriginAllowed(req) {
   const origin = req.headers['origin'] || '';
   const referer = req.headers['referer'] || '';
   if (!origin && !referer) return true;
-  return ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
+  const check = origin || referer;
+  if (ALLOWED_ORIGINS.some(o => check.startsWith(o))) return true;
+  // Match all Vercel preview deployments for this project
+  if (/^https:\/\/evaluator-sugestii[a-z0-9-]*\.vercel\.app/.test(check)) return true;
+  if (check.includes('eugenboss-projects.vercel.app')) return true;
+  return false;
 }
 
 // --- Cleanup old IPs every 10 minutes ---
