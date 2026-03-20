@@ -45,6 +45,9 @@ select, .inp { padding: 10px 14px; font-size: 14px; }
 select { cursor: pointer; }
 textarea:focus, select:focus, .inp:focus { border-color: #4FC1E9; box-shadow: 0 0 0 3px #4FC1E920, 0 0 20px #4FC1E910; }
 textarea::placeholder, .inp::placeholder { color: #3a5565; }
+.char-counter { text-align: right; font-size: 12px; color: #506a78; margin-top: 6px; transition: color 0.3s; }
+.char-counter.warn { color: #e8945a; }
+.char-counter.over { color: #e8506a; font-weight: 700; }
 .opts { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
 .opts > div:first-child { flex: 1; min-width: 140px; }
 .opts > div:last-child { flex: 2; min-width: 200px; }
@@ -260,7 +263,8 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div class="card">
     <div class="example-row"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
     <label class="lbl">Sugestia hipnotică</label>
-    <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..."></textarea>
+    <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..." maxlength="1000" oninput="updateCounter('text','counter-main')"></textarea>
+    <div class="char-counter" id="counter-main">0 / 1000 caractere</div>
     <div class="opts">
       <div><label class="lbl-s">Tip sugestie</label><select id="tip"><option value="auto">Auto-detect</option><option value="directă">Directă</option><option value="indirectă">Indirectă (Milton Model)</option><option value="mixtă">Mixtă</option></select></div>
       <div><label class="lbl-s">Obiectiv terapeutic (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
@@ -279,7 +283,8 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div id="brief-area"></div>
   <div class="card">
     <label class="lbl">Sugestia ta</label>
-    <textarea id="train-text" rows="5" placeholder="Scrie sugestia conform briefului de mai sus..."></textarea>
+    <textarea id="train-text" rows="5" placeholder="Scrie sugestia conform briefului de mai sus..." maxlength="1000" oninput="updateCounter('train-text','counter-train')"></textarea>
+    <div class="char-counter" id="counter-train">0 / 1000 caractere</div>
     <button class="cta" id="train-cta" onclick="runTrainEval()">Evaluează sugestia</button>
   </div>
   <div id="train-error"></div>
@@ -460,7 +465,17 @@ async function runEval(){
   try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});
   if(rsp.status===429){throw new Error('Prea multe evaluări. Așteaptă un minut și încearcă din nou.');}
   if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
-  var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();var r=JSON.parse(clean);
+  var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();
+  var r;try{r=JSON.parse(clean);}catch(parseErr){
+    // Try to fix truncated JSON by closing open braces/brackets
+    var fixed=clean;
+    if(!fixed.endsWith('}'))fixed+='"]}';
+    var opens=(fixed.match(/{/g)||[]).length;var closes=(fixed.match(/}/g)||[]).length;
+    for(var fi=0;fi<opens-closes;fi++)fixed+='}';
+    var oB=(fixed.match(/\[/g)||[]).length;var cB=(fixed.match(/\]/g)||[]).length;
+    for(var fi2=0;fi2<oB-cB;fi2++)fixed+=']';
+    try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul AI nu a putut fi procesat. Încearcă din nou.');}
+  }
   renderResult(r);saveHistory(text,r);}catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
   finally{stopLoading();isEvaluating=false;cta.disabled=false;cta.textContent='Evaluează sugestia';startCooloff(cta);}}
 
@@ -481,11 +496,7 @@ function renderResult(r){
   fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
     h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
   if(tier==='basic'&&!isUnlocked()){
-    var xc=[{id:4,n:'Gradualitate și progresie',b:'A · Structurale'},{id:5,n:'Ancorare senzorială VAKOG',b:'B · Limbaj'},{id:6,n:'Ritm și cadență',b:'B · Limbaj'},{id:7,n:'Pattern-uri lingvistice',b:'B · Limbaj'},{id:8,n:'Obiectiv terapeutic clar',b:'C · Eficacitate'},{id:9,n:'Activare emoțională',b:'C · Eficacitate'}];
-    h+='<div class="locked-divider">+ 6 criterii avansate</div>';
-    xc.forEach(function(ec){var fs=Math.floor(Math.random()*4)+5;var fp=(fs/10)*100;var fcl=gbc(fs);
-      h+='<div class="crow crow-locked" onclick="showGate()"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+ec.id+'. '+ec.n+'</div><div class="crow-block">'+ec.b+'</div></div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+fp+'%;background:'+fcl+'"></div></div><div class="bar-num" style="color:'+fcl+'">'+fs+'</div></div></div><div class="crow-obs">Analiza detaliată este disponibilă în evaluarea avansată.</div></div>';
-    });
+    h+='<div class="locked-divider" onclick="showGate()" style="cursor:pointer;padding:28px 22px"><div style="font-size:20px;margin-bottom:8px">🔒</div><div style="font-size:14px;color:#F6D44C;font-weight:700;margin-bottom:6px">+ 6 criterii avansate disponibile</div><div style="font-size:12px;color:#8fb0c0;text-transform:none;letter-spacing:0;font-weight:400">Gradualitate · VAKOG · Ritm · Pattern-uri · Obiectiv terapeutic · Activare emoțională</div><div style="margin-top:14px;display:inline-block;padding:10px 24px;border-radius:10px;background:#F6D44C;color:#0f1f28;font-size:13px;font-weight:700;letter-spacing:0;text-transform:none">Deblochează gratuit</div></div>';
   }
   h+='</div>';
   if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
@@ -620,7 +631,15 @@ async function runTrainEval(){if(isEvaluating)return;var text=document.getElemen
   try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:PA,messages:[{role:'user',content:um}]})});
   if(rsp.status===429){throw new Error('Prea multe evaluări. Așteaptă un minut și încearcă din nou.');}
   if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
-  var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();var r=JSON.parse(clean);
+  var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();
+  var r;try{r=JSON.parse(clean);}catch(parseErr){
+    var fixed=clean;if(!fixed.endsWith('}'))fixed+='"]}';
+    var opens=(fixed.match(/{/g)||[]).length;var closes=(fixed.match(/}/g)||[]).length;
+    for(var fi=0;fi<opens-closes;fi++)fixed+='}';
+    var oB=(fixed.match(/\[/g)||[]).length;var cB=(fixed.match(/\]/g)||[]).length;
+    for(var fi2=0;fi2<oB-cB;fi2++)fixed+=']';
+    try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul AI nu a putut fi procesat. Încearcă din nou.');}
+  }
   renderTrainResult(r,rD);saveHistory(text,r);}catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
   finally{stopLoading();isEvaluating=false;cta.disabled=false;cta.textContent='Evaluează sugestia';startCooloff(cta);}}
 function renderTrainResult(r,container){var cr=AC;var fc=(r.criterii||[]).filter(function(c){return c.id>=1&&c.id<=9;});
@@ -673,6 +692,14 @@ function initCC(){
     var detected=tzMap[tz]||'RO';
     for(var i=0;i<sel.options.length;i++){if(sel.options[i].getAttribute('data-c')===detected){sel.selectedIndex=i;break;}}
   }catch(e){}
+}
+
+/* === CHARACTER COUNTER === */
+var CHAR_LIMIT=1000;
+function updateCounter(textId,counterId){
+  var el=document.getElementById(textId);var c=document.getElementById(counterId);if(!el||!c)return;
+  var len=el.value.length;c.textContent=len+' / '+CHAR_LIMIT+' caractere';
+  c.className='char-counter'+(len>=900?' warn':'')+(len>=CHAR_LIMIT?' over':'');
 }
 
 /* === INIT === */
