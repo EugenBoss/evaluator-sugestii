@@ -73,6 +73,28 @@ textarea::placeholder, .inp::placeholder { color: #3a5565; }
 .crow-locked::after { content: '🔒 Deblochează evaluarea avansată'; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #4FC1E9; background: rgba(15,31,40,0.5); border-radius: 0; z-index: 1; transition: background 0.2s; }
 .crow-locked:hover::after { background: rgba(15,31,40,0.7); text-decoration: underline; }
 .locked-divider { padding: 14px 22px; text-align: center; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #F6D44C; border-bottom: 1px solid #ffffff08; background: linear-gradient(135deg, #F6D44C08, transparent); }
+/* === LOCKED SCORE === */
+.total-locked { position: relative; cursor: pointer; }
+.total-locked .total-circle { filter: blur(8px); }
+.total-locked .total-label { filter: blur(6px); }
+.total-locked .total-sub { filter: blur(4px); }
+.total-locked-overlay { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(15,31,40,0.6); border-radius: 16px; z-index: 1; }
+.total-locked-overlay span { font-size: 14px; font-weight: 700; color: #F6D44C; }
+.total-locked-overlay small { font-size: 12px; color: #8fb0c0; margin-top: 4px; }
+/* === STREAK & STATS === */
+.hist-stats { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.hist-stat { flex: 1; min-width: 120px; padding: 18px 16px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 14px; border: 1px solid #4FC1E915; text-align: center; }
+.hist-stat-num { font-family: 'DM Serif Display', Georgia, serif; font-size: 28px; font-weight: 700; }
+.hist-stat-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #7fa8b8; margin-top: 4px; }
+.hist-streak { color: #F6D44C; }
+/* === EXIT INTENT === */
+.exit-popup { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); max-width: 440px; width: calc(100% - 32px); padding: 20px 24px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 16px; border: 1px solid #F6D44C40; box-shadow: 0 12px 40px rgba(0,0,0,0.5); z-index: 999; animation: fadeIn 0.4s ease-out; display: flex; align-items: center; gap: 16px; }
+.exit-popup.hidden { display: none; }
+.exit-popup-text { flex: 1; font-size: 14px; color: #e8f0f4; line-height: 1.5; }
+.exit-popup-text strong { color: #F6D44C; }
+.exit-popup-btn { padding: 10px 20px; border-radius: 10px; border: none; background: #F6D44C; color: #0f1f28; font-size: 13px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; white-space: nowrap; transition: all 0.3s; }
+.exit-popup-btn:hover { box-shadow: 0 4px 16px #F6D44C40; }
+.exit-popup-close { position: absolute; top: 8px; right: 12px; background: none; border: none; color: #506a78; font-size: 16px; cursor: pointer; }
 .crow-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
 .crow-name { font-size: 14px; font-weight: 600; color: #e8f0f4; }
 .crow-block { font-size: 11px; color: #4a6a78; margin-top: 2px; }
@@ -211,6 +233,11 @@ body.presentation details, body.presentation .footer, body.presentation .export-
     <div class="gate-privacy">Datele tale sunt în siguranță. Nu facem spam.</div>
     <button class="gate-skip" onclick="hideGate()">Continuă doar cu evaluarea de bază →</button>
   </div>
+</div>
+<div class="exit-popup hidden" id="exit-popup">
+  <button class="exit-popup-close" onclick="document.getElementById('exit-popup').classList.add('hidden')">✕</button>
+  <div class="exit-popup-text"><strong>Nu pleca fără evaluarea completă!</strong> Deblochează gratuit toate cele 9 criterii + versiunea îmbunătățită a sugestiei tale.</div>
+  <button class="exit-popup-btn" onclick="document.getElementById('exit-popup').classList.add('hidden');showGate()">Deblochează acum</button>
 </div>
 <div class="header">
   <button class="pres-toggle" onclick="togglePresentation()" title="Mod Prezentare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></button>
@@ -445,7 +472,11 @@ function renderResult(r){
   if(prevScore!==null&&prevScore!==r.scor_total){var diff=r.scor_total-prevScore;var dc=diff>0?'#5dd9a6':'#e8506a';var ds=diff>0?'+':'';
     h+='<div class="compare-banner"><div class="compare-score"><div class="cs-num" style="color:#e8945a">'+prevScore+'</div><div class="cs-label">Original</div></div><div class="compare-arrow">→</div><div class="compare-score"><div class="cs-num" style="color:#5dd9a6">'+r.scor_total+'</div><div class="cs-label">Îmbunătățită</div></div><div class="compare-diff" style="color:'+dc+';background:'+dc+'18">'+ds+diff+' puncte</div></div>';prevScore=null;}
   h+='<div class="badge">Tip detectat: '+r.tip_detectat+'</div>';
-  h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
+  if(tier==='basic'&&!isUnlocked()){
+    h+='<div class="total total-locked" style="border:2px solid #F6D44C35" onclick="showGate()"><div class="total-circle" style="background:#F6D44C20;border:3px solid #F6D44C;color:#F6D44C">'+r.scor_total+'</div><div><div class="total-label" style="color:#F6D44C">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' — evaluare parțială pe 3 criterii</div></div><div class="total-locked-overlay"><span>🔒 Deblochează scorul complet pe 9 criterii</span><small>Click — e gratuit</small></div></div>';
+  }else{
+    h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
+  }
   h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>';
   fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
     h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
@@ -481,27 +512,94 @@ function copyResult(){var r=document.getElementById('results');if(!r.textContent
   lines.push('\n— Evaluator Sugestii Hipnotice · Puterea Minții');
   navigator.clipboard.writeText(lines.join('\n')).then(function(){var btn=document.getElementById('copy-btn');btn.classList.add('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Copiat!';setTimeout(function(){btn.classList.remove('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază rezultatul';},2000);});}
 
-/* === EXPORT: IMAGE === */
-function downloadImage(){var circle=document.querySelector('.total-circle');var label=document.querySelector('.total-label');if(!circle)return;
-  var score=circle.textContent;var level=label?label.textContent:'';var lv=glv(parseInt(score),100);
-  var canvas=document.createElement('canvas');canvas.width=600;canvas.height=340;var ctx=canvas.getContext('2d');
-  var bg=ctx.createLinearGradient(0,0,600,340);bg.addColorStop(0,'#0f1f28');bg.addColorStop(1,'#1a3040');ctx.fillStyle=bg;ctx.fillRect(0,0,600,340);
-  ctx.strokeStyle='#4FC1E930';ctx.lineWidth=2;ctx.strokeRect(20,20,560,300);
-  ctx.fillStyle='#F6D44C';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText('PUTEREA MINȚII',300,55);
-  ctx.fillStyle='#ffffff';ctx.font='22px serif';ctx.fillText('Evaluator Sugestii Hipnotice',300,85);
-  ctx.beginPath();ctx.arc(300,170,55,0,Math.PI*2);ctx.fillStyle=lv.c+'25';ctx.fill();ctx.strokeStyle=lv.c;ctx.lineWidth=3;ctx.stroke();
-  ctx.fillStyle=lv.c;ctx.font='bold 36px serif';ctx.fillText(score,300,185);
-  ctx.font='bold 20px serif';ctx.fillText(level,300,250);
-  ctx.fillStyle='#8fb0c0';ctx.font='13px sans-serif';ctx.fillText(lv.d,300,275);
-  ctx.fillStyle='#3a5565';ctx.font='10px sans-serif';ctx.fillText('putereamintii.ro',300,325);
-  var link=document.createElement('a');link.download='evaluare-sugestie-'+score+'p.png';link.href=canvas.toDataURL('image/png');link.click();}
+/* === EXPORT: IMAGE/CERTIFICATE === */
+function downloadImage(){
+  var circle=document.querySelector('.total-circle');var label=document.querySelector('.total-label');if(!circle)return;
+  var score=parseInt(circle.textContent);var level=label?label.textContent:'';var lv=glv(score,100);
+  var userData=getUserData();var userName=userData?userData.name:'';
+  var canvas=document.createElement('canvas');canvas.width=700;canvas.height=500;var ctx=canvas.getContext('2d');
+  // Background
+  var bg=ctx.createLinearGradient(0,0,700,500);bg.addColorStop(0,'#0f1f28');bg.addColorStop(0.5,'#152a35');bg.addColorStop(1,'#1a3040');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,700,500);
+  // Border
+  ctx.strokeStyle='#4FC1E920';ctx.lineWidth=2;ctx.strokeRect(24,24,652,452);
+  ctx.strokeStyle='#F6D44C15';ctx.lineWidth=1;ctx.strokeRect(32,32,636,436);
+  // Brand
+  ctx.fillStyle='#F6D44C';ctx.font='bold 11px sans-serif';ctx.textAlign='center';ctx.fillText('PUTEREA MINȚII',350,62);
+  // Conditional title and messaging
+  if(score<60){
+    ctx.fillStyle='#ffffff';ctx.font='24px serif';ctx.fillText('Știi cum să comunici',350,100);
+    ctx.fillText('cu Subconștientul Tău?',350,130);
+    // Score circle
+    ctx.beginPath();ctx.arc(350,210,55,0,Math.PI*2);ctx.fillStyle=lv.c+'20';ctx.fill();ctx.strokeStyle=lv.c;ctx.lineWidth=3;ctx.stroke();
+    ctx.fillStyle=lv.c;ctx.font='bold 38px serif';ctx.fillText(score,350,225);
+    ctx.font='bold 11px sans-serif';ctx.fillStyle='#8fb0c0';ctx.fillText('/ 100',350,248);
+    // Level
+    ctx.fillStyle=lv.c;ctx.font='bold 20px serif';ctx.fillText(level,350,290);
+    // Challenge text
+    ctx.fillStyle='#F6D44C';ctx.font='bold 16px sans-serif';ctx.fillText('Tu ai putea să faci mai bine ca mine?',350,330);
+    // User name
+    if(userName){ctx.fillStyle='#8fb0c0';ctx.font='14px sans-serif';ctx.fillText(userName,350,360);}
+    // CTA
+    ctx.fillStyle='#F6D44C';ctx.font='bold 14px sans-serif';ctx.fillText('Află acum → putereamintii.ro',350,400);
+  }else if(score>=85){
+    ctx.fillStyle='#ffffff';ctx.font='26px serif';ctx.fillText('Certificat de Excelență',350,100);
+    ctx.fillStyle='#4FC1E9';ctx.font='16px sans-serif';ctx.fillText('Evaluator Sugestii Hipnotice',350,126);
+    // Score circle
+    ctx.beginPath();ctx.arc(350,210,55,0,Math.PI*2);ctx.fillStyle=lv.c+'20';ctx.fill();ctx.strokeStyle=lv.c;ctx.lineWidth=3;ctx.stroke();
+    ctx.fillStyle=lv.c;ctx.font='bold 38px serif';ctx.fillText(score,350,225);
+    ctx.font='bold 11px sans-serif';ctx.fillStyle='#8fb0c0';ctx.fillText('/ 100',350,248);
+    // Level
+    ctx.fillStyle=lv.c;ctx.font='bold 22px serif';ctx.fillText(level,350,292);
+    ctx.fillStyle='#8fb0c0';ctx.font='13px sans-serif';ctx.fillText(lv.d,350,315);
+    // User name
+    if(userName){ctx.fillStyle='#ffffff';ctx.font='bold 18px sans-serif';ctx.fillText(userName,350,360);}
+    // Stars
+    ctx.fillStyle='#F6D44C';ctx.font='20px sans-serif';ctx.fillText('★ ★ ★ ★ ★',350,395);
+  }else{
+    ctx.fillStyle='#ffffff';ctx.font='24px serif';ctx.fillText('Evaluator Sugestii Hipnotice',350,100);
+    // Score circle
+    ctx.beginPath();ctx.arc(350,195,55,0,Math.PI*2);ctx.fillStyle=lv.c+'20';ctx.fill();ctx.strokeStyle=lv.c;ctx.lineWidth=3;ctx.stroke();
+    ctx.fillStyle=lv.c;ctx.font='bold 38px serif';ctx.fillText(score,350,210);
+    ctx.font='bold 11px sans-serif';ctx.fillStyle='#8fb0c0';ctx.fillText('/ 100',350,233);
+    // Level
+    ctx.fillStyle=lv.c;ctx.font='bold 20px serif';ctx.fillText(level,350,275);
+    ctx.fillStyle='#8fb0c0';ctx.font='13px sans-serif';ctx.fillText(lv.d,350,298);
+    // User name
+    if(userName){ctx.fillStyle='#ffffff';ctx.font='bold 16px sans-serif';ctx.fillText(userName,350,340);}
+    // CTA
+    ctx.fillStyle='#F6D44C';ctx.font='bold 13px sans-serif';ctx.fillText('Testează și tu → putereamintii.ro',350,380);
+  }
+  // Footer
+  ctx.fillStyle='#3a556540';ctx.fillRect(32,440,636,1);
+  ctx.fillStyle='#3a5565';ctx.font='10px sans-serif';ctx.textAlign='center';ctx.fillText('putereamintii.ro  ·  Evaluator Sugestii Hipnotice  ·  '+new Date().toLocaleDateString('ro-RO'),350,465);
+  // Download
+  var link=document.createElement('a');link.download='evaluare-sugestie-'+score+'p.png';link.href=canvas.toDataURL('image/png');link.click();
+}
 
 /* === HISTORY === */
 function getHist(){try{return JSON.parse(localStorage.getItem('eval_hist')||'[]');}catch(e){return[];}}
 function saveHistory(text,r){try{var h=getHist();h.unshift({d:new Date().toISOString(),t:text.substring(0,120),tier:tier,s:r.scor_total,m:r.scor_maxim,tip:r.tip_detectat});if(h.length>20)h=h.slice(0,20);localStorage.setItem('eval_hist',JSON.stringify(h));}catch(e){}}
 function renderHistory(){var hist=getHist();var el=document.getElementById('hist-content');
   if(!hist.length){el.innerHTML='<div class="hist-empty">Nicio evaluare încă. Evaluările tale vor apărea aici automat.</div>';return;}
-  var h='';hist.forEach(function(item){var lv=glv(item.s,item.m||100);var d=new Date(item.d);var ds=d.toLocaleDateString('ro-RO',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
+  // Calculate stats
+  var total=0;var count=hist.length;hist.forEach(function(item){total+=item.s;});
+  var avg=Math.round(total/count);var avgLv=glv(avg,100);
+  // Calculate streak (consecutive days with evaluations)
+  var streak=1;var today=new Date();today.setHours(0,0,0,0);
+  var lastDay=new Date(hist[0].d);lastDay.setHours(0,0,0,0);
+  if(today.getTime()!==lastDay.getTime()&&today.getTime()-lastDay.getTime()>86400000){streak=0;}
+  else{for(var i=1;i<hist.length;i++){var d1=new Date(hist[i-1].d);d1.setHours(0,0,0,0);var d2=new Date(hist[i].d);d2.setHours(0,0,0,0);var diff=d1.getTime()-d2.getTime();if(diff<=86400000&&diff>=0){if(d1.getTime()!==d2.getTime())streak++;}else break;}}
+  // Best score
+  var best=0;hist.forEach(function(item){if(item.s>best)best=item.s;});var bestLv=glv(best,100);
+  var h='';
+  h+='<div class="hist-stats">';
+  h+='<div class="hist-stat"><div class="hist-stat-num" style="color:'+avgLv.c+'">'+avg+'</div><div class="hist-stat-label">Scor mediu</div></div>';
+  h+='<div class="hist-stat"><div class="hist-stat-num" style="color:'+bestLv.c+'">'+best+'</div><div class="hist-stat-label">Cel mai bun</div></div>';
+  h+='<div class="hist-stat"><div class="hist-stat-num hist-streak">'+(streak>0?streak+'🔥':0)+'</div><div class="hist-stat-label">Streak zile</div></div>';
+  h+='<div class="hist-stat"><div class="hist-stat-num" style="color:#4FC1E9">'+count+'</div><div class="hist-stat-label">Total evaluări</div></div>';
+  h+='</div>';
+  hist.forEach(function(item){var lv=glv(item.s,item.m||100);var d=new Date(item.d);var ds=d.toLocaleDateString('ro-RO',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
     h+='<div class="hist-item" onclick="loadFromHist(\''+encodeURIComponent(item.t)+'\')"><div class="hist-score" style="background:'+lv.c+'20;border:2px solid '+lv.c+';color:'+lv.c+'">'+item.s+'</div><div class="hist-info"><div class="hist-text">'+item.t+'</div><div class="hist-date">'+ds+' · '+item.tip+'</div></div><div class="hist-tier">'+(item.tier==='basic'?'3':'9')+'</div></div>';});
   h+='<button class="hist-clear" onclick="clearHist()">Șterge tot istoricul</button>';el.innerHTML=h;}
 function loadFromHist(enc){var text=decodeURIComponent(enc);
@@ -581,6 +679,28 @@ function initCC(){
 renderRef();
 updateLockIcon();
 initCC();
+
+/* === EXIT INTENT === */
+var exitShown=false;
+// Desktop: mouse leaves viewport top
+document.addEventListener('mouseout',function(e){
+  if(exitShown||isUnlocked())return;
+  if(e.clientY<5&&e.relatedTarget===null){
+    exitShown=true;
+    document.getElementById('exit-popup').classList.remove('hidden');
+  }
+});
+// Mobile: rapid scroll up (back to top gesture)
+var lastScrollY=0;var scrollUpCount=0;
+window.addEventListener('scroll',function(){
+  if(exitShown||isUnlocked())return;
+  var y=window.scrollY;
+  if(y<lastScrollY&&lastScrollY-y>100&&y<200){
+    scrollUpCount++;
+    if(scrollUpCount>=2){exitShown=true;document.getElementById('exit-popup').classList.remove('hidden');}
+  }else if(y>lastScrollY){scrollUpCount=0;}
+  lastScrollY=y;
+});
 </script>
 </body>
 </html>
