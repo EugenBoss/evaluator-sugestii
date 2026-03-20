@@ -468,8 +468,13 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div id="rewrite-result"></div>
   <div id="results"></div>
   <details><summary id="ref-summary">Referință criterii (3)</summary><div class="ref" id="ref-list"></div></details>
-  <div class="xp-bar-wrap" id="xp-bar-wrap" style="padding:10px 0;margin-top:28px">
-    <div class="xp-bar"><span class="xp-level" id="xp-level">Începător</span><div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div><span class="xp-text" id="xp-text">0 XP</span></div>
+  <div class="xp-bar-wrap" id="xp-bar-wrap" style="padding:0;margin-top:28px">
+    <div style="padding:22px;background:linear-gradient(145deg,#1e3645,#1a3040);border-radius:16px;border:1px solid #4FC1E915">
+      <div style="font-size:16px;font-weight:600;color:#4FC1E9;margin-bottom:6px">Nivelul tău de comunicare cu subconștientul</div>
+      <div style="font-size:14px;color:#8fb0c0;margin-bottom:14px;font-weight:400" id="xp-desc">Cu fiecare evaluare, înveți ce funcționează și ce nu. Practică mai mult pentru a urca în nivel.</div>
+      <div class="xp-bar"><span class="xp-level" id="xp-level">Începător</span><div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div><span class="xp-text" id="xp-text">0 XP</span></div>
+      <div style="font-size:13px;color:#506a78;margin-top:10px;font-weight:400" id="xp-next-hint">Următorul nivel: 📝 Practicant — la 50 XP</div>
+    </div>
   </div>
   <div id="daily-challenge" style="margin-top:20px"></div>
   <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
@@ -884,11 +889,11 @@ function renderResult(r){
   h+='<div class="badge">Tip detectat: '+r.tip_detectat+'</div>';
   if(tier==='basic'&&!isUnlocked()){
     h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' — evaluare parțială pe 3 criterii</div></div></div>';
-    if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:13px;color:#8fb0c0;margin-bottom:6px">Vrei să afli cum se scrie corect?</div><div style="font-size:16px;font-weight:700;color:#4FC1E9">✏️ Rescrie acum, corect</div></div>';}
+    if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:14px;color:#e8f0f4;margin-bottom:8px;font-weight:400">Vrei să afli cum se scrie corect?</div><div style="font-size:18px;font-weight:700;color:#0f1f28;display:inline-block;padding:10px 28px;border-radius:10px;background:linear-gradient(135deg,#4FC1E9,#3aa8d4);box-shadow:0 4px 16px #4FC1E930">Rescrie acum, corect</div></div>';}
     h+='<div onclick="showGate()" style="cursor:pointer;margin-top:12px;padding:14px 20px;border-radius:12px;background:linear-gradient(135deg,#F6D44C10,#F6D44C05);border:1px solid #F6D44C30;text-align:center;transition:all 0.2s"><span style="font-size:14px;font-weight:700;color:#F6D44C">🔒 Vrei scorul complet pe 9 criterii?</span><br><span style="font-size:12px;color:#8fb0c0">Deblochează gratuit evaluarea avansată</span></div>';
   }else{
     h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
-    if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:13px;color:#8fb0c0;margin-bottom:6px">Vrei să afli cum se scrie corect?</div><div style="font-size:16px;font-weight:700;color:#4FC1E9">✏️ Rescrie acum, corect</div></div>';}
+    if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:14px;color:#e8f0f4;margin-bottom:8px;font-weight:400">Vrei să afli cum se scrie corect?</div><div style="font-size:18px;font-weight:700;color:#0f1f28;display:inline-block;padding:10px 28px;border-radius:10px;background:linear-gradient(135deg,#4FC1E9,#3aa8d4);box-shadow:0 4px 16px #4FC1E930">Rescrie acum, corect</div></div>';}
   }
   h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>';
   fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
@@ -1105,11 +1110,11 @@ function initCC(){
 
 /* === GAMIFICATION: XP & LEVELS === */
 var LEVELS=[
-  {name:'Începător',min:0,emoji:'🌱'},
-  {name:'Practicant',min:50,emoji:'📝'},
-  {name:'Avansat',min:150,emoji:'⚡'},
-  {name:'Expert',min:350,emoji:'🧠'},
-  {name:'Maestru',min:600,emoji:'👑'}
+  {name:'Începător',min:0,emoji:'🌱',desc:'Faci primii pași. Fiecare evaluare te învață ce face o sugestie hipnotică eficientă.'},
+  {name:'Practicant',min:50,emoji:'📝',desc:'Înțelegi principiile de bază. Sugestiile tale încep să producă imagini mentale clare.'},
+  {name:'Avansat',min:150,emoji:'⚡',desc:'Știi să construiești sugestii cu ancorare senzorială și ritm hipnotic. Progres real.'},
+  {name:'Expert',min:350,emoji:'🧠',desc:'Stăpânești toate cele 9 criterii. Sugestiile tale sunt gata de utilizare profesională.'},
+  {name:'Maestru',min:600,emoji:'👑',desc:'Nivel de trainer. Comunici cu subconștientul la cel mai înalt nivel.'}
 ];
 function getXP(){try{return parseInt(localStorage.getItem('user_xp')||'0');}catch(e){return 0;}}
 function setXP(v){try{localStorage.setItem('user_xp',String(v));}catch(e){}}
@@ -1130,10 +1135,20 @@ function awardXP(score,pct){
 function renderXPBar(){
   var xp=getXP();var lv=getLevel(xp);
   var el=document.getElementById('xp-level');var fill=document.getElementById('xp-fill');var txt=document.getElementById('xp-text');
+  var desc=document.getElementById('xp-desc');var hint=document.getElementById('xp-next-hint');
   if(!el)return;
   el.textContent=lv.lv.emoji+' '+lv.lv.name;
-  if(lv.next){var pctXP=((xp-lv.lv.min)/(lv.next.min-lv.lv.min))*100;fill.style.width=Math.min(pctXP,100)+'%';txt.textContent=xp+' / '+lv.next.min+' XP';}
-  else{fill.style.width='100%';txt.textContent=xp+' XP — nivel maxim!';}
+  if(desc)desc.textContent=lv.lv.desc;
+  if(lv.next){
+    var pctXP=((xp-lv.lv.min)/(lv.next.min-lv.lv.min))*100;
+    fill.style.width=Math.min(pctXP,100)+'%';
+    txt.textContent=xp+' / '+lv.next.min+' XP';
+    if(hint)hint.textContent='Încă '+(lv.next.min-xp)+' XP până la '+lv.next.emoji+' '+lv.next.name+' — evaluează sugestii pentru a avansa';
+  }else{
+    fill.style.width='100%';
+    txt.textContent=xp+' XP — nivel maxim!';
+    if(hint)hint.textContent='Ai atins nivelul maxim. Ești pregătit pentru Training-ul Profesional de Hipnoză.';
+  }
 }
 
 /* === GAMIFICATION: BADGES === */
@@ -1248,16 +1263,25 @@ function loadDailyChallenge(){
 
 /* === GAMIFICATION: CHALLENGE FRIEND === */
 function challengeFriend(score){
-  var text='🎯 Am obținut '+score+'/100 la Evaluatorul de Sugestii Hipnotice! Poți face mai bine? Încearcă acum: '+location.href;
+  var text=encodeURIComponent('Am obținut '+score+'/100 la Evaluatorul de Sugestii Hipnotice! Poți face mai bine? Încearcă acum: '+location.href);
+  var url=encodeURIComponent(location.href);
+  var title=encodeURIComponent('Provocare: Poți face mai bine ca '+score+'?');
+  // On mobile, try native share first
   if(navigator.share){
-    navigator.share({title:'Provocare: Poți face mai bine ca '+score+'?',text:text,url:location.href}).catch(function(){});
-  }else{
-    navigator.clipboard.writeText(text).then(function(){
-      var btns=document.querySelectorAll('.challenge-friend-btn');
-      btns.forEach(function(b){b.innerHTML='✅ Link copiat! Trimite-l unui prieten';b.style.borderColor='#5dd9a660';b.style.color='#5dd9a6';
-        setTimeout(function(){b.innerHTML='🎯 Provoacă un prieten să facă mai bine ca tine!';b.style.borderColor='#F6D44C40';b.style.color='#F6D44C';},2500);});
-    });
+    navigator.share({title:decodeURIComponent(title),text:decodeURIComponent(text),url:location.href}).catch(function(){});
+    unlockBadge('friend');return;
   }
+  // Desktop: show share options inline
+  var btns=document.querySelectorAll('.challenge-friend-btn');
+  btns.forEach(function(b){
+    b.outerHTML='<div class="share-options-panel" style="margin-top:14px;padding:16px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #4FC1E920"><div style="font-size:14px;color:#8fb0c0;text-align:center;margin-bottom:12px;font-weight:400">Trimite provocarea prin:</div><div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">'
+    +'<a href="https://wa.me/?text='+text+'" target="_blank" style="flex:1;min-width:100px;padding:12px 14px;border-radius:10px;background:#25D366;color:#fff;font-size:14px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;text-decoration:none;text-align:center;transition:all 0.3s;display:block">WhatsApp</a>'
+    +'<a href="https://www.facebook.com/sharer/sharer.php?u='+url+'&quote='+text+'" target="_blank" style="flex:1;min-width:100px;padding:12px 14px;border-radius:10px;background:#1877F2;color:#fff;font-size:14px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;text-decoration:none;text-align:center;transition:all 0.3s;display:block">Facebook</a>'
+    +'<a href="https://t.me/share/url?url='+url+'&text='+text+'" target="_blank" style="flex:1;min-width:100px;padding:12px 14px;border-radius:10px;background:#0088cc;color:#fff;font-size:14px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;text-decoration:none;text-align:center;transition:all 0.3s;display:block">Telegram</a>'
+    +'<a href="mailto:?subject='+title+'&body='+text+'" style="flex:1;min-width:100px;padding:12px 14px;border-radius:10px;background:#4FC1E920;color:#4FC1E9;font-size:14px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;text-decoration:none;text-align:center;transition:all 0.3s;display:block;border:1px solid #4FC1E940">Email</a>'
+    +'<a href="sms:?body='+text+'" style="flex:1;min-width:100px;padding:12px 14px;border-radius:10px;background:#5dd9a620;color:#5dd9a6;font-size:14px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;text-decoration:none;text-align:center;transition:all 0.3s;display:block;border:1px solid #5dd9a640">SMS</a>'
+    +'</div></div>';
+  });
   unlockBadge('friend');
 }
 
