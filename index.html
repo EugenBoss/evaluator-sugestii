@@ -418,6 +418,7 @@ async function sendOTP(){
     var resp=await fetch('/api/send-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,phone:fullPhone,website:document.getElementById('gate-website').value})});
     var data=await resp.json();
     if(!resp.ok){document.getElementById('gate-err-msg').textContent=data.error||'Eroare la trimitere.';return;}
+    window._otpToken=data.token;
     document.getElementById('gate-email-sent').textContent=email;
     document.getElementById('gate-step1').style.display='none';
     document.getElementById('gate-step2').style.display='block';
@@ -435,7 +436,7 @@ async function verifyOTP(){
   var btn=document.getElementById('gate-submit-2');
   btn.disabled=true;btn.textContent='Se verifică...';
   try{
-    var resp=await fetch('/api/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,code:code})});
+    var resp=await fetch('/api/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({token:window._otpToken,code:code})});
     var data=await resp.json();
     if(!resp.ok){document.getElementById('gate-err-msg-2').textContent=data.error||'Cod incorect.';return;}
     if(data.verified){
