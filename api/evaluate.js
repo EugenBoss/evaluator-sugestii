@@ -1,28 +1,59 @@
-// --- Rate Limiter (per Vercel instance, resets on cold start) ---
-const rateMap = new Map();
-const RATE_LIMIT = 5;      // max requests
-const RATE_WINDOW = 60000;  // per 60 seconds
+// --- Protection: Daily Budget ---
+let dailyCount = 0;
+let dailyReset = Date.now();
+const DAILY_LIMIT = 100;
+
+function checkDailyBudget() {
+  const now = Date.now();
+  // Reset at midnight or after 24h
+  if (now - dailyReset > 86400000) {
+    dailyCount = 0;
+    dailyReset = now;
+  }
+  if (dailyCount >= DAILY_LIMIT) return false;
+  dailyCount++;
+  return true;
+}
+
+// --- Protection: Cooloff (60s between requests per IP) + Session Cap (5 total per IP) ---
+const ipMap = new Map();
+const COOLOFF = 60000;    // 60 seconds between requests
+const SESSION_CAP = 5;    // max 5 evaluations per IP
 
 function getIP(req) {
-  return req.headers['x-forwarded-for']?.split(',')[0]?.trim() 
-    || req.headers['x-real-ip'] 
-    || req.socket?.remoteAddress 
+  return req.headers['x-forwarded-for']?.split(',')[0]?.trim()
+    || req.headers['x-real-ip']
+    || req.socket?.remoteAddress
     || 'unknown';
 }
 
-function isRateLimited(ip) {
+function checkIPLimits(ip) {
   const now = Date.now();
-  const record = rateMap.get(ip);
-  if (!record || now - record.start > RATE_WINDOW) {
-    rateMap.set(ip, { start: now, count: 1 });
-    return false;
+  const record = ipMap.get(ip);
+
+  if (!record) {
+    ipMap.set(ip, { last: now, count: 1 });
+    return { ok: true };
   }
+
+  // Session cap
+  if (record.count >= SESSION_CAP) {
+    return { ok: false, error: 'Ai atins limita de ' + SESSION_CAP + ' evaluări. Revino mai târziu.' };
+  }
+
+  // Cooloff
+  const elapsed = now - record.last;
+  if (elapsed < COOLOFF) {
+    const wait = Math.ceil((COOLOFF - elapsed) / 1000);
+    return { ok: false, error: 'Așteaptă ' + wait + ' secunde înainte de următoarea evaluare.' };
+  }
+
+  record.last = now;
   record.count++;
-  if (record.count > RATE_LIMIT) return true;
-  return false;
+  return { ok: true };
 }
 
-// --- Allowed Origins ---
+// --- Protection: Allowed Origins ---
 const ALLOWED_ORIGINS = [
   'https://evaluator-sugestii.vercel.app',
   'https://evaluator-sugestii-eugenboss-projects.vercel.app',
@@ -33,10 +64,17 @@ const ALLOWED_ORIGINS = [
 function isOriginAllowed(req) {
   const origin = req.headers['origin'] || '';
   const referer = req.headers['referer'] || '';
-  // Allow if no origin (server-to-server, curl for testing)
   if (!origin && !referer) return true;
   return ALLOWED_ORIGINS.some(o => origin.startsWith(o) || referer.startsWith(o));
 }
+
+// --- Cleanup old IPs every 10 minutes ---
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of ipMap) {
+    if (now - record.last > 3600000) ipMap.delete(ip);
+  }
+}, 600000);
 
 // --- Handler ---
 export default async function handler(req, res) {
@@ -46,7 +84,6 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Method check
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -56,13 +93,19 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
-  // Rate limit
-  const ip = getIP(req);
-  if (isRateLimited(ip)) {
-    return res.status(429).json({ error: 'Prea multe cereri. Așteaptă un minut.' });
+  // Daily budget
+  if (!checkDailyBudget()) {
+    return res.status(429).json({ error: 'Limita zilnică de evaluări a fost atinsă. Revino mâine.' });
   }
 
-  // API key check
+  // IP cooloff + session cap
+  const ip = getIP(req);
+  const ipCheck = checkIPLimits(ip);
+  if (!ipCheck.ok) {
+    return res.status(429).json({ error: ipCheck.error });
+  }
+
+  // API key
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     return res.status(500).json({ error: 'API key not configured' });
@@ -74,7 +117,6 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid request body' });
   }
 
-  // Validate message content length (prevent huge payloads)
   const totalLength = JSON.stringify(messages).length + system.length;
   if (totalLength > 10000) {
     return res.status(400).json({ error: 'Request too large' });
