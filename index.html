@@ -516,8 +516,8 @@ function startCooloff(btn){
 function reEval(){if(!lastImproved)return;var circle=document.querySelector('.total-circle');prevScore=circle?parseInt(circle.textContent)||null:null;document.getElementById('text').value=lastImproved;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){runEval();},300);}
 
 /* === REWRITE === */
-var RW_BASIC="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nRescrie sugestia hipnotică de mai jos într-o versiune îmbunătățită care respectă:\n- Formulare 100% pozitivă (zero negații)\n- Specificitate și claritate (imagini senzoriale concrete)\n- Timp verbal prezent (nu viitor, nu condițional)\n\nIMPORTANT: Răspunde DOAR cu versiunea rescrisă, fără explicații, fără introducere. Maxim 50 de cuvinte. Limba română cu diacritice corecte.";
-var RW_ADV="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nRescrie sugestia hipnotică de mai jos într-o versiune profesională care respectă toate cele 9 criterii:\n1. Formulare 100% pozitivă\n2. Specificitate și claritate (imagini senzoriale concrete)\n3. Timp verbal prezent\n4. Gradualitate și progresie naturală\n5. Ancorare senzorială VAKOG (minim 3 canale)\n6. Ritm și cadență hipnotică (propoziții scurte)\n7. Pattern-uri lingvistice corecte pentru tipul de sugestie\n8. Obiectiv terapeutic unic și clar\n9. Activare emoțională (creează starea, nu o descrie)\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE\nCEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nIMPORTANT: Răspunde DOAR cu versiunea rescrisă, fără explicații, fără introducere. Maxim 300 de cuvinte. Limba română cu diacritice corecte.";
+var RW_BASIC="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nPrimești o sugestie hipnotică. Rescrie-o într-o versiune îmbunătățită și evaluează versiunea rescrisă.\n\nCriterii de rescriere:\n1. Formulare 100% pozitivă (zero negații)\n2. Specificitate și claritate (imagini senzoriale concrete)\n3. Timp verbal prezent (nu viitor, nu condițional)\n\nMaxim 50 de cuvinte pentru versiunea rescrisă.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{\"versiune_rescrisa\":\"textul rescris aici\",\"scor\":X,\"scor_maxim\":100,\"explicatie\":\"De ce e mai bună: explicație scurtă, 2-3 propoziții\"}\n\nLimba: română cu diacritice corecte.";
+var RW_ADV="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nPrimești o sugestie hipnotică. Rescrie-o într-o versiune profesională și evaluează versiunea rescrisă.\n\nCele 9 criterii:\n1. Formulare 100% pozitivă\n2. Specificitate și claritate (imagini senzoriale concrete)\n3. Timp verbal prezent\n4. Gradualitate și progresie naturală\n5. Ancorare senzorială VAKOG (minim 3 canale)\n6. Ritm și cadență hipnotică (propoziții scurte)\n7. Pattern-uri lingvistice corecte\n8. Obiectiv terapeutic unic și clar\n9. Activare emoțională (creează starea, nu o descrie)\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE\nCEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCALIBRARE: Scorul 10 e CORECT când criteriul e respectat complet. Nu fi artificial conservator.\n\nMaxim 300 de cuvinte pentru versiunea rescrisă.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{\"versiune_rescrisa\":\"textul rescris aici\",\"scor\":X,\"scor_maxim\":100,\"criterii_scor\":[{\"id\":1,\"scor\":X},{\"id\":2,\"scor\":X},{\"id\":3,\"scor\":X},{\"id\":4,\"scor\":X},{\"id\":5,\"scor\":X},{\"id\":6,\"scor\":X},{\"id\":7,\"scor\":X},{\"id\":8,\"scor\":X},{\"id\":9,\"scor\":X}],\"explicatie\":\"De ce e mai bună: explicație detaliată, ce s-a schimbat și de ce, 3-5 propoziții\"}\n\nLimba: română cu diacritice corecte.";
 
 async function runRewrite(){
   var text=document.getElementById('text').value.trim();if(!text)return;
@@ -526,19 +526,44 @@ async function runRewrite(){
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span><span class="loading-text">Rescriu sugestia...</span>';
   eD.innerHTML='';rwD.innerHTML='';
   var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
-  var um='Rescrie această sugestie hipnotică:\n\n"""'+text+'"""';
+  var um='Rescrie și evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
   if(tip!=='auto')um+='\n\nTip sugestie: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
   try{
     var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?RW_BASIC:RW_ADV,messages:[{role:'user',content:um}]})});
     if(rsp.status===429){throw new Error('Prea multe cereri. Așteaptă un minut și încearcă din nou.');}
     if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
-    var data=await rsp.json();var rewritten=(data.content||[]).map(function(c){return c.text||'';}).join('').trim();
-    rewritten=rewritten.replace(/```/g,'').replace(/^["']|["']$/g,'').trim();
-    var wordCount=rewritten.split(/\s+/).length;
-    var h='<div class="rewrite-result"><div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Versiune rescrisă'+(tier==='basic'?' (scurtă — '+wordCount+' cuvinte)':' (completă — '+wordCount+' cuvinte)')+'</div>';
+    var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('').trim();
+    var clean=raw.replace(/```json|```/g,'').trim();
+    var r;try{r=JSON.parse(clean);}catch(pe){
+      var fixed=clean;if(!fixed.endsWith('}'))fixed+='"]}';
+      var op=(fixed.match(/{/g)||[]).length;var cl2=(fixed.match(/}/g)||[]).length;
+      for(var fi=0;fi<op-cl2;fi++)fixed+='}';
+      try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul nu a putut fi procesat. Încearcă din nou.');}
+    }
+    var rewritten=r.versiune_rescrisa||'';
+    var rwScore=r.scor||0;var rwMax=r.scor_maxim||100;
+    var rwExpl=r.explicatie||'';
+    var rwLv=glv(rwScore,rwMax);var rwPct=Math.round((rwScore/rwMax)*100);
+    var wordCount=rewritten.split(/\s+/).filter(function(w){return w;}).length;
+    var h='<div class="rewrite-result">';
+    // Score circle for rewrite
+    h+='<div class="total" style="border:2px solid '+rwLv.c+'35;margin-bottom:20px"><div class="total-circle" style="background:'+rwLv.c+'20;border:3px solid '+rwLv.c+';color:'+rwLv.c+';text-shadow:0 0 20px '+rwLv.c+'40">'+rwScore+'</div><div><div class="total-label" style="color:'+rwLv.c+';text-shadow:0 0 15px '+rwLv.c+'25">'+rwLv.l+'</div><div class="total-sub">Scorul versiunii rescrise: '+rwScore+' / '+rwMax+' ('+rwPct+'%)</div></div></div>';
+    // Criteria scores for advanced
+    if(tier==='advanced'&&r.criterii_scor&&r.criterii_scor.length){
+      h+='<div class="rcard" style="margin-bottom:20px"><div class="rcard-head">Scoruri versiune rescrisă</div>';
+      r.criterii_scor.forEach(function(c){var m=AC.find(function(x){return x.id===c.id;})||{};var ccl=gbc(c.scor);var cpb=(c.scor/10)*100;
+        h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div></div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+cpb+'%;background:'+ccl+';box-shadow:0 0 8px '+ccl+'30"></div></div><div class="bar-num" style="color:'+ccl+'">'+c.scor+'</div></div></div></div>';
+      });
+      h+='</div>';
+    }
+    // Rewritten text
+    h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Versiune rescrisă ('+wordCount+' cuvinte)</div>';
     h+='<div class="improved-box" style="border-color:rgba(79,193,233,0.25);background:linear-gradient(135deg,rgba(79,193,233,0.1),rgba(79,193,233,0.04))">'+rewritten+'</div>';
+    // Explanation
+    if(rwExpl){h+='<div class="improved-expl" style="margin-top:16px"><strong style="color:#4FC1E9">De ce e mai bună: </strong>'+rwExpl+'</div>';}
+    // Action buttons
     h+='<div style="display:flex;gap:10px;margin-top:14px"><button class="reeval-btn" style="border-color:#4FC1E950;color:#4FC1E9;background:linear-gradient(135deg,#4FC1E915,#4FC1E908)" onclick="useRewrite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Folosește această versiune</button></div>';
-    if(tier==='basic'&&!isUnlocked()){h+='<div style="margin-top:14px;padding:14px 18px;border-radius:12px;background:#F6D44C08;border:1px solid #F6D44C25;text-align:center;font-size:13px;color:#F6D44C;cursor:pointer" onclick="showGate()">🔒 Versiunea completă (300 cuvinte) e disponibilă în modul avansat — <strong>deblochează gratuit</strong></div>';}
+    if(tier==='basic'&&!isUnlocked()){h+='<div style="margin-top:14px;padding:14px 18px;border-radius:12px;background:#F6D44C08;border:1px solid #F6D44C25;text-align:center;font-size:13px;color:#F6D44C;cursor:pointer" onclick="showGate()">🔒 Versiunea completă (300 cuvinte) + evaluare pe 9 criterii — <strong>deblochează gratuit</strong></div>';}
     h+='</div></div>';
     rwD.innerHTML=h;rwD.scrollIntoView({behavior:'smooth',block:'start'});
     lastRewrite=rewritten;
