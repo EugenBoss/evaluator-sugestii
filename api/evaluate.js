@@ -1,7 +1,7 @@
 // --- Protection: Daily Budget ---
 let dailyCount = 0;
 let dailyReset = Date.now();
-const DAILY_LIMIT = 100;
+const DAILY_LIMIT = 300;
 
 function checkDailyBudget() {
   const now = Date.now();
@@ -15,10 +15,10 @@ function checkDailyBudget() {
   return true;
 }
 
-// --- Protection: Cooloff (60s between requests per IP) + Session Cap (5 total per IP) ---
+// --- Protection: Cooloff (60s between requests per IP) + Session Cap (20 total per IP) ---
 const ipMap = new Map();
 const COOLOFF = 60000;    // 60 seconds between requests
-const SESSION_CAP = 5;    // max 5 evaluations per IP
+const SESSION_CAP = 20;   // max 20 evaluations per IP
 
 function getIP(req) {
   return req.headers['x-forwarded-for']?.split(',')[0]?.trim()
