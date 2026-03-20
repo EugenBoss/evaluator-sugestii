@@ -437,8 +437,9 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div class="gate-field"><label>Cod de verificare</label><input type="text" class="gate-otp-input" id="gate-code" placeholder="000000" maxlength="6"><div class="field-err" id="err-code">Introdu codul de 6 cifre</div></div>
       <div class="gate-err-msg" id="gate-err-msg-2"></div>
       <button class="gate-submit" id="gate-submit-2" onclick="verifyOTP()">Verifică și activează</button>
+      <div style="margin-top:16px;padding:14px 16px;border-radius:10px;background:#e8945a08;border:1px solid #e8945a20;font-size:13px;color:#8fb0c0;line-height:1.6;font-weight:400;text-align:center">Dacă nu ai primit codul în 1-2 minute, verifică folderul <strong style="color:#e8945a">Spam</strong>. Dacă tot nu a ajuns, apasă „Retrimite" sau verifică dacă ai scris corect adresa de email.</div>
       <button class="gate-skip" onclick="resendOTP()" id="resend-btn">Nu ai primit codul? Retrimite</button>
-      <button class="gate-skip" onclick="showStep1()">← Modifică datele</button>
+      <button class="gate-skip" onclick="showStep1()">← Modifică adresa de email</button>
     </div>
   </div>
 </div>
