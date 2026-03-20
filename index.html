@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="description" content="Evaluează-ți sugestiile hipnotice pe 9 criterii profesionale. Primești scor obiectiv + feedback + versiune îmbunătățită. Instrument creat de Puterea Minții.">
 <meta name="theme-color" content="#0f1f28">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/logo.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:title" content="Știi cum să Comunici cu Subconștientul tău?">
 <meta property="og:description" content="Scrie o sugestie hipnotică și primești scor obiectiv + feedback pe criterii profesionale. Gratuit.">
 <meta property="og:type" content="website">
@@ -484,7 +488,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
     </div>
   </div>
   <div id="daily-challenge" style="margin-top:20px"></div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div id="tab-antrenament" class="tab-content">
@@ -499,14 +503,14 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   </div>
   <div id="train-error"></div>
   <div id="train-results"></div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div id="tab-biblioteca" class="tab-content">
 <div class="wrap">
   <div style="text-align:center;margin-bottom:28px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#fff;margin-bottom:8px">Biblioteca de Sugestii Model</div><div style="font-size:14px;color:#8fb0c0">Exemple excelente pe categorii terapeutice. Studiază, analizează, învață.</div></div>
   <div id="lib-content"></div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div id="tab-istoric" class="tab-content">
@@ -515,7 +519,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div id="badges-section"></div>
   <div id="leaderboard-section"></div>
   <div id="hist-content"></div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div class="nav" id="main-nav" style="position:sticky;bottom:0;z-index:50;background:linear-gradient(180deg,transparent,#0f1f28 15%);padding-top:20px;padding-bottom:12px">
@@ -707,7 +711,19 @@ function showTab(id,btn){
 function togglePresentation(){
   isPresentation=!isPresentation;
   document.body.classList.toggle('presentation',isPresentation);
-  if(isPresentation){document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');}
+  if(isPresentation){
+    document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
+    // Show QR code overlay
+    var existing=document.getElementById('pres-qr');if(existing)existing.remove();
+    var qrDiv=document.createElement('div');qrDiv.id='pres-qr';
+    qrDiv.style.cssText='position:fixed;bottom:20px;right:20px;padding:16px;background:linear-gradient(145deg,#1e3645,#1a3040);border-radius:16px;border:1px solid #4FC1E930;box-shadow:0 8px 32px rgba(0,0,0,0.4);z-index:100;text-align:center';
+    qrDiv.innerHTML='<div style="font-size:12px;color:#4FC1E9;font-weight:700;margin-bottom:8px;letter-spacing:1px">SCANEAZĂ ȘI ÎNCEARCĂ</div>';
+    qrDiv.appendChild(generateQR(location.href,140));
+    qrDiv.innerHTML+='<div style="font-size:11px;color:#8fb0c0;margin-top:8px">putereamintii.ro</div>';
+    document.body.appendChild(qrDiv);
+  }else{
+    var qr=document.getElementById('pres-qr');if(qr)qr.remove();
+  }
 }
 
 /* === TIER === */
@@ -880,7 +896,7 @@ async function runEval(){
   if(sim>0.85&&sim<1){r._similarNote=true;}
   evalCache={text:text,tier:tier,result:JSON.parse(JSON.stringify(r))};
   // Log evaluation data (fire and forget)
-  try{fetch('/api/log-eval',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text.substring(0,500),score:r.scor_total,score_max:r.scor_maxim,tier:tier,tip_detectat:r.tip_detectat,criterii:JSON.stringify((r.criterii||[]).map(function(c){return{id:c.id,scor:c.scor};})),timestamp:new Date().toISOString()})}).catch(function(){});}catch(e){}
+  try{var _ud=getUserData()||{};fetch('/api/log-eval',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:_ud.name||'',email:_ud.email||'',phone:_ud.phone||'',text:text.substring(0,500),score:r.scor_total,score_max:r.scor_maxim,tier:tier,tip_detectat:r.tip_detectat,criterii:JSON.stringify((r.criterii||[]).map(function(c){return{id:c.id,scor:c.scor};})),timestamp:new Date().toISOString()})}).catch(function(){});}catch(e){}
   renderResult(r);saveHistory(text,r);
   // Increment basic eval counter
   if(tier==='basic'&&!isUnlocked()){var bc=parseInt(localStorage.getItem('basic_eval_count')||'0');localStorage.setItem('basic_eval_count',String(bc+1));updateBasicRemaining();}
@@ -1157,7 +1173,7 @@ async function runTrainEval(){if(isEvaluating)return;var text=document.getElemen
     try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul AI nu a putut fi procesat. Încearcă din nou.');}
   }
   renderTrainResult(r,rD);saveHistory(text,r);
-  try{fetch('/api/log-eval',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:text.substring(0,500),score:r.scor_total,score_max:r.scor_maxim,tier:'training',tip_detectat:r.tip_detectat,criterii:JSON.stringify((r.criterii||[]).map(function(c){return{id:c.id,scor:c.scor};})),timestamp:new Date().toISOString()})}).catch(function(){});}catch(e){}
+  try{var _ud2=getUserData()||{};fetch('/api/log-eval',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:_ud2.name||'',email:_ud2.email||'',phone:_ud2.phone||'',text:text.substring(0,500),score:r.scor_total,score_max:r.scor_maxim,tier:'training',tip_detectat:r.tip_detectat,criterii:JSON.stringify((r.criterii||[]).map(function(c){return{id:c.id,scor:c.scor};})),timestamp:new Date().toISOString()})}).catch(function(){});}catch(e){}
   var tc=parseInt(localStorage.getItem('train_count')||'0');localStorage.setItem('train_count',String(tc+1));
   var tpct=Math.round((r.scor_total/r.scor_maxim)*100);awardXP(r.scor_total,tpct);
   }catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
@@ -1357,7 +1373,7 @@ function renderDailyChallenge(){
   var el=document.getElementById('daily-challenge');if(!el)return;
   var ch=getDailyChallenge();var done=isDailyChallengeComplete();
   if(done){el.innerHTML='<div style="padding:18px 22px;border-radius:12px;background:#5dd9a610;border:1px solid #5dd9a625;text-align:center"><span class="daily-badge" style="background:#5dd9a615;color:#5dd9a6;font-size:14px">✅ Provocare completată</span><div style="font-size:18px;color:#5dd9a6;margin-top:8px">Revino mâine pentru o nouă provocare!</div></div>';return;}
-  el.innerHTML='<div style="padding:24px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #F6D44C25"><span class="daily-badge" style="font-size:14px">📅 Provocarea Zilnică</span><div style="font-size:13px;color:#7fa8b8;margin-bottom:10px;font-weight:400">Te ajută să comunici mai eficient cu Subconștientul tău</div><div style="font-size:20px;color:#e8f0f4;line-height:1.6;margin-bottom:10px">'+ch.text+'</div><div style="font-size:17px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+ch.goal+' · Categorie: '+ch.cat+'</div><button onclick="loadDailyChallenge()" style="margin-top:14px;padding:12px 22px;border-radius:10px;border:1px solid #F6D44C40;background:#F6D44C15;color:#F6D44C;font-size:17px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s">Acceptă provocarea →</button></div>';
+  el.innerHTML='<div style="padding:24px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #F6D44C25"><span class="daily-badge" style="font-size:14px">📅 Provocarea Zilnică</span><div style="font-size:13px;color:#7fa8b8;margin-bottom:10px;font-weight:400">Te ajută să comunici mai eficient cu Subconștientul tău</div><div style="font-size:20px;color:#e8f0f4;line-height:1.6;margin-bottom:10px">'+ch.text+'</div><div style="font-size:17px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+ch.goal+' · Categorie: '+ch.cat+'</div><button onclick="loadDailyChallenge()" style="margin-top:14px;padding:12px 22px;border-radius:10px;border:1px solid #F6D44C40;background:#F6D44C15;color:#F6D44C;font-size:17px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s">Acceptă provocarea →</button><button onclick="create1v1()" style="margin-top:12px;margin-left:8px;padding:12px 22px;border-radius:10px;border:1px solid #e8945a40;background:#e8945a15;color:#e8945a;font-size:17px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s;white-space:nowrap">Provoacă un prieten →</button></div>';
 }
 function loadDailyChallenge(){
   var ch=getDailyChallenge();
@@ -1440,7 +1456,7 @@ function showCookieConsent(){
   if(localStorage.getItem('cookie_ok'))return;
   var d=document.createElement('div');d.id='cookie-bar';
   d.style.cssText='position:fixed;bottom:0;left:0;right:0;padding:14px 20px;background:#1a3040;border-top:1px solid #4FC1E920;z-index:998;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:14px;color:#8fb0c0;font-weight:400';
-  d.innerHTML='Folosim date locale (localStorage) pentru a-ți salva progresul și preferințele. <a href="https://www.putereamintii.ro/termeni-si-conditii/" target="_blank" style="color:#4FC1E9">Detalii</a> <button onclick="localStorage.setItem(\'cookie_ok\',\'1\');document.getElementById(\'cookie-bar\').remove()" style="padding:8px 20px;border-radius:8px;border:none;background:#4FC1E9;color:#0f1f28;font-size:13px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;white-space:nowrap">Accept</button>';
+  d.innerHTML='Folosim date locale (localStorage) pentru a-ți salva progresul și preferințele. <a href="/privacy.html" style="color:#4FC1E9">Politica de confidențialitate</a> <button onclick="localStorage.setItem(\'cookie_ok\',\'1\');document.getElementById(\'cookie-bar\').remove()" style="padding:8px 20px;border-radius:8px;border:none;background:#4FC1E9;color:#0f1f28;font-size:13px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;white-space:nowrap">Accept</button>';
   document.body.appendChild(d);
 }
 
@@ -1505,6 +1521,52 @@ renderDailyChallenge();
 updateBasicRemaining();
 showCookieConsent();
 checkURLParams();
+
+/* === PWA: SERVICE WORKER === */
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(function(){});}
+
+/* === PWA: INSTALL PROMPT === */
+var deferredInstall=null;
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstall=e;showInstallBtn();});
+function showInstallBtn(){
+  var wrap=document.getElementById('xp-bar-wrap');if(!wrap)return;
+  var existing=document.getElementById('pwa-install');if(existing)return;
+  var btn=document.createElement('button');btn.id='pwa-install';
+  btn.style.cssText='width:100%;margin-top:12px;padding:12px 20px;border-radius:10px;border:1px solid #4FC1E930;background:#4FC1E910;color:#4FC1E9;font-size:15px;font-weight:600;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s;display:flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap';
+  btn.innerHTML='📱 Adaugă pe ecranul principal';
+  btn.onclick=function(){if(deferredInstall){deferredInstall.prompt();deferredInstall.userChoice.then(function(){deferredInstall=null;btn.remove();});}};
+  wrap.appendChild(btn);
+}
+
+/* === QR CODE (presentation mode) === */
+function generateQR(text,size){
+  // Simple QR using an external API (no dependencies)
+  var img=document.createElement('img');
+  img.src='https://api.qrserver.com/v1/create-qr-code/?size='+size+'x'+size+'&data='+encodeURIComponent(text)+'&bgcolor=0f1f28&color=4FC1E9&format=svg';
+  img.style.cssText='width:'+size+'px;height:'+size+'px;border-radius:12px;border:2px solid #4FC1E930';
+  return img;
+}
+
+/* === 1V1 CHALLENGE === */
+function create1v1(){
+  var ch=getDailyChallenge();
+  var url=location.origin+location.pathname+'?text=&challenge='+encodeURIComponent(ch.text)+'&goal='+ch.goal;
+  var msg='Provocare 1v1: '+ch.text+' Scor minim: '+ch.goal+'. Încearcă aici: '+url;
+  if(navigator.share){navigator.share({title:'Provocare 1v1 — Evaluator Sugestii',text:msg,url:url}).catch(function(){});}
+  else{navigator.clipboard.writeText(msg).then(function(){alert('Link copiat! Trimite-l prietenului tău.');});}
+}
+
+/* === URL: LOAD 1V1 CHALLENGE === */
+(function(){
+  var params=new URLSearchParams(window.location.search);
+  var ch=params.get('challenge');var goal=params.get('goal');
+  if(ch){
+    var el=document.getElementById('daily-challenge');
+    if(el)el.innerHTML='<div style="padding:24px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #e8945a30"><span class="daily-badge" style="font-size:14px;background:#e8945a15;color:#e8945a">🤝 Provocare 1v1</span><div style="font-size:13px;color:#7fa8b8;margin-bottom:10px;font-weight:400">Un prieten te provoacă!</div><div style="font-size:20px;color:#e8f0f4;line-height:1.6;margin-bottom:10px">'+esc(decodeURIComponent(ch))+'</div><div style="font-size:17px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+(goal||70)+'</div></div>';
+    // Move challenge to top
+    var parent=el.parentNode;parent.insertBefore(el,parent.firstChild);el.style.marginBottom='20px';el.style.marginTop='0';
+  }
+})();
 
 /* === ONBOARDING (first visit only) === */
 function closeOnboarding(){document.getElementById('onboarding').classList.add('hidden');try{localStorage.setItem('ob_seen','1');}catch(e){}}

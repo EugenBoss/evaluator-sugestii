@@ -1,0 +1,18 @@
+{
+  "name": "Evaluator Sugestii Hipnotice — Puterea Minții",
+  "short_name": "Evaluator PM",
+  "description": "Evaluează-ți sugestiile hipnotice pe criterii profesionale",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f1f28",
+  "theme_color": "#0f1f28",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
