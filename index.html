@@ -57,9 +57,9 @@ body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a3
 .tab-content { display: none; }
 .tab-content.active { display: block; }
 .wrap { max-width: 760px; margin: 0 auto; padding: 32px 16px 60px; }
-.tier { display: flex; border-radius: 14px; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); padding: 5px; margin-bottom: 28px; gap: 5px; border: 1px solid #4FC1E915; }
-.tier button { flex: 1; padding: 14px 8px; border: none; border-radius: 10px; cursor: pointer; background: transparent; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; }
-.tier button.on { background: linear-gradient(135deg, #223a47, #1d3340); box-shadow: 0 0 0 1px #4FC1E960, 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 #4FC1E920; }
+.tier { display: flex; border-radius: 12px; background: rgba(0,0,0,0.3); backdrop-filter: blur(8px); padding: 4px; gap: 4px; border: 1px solid #4FC1E915; }
+.tier button { flex: 1; padding: 12px 8px; border: none; border-radius: 9px; cursor: pointer; background: transparent; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; }
+.tier button.on { background: linear-gradient(135deg, #223a47, #1d3340); box-shadow: 0 0 0 1.5px #4FC1E980, 0 4px 12px rgba(0,0,0,0.3), inset 0 1px 0 #4FC1E920; }
 .tier .tl { font-size: 19px; font-weight: 500; color: #607a88; transition: color 0.3s; }
 .tier button.on .tl { font-weight: 700; color: #4FC1E9; }
 .tier .ts { font-size: 16px; color: #405560; margin-top: 3px; transition: color 0.3s; }
@@ -457,20 +457,16 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 </div>
 <div id="tab-evaluare" class="tab-content active">
 <div class="wrap">
-  <div id="daily-challenge" style="margin-bottom:20px"></div>
-  <div class="tier">
-    <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de bază</div><div class="ts">3 criterii</div></button>
-    <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare avansată <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">9 criterii + rescriere</div></button>
-  </div>
   <div class="card">
-    <div class="example-row"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
-    <label class="lbl">Scrie mai jos sugestiile tale și apoi apasă pe butonul galben „Evaluează Sugestia" pentru a vedea scorul tău</label>
+    <label class="lbl">Scrie mai jos sugestia ta și apoi apasă pe butonul galben „Evaluează Sugestia" pentru a vedea scorul tău</label>
     <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..." maxlength="1000" oninput="updateCounter('text','counter-main')"></textarea>
     <div class="char-counter" id="counter-main">0 / 1000 caractere</div>
-    <div class="opts">
-      <div><label class="lbl-s">Tip sugestie</label><select id="tip"><option value="auto">Auto-detect</option><option value="directă">Directă</option><option value="indirectă">Indirectă (Milton Model)</option><option value="mixtă">Mixtă</option></select></div>
-      <div><label class="lbl-s">Obiectiv terapeutic (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
-    </div>
+    <div id="obiectiv-wrap" style="display:none;margin-top:16px"><label class="lbl-s">Subiect sau Scop Sugestie (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
+    <div style="margin-top:18px;text-align:center"><div style="font-size:13px;color:#506a78;margin-bottom:8px">Alege tipul evaluării:</div><div class="tier">
+      <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">De bază</div><div class="ts">3 criterii</div></button>
+      <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Avansată <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">9 criterii + rescriere</div></button>
+    </div></div>
+    <div class="example-row" id="example-row" style="display:none;margin-top:14px"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
     <button class="cta" id="cta" onclick="runEval()">Evaluează sugestia</button>
     <button class="rewrite-cta" id="rewrite-btn" onclick="runRewrite()" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Rescrie sugestia mai bine</button>
     <div id="basic-remaining" style="text-align:center;font-size:13px;color:#506a78;margin-top:8px;display:none"></div>
@@ -479,6 +475,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div id="rewrite-result"></div>
   <div id="results"></div>
   <details><summary id="ref-summary">Referință criterii (3)</summary><div class="ref" id="ref-list"></div></details>
+  <div id="daily-challenge" style="margin-top:28px"></div>
   <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
 </div>
 </div>
@@ -701,7 +698,9 @@ function togglePresentation(){
 /* === TIER === */
 function setTier(t){
   if(t==='advanced'&&!requireGate())return;
-  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();}
+  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();
+  var obWrap=document.getElementById('obiectiv-wrap');if(obWrap)obWrap.style.display=t==='advanced'?'block':'none';
+  var exRow=document.getElementById('example-row');if(exRow)exRow.style.display=t==='advanced'?'flex':'none';}
 function renderRef(){var l=tier==='basic'?BC:AC;document.getElementById('ref-summary').textContent='Referință criterii ('+l.length+')';document.getElementById('ref-list').innerHTML=l.map(function(c){return '<div><span class="rn">'+c.id+'. '+c.name+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
 
 /* === HELPERS === */
@@ -716,7 +715,7 @@ function shareFacebook(score){window.open('https://www.facebook.com/sharer/share
 function copyShareText(score){navigator.clipboard.writeText(getShareText(score)).then(function(){var btn=document.getElementById('share-copy-btn');if(btn){btn.classList.add('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Copiat!';setTimeout(function(){btn.classList.remove('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază link';},2000);}});}
 
 /* === EXAMPLE === */
-function loadExample(){var ex=EXAMPLES[Math.floor(Math.random()*EXAMPLES.length)];document.getElementById('text').value=ex.text;document.getElementById('tip').value=ex.tip==='auto'?'auto':ex.tip;document.getElementById('obiectiv').value=ex.obiectiv||'';document.getElementById('text').focus();}
+function loadExample(){var ex=EXAMPLES[Math.floor(Math.random()*EXAMPLES.length)];document.getElementById('text').value=ex.text;document.getElementById('obiectiv').value=ex.obiectiv||'';document.getElementById('text').focus();}
 
 /* === LOADING STEPS === */
 function startLoading(btn,isTrain){var steps=(isTrain||tier==='advanced')?STEPS_A:STEPS_B;var idx=0;btn.innerHTML='<span class="spinner"></span><span class="loading-text">'+steps[0]+'</span>';loadingInterval=setInterval(function(){idx=(idx+1)%steps.length;var lt=btn.querySelector('.loading-text');if(lt)lt.textContent=steps[idx];},2000);}
@@ -753,7 +752,7 @@ async function runRewrite(){
   var btn=document.getElementById('rewrite-btn');var eD=document.getElementById('error');var rwD=document.getElementById('rewrite-result');
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span><span class="loading-text">Rescriu sugestia...</span>';
   eD.innerHTML='';rwD.innerHTML='';
-  var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
+  var tip='auto';var ob=document.getElementById('obiectiv').value.trim();
   var um='Rescrie și evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
   if(tip!=='auto')um+='\n\nTip sugestie: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
   try{
@@ -833,7 +832,7 @@ async function runEval(){
     }
   }
   isEvaluating=true;
-  var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
+  var tip='auto';var ob=document.getElementById('obiectiv').value.trim();
   var cta=document.getElementById('cta');var eD=document.getElementById('error');var rD=document.getElementById('results');
   cta.disabled=true;startLoading(cta,false);eD.innerHTML='';rD.innerHTML='';document.getElementById('rewrite-result').innerHTML='';
   var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
@@ -1066,7 +1065,7 @@ function renderLibrary(){var el=document.getElementById('lib-content');if(el.inn
 function loadFromLib(ci,ii){if(!requireGate())return;var item=LIBRARY[ci].items[ii];
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
-  document.getElementById('text').value=item.text;document.getElementById('tip').value='auto';document.getElementById('obiectiv').value='';
+  document.getElementById('text').value=item.text;document.getElementById('obiectiv').value='';
   setTier('advanced');document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});}
 
 /* === COUNTRY CODES === */
