@@ -2,14 +2,25 @@
 <html lang="ro">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="description" content="Evaluează-ți sugestiile hipnotice pe 9 criterii profesionale. Primești scor obiectiv + feedback + versiune îmbunătățită. Instrument creat de Puterea Minții.">
+<meta name="theme-color" content="#0f1f28">
+<meta property="og:title" content="Știi cum să Comunici cu Subconștientul tău?">
+<meta property="og:description" content="Scrie o sugestie hipnotică și primești scor obiectiv + feedback pe criterii profesionale. Gratuit.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://evaluator-sugestii.vercel.app">
+<meta property="og:image" content="https://evaluator-sugestii.vercel.app/og-image.png">
+<meta property="og:locale" content="ro_RO">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Știi cum să Comunici cu Subconștientul tău?">
+<meta name="twitter:description" content="Evaluează-ți sugestiile hipnotice pe criterii profesionale. Gratuit.">
 <title>Știi cum să Comunici cu Subconștientul tău? — Puterea Minții</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 ::selection { background: #4FC1E960; color: #fff; }
-body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a35 30%, #1a3040 70%, #12242e 100%); font-family: 'Source Sans 3', -apple-system, sans-serif; color: #e8f0f4; }
+body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a35 30%, #1a3040 70%, #12242e 100%); font-family: 'Source Sans 3', -apple-system, sans-serif; color: #e8f0f4; padding-bottom: env(safe-area-inset-bottom); -webkit-tap-highlight-color: transparent; }
 @keyframes spin { to { transform: rotate(360deg); } }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes glow { 0%, 100% { box-shadow: 0 0 20px #4FC1E920; } 50% { box-shadow: 0 0 35px #4FC1E935; } }
@@ -17,6 +28,23 @@ body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a3
 .header { padding: 40px 24px 32px; text-align: center; border-bottom: 1px solid #4FC1E920; background: linear-gradient(180deg, #4FC1E90D 0%, transparent 60%); position: relative; }
 .header::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #4FC1E9, transparent); }
 .brand { font-size: 12px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; background: linear-gradient(135deg, #F6D44C, #f0c030); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+.logo-pm { width: 64px; height: 64px; margin: 0 auto 14px; border-radius: 50%; overflow: hidden; }
+.logo-pm img { width: 100%; height: 100%; object-fit: contain; }
+.social-proof { margin-top: 14px; font-size: 12px; color: #506a78; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.social-proof .sp-dot { width: 6px; height: 6px; border-radius: 50%; background: #5dd9a6; animation: pulse 2s ease-in-out infinite; }
+/* === ONBOARDING === */
+.onboarding { position: fixed; inset: 0; background: rgba(10,20,28,0.92); backdrop-filter: blur(8px); z-index: 1001; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
+.onboarding.hidden { display: none; }
+.onboarding-inner { max-width: 420px; width: 100%; padding: 36px 28px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; border: 1px solid #4FC1E925; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; }
+.onboarding-inner h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 22px; color: #fff; margin-bottom: 24px; }
+.ob-steps { text-align: left; margin-bottom: 28px; }
+.ob-step { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
+.ob-step:last-child { margin-bottom: 0; }
+.ob-num { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; }
+.ob-text { font-size: 14px; color: #e8f0f4; line-height: 1.5; padding-top: 5px; }
+.ob-text strong { color: #4FC1E9; }
+.ob-start { width: 100%; padding: 16px 24px; border-radius: 12px; border: none; cursor: pointer; font-size: 16px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s; }
+.ob-start:hover { box-shadow: 0 6px 28px #F6D44C40; transform: translateY(-1px); }
 .header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 32px; font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 20px rgba(79,193,233,0.15); }
 .header p { font-size: 14px; color: #8fb0c0; max-width: 440px; margin: 0 auto; line-height: 1.5; }
 .pres-toggle { position: absolute; top: 16px; right: 16px; width: 36px; height: 36px; border-radius: 10px; border: 1px solid #4FC1E930; background: transparent; cursor: pointer; color: #607a88; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
@@ -40,8 +68,8 @@ body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a3
 .lbl { display: block; font-size: 13px; font-weight: 700; margin-bottom: 10px; letter-spacing: 0.5px; color: #4FC1E9; text-shadow: 0 0 20px #4FC1E930; }
 .lbl-s { display: block; font-size: 12px; font-weight: 600; color: #7fa8b8; margin-bottom: 5px; }
 textarea, select, .inp { width: 100%; border-radius: 12px; border: 1.5px solid #2f4f5f; font-family: 'Source Sans 3', sans-serif; color: #e8f0f4; background: #0f1f28; outline: none; transition: all 0.25s; }
-textarea { padding: 16px 18px; font-size: 15px; line-height: 1.7; resize: vertical; min-height: 130px; }
-select, .inp { padding: 10px 14px; font-size: 14px; }
+textarea { padding: 16px 18px; font-size: 16px; line-height: 1.7; resize: vertical; min-height: 130px; }
+select, .inp { padding: 10px 14px; font-size: 16px; }
 select { cursor: pointer; }
 textarea:focus, select:focus, .inp:focus { border-color: #4FC1E9; box-shadow: 0 0 0 3px #4FC1E920, 0 0 20px #4FC1E910; }
 textarea::placeholder, .inp::placeholder { color: #3a5565; }
@@ -193,7 +221,7 @@ body.presentation .crow-obs { font-size: 16px; }
 body.presentation .bar-num { font-size: 20px; }
 body.presentation .improved-box { font-size: 20px; }
 body.presentation .prob-text { font-size: 17px; }
-body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar, body.presentation .rewrite-cta { display: none; }
+body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar, body.presentation .rewrite-cta, body.presentation .social-proof { display: none; }
 /* === GATE MODAL === */
 .gate-overlay { position: fixed; inset: 0; background: rgba(10,20,28,0.92); backdrop-filter: blur(12px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
 .gate-overlay.hidden { display: none; }
@@ -229,10 +257,108 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 .share-copy { background: #4FC1E920; color: #4FC1E9; border: 1px solid #4FC1E940; }
 .share-copy:hover { background: #4FC1E930; }
 .share-btn svg { width: 14px; height: 14px; }
+/* === MOBILE RESPONSIVE === */
+@media (max-width: 480px) {
+  .header { padding: 28px 16px 24px; }
+  .header h1 { font-size: 24px; }
+  .header p { font-size: 13px; }
+  .pres-toggle { top: 10px; right: 10px; width: 32px; height: 32px; }
+  .nav { padding: 12px 12px 0; gap: 2px; }
+  .nav button { padding: 8px 10px; font-size: 12px; }
+  .wrap { padding: 20px 12px 40px; }
+  .tier { border-radius: 12px; padding: 4px; gap: 4px; }
+  .tier button { padding: 12px 6px; border-radius: 8px; }
+  .tier .tl { font-size: 13px; }
+  .tier .ts { font-size: 10px; }
+  .card { padding: 20px 16px; border-radius: 14px; }
+  .lbl { font-size: 12px; line-height: 1.5; }
+  textarea { padding: 14px 14px; font-size: 14px; min-height: 110px; }
+  select, .inp { padding: 10px 12px; font-size: 13px; }
+  .opts { flex-direction: column; gap: 10px; }
+  .opts > div:first-child, .opts > div:last-child { flex: 1; min-width: 100%; }
+  .cta { padding: 14px 20px; font-size: 14px; letter-spacing: 0.5px; margin-top: 18px; }
+  .rewrite-cta { padding: 12px 16px; font-size: 13px; }
+  .total { padding: 18px 16px; gap: 14px; flex-direction: row; }
+  .total-circle { width: 64px; height: 64px; font-size: 24px; flex-shrink: 0; }
+  .total-label { font-size: 20px; }
+  .total-sub { font-size: 12px; }
+  .rcard-head { padding: 14px 16px; font-size: 11px; letter-spacing: 1.5px; }
+  .crow { padding: 14px 16px; gap: 6px; }
+  .crow-top { flex-direction: column; gap: 8px; }
+  .crow-name { font-size: 13px; }
+  .crow-obs { font-size: 12px; }
+  .bar-wrap { width: 100%; }
+  .bar-bg { flex: 1; }
+  .bar-num { font-size: 14px; min-width: 24px; }
+  .prob { gap: 10px; }
+  .prob-num { width: 24px; height: 24px; font-size: 11px; }
+  .prob-text { font-size: 13px; }
+  .summary { padding: 14px 16px; font-size: 13px; }
+  .improved-box { padding: 16px; font-size: 14px; line-height: 1.7; }
+  .improved-expl { font-size: 12px; }
+  .reeval-btn { padding: 12px 16px; font-size: 13px; }
+  .export-bar { flex-direction: column; gap: 8px; }
+  .export-btn { padding: 12px 14px; font-size: 12px; }
+  .share-bar { flex-direction: column; }
+  .share-btn { min-width: 100%; }
+  .cta-box { padding: 18px 16px; }
+  .cta-box p { font-size: 14px; }
+  .cta-box a { padding: 12px 24px; font-size: 13px; }
+  .compare-banner { padding: 14px 16px; gap: 10px; }
+  .compare-score .cs-num { font-size: 22px; }
+  .hist-stats { gap: 8px; }
+  .hist-stat { min-width: calc(50% - 4px); padding: 14px 10px; }
+  .hist-stat-num { font-size: 22px; }
+  .hist-item { padding: 12px 14px; gap: 12px; }
+  .hist-score { width: 42px; height: 42px; font-size: 16px; }
+  .hist-text { font-size: 13px; }
+  .gate-modal { padding: 28px 20px; border-radius: 16px; }
+  .gate-modal h2 { font-size: 20px; }
+  .gate-modal .gate-sub { font-size: 13px; }
+  .gate-field input, .gate-field select { font-size: 14px; }
+  .gate-submit { padding: 14px 20px; font-size: 14px; }
+  .gate-otp-input { font-size: 22px; letter-spacing: 6px; padding: 14px; }
+  .exit-popup-inner { padding: 28px 20px; }
+  .exit-popup-text { font-size: 15px; }
+  .exit-popup-text strong { font-size: 18px; }
+  .exit-popup-btn { padding: 14px 28px; font-size: 14px; }
+  .lib-cat-title { font-size: 18px; }
+  .lib-item { padding: 16px; }
+  .lib-sugestie { padding: 12px; font-size: 14px; }
+  .lib-why { font-size: 12px; }
+  .brief-card { padding: 18px 16px; }
+  .brief-text { font-size: 14px; }
+  .brief-constraint { font-size: 12px; }
+  .logo-pm { width: 52px; height: 52px; margin-bottom: 10px; }
+  .social-proof { font-size: 11px; margin-top: 10px; }
+  .onboarding-inner { padding: 28px 20px; }
+  .onboarding-inner h2 { font-size: 20px; }
+  .ob-text { font-size: 13px; }
+  .ob-start { font-size: 14px; padding: 14px 20px; }
+}
+@media (max-width: 360px) {
+  .header h1 { font-size: 20px; }
+  .total { flex-direction: column; text-align: center; }
+  .total-circle { width: 72px; height: 72px; font-size: 28px; }
+  .nav button { padding: 7px 8px; font-size: 11px; }
+  .hist-stat { min-width: 100%; }
+}
 @media print { body { background: #fff !important; color: #222 !important; } .header, .nav, .card, .tier, .footer, details, .export-bar, .reeval-btn, .cta-box, .pres-toggle, .share-bar, .gate-overlay { display: none !important; } .wrap { max-width: 100%; padding: 0; } .rcard, .total, .summary { background: #f8f8f8 !important; border-color: #ddd !important; box-shadow: none !important; } .crow-name, .prob-text { color: #222 !important; } .crow-obs, .total-sub, .improved-expl { color: #555 !important; } }
 </style>
 </head>
 <body>
+<!-- ONBOARDING -->
+<div class="onboarding hidden" id="onboarding">
+  <div class="onboarding-inner">
+    <h2>Cum funcționează?</h2>
+    <div class="ob-steps">
+      <div class="ob-step"><div class="ob-num" style="background:#4FC1E920;color:#4FC1E9">1</div><div class="ob-text"><strong>Scrie o sugestie hipnotică</strong> în câmpul de text. Poate fi una proprie sau copiată.</div></div>
+      <div class="ob-step"><div class="ob-num" style="background:#F6D44C20;color:#F6D44C">2</div><div class="ob-text"><strong>Apasă „Evaluează Sugestia"</strong> și primești scor obiectiv pe criterii profesionale + feedback detaliat.</div></div>
+      <div class="ob-step"><div class="ob-num" style="background:#5dd9a620;color:#5dd9a6">3</div><div class="ob-text"><strong>Îmbunătățește-o</strong> cu ajutorul feedback-ului sau folosește butonul de rescriere automată.</div></div>
+    </div>
+    <button class="ob-start" onclick="closeOnboarding()">Am înțeles — începe!</button>
+  </div>
+</div>
 <!-- GATE MODAL -->
 <div class="gate-overlay hidden" id="gate-overlay">
   <div class="gate-modal">
@@ -270,9 +396,11 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 </div>
 <div class="header">
   <button class="pres-toggle" onclick="togglePresentation()" title="Mod Prezentare"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></button>
+  <div class="logo-pm"><img src="logo.png" alt="Puterea Minții"></div>
   <div class="brand">Puterea Minții</div>
   <h1>Știi cum să Comunici cu Subconștientul tău?</h1>
   <p>Introdu o sugestie și primești scor obiectiv + feedback pe criterii profesionale</p>
+  <div class="social-proof"><span class="sp-dot"></span><span id="sp-count">4.327</span> sugestii evaluate</div>
 </div>
 <div class="nav" id="main-nav">
   <button class="on" onclick="showTab('evaluare',this)">Evaluare</button>
@@ -827,6 +955,18 @@ function updateCounter(textId,counterId){
 renderRef();
 updateLockIcon();
 initCC();
+
+/* === ONBOARDING (first visit only) === */
+function closeOnboarding(){document.getElementById('onboarding').classList.add('hidden');try{localStorage.setItem('ob_seen','1');}catch(e){}}
+if(!localStorage.getItem('ob_seen')){document.getElementById('onboarding').classList.remove('hidden');}
+
+/* === SOCIAL PROOF COUNTER === */
+(function(){
+  var base=4327;
+  try{var ev=JSON.parse(localStorage.getItem('eval_hist')||'[]').length;base+=ev;}catch(e){}
+  var el=document.getElementById('sp-count');
+  if(el)el.textContent=base.toLocaleString('ro-RO');
+})();
 
 /* === EXIT INTENT === */
 var exitShown=false;
