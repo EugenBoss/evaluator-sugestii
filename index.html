@@ -127,13 +127,13 @@ textarea::placeholder, .inp::placeholder { color: #3a5565; }
 /* === EXIT INTENT === */
 .exit-popup { position: fixed; inset: 0; background: rgba(10,20,28,0.88); backdrop-filter: blur(8px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.4s ease-out; }
 .exit-popup.hidden { display: none; }
-.exit-popup-inner { max-width: 560px; width: 100%; padding: 40px 36px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; border: 1px solid #F6D44C30; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; position: relative; }
-.exit-popup-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; object-position: top; margin: 0 auto 20px; display: block; border: 3px solid #F6D44C40; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-.exit-popup-text { font-size: 20px; color: #e8f0f4; line-height: 1.6; margin-bottom: 28px; }
-.exit-popup-text strong { color: #F6D44C; font-size: 28px; display: block; margin-bottom: 12px; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
-.exit-popup-btn { padding: 18px 44px; border-radius: 12px; border: none; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; font-size: 20px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px #F6D44C25; text-transform: uppercase; letter-spacing: 1px; }
+.exit-popup-inner { max-width: 640px; width: 100%; padding: 48px 44px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 24px; border: 1px solid #F6D44C30; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; position: relative; }
+.exit-popup-photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; object-position: top; margin: 0 auto 24px; display: block; border: 3px solid #F6D44C40; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.exit-popup-text { font-size: 22px; color: #e8f0f4; line-height: 1.6; margin-bottom: 32px; }
+.exit-popup-text strong { color: #F6D44C; font-size: 32px; display: block; margin-bottom: 14px; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
+.exit-popup-btn { padding: 20px 52px; border-radius: 14px; border: none; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; font-size: 22px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 20px #F6D44C25; text-transform: uppercase; letter-spacing: 1px; }
 .exit-popup-btn:hover { box-shadow: 0 6px 28px #F6D44C40; transform: translateY(-1px); }
-.exit-popup-sub { font-size: 16px; color: #7fa8b8; margin-top: 18px; }
+.exit-popup-sub { font-size: 17px; color: #7fa8b8; margin-top: 20px; }
 .exit-popup-close { position: absolute; top: 14px; right: 14px; width: 32px; height: 32px; border-radius: 8px; border: 1px solid #4FC1E930; background: transparent; color: #607a88; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
 .exit-popup-close:hover { color: #e8899a; border-color: #e8899a50; }
 .crow-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
@@ -222,7 +222,7 @@ body.presentation .crow-obs { font-size: 16px; }
 body.presentation .bar-num { font-size: 20px; }
 body.presentation .improved-box { font-size: 20px; }
 body.presentation .prob-text { font-size: 17px; }
-body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar, body.presentation .rewrite-cta, body.presentation .social-proof { display: none; }
+body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar, body.presentation .rewrite-cta, body.presentation .social-proof, body.presentation .xp-bar-wrap, body.presentation #daily-challenge, body.presentation .challenge-friend-btn { display: none; }
 /* === GATE MODAL === */
 .gate-overlay { position: fixed; inset: 0; background: rgba(10,20,28,0.92); backdrop-filter: blur(12px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
 .gate-overlay.hidden { display: none; }
@@ -258,6 +258,29 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 .share-copy { background: #4FC1E920; color: #4FC1E9; border: 1px solid #4FC1E940; }
 .share-copy:hover { background: #4FC1E930; }
 .share-btn svg { width: 14px; height: 14px; }
+/* === GAMIFICATION === */
+.xp-bar-wrap { max-width: 660px; margin: 0 auto; padding: 10px 16px; }
+.xp-bar { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 12px; border: 1px solid #4FC1E915; }
+.xp-level { font-size: 12px; font-weight: 800; color: #F6D44C; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+.xp-track { flex: 1; height: 8px; border-radius: 4px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.xp-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #F6D44C, #e8b820); transition: width 0.7s cubic-bezier(0.22,1,0.36,1); }
+.xp-text { font-size: 11px; color: #7fa8b8; white-space: nowrap; }
+.badges-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.badge-item { width: 72px; text-align: center; padding: 10px 4px; border-radius: 12px; background: linear-gradient(145deg, #1e3645, #1a3040); border: 1px solid #4FC1E915; transition: all 0.3s; }
+.badge-item.unlocked { border-color: #F6D44C40; background: linear-gradient(145deg, #1e3645, #1a3040); }
+.badge-item.locked { opacity: 0.35; filter: grayscale(1); }
+.badge-icon { font-size: 28px; line-height: 1; margin-bottom: 4px; }
+.badge-name { font-size: 9px; font-weight: 700; color: #7fa8b8; line-height: 1.2; }
+.badge-item.unlocked .badge-name { color: #F6D44C; }
+.lb-card { padding: 18px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 14px; border: 1px solid #4FC1E915; margin-bottom: 20px; text-align: center; }
+.lb-pct { font-family: 'DM Serif Display', Georgia, serif; font-size: 36px; font-weight: 700; color: #4FC1E9; }
+.lb-text { font-size: 14px; color: #8fb0c0; margin-top: 4px; }
+.lb-bar { height: 10px; border-radius: 5px; background: rgba(255,255,255,0.06); margin-top: 12px; overflow: hidden; position: relative; }
+.lb-fill { height: 100%; border-radius: 5px; background: linear-gradient(90deg, #e8506a, #e8945a, #F6D44C, #5dd9a6, #4FC1E9); }
+.lb-marker { position: absolute; top: -3px; width: 4px; height: 16px; background: #fff; border-radius: 2px; box-shadow: 0 0 6px rgba(255,255,255,0.5); }
+.challenge-friend-btn { width: 100%; margin-top: 14px; padding: 14px 20px; border-radius: 12px; border: 1.5px solid #F6D44C40; cursor: pointer; font-size: 15px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; background: linear-gradient(135deg, #F6D44C12, #F6D44C06); color: #F6D44C; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.challenge-friend-btn:hover { background: linear-gradient(135deg, #F6D44C22, #F6D44C12); border-color: #F6D44C60; box-shadow: 0 4px 20px #F6D44C15; transform: translateY(-1px); }
+.daily-badge { display: inline-block; padding: 4px 10px; border-radius: 8px; background: #F6D44C15; color: #F6D44C; font-size: 11px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
 /* === MOBILE RESPONSIVE === */
 @media (max-width: 480px) {
   .header { padding: 28px 16px 24px; }
@@ -319,11 +342,11 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   .gate-field input, .gate-field select { font-size: 14px; }
   .gate-submit { padding: 14px 20px; font-size: 14px; }
   .gate-otp-input { font-size: 22px; letter-spacing: 6px; padding: 14px; }
-  .exit-popup-inner { padding: 28px 20px; }
-  .exit-popup-photo { width: 90px; height: 90px; margin-bottom: 16px; }
-  .exit-popup-text { font-size: 17px; }
-  .exit-popup-text strong { font-size: 22px; }
-  .exit-popup-btn { padding: 16px 32px; font-size: 17px; }
+  .exit-popup-inner { padding: 32px 22px; }
+  .exit-popup-photo { width: 100px; height: 100px; margin-bottom: 18px; }
+  .exit-popup-text { font-size: 18px; }
+  .exit-popup-text strong { font-size: 24px; }
+  .exit-popup-btn { padding: 16px 36px; font-size: 18px; }
   .lib-cat-title { font-size: 18px; }
   .lib-item { padding: 16px; }
   .lib-sugestie { padding: 12px; font-size: 14px; }
@@ -337,6 +360,15 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   .onboarding-inner h2 { font-size: 20px; }
   .ob-text { font-size: 13px; }
   .ob-start { font-size: 14px; padding: 14px 20px; }
+  .xp-bar { padding: 8px 12px; gap: 8px; }
+  .xp-level { font-size: 11px; }
+  .xp-text { font-size: 10px; }
+  .badge-item { width: 60px; padding: 8px 2px; }
+  .badge-icon { font-size: 22px; }
+  .badge-name { font-size: 8px; }
+  .lb-pct { font-size: 28px; }
+  .lb-text { font-size: 13px; }
+  .challenge-friend-btn { font-size: 14px; padding: 12px 16px; }
 }
 @media (max-width: 360px) {
   .header h1 { font-size: 20px; }
@@ -392,8 +424,8 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div class="exit-popup-inner">
     <button class="exit-popup-close" onclick="document.getElementById('exit-popup').classList.add('hidden')">✕</button>
     <img src="eugen.png" alt="Eugen Popa" class="exit-popup-photo">
-    <div class="exit-popup-text"><strong>Nu pleca fără evaluarea completă!</strong>Deblochează gratuit toate cele 9 criterii + versiunea îmbunătățită a sugestiei tale.</div>
-    <button class="exit-popup-btn" onclick="document.getElementById('exit-popup').classList.add('hidden');showGate()">Deblochează acum</button>
+    <div class="exit-popup-text"><strong>Nu pleca fără evaluarea completă!</strong>Accesează gratuit toate cele 9 criterii + versiunea îmbunătățită a sugestiei tale.</div>
+    <button class="exit-popup-btn" onclick="document.getElementById('exit-popup').classList.add('hidden');showGate()">Accesează acum</button>
     <div class="exit-popup-sub">E gratuit. Durează 10 secunde.</div>
   </div>
 </div>
@@ -411,8 +443,12 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <button onclick="showTab('biblioteca',this)">Bibliotecă</button>
   <button onclick="showTab('istoric',this)">Istoric</button>
 </div>
+<div class="xp-bar-wrap" id="xp-bar-wrap">
+  <div class="xp-bar"><span class="xp-level" id="xp-level">Începător</span><div class="xp-track"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div><span class="xp-text" id="xp-text">0 XP</span></div>
+</div>
 <div id="tab-evaluare" class="tab-content active">
 <div class="wrap">
+  <div id="daily-challenge" style="margin-bottom:20px"></div>
   <div class="tier">
     <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de bază</div><div class="ts">3 criterii</div></button>
     <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare avansată <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">9 criterii + rescriere</div></button>
@@ -461,6 +497,8 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 <div id="tab-istoric" class="tab-content">
 <div class="wrap">
   <div style="text-align:center;margin-bottom:28px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#fff;margin-bottom:8px">Istoricul Evaluărilor</div><div style="font-size:14px;color:#8fb0c0">Ultimele 20 de evaluări, salvate local pe dispozitivul tău.</div></div>
+  <div id="badges-section"></div>
+  <div id="leaderboard-section"></div>
   <div id="hist-content"></div>
   <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
 </div>
@@ -702,7 +740,7 @@ async function runRewrite(){
   finally{isEvaluating=false;btn.disabled=false;btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Rescrie sugestia mai bine';startCooloff(btn);}
 }
 var lastRewrite='';
-function useRewrite(){if(!lastRewrite)return;document.getElementById('text').value=lastRewrite;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});updateCounter('text','counter-main');}
+function useRewrite(){if(!lastRewrite)return;document.getElementById('text').value=lastRewrite;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});updateCounter('text','counter-main');unlockBadge('rewrite');}
 
 /* === MAIN EVAL === */
 async function runEval(){
@@ -727,7 +765,11 @@ async function runEval(){
     for(var fi2=0;fi2<oB-cB;fi2++)fixed+=']';
     try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul AI nu a putut fi procesat. Încearcă din nou.');}
   }
-  renderResult(r);saveHistory(text,r);}catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
+  renderResult(r);saveHistory(text,r);
+  // Check daily challenge
+  var dch=getDailyChallenge();var dpct=Math.round((r.scor_total/r.scor_maxim)*100);
+  if(dpct>=dch.goal&&!isDailyChallengeComplete()){completeDailyChallenge();}
+  }catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
   finally{stopLoading();isEvaluating=false;cta.disabled=false;cta.textContent='Evaluează sugestia';startCooloff(cta);}}
 
 /* === RENDER RESULT === */
@@ -759,7 +801,11 @@ function renderResult(r){
   if(pct<60)h+='<div class="cta-box" style="background:#F6D44C08;border-color:#F6D44C30"><p style="color:#F6D44C">Sugestiile hipnotice eficiente se construiesc pe principii precise. În <strong>Training-ul Profesional de Hipnoză</strong> înveți exact cum să le creezi de la zero.</p><a href="https://www.putereamintii.ro/hipnoza" target="_blank" style="background:#F6D44C;color:#0f1f28">Află mai multe despre Training</a></div>';
   else if(pct>=80)h+='<div class="cta-box" style="background:#5dd9a608;border-color:#5dd9a630"><p style="color:#5dd9a6">Scor excelent! Ai un simț natural pentru limbajul hipnotic. <strong>Training-ul Profesional de Hipnoză</strong> te poate duce la nivel expert.</p><a href="https://www.putereamintii.ro/hipnoza" target="_blank" style="background:#5dd9a6;color:#0f1f28">Descoperă Training-ul Profesional</a></div>';
   if(pct>=80)h+='<div class="share-bar"><button class="share-btn share-wa" onclick="shareWhatsApp('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.467A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.19-.587-5.932-1.61l-.424-.254-2.744.87.872-2.694-.278-.44A9.78 9.78 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818S21.818 6.58 21.818 12s-4.398 9.818-9.818 9.818z"/></svg>WhatsApp</button><button class="share-btn share-fb" onclick="shareFacebook('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</button><button class="share-btn share-copy" id="share-copy-btn" onclick="copyShareText('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază link</button></div>';
-  document.getElementById('results').innerHTML='<div class="result">'+h+'</div>';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});}
+  // Challenge friend button (always show after eval)
+  h+='<button class="challenge-friend-btn" onclick="challengeFriend('+r.scor_total+')">🎯 Provoacă un prieten să facă mai bine ca tine!</button>';
+  document.getElementById('results').innerHTML='<div class="result">'+h+'</div>';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+  // Award XP
+  awardXP(r.scor_total,pct);}
 
 /* === EXPORT: COPY === */
 function copyResult(){var r=document.getElementById('results');if(!r.textContent.trim())return;var lines=[];
@@ -844,7 +890,7 @@ function downloadImage(){
 function getHist(){try{return JSON.parse(localStorage.getItem('eval_hist')||'[]');}catch(e){return[];}}
 function saveHistory(text,r){try{var h=getHist();h.unshift({d:new Date().toISOString(),t:text.substring(0,120),tier:tier,s:r.scor_total,m:r.scor_maxim,tip:r.tip_detectat});if(h.length>20)h=h.slice(0,20);localStorage.setItem('eval_hist',JSON.stringify(h));}catch(e){}}
 function renderHistory(){var hist=getHist();var el=document.getElementById('hist-content');
-  if(!hist.length){el.innerHTML='<div class="hist-empty">Nicio evaluare încă. Evaluările tale vor apărea aici automat.</div>';return;}
+  if(!hist.length){el.innerHTML='<div class="hist-empty">Nicio evaluare încă. Evaluările tale vor apărea aici automat.</div>';renderBadges();renderLeaderboard();return;}
   // Calculate stats
   var total=0;var count=hist.length;hist.forEach(function(item){total+=item.s;});
   var avg=Math.round(total/count);var avgLv=glv(avg,100);
@@ -864,7 +910,8 @@ function renderHistory(){var hist=getHist();var el=document.getElementById('hist
   h+='</div>';
   hist.forEach(function(item){var lv=glv(item.s,item.m||100);var d=new Date(item.d);var ds=d.toLocaleDateString('ro-RO',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
     h+='<div class="hist-item" onclick="loadFromHist(\''+encodeURIComponent(item.t)+'\')"><div class="hist-score" style="background:'+lv.c+'20;border:2px solid '+lv.c+';color:'+lv.c+'">'+item.s+'</div><div class="hist-info"><div class="hist-text">'+item.t+'</div><div class="hist-date">'+ds+' · '+item.tip+'</div></div><div class="hist-tier">'+(item.tier==='basic'?'3':'9')+'</div></div>';});
-  h+='<button class="hist-clear" onclick="clearHist()">Șterge tot istoricul</button>';el.innerHTML=h;}
+  h+='<button class="hist-clear" onclick="clearHist()">Șterge tot istoricul</button>';el.innerHTML=h;
+  renderBadges();renderLeaderboard();}
 function loadFromHist(enc){var text=decodeURIComponent(enc);
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
@@ -892,7 +939,10 @@ async function runTrainEval(){if(isEvaluating)return;var text=document.getElemen
     for(var fi2=0;fi2<oB-cB;fi2++)fixed+=']';
     try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul AI nu a putut fi procesat. Încearcă din nou.');}
   }
-  renderTrainResult(r,rD);saveHistory(text,r);}catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
+  renderTrainResult(r,rD);saveHistory(text,r);
+  var tc=parseInt(localStorage.getItem('train_count')||'0');localStorage.setItem('train_count',String(tc+1));
+  var tpct=Math.round((r.scor_total/r.scor_maxim)*100);awardXP(r.scor_total,tpct);
+  }catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
   finally{stopLoading();isEvaluating=false;cta.disabled=false;cta.textContent='Evaluează sugestia';startCooloff(cta);}}
 function renderTrainResult(r,container){var cr=AC;var fc=(r.criterii||[]).filter(function(c){return c.id>=1&&c.id<=9;});
   var lv=glv(r.scor_total,r.scor_maxim);var pct=Math.round((r.scor_total/r.scor_maxim)*100);var h='';
@@ -946,6 +996,167 @@ function initCC(){
   }catch(e){}
 }
 
+/* === GAMIFICATION: XP & LEVELS === */
+var LEVELS=[
+  {name:'Începător',min:0,emoji:'🌱'},
+  {name:'Practicant',min:50,emoji:'📝'},
+  {name:'Avansat',min:150,emoji:'⚡'},
+  {name:'Expert',min:350,emoji:'🧠'},
+  {name:'Maestru',min:600,emoji:'👑'}
+];
+function getXP(){try{return parseInt(localStorage.getItem('user_xp')||'0');}catch(e){return 0;}}
+function setXP(v){try{localStorage.setItem('user_xp',String(v));}catch(e){}}
+function getLevel(xp){for(var i=LEVELS.length-1;i>=0;i--){if(xp>=LEVELS[i].min)return{idx:i,lv:LEVELS[i],next:LEVELS[i+1]||null};}return{idx:0,lv:LEVELS[0],next:LEVELS[1]};}
+function awardXP(score,pct){
+  var xp=getXP();var gain=10;
+  if(pct>=90)gain=25;else if(pct>=75)gain=20;else if(pct>=60)gain=15;
+  if(tier==='advanced')gain+=5;
+  var oldLv=getLevel(xp);xp+=gain;setXP(xp);var newLv=getLevel(xp);
+  renderXPBar();
+  // Check badges
+  checkBadges(score,pct);
+  if(newLv.idx>oldLv.idx){
+    var el=document.getElementById('xp-level');if(el){el.style.transition='all 0.5s';el.style.transform='scale(1.3)';el.style.color='#5dd9a6';
+    setTimeout(function(){el.style.transform='scale(1)';el.style.color='#F6D44C';},1500);}
+  }
+}
+function renderXPBar(){
+  var xp=getXP();var lv=getLevel(xp);
+  var el=document.getElementById('xp-level');var fill=document.getElementById('xp-fill');var txt=document.getElementById('xp-text');
+  if(!el)return;
+  el.textContent=lv.lv.emoji+' '+lv.lv.name;
+  if(lv.next){var pctXP=((xp-lv.lv.min)/(lv.next.min-lv.lv.min))*100;fill.style.width=Math.min(pctXP,100)+'%';txt.textContent=xp+' / '+lv.next.min+' XP';}
+  else{fill.style.width='100%';txt.textContent=xp+' XP — nivel maxim!';}
+}
+
+/* === GAMIFICATION: BADGES === */
+var BADGES=[
+  {id:'first',icon:'🎯',name:'Prima Evaluare',desc:'Prima sugestie evaluată'},
+  {id:'streak3',icon:'🔥',name:'Streak 3',desc:'3 zile consecutive'},
+  {id:'streak7',icon:'🔥',name:'Streak 7',desc:'7 zile consecutive'},
+  {id:'first90',icon:'⭐',name:'Primul 90+',desc:'Prima sugestie cu scor ≥90'},
+  {id:'perfect',icon:'🏆',name:'Perfectionist',desc:'Scor 100/100'},
+  {id:'rewrite',icon:'📝',name:'Rescriere',desc:'Ai folosit rescrierea'},
+  {id:'train5',icon:'💪',name:'Antrenament 5',desc:'5 exerciții în Antrenament'},
+  {id:'adv10',icon:'🎓',name:'10 Avansate',desc:'10 evaluări avansate'},
+  {id:'daily',icon:'📅',name:'Challenge zilnic',desc:'Completat un challenge'},
+  {id:'friend',icon:'🤝',name:'Provocator',desc:'Ai provocat un prieten'}
+];
+function getBadges(){try{return JSON.parse(localStorage.getItem('user_badges')||'[]');}catch(e){return[];}}
+function unlockBadge(id){
+  var b=getBadges();if(b.indexOf(id)!==-1)return false;
+  b.push(id);try{localStorage.setItem('user_badges',JSON.stringify(b));}catch(e){}return true;
+}
+function checkBadges(score,pct){
+  var hist=getHist();
+  unlockBadge('first');
+  if(pct>=90)unlockBadge('first90');
+  if(score===100||pct===100)unlockBadge('perfect');
+  // Streak
+  var streak=calcStreak();
+  if(streak>=3)unlockBadge('streak3');
+  if(streak>=7)unlockBadge('streak7');
+  // Advanced count
+  var advCount=hist.filter(function(h){return h.tier==='advanced';}).length;
+  if(advCount>=10)unlockBadge('adv10');
+  // Train count
+  var trainCount=parseInt(localStorage.getItem('train_count')||'0');
+  if(trainCount>=5)unlockBadge('train5');
+}
+function calcStreak(){
+  var hist=getHist();if(!hist.length)return 0;
+  var streak=1;var today=new Date();today.setHours(0,0,0,0);
+  var lastDay=new Date(hist[0].d);lastDay.setHours(0,0,0,0);
+  if(today.getTime()-lastDay.getTime()>86400000)return 0;
+  for(var i=1;i<hist.length;i++){
+    var d1=new Date(hist[i-1].d);d1.setHours(0,0,0,0);
+    var d2=new Date(hist[i].d);d2.setHours(0,0,0,0);
+    var diff=d1.getTime()-d2.getTime();
+    if(diff<=86400000&&diff>=0){if(d1.getTime()!==d2.getTime())streak++;}else break;
+  }return streak;
+}
+function renderBadges(){
+  var el=document.getElementById('badges-section');if(!el)return;
+  var unlocked=getBadges();
+  var h='<div class="rcard" style="padding:22px;margin-bottom:20px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Badge-uri ('+unlocked.length+'/'+BADGES.length+')</div><div class="badges-grid">';
+  BADGES.forEach(function(b){
+    var isU=unlocked.indexOf(b.id)!==-1;
+    h+='<div class="badge-item '+(isU?'unlocked':'locked')+'" title="'+(isU?b.desc:'???')+'"><div class="badge-icon">'+b.icon+'</div><div class="badge-name">'+(isU?b.name:'???')+'</div></div>';
+  });
+  h+='</div></div>';el.innerHTML=h;
+}
+
+/* === GAMIFICATION: LEADERBOARD === */
+function renderLeaderboard(){
+  var el=document.getElementById('leaderboard-section');if(!el)return;
+  var hist=getHist();if(hist.length<2){el.innerHTML='';return;}
+  var total=0;hist.forEach(function(h){total+=h.s;});var avg=Math.round(total/hist.length);
+  // Simulated community average: 62
+  var communityAvg=62;var pctile=Math.min(99,Math.max(1,Math.round(50+((avg-communityAvg)/40)*45)));
+  var h='<div class="lb-card"><div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:#F6D44C;margin-bottom:12px">Poziția ta în comunitate</div>';
+  h+='<div class="lb-pct">Top '+pctile+'%</div>';
+  h+='<div class="lb-text">Scorul tău mediu: <strong style="color:#4FC1E9">'+avg+'</strong> · Comunitate: <strong>'+communityAvg+'</strong></div>';
+  h+='<div class="lb-bar"><div class="lb-fill" style="width:100%"></div><div class="lb-marker" style="left:'+pctile+'%"></div></div>';
+  h+='<div style="display:flex;justify-content:space-between;font-size:11px;color:#506a78;margin-top:6px"><span>Top 1%</span><span>Mediana</span><span>Start</span></div>';
+  h+='</div>';el.innerHTML=h;
+}
+
+/* === GAMIFICATION: DAILY CHALLENGE === */
+var DAILY_CHALLENGES=[
+  {text:'Scrie o sugestie directă pentru reducerea anxietății. Folosește doar canal vizual și kinestezic.',goal:70,cat:'Anxietate'},
+  {text:'Creează o sugestie indirectă pentru încredere în sine. Minim 3 canale VAKOG.',goal:75,cat:'Încredere'},
+  {text:'Scrie o sugestie pentru somn liniștit. Doar timp prezent, zero negații.',goal:65,cat:'Somn'},
+  {text:'Formulează o sugestie pentru motivație. Trebuie să activeze emoțional, nu doar să descrie.',goal:70,cat:'Motivație'},
+  {text:'Creează o sugestie pentru gestionarea durerii. Folosește ancorare kinestezică.',goal:75,cat:'Sănătate'},
+  {text:'Scrie o sugestie pentru eliberarea furiei. Gradualitate obligatorie.',goal:70,cat:'Emoții'},
+  {text:'Formulează o sugestie pentru focus și concentrare. Propoziții scurte, ritm hipnotic.',goal:70,cat:'Productivitate'},
+  {text:'Creează o sugestie pentru acceptarea schimbării. Obiectiv terapeutic unic.',goal:75,cat:'Dezvoltare'},
+  {text:'Scrie o sugestie pentru iertarea de sine. Zero condițional, doar prezent.',goal:70,cat:'Vindecare'},
+  {text:'Formulează o sugestie pentru conexiune emoțională în cuplu. Minim 2 canale senzoriale.',goal:70,cat:'Relații'}
+];
+function getDailyChallenge(){
+  var dayOfYear=Math.floor((Date.now()-new Date(new Date().getFullYear(),0,0))/86400000);
+  return DAILY_CHALLENGES[dayOfYear%DAILY_CHALLENGES.length];
+}
+function isDailyChallengeComplete(){
+  try{var d=localStorage.getItem('daily_done');return d===new Date().toISOString().slice(0,10);}catch(e){return false;}
+}
+function completeDailyChallenge(){
+  try{localStorage.setItem('daily_done',new Date().toISOString().slice(0,10));}catch(e){}
+  unlockBadge('daily');renderDailyChallenge();
+}
+function renderDailyChallenge(){
+  var el=document.getElementById('daily-challenge');if(!el)return;
+  var ch=getDailyChallenge();var done=isDailyChallengeComplete();
+  if(done){el.innerHTML='<div style="padding:14px 18px;border-radius:12px;background:#5dd9a610;border:1px solid #5dd9a625;text-align:center"><span class="daily-badge" style="background:#5dd9a615;color:#5dd9a6">✅ Challenge completat</span><div style="font-size:14px;color:#5dd9a6;margin-top:6px">Revino mâine pentru un nou challenge!</div></div>';return;}
+  el.innerHTML='<div style="padding:18px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #F6D44C25"><span class="daily-badge">📅 Challenge zilnic</span><div style="font-size:16px;color:#e8f0f4;line-height:1.6;margin-bottom:8px">'+ch.text+'</div><div style="font-size:13px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+ch.goal+' · Categorie: '+ch.cat+'</div><button onclick="loadDailyChallenge()" style="margin-top:12px;padding:10px 18px;border-radius:10px;border:1px solid #F6D44C40;background:#F6D44C15;color:#F6D44C;font-size:14px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s">Acceptă challenge-ul →</button></div>';
+}
+function loadDailyChallenge(){
+  var ch=getDailyChallenge();
+  document.getElementById('text').value='';
+  document.getElementById('text').placeholder=ch.text;
+  document.getElementById('text').focus();
+  document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+/* === GAMIFICATION: CHALLENGE FRIEND === */
+function challengeFriend(score){
+  var text='🎯 Am obținut '+score+'/100 la Evaluatorul de Sugestii Hipnotice! Poți face mai bine? Încearcă acum: '+location.href;
+  if(navigator.share){
+    navigator.share({title:'Provocare: Poți face mai bine ca '+score+'?',text:text,url:location.href}).catch(function(){});
+  }else{
+    navigator.clipboard.writeText(text).then(function(){
+      var btns=document.querySelectorAll('.challenge-friend-btn');
+      btns.forEach(function(b){b.innerHTML='✅ Link copiat! Trimite-l unui prieten';b.style.borderColor='#5dd9a660';b.style.color='#5dd9a6';
+        setTimeout(function(){b.innerHTML='🎯 Provoacă un prieten să facă mai bine ca tine!';b.style.borderColor='#F6D44C40';b.style.color='#F6D44C';},2500);});
+    });
+  }
+  unlockBadge('friend');
+}
+
+/* === GAMIFICATION: TRACK TRAINING COUNT === */
+var origRunTrainEval=typeof runTrainEval==='function'?runTrainEval:null;
+
 /* === CHARACTER COUNTER === */
 var CHAR_LIMIT=1000;
 function updateCounter(textId,counterId){
@@ -958,6 +1169,8 @@ function updateCounter(textId,counterId){
 renderRef();
 updateLockIcon();
 initCC();
+renderXPBar();
+renderDailyChallenge();
 
 /* === ONBOARDING (first visit only) === */
 function closeOnboarding(){document.getElementById('onboarding').classList.add('hidden');try{localStorage.setItem('ob_seen','1');}catch(e){}}
