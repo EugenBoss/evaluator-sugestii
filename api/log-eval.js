@@ -22,7 +22,7 @@ export default async function handler(req, res) {
   const webhookUrl = process.env.DATA_WEBHOOK_URL;
   if (!webhookUrl) return res.status(200).json({ ok: true }); // silently skip if not configured
 
-  const { text, score, score_max, tier, tip_detectat, criterii, timestamp } = req.body || {};
+  const { name, email, phone, text, score, score_max, tier, tip_detectat, criterii, timestamp } = req.body || {};
 
   if (!text || typeof text !== 'string') return res.status(400).json({ error: 'Missing text' });
 
@@ -31,6 +31,9 @@ export default async function handler(req, res) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
+        name: name || '',
+        email: email || '',
+        phone: phone || '',
         text: text.substring(0, 1000),
         score: score || 0,
         score_max: score_max || 100,
