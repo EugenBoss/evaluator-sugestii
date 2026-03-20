@@ -1,33 +1,37 @@
-// Shared OTP store (global so verify-otp.js can access on same instance)
-const otpStore = globalThis.__otpStore || (globalThis.__otpStore = new Map());
+import crypto from 'crypto';
 
 // Rate limit
 const rateMap = new Map();
 function getIP(req) {
   return req.headers['x-forwarded-for']?.split(',')[0]?.trim()
-    || req.headers['x-real-ip']
-    || req.socket?.remoteAddress
-    || 'unknown';
+    || req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
 }
 function isRateLimited(ip) {
   const now = Date.now();
   const r = rateMap.get(ip);
   if (!r || now - r.start > 300000) { rateMap.set(ip, { start: now, count: 1 }); return false; }
   r.count++;
-  return r.count > 3; // max 3 OTPs per 5 min
+  return r.count > 3;
 }
 
 // Origin check
-const ALLOWED_ORIGINS = ['https://evaluator-sugestii.vercel.app', 'https://putereamintii.ro', 'http://localhost:3000'];
 function isOriginAllowed(req) {
   const origin = req.headers['origin'] || '';
   const referer = req.headers['referer'] || '';
   if (!origin && !referer) return true;
   const check = origin || referer;
-  if (ALLOWED_ORIGINS.some(o => check.startsWith(o))) return true;
   if (/^https:\/\/evaluator-sugestii[a-z0-9-]*\.vercel\.app/.test(check)) return true;
   if (check.includes('eugenboss-projects.vercel.app')) return true;
+  if (check.startsWith('https://putereamintii.ro')) return true;
+  if (check.startsWith('http://localhost:3000')) return true;
   return false;
+}
+
+// Sign token
+function signToken(data, secret) {
+  const payload = Buffer.from(JSON.stringify(data)).toString('base64url');
+  const sig = crypto.createHmac('sha256', secret).update(payload).digest('base64url');
+  return payload + '.' + sig;
 }
 
 export default async function handler(req, res) {
@@ -45,11 +49,8 @@ export default async function handler(req, res) {
   if (!resendKey) return res.status(500).json({ error: 'Email service not configured' });
 
   const { name, email, phone, website } = req.body || {};
-
-  // Honeypot
   if (website) return res.status(200).json({ ok: true });
 
-  // Validate
   if (!name || typeof name !== 'string' || name.length < 2 || name.length > 100)
     return res.status(400).json({ error: 'Completează numele' });
   if (!email || typeof email !== 'string' || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))
@@ -59,18 +60,19 @@ export default async function handler(req, res) {
 
   // Generate 6-digit code
   const code = String(Math.floor(100000 + Math.random() * 900000));
-  const key = email.trim().toLowerCase();
 
-  // Store (expires 10 min)
-  otpStore.set(key, {
-    code, name: name.trim(), email: key, phone: phone.trim(),
-    expires: Date.now() + 600000, attempts: 0,
-  });
+  // Create signed token with 5 min expiry
+  const tokenData = {
+    code,
+    name: name.trim(),
+    email: email.trim().toLowerCase(),
+    phone: phone.trim(),
+    exp: Date.now() + 300000, // 5 minutes
+  };
+  const secret = resendKey + '_otp_secret';
+  const token = signToken(tokenData, secret);
 
-  // Cleanup old entries
-  for (const [k, v] of otpStore) { if (Date.now() > v.expires) otpStore.delete(k); }
-
-  // Send via Resend
+  // Send email via Resend
   try {
     const firstName = name.trim().split(' ')[0];
     const emailRes = await fetch('https://api.resend.com/emails', {
@@ -90,7 +92,7 @@ export default async function handler(req, res) {
           <div style="text-align:center;margin:24px 0">
             <div style="display:inline-block;padding:16px 40px;background:#1a3040;border-radius:12px;font-family:monospace;font-size:32px;font-weight:bold;color:#4FC1E9;letter-spacing:8px">${code}</div>
           </div>
-          <p style="color:#888;font-size:13px;text-align:center">Codul expiră în 10 minute.</p>
+          <p style="color:#888;font-size:13px;text-align:center">Codul expiră în 5 minute.</p>
           <hr style="border:none;border-top:1px solid #e0e0e0;margin:24px 0">
           <p style="color:#aaa;font-size:11px;text-align:center">Evaluator Sugestii Hipnotice — <a href="https://putereamintii.ro" style="color:#4FC1E9">putereamintii.ro</a></p>
         </div>`,
@@ -103,7 +105,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: 'Nu am putut trimite emailul. Verifică adresa.' });
     }
 
-    return res.status(200).json({ ok: true, message: 'Cod trimis pe email' });
+    return res.status(200).json({ ok: true, token: token });
   } catch (error) {
     console.error('Email send error:', error);
     return res.status(500).json({ error: 'Eroare la trimiterea emailului' });

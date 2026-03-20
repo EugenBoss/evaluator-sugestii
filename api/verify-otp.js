@@ -1,17 +1,30 @@
-// Access shared OTP store
-const otpStore = globalThis.__otpStore || (globalThis.__otpStore = new Map());
+import crypto from 'crypto';
 
 // Origin check
-const ALLOWED_ORIGINS = ['https://evaluator-sugestii.vercel.app', 'https://putereamintii.ro', 'http://localhost:3000'];
 function isOriginAllowed(req) {
   const origin = req.headers['origin'] || '';
   const referer = req.headers['referer'] || '';
   if (!origin && !referer) return true;
   const check = origin || referer;
-  if (ALLOWED_ORIGINS.some(o => check.startsWith(o))) return true;
   if (/^https:\/\/evaluator-sugestii[a-z0-9-]*\.vercel\.app/.test(check)) return true;
   if (check.includes('eugenboss-projects.vercel.app')) return true;
+  if (check.startsWith('https://putereamintii.ro')) return true;
+  if (check.startsWith('http://localhost:3000')) return true;
   return false;
+}
+
+// Verify token signature
+function verifyToken(token, secret) {
+  const parts = token.split('.');
+  if (parts.length !== 2) return null;
+  const [payload, sig] = parts;
+  const expected = crypto.createHmac('sha256', secret).update(payload).digest('base64url');
+  if (sig !== expected) return null;
+  try {
+    return JSON.parse(Buffer.from(payload, 'base64url').toString());
+  } catch (e) {
+    return null;
+  }
 }
 
 export default async function handler(req, res) {
@@ -22,20 +35,21 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   if (!isOriginAllowed(req)) return res.status(403).json({ error: 'Forbidden' });
 
-  const { email, code } = req.body || {};
-  if (!email || !code) return res.status(400).json({ error: 'Email și codul sunt obligatorii' });
+  const resendKey = process.env.RESEND_API_KEY;
+  if (!resendKey) return res.status(500).json({ error: 'Service not configured' });
 
-  const key = email.trim().toLowerCase();
-  const record = otpStore.get(key);
+  const { token, code } = req.body || {};
+  if (!token || !code) return res.status(400).json({ error: 'Token și codul sunt obligatorii' });
 
-  if (!record) return res.status(400).json({ error: 'Codul a expirat sau emailul nu e corect. Trimite un cod nou.' });
-  if (Date.now() > record.expires) { otpStore.delete(key); return res.status(400).json({ error: 'Codul a expirat. Trimite un cod nou.' }); }
-  if (record.attempts >= 5) { otpStore.delete(key); return res.status(429).json({ error: 'Prea multe încercări greșite. Trimite un cod nou.' }); }
-  if (record.code !== code.trim()) { record.attempts++; return res.status(400).json({ error: 'Cod incorect. Mai ai ' + (5 - record.attempts) + ' încercări.' }); }
+  // Verify token
+  const secret = resendKey + '_otp_secret';
+  const data = verifyToken(token, secret);
+
+  if (!data) return res.status(400).json({ error: 'Token invalid. Trimite un cod nou.' });
+  if (Date.now() > data.exp) return res.status(400).json({ error: 'Codul a expirat. Trimite un cod nou.' });
+  if (data.code !== code.trim()) return res.status(400).json({ error: 'Cod incorect. Verifică și încearcă din nou.' });
 
   // Code correct — send verified lead to Pabbly
-  otpStore.delete(key);
-
   const webhookUrl = process.env.GHL_WEBHOOK_URL;
   if (webhookUrl) {
     try {
@@ -43,9 +57,9 @@ export default async function handler(req, res) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          name: record.name,
-          email: record.email,
-          phone: record.phone,
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
           source: 'Evaluator Sugestii Hipnotice',
           verified: true,
           timestamp: new Date().toISOString(),
