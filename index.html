@@ -25,6 +25,13 @@ body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a3
 @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes glow { 0%, 100% { box-shadow: 0 0 20px #4FC1E920; } 50% { box-shadow: 0 0 35px #4FC1E935; } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+.fav-btn { padding: 8px 16px; border-radius: 8px; border: 1px solid #F6D44C30; background: #F6D44C08; color: #F6D44C; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Source Sans 3', sans-serif; white-space: nowrap; }
+.fav-btn:hover { background: #F6D44C18; border-color: #F6D44C50; }
+.fav-btn.faved { background: #F6D44C20; border-color: #F6D44C60; }
+.tip-card { padding: 14px 18px; border-radius: 12px; background: linear-gradient(135deg, #4FC1E908, #4FC1E904); border: 1px solid #4FC1E918; margin-bottom: 10px; }
+.tip-card-id { font-size: 13px; font-weight: 600; color: #4FC1E9; margin-bottom: 4px; }
+.tip-card-text { font-size: 15px; color: #8fb0c0; line-height: 1.5; font-weight: 400; }
 .header { padding: 40px 24px 32px; text-align: center; border-bottom: 1px solid #4FC1E920; background: linear-gradient(180deg, #4FC1E90D 0%, transparent 60%); position: relative; }
 .header::after { content: ''; position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 120px; height: 2px; background: linear-gradient(90deg, transparent, #4FC1E9, transparent); }
 .brand { font-size: 17px; font-weight: 700; letter-spacing: 5px; text-transform: uppercase; background: linear-gradient(135deg, #F6D44C, #f0c030); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
@@ -764,7 +771,7 @@ async function runRewrite(){
   var um='Rescrie și evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
   if(tip!=='auto')um+='\n\nTip sugestie: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
   try{
-    var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?RW_BASIC:RW_ADV,messages:[{role:'user',content:um}]})});
+    var rsp=await fetchWithRetry('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?RW_BASIC:RW_ADV,messages:[{role:'user',content:um}]})});
     if(rsp.status===429){throw new Error('Prea multe cereri. Așteaptă un minut și încearcă din nou.');}
     if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
     var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('').trim();
@@ -809,6 +816,16 @@ var lastRewrite='';
 function useRewrite(){if(!lastRewrite)return;document.getElementById('text').value=lastRewrite;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});updateCounter('text','counter-main');unlockBadge('rewrite');}
 
 /* === MAIN EVAL === */
+/* === FETCH WITH RETRY === */
+async function fetchWithRetry(url,opts,retries){
+  retries=retries||1;
+  for(var i=0;i<=retries;i++){
+    try{var rsp=await fetch(url,opts);if(rsp.ok||rsp.status===429||i===retries)return rsp;}
+    catch(e){if(i===retries)throw e;}
+    await new Promise(function(r){setTimeout(r,1500);});
+  }
+}
+
 async function runEval(){
   if(isEvaluating)return;var text=document.getElementById('text').value.trim();if(!text)return;
   // Check basic eval limit (5 free, then require gate)
@@ -846,7 +863,7 @@ async function runEval(){
   var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
   if(tip!=='auto')um+='\n\nTip declarat: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
   if(compContext)um+=compContext;
-  try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});
+  try{var rsp=await fetchWithRetry('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});
   if(rsp.status===429){throw new Error('Prea multe evaluări. Așteaptă un minut și încearcă din nou.');}
   if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
   var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();
@@ -902,16 +919,29 @@ function renderResult(r){
   }
   h+='</div>';
   if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
-  if(r.sumar)h+='<div class="summary">'+r.sumar+'</div>';
+  if(r.sumar)h+='<div class="summary">'+esc(r.sumar)+'</div>';
+  // Personalized tips for weak criteria
+  var tips=getPersonalizedTips(fc);
+  if(tips.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Cum să îmbunătățești</div>';
+    tips.forEach(function(t){var cr2=tier==='basic'?BC:AC;var nm=cr2.find(function(x){return x.id===t.id;});
+      h+='<div class="tip-card"><div class="tip-card-id">'+(nm?nm.name:'Criteriu '+t.id)+'</div><div class="tip-card-text">'+esc(t.tip)+'</div></div>';});
+    h+='</div>';}
   if(tier==='advanced'&&r.versiune_imbunatatita){lastImproved=r.versiune_imbunatatita;
     h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#5dd9a6;color:#5dd9a6">Versiune îmbunătățită</div><div class="improved-box">'+r.versiune_imbunatatita+'</div>'+(r.explicatii_schimbari?'<div class="improved-expl"><strong>Ce s-a schimbat: </strong>'+r.explicatii_schimbari+'</div>':'')+'<button class="reeval-btn" onclick="reEval()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Re-evaluează versiunea îmbunătățită</button></div>';}else{lastImproved='';}
-  h+='<div class="export-bar"><button class="export-btn" id="copy-btn" onclick="copyResult()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază rezultatul</button><button class="export-btn" onclick="downloadImage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Descarcă imagine</button></div>';
+  h+='<div class="export-bar"><button class="export-btn" id="copy-btn" onclick="copyResult()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază</button><button class="export-btn" onclick="downloadImage()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Imagine</button><button class="export-btn" onclick="downloadStory()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg>Story 9:16</button></div>';
   if(pct<60)h+='<div class="cta-box" style="background:#F6D44C08;border-color:#F6D44C30"><p style="color:#F6D44C">Sugestiile hipnotice eficiente se construiesc pe principii precise. În <strong>Training-ul Profesional de Hipnoză</strong> înveți exact cum să le creezi de la zero.</p><a href="https://www.putereamintii.ro/hipnoza" target="_blank" style="background:#F6D44C;color:#0f1f28">Află mai multe despre Training</a></div>';
   else if(pct>=80)h+='<div class="cta-box" style="background:#5dd9a608;border-color:#5dd9a630"><p style="color:#5dd9a6">Scor excelent! Ai un simț natural pentru limbajul hipnotic. <strong>Training-ul Profesional de Hipnoză</strong> te poate duce la nivel expert.</p><a href="https://www.putereamintii.ro/hipnoza" target="_blank" style="background:#5dd9a6;color:#0f1f28">Descoperă Training-ul Profesional</a></div>';
   if(pct>=80)h+='<div class="share-bar"><button class="share-btn share-wa" onclick="shareWhatsApp('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.625.846 5.059 2.284 7.034L.789 23.492l4.625-1.467A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818c-2.168 0-4.19-.587-5.932-1.61l-.424-.254-2.744.87.872-2.694-.278-.44A9.78 9.78 0 012.182 12c0-5.42 4.398-9.818 9.818-9.818S21.818 6.58 21.818 12s-4.398 9.818-9.818 9.818z"/></svg>WhatsApp</button><button class="share-btn share-fb" onclick="shareFacebook('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>Facebook</button><button class="share-btn share-copy" id="share-copy-btn" onclick="copyShareText('+r.scor_total+')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază link</button></div>';
   // Challenge friend button (always show after eval)
-  h+='<button class="challenge-friend-btn" onclick="challengeFriend('+r.scor_total+')">🎯 Provoacă un prieten să facă mai bine ca tine!</button>';
+  h+='<button class="challenge-friend-btn" onclick="challengeFriend('+r.scor_total+')">Provoacă un prieten să facă mai bine ca tine!</button>';
+  // Favorite button
+  var origText=document.getElementById('text').value.trim();
+  var isFaved=isFav(origText);
+  h+='<button class="fav-btn'+(isFaved?' faved':'')+'" id="fav-btn" onclick="doToggleFav('+r.scor_total+')">'+( isFaved?'❤️ Salvată în favorite':'🤍 Salvează în favorite')+'</button>';
   document.getElementById('results').innerHTML='<div class="result">'+h+'</div>';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
+  // Confetti for ≥90, shake for <40
+  if(pct>=90)setTimeout(fireConfetti,400);
+  if(pct<40)setTimeout(shakeResult,300);
   // Award XP
   awardXP(r.scor_total,pct);
   // Show rewrite button
@@ -996,6 +1026,80 @@ function downloadImage(){
   var link=document.createElement('a');link.download='evaluare-sugestie-'+score+'p.png';link.href=canvas.toDataURL('image/png');link.click();
 }
 
+/* === EXPORT: STORY 9:16 === */
+function downloadStory(){
+  var circle=document.querySelector('.total-circle');var label=document.querySelector('.total-label');if(!circle)return;
+  var score=parseInt(circle.textContent);var level=label?label.textContent:'';var lv=glv(score,100);
+  var userData=getUserData();var userName=userData?userData.name:'';
+  var canvas=document.createElement('canvas');canvas.width=1080;canvas.height=1920;var ctx=canvas.getContext('2d');
+  // Background gradient
+  var bg=ctx.createLinearGradient(0,0,0,1920);bg.addColorStop(0,'#0f1f28');bg.addColorStop(0.4,'#152a35');bg.addColorStop(0.7,'#1a3040');bg.addColorStop(1,'#12242e');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,1080,1920);
+  // Decorative border
+  ctx.strokeStyle='#4FC1E918';ctx.lineWidth=2;ctx.strokeRect(40,40,1000,1840);
+  // Brand top
+  ctx.fillStyle='#F6D44C';ctx.font='bold 18px sans-serif';ctx.textAlign='center';ctx.fillText('PUTEREA MINȚII',540,120);
+  // Title
+  ctx.fillStyle='#ffffff';ctx.font='44px serif';ctx.fillText('Știi cum să comunici',540,220);
+  ctx.fillText('cu Subconștientul Tău?',540,280);
+  // Score circle - big
+  ctx.beginPath();ctx.arc(540,520,120,0,Math.PI*2);
+  ctx.fillStyle=lv.c+'18';ctx.fill();
+  ctx.strokeStyle=lv.c;ctx.lineWidth=5;ctx.stroke();
+  ctx.fillStyle=lv.c;ctx.font='bold 80px serif';ctx.fillText(score,540,550);
+  ctx.font='bold 20px sans-serif';ctx.fillStyle='#8fb0c0';ctx.fillText('/ 100',540,590);
+  // Level
+  ctx.fillStyle=lv.c;ctx.font='bold 40px serif';ctx.fillText(level,540,710);
+  ctx.fillStyle='#8fb0c0';ctx.font='22px sans-serif';ctx.fillText(lv.d,540,755);
+  // User name
+  if(userName){ctx.fillStyle='#ffffff';ctx.font='bold 30px sans-serif';ctx.fillText(userName,540,860);}
+  // Conditional messaging
+  if(score<60){
+    ctx.fillStyle='#F6D44C';ctx.font='bold 28px sans-serif';
+    ctx.fillText('Tu ai putea să faci mai bine?',540,1000);
+    ctx.font='22px sans-serif';ctx.fillStyle='#8fb0c0';
+    ctx.fillText('Testează-ți sugestiile hipnotice gratuit',540,1050);
+  }else if(score>=85){
+    ctx.fillStyle='#F6D44C';ctx.font='36px sans-serif';
+    ctx.fillText('★ ★ ★ ★ ★',540,980);
+    ctx.font='22px sans-serif';ctx.fillStyle='#8fb0c0';
+    ctx.fillText('Nivel profesional de comunicare hipnotică',540,1040);
+  }else{
+    ctx.fillStyle='#8fb0c0';ctx.font='22px sans-serif';
+    ctx.fillText('Evaluează-ți sugestiile hipnotice',540,1000);
+    ctx.fillText('pe criterii profesionale',540,1040);
+  }
+  // QR placeholder text
+  ctx.fillStyle='#4FC1E9';ctx.font='bold 20px sans-serif';ctx.fillText('Încearcă și tu:',540,1200);
+  ctx.fillStyle='#ffffff';ctx.font='24px sans-serif';ctx.fillText('putereamintii.ro/comunicare',540,1240);
+  // Footer
+  ctx.fillStyle='#3a556540';ctx.fillRect(80,1800,920,1);
+  ctx.fillStyle='#3a5565';ctx.font='16px sans-serif';ctx.fillText('putereamintii.ro · Evaluator Sugestii Hipnotice · '+new Date().toLocaleDateString('ro-RO'),540,1840);
+  var link=document.createElement('a');link.download='story-sugestie-'+score+'p.png';link.href=canvas.toDataURL('image/png');link.click();
+}
+
+/* === PROGRESS CHART === */
+function renderProgressChart(){
+  var hist=getHist();if(hist.length<3)return'';
+  var data=hist.slice(0,15).reverse();
+  var w=660,h=180,pad=40;
+  var maxS=100,minS=0;
+  var stepX=(w-pad*2)/(data.length-1);
+  var svg='<svg viewBox="0 0 '+w+' '+h+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;margin-top:16px">';
+  // Grid lines
+  for(var g=0;g<=4;g++){var gy=pad+(h-pad*2)*(1-g/4);svg+='<line x1="'+pad+'" y1="'+gy+'" x2="'+(w-pad)+'" y2="'+gy+'" stroke="#ffffff08" stroke-width="1"/>';svg+='<text x="'+(pad-8)+'" y="'+(gy+4)+'" fill="#506a78" font-size="10" text-anchor="end">'+(g*25)+'</text>';}
+  // Line + dots
+  var points=[];data.forEach(function(d,i){var x=pad+i*stepX;var y=pad+(h-pad*2)*(1-d.s/100);points.push(x+','+y);});
+  svg+='<polyline points="'+points.join(' ')+'" fill="none" stroke="#4FC1E9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>';
+  // Area fill
+  svg+='<polygon points="'+pad+','+(h-pad)+' '+points.join(' ')+' '+(pad+(data.length-1)*stepX)+','+(h-pad)+'" fill="url(#chartGrad)" opacity="0.3"/>';
+  svg+='<defs><linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4FC1E9" stop-opacity="0.4"/><stop offset="100%" stop-color="#4FC1E9" stop-opacity="0"/></linearGradient></defs>';
+  // Dots
+  data.forEach(function(d,i){var x=pad+i*stepX;var y=pad+(h-pad*2)*(1-d.s/100);var lv2=glv(d.s,100);svg+='<circle cx="'+x+'" cy="'+y+'" r="4" fill="'+lv2.c+'" stroke="#0f1f28" stroke-width="2"/>';});
+  svg+='</svg>';
+  return'<div class="rcard" style="padding:22px;margin-bottom:20px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Evoluția scorurilor</div>'+svg+'</div>';
+}
+
 /* === HISTORY === */
 function getHist(){try{return JSON.parse(localStorage.getItem('eval_hist')||'[]');}catch(e){return[];}}
 function saveHistory(text,r){try{var h=getHist();h.unshift({d:new Date().toISOString(),t:text.substring(0,120),tier:tier,s:r.scor_total,m:r.scor_maxim,tip:r.tip_detectat});if(h.length>20)h=h.slice(0,20);localStorage.setItem('eval_hist',JSON.stringify(h));}catch(e){}}
@@ -1018,10 +1122,13 @@ function renderHistory(){var hist=getHist();var el=document.getElementById('hist
   h+='<div class="hist-stat"><div class="hist-stat-num hist-streak">'+(streak>0?streak+'🔥':0)+'</div><div class="hist-stat-label">Streak zile</div></div>';
   h+='<div class="hist-stat"><div class="hist-stat-num" style="color:#4FC1E9">'+count+'</div><div class="hist-stat-label">Total evaluări</div></div>';
   h+='</div>';
+  h+=renderProgressChart();
   hist.forEach(function(item){var lv=glv(item.s,item.m||100);var d=new Date(item.d);var ds=d.toLocaleDateString('ro-RO',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
     h+='<div class="hist-item" onclick="loadFromHist(\''+encodeURIComponent(item.t)+'\')"><div class="hist-score" style="background:'+lv.c+'20;border:2px solid '+lv.c+';color:'+lv.c+'">'+item.s+'</div><div class="hist-info"><div class="hist-text">'+item.t+'</div><div class="hist-date">'+ds+' · '+item.tip+'</div></div><div class="hist-tier">'+(item.tier==='basic'?'3':'9')+'</div></div>';});
   h+='<button class="hist-clear" onclick="clearHist()">Șterge tot istoricul</button>';el.innerHTML=h;
-  renderBadges();renderLeaderboard();}
+  renderBadges();renderLeaderboard();
+  var favEl=document.getElementById('badges-section');
+  if(favEl){var favHtml=renderFavorites();if(favHtml)favEl.insertAdjacentHTML('beforebegin',favHtml);}}
 function loadFromHist(enc){var text=decodeURIComponent(enc);
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
@@ -1037,7 +1144,7 @@ async function runTrainEval(){if(isEvaluating)return;var text=document.getElemen
   var cta=document.getElementById('train-cta');var eD=document.getElementById('train-error');var rD=document.getElementById('train-results');
   cta.disabled=true;startLoading(cta,true);eD.innerHTML='';rD.innerHTML='';
   var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
-  try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:PA,messages:[{role:'user',content:um}]})});
+  try{var rsp=await fetchWithRetry('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:PA,messages:[{role:'user',content:um}]})});
   if(rsp.status===429){throw new Error('Prea multe evaluări. Așteaptă un minut și încearcă din nou.');}
   if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
   var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();
@@ -1287,6 +1394,89 @@ function challengeFriend(score){
 /* === GAMIFICATION: TRACK TRAINING COUNT === */
 var origRunTrainEval=typeof runTrainEval==='function'?runTrainEval:null;
 
+/* === SECURITY: HTML SANITIZATION === */
+function esc(s){if(!s)return'';return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* === CONFETTI === */
+function fireConfetti(){
+  var c=document.createElement('canvas');c.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999';
+  document.body.appendChild(c);var ctx=c.getContext('2d');c.width=window.innerWidth;c.height=window.innerHeight;
+  var pieces=[];var colors=['#F6D44C','#4FC1E9','#5dd9a6','#e8945a','#e8506a','#fff'];
+  for(var i=0;i<80;i++)pieces.push({x:c.width/2+(Math.random()-0.5)*200,y:c.height/2-100,vx:(Math.random()-0.5)*12,vy:-(Math.random()*12+4),w:Math.random()*8+4,h:Math.random()*6+2,r:Math.random()*6.28,rv:(Math.random()-0.5)*0.3,color:colors[Math.floor(Math.random()*colors.length)],gravity:0.25});
+  var frame=0;function draw(){ctx.clearRect(0,0,c.width,c.height);var alive=false;
+    pieces.forEach(function(p){p.vy+=p.gravity;p.x+=p.vx;p.y+=p.vy;p.r+=p.rv;p.vx*=0.99;
+      if(p.y<c.height+20){alive=true;ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.fillStyle=p.color;ctx.globalAlpha=Math.max(0,1-frame/120);ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();}});
+    frame++;if(alive&&frame<150)requestAnimationFrame(draw);else document.body.removeChild(c);}
+  draw();
+}
+
+/* === SHAKE ANIMATION === */
+function shakeResult(){var el=document.getElementById('results');if(!el)return;el.style.animation='shake 0.4s ease-in-out';setTimeout(function(){el.style.animation='';},500);}
+
+/* === PERSONALIZED TIPS PER WEAK CRITERIA === */
+var CRITERIA_TIPS={
+  1:{low:'Elimină toate negațiile (nu, fără, nicio). Reformulează: „nu te teme" → „ești în siguranță".',mid:'Ai câteva formulări negative. Verifică fiecare propoziție: poate fi rescrisă fără „nu"?'},
+  2:{low:'Adaugă detalii senzoriale concrete. În loc de „te simți bine" → „simți o căldură blândă în piept, mușchii se relaxează".',mid:'Sugestia are imagini, dar unele sunt prea abstracte. Fiecare propoziție trebuie să creeze un „film mental".'},
+  3:{low:'Rescrie tot la timpul prezent. „Vei fi calm" → „Ești calm." „Ai vrea să" → „Simți cum..."',mid:'Câteva construcții la viitor sau condițional. Verifică: fiecare propoziție descrie ce SE ÎNTÂMPLĂ acum?'},
+  4:{low:'Construiește treptat: corp → emoție → identitate. Nu sări de la relaxare la transformare într-o propoziție.',mid:'Progresie parțială. Asigură-te că fiecare propoziție o continuă pe cea anterioară natural.'},
+  5:{low:'Adaugă canale senzoriale: ce VEDE (vizual), AUDE (auditiv), SIMTE (kinestezic). Minim 2 canale.',mid:'Ai 1-2 canale. Adaugă: „auzi o liniște profundă" sau „vezi o lumină caldă". Mixul face sugestia puternică.'},
+  6:{low:'Scurtează propozițiile. Max 10-12 cuvinte. Ritmul trebuie să fie ca respirația: scurt, pauză, scurt.',mid:'Unele propoziții sunt prea lungi. Sparge-le. Ritmul hipnotic = propoziții scurte + pauze naturale.'},
+  7:{low:'Verifică pattern-urile Milton Model. Folosește: presupuneri, comenzi mascate, dublu sens.',mid:'Pattern-urile sunt parțial corecte. Revizuiește: „poți observa cum..." e mai bun decât „observă cum..."'},
+  8:{low:'Un singur obiectiv per sugestie. Dacă vorbești și despre relaxare și despre încredere, alege unul.',mid:'Obiectivul e parțial clar. Fiecare propoziție trebuie să servească ACELAȘI scop terapeutic.'},
+  9:{low:'Sugestia descrie, nu creează. În loc de „vei simți liniște" → „liniștea se răspândește acum prin tot corpul tău..."',mid:'Activare parțială. Intensifică: folosește verbe senzoriale puternice, creează experiența, nu o numi.'}
+};
+function getPersonalizedTips(criterii){
+  var tips=[];
+  criterii.forEach(function(c){
+    var tip=CRITERIA_TIPS[c.id];if(!tip)return;
+    if(c.scor<=4)tips.push({id:c.id,tip:tip.low,severity:'low'});
+    else if(c.scor<=6)tips.push({id:c.id,tip:tip.mid,severity:'mid'});
+  });
+  return tips.slice(0,3);// max 3 tips
+}
+
+/* === COOKIE CONSENT === */
+function showCookieConsent(){
+  if(localStorage.getItem('cookie_ok'))return;
+  var d=document.createElement('div');d.id='cookie-bar';
+  d.style.cssText='position:fixed;bottom:0;left:0;right:0;padding:14px 20px;background:#1a3040;border-top:1px solid #4FC1E920;z-index:998;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;font-size:14px;color:#8fb0c0;font-weight:400';
+  d.innerHTML='Folosim date locale (localStorage) pentru a-ți salva progresul și preferințele. <a href="https://www.putereamintii.ro/termeni-si-conditii/" target="_blank" style="color:#4FC1E9">Detalii</a> <button onclick="localStorage.setItem(\'cookie_ok\',\'1\');document.getElementById(\'cookie-bar\').remove()" style="padding:8px 20px;border-radius:8px;border:none;background:#4FC1E9;color:#0f1f28;font-size:13px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;white-space:nowrap">Accept</button>';
+  document.body.appendChild(d);
+}
+
+/* === URL PARAMS: PRE-FILL TEXT === */
+function checkURLParams(){
+  var params=new URLSearchParams(window.location.search);
+  var t=params.get('text');if(t){document.getElementById('text').value=decodeURIComponent(t);updateCounter('text','counter-main');}
+  var m=params.get('mode');if(m==='embed'){document.querySelector('.header').style.display='none';document.getElementById('main-nav').style.display='none';document.body.style.background='transparent';}
+}
+
+/* === FAVORITES === */
+function getFavs(){try{return JSON.parse(localStorage.getItem('favs')||'[]');}catch(e){return[];}}
+function toggleFav(text,score){
+  var favs=getFavs();var idx=favs.findIndex(function(f){return f.t===text;});
+  if(idx!==-1){favs.splice(idx,1);}else{favs.unshift({t:text.substring(0,300),s:score,d:new Date().toISOString()});if(favs.length>20)favs=favs.slice(0,20);}
+  try{localStorage.setItem('favs',JSON.stringify(favs));}catch(e){}
+  return idx===-1;// true if added
+}
+function isFav(text){return getFavs().some(function(f){return f.t===text.substring(0,300);});}
+
+function doToggleFav(score){
+  var text=document.getElementById('text').value.trim();
+  var added=toggleFav(text,score);
+  var btn=document.getElementById('fav-btn');
+  if(btn){btn.className='fav-btn'+(added?' faved':'');btn.innerHTML=added?'❤️ Salvată în favorite':'🤍 Salvează în favorite';}
+}
+
+function renderFavorites(){
+  var favs=getFavs();if(!favs.length)return'';
+  var h='<div class="rcard" style="padding:22px;margin-bottom:20px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#F6D44C;color:#F6D44C">Sugestii Favorite ('+favs.length+')</div>';
+  favs.forEach(function(f){var lv=glv(f.s,100);
+    h+='<div style="padding:12px 0;border-bottom:1px solid #ffffff08;display:flex;align-items:center;gap:12px"><div style="width:40px;height:40px;border-radius:50%;background:'+lv.c+'20;border:2px solid '+lv.c+';display:flex;align-items:center;justify-content:center;font-family:\'DM Serif Display\',Georgia,serif;font-size:16px;font-weight:700;color:'+lv.c+';flex-shrink:0">'+f.s+'</div><div style="flex:1;min-width:0"><div style="font-size:14px;color:#e8f0f4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:400">'+esc(f.t)+'</div></div></div>';
+  });
+  h+='</div>';return h;
+}
+
 /* === CHARACTER COUNTER === */
 var CHAR_LIMIT=1000;
 function updateCounter(textId,counterId){
@@ -1313,6 +1503,8 @@ initCC();
 renderXPBar();
 renderDailyChallenge();
 updateBasicRemaining();
+showCookieConsent();
+checkURLParams();
 
 /* === ONBOARDING (first visit only) === */
 function closeOnboarding(){document.getElementById('onboarding').classList.add('hidden');try{localStorage.setItem('ob_seen','1');}catch(e){}}
