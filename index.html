@@ -33,9 +33,9 @@ body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a3
 .social-proof { margin-top: 14px; font-size: 17px; color: #506a78; display: flex; align-items: center; justify-content: center; gap: 6px; }
 .social-proof .sp-dot { width: 6px; height: 6px; border-radius: 50%; background: #5dd9a6; animation: pulse 2s ease-in-out infinite; }
 /* === ONBOARDING === */
-.onboarding { position: fixed; inset: 0; background: rgba(10,20,28,0.92); backdrop-filter: blur(8px); z-index: 1001; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
+.onboarding { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background: rgba(10,20,28,0.92); backdrop-filter: blur(8px); z-index: 1001; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; overflow: auto; }
 .onboarding.hidden { display: none; }
-.onboarding-inner { max-width: 420px; width: 100%; padding: 36px 28px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; border: 1px solid #4FC1E925; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; }
+.onboarding-inner { max-width: 420px; width: 100%; padding: 36px 28px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; border: 1px solid #4FC1E925; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; margin: auto; }
 .onboarding-inner h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 34px; color: #fff; margin-bottom: 24px; }
 .ob-steps { text-align: left; margin-bottom: 28px; }
 .ob-step { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
@@ -125,9 +125,9 @@ textarea::placeholder, .inp::placeholder { color: #3a5565; }
 .hist-stat-label { font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #7fa8b8; margin-top: 4px; }
 .hist-streak { color: #F6D44C; }
 /* === EXIT INTENT === */
-.exit-popup { position: fixed; inset: 0; background: rgba(10,20,28,0.88); backdrop-filter: blur(8px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.4s ease-out; }
+.exit-popup { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background: rgba(10,20,28,0.88); backdrop-filter: blur(8px); z-index: 999; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.4s ease-out; overflow: auto; }
 .exit-popup.hidden { display: none; }
-.exit-popup-inner { max-width: 640px; width: 100%; padding: 48px 44px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 24px; border: 1px solid #F6D44C30; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; position: relative; }
+.exit-popup-inner { max-width: 640px; width: 100%; padding: 48px 44px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 24px; border: 1px solid #F6D44C30; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; position: relative; margin: auto; }
 .exit-popup-photo { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; object-position: top; margin: 0 auto 24px; display: block; border: 3px solid #F6D44C40; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
 .exit-popup-text { font-size: 20px; color: #e8f0f4; line-height: 1.6; margin-bottom: 32px; }
 .exit-popup-text strong { color: #F6D44C; font-size: 32px; display: block; margin-bottom: 14px; font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; }
@@ -224,9 +224,9 @@ body.presentation .improved-box { font-size: 20px; }
 body.presentation .prob-text { font-size: 17px; }
 body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar, body.presentation .rewrite-cta, body.presentation .social-proof, body.presentation .xp-bar-wrap, body.presentation #daily-challenge, body.presentation .challenge-friend-btn { display: none;  white-space: nowrap;}
 /* === GATE MODAL === */
-.gate-overlay { position: fixed; inset: 0; background: rgba(10,20,28,0.92); backdrop-filter: blur(12px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
+.gate-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background: rgba(10,20,28,0.92); backdrop-filter: blur(12px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; overflow: auto; }
 .gate-overlay.hidden { display: none; }
-.gate-modal { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; padding: 36px 28px; max-width: 420px; width: 100%; border: 1px solid #4FC1E925; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative; }
+.gate-modal { background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; padding: 36px 28px; max-width: 420px; width: 100%; border: 1px solid #4FC1E925; box-shadow: 0 20px 60px rgba(0,0,0,0.5); position: relative; margin: auto; }
 .gate-modal h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: #fff; text-align: center; margin-bottom: 6px; }
 .gate-modal .gate-sub { font-size: 19px; color: #8fb0c0; text-align: center; margin-bottom: 24px; line-height: 1.5; }
 .gate-field { margin-bottom: 14px; }
@@ -454,8 +454,8 @@ body.presentation details, body.presentation .footer, body.presentation .export-
     <div class="char-counter" id="counter-main">0 / 1000 caractere</div>
     <div id="obiectiv-wrap" style="display:none;margin-top:16px"><label class="lbl-s">Subiect sau Scop Sugestie (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
     <div style="margin-top:18px;text-align:center"><div style="font-size:16px;color:#4FC1E9;margin-bottom:10px;font-weight:700;letter-spacing:0.5px">Alege tipul evaluării:</div><div class="tier">
-      <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">De bază</div><div class="ts">3 criterii</div></button>
-      <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Avansată <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">9 criterii + rescriere</div></button>
+      <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de Bază</div><div class="ts">(doar 3 criterii)</div></button>
+      <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare Completă <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">(9 criterii, rescriere, explicații detaliate)</div></button>
     </div></div>
     <div class="example-row" id="example-row" style="display:none;margin-top:14px"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
     <button class="cta" id="cta" onclick="runEval()">Evaluează sugestia</button>
