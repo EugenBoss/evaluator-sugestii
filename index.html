@@ -48,6 +48,12 @@ textarea::placeholder, .inp::placeholder { color: #3a5565; }
 .char-counter { text-align: right; font-size: 12px; color: #506a78; margin-top: 6px; transition: color 0.3s; }
 .char-counter.warn { color: #e8945a; }
 .char-counter.over { color: #e8506a; font-weight: 700; }
+/* === REWRITE BUTTON === */
+.rewrite-cta { width: 100%; margin-top: 10px; padding: 14px 24px; border-radius: 12px; border: 1.5px solid #4FC1E940; cursor: pointer; font-size: 14px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; background: linear-gradient(135deg, #4FC1E912, #4FC1E908); color: #4FC1E9; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.rewrite-cta:hover:not(:disabled) { background: linear-gradient(135deg, #4FC1E920, #4FC1E915); border-color: #4FC1E970; box-shadow: 0 4px 20px #4FC1E920; transform: translateY(-1px); }
+.rewrite-cta:disabled { background: #1a3040; color: #3a5565; box-shadow: none; cursor: default; border: 1px solid #2f4f5f; }
+.rewrite-result { margin-top: 20px; animation: fadeIn 0.5s ease-out; }
+.rewrite-result .rcard-head { -webkit-text-fill-color: #4FC1E9; color: #4FC1E9; }
 .opts { display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; }
 .opts > div:first-child { flex: 1; min-width: 140px; }
 .opts > div:last-child { flex: 2; min-width: 200px; }
@@ -187,7 +193,7 @@ body.presentation .crow-obs { font-size: 16px; }
 body.presentation .bar-num { font-size: 20px; }
 body.presentation .improved-box { font-size: 20px; }
 body.presentation .prob-text { font-size: 17px; }
-body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar { display: none; }
+body.presentation details, body.presentation .footer, body.presentation .export-bar, body.presentation .cta-box, body.presentation .share-bar, body.presentation .rewrite-cta { display: none; }
 /* === GATE MODAL === */
 .gate-overlay { position: fixed; inset: 0; background: rgba(10,20,28,0.92); backdrop-filter: blur(12px); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; }
 .gate-overlay.hidden { display: none; }
@@ -207,6 +213,9 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 .gate-skip { display: block; margin: 16px auto 0; padding: 8px 16px; border: none; background: none; color: #506a78; font-size: 13px; font-family: 'Source Sans 3', sans-serif; cursor: pointer; transition: color 0.2s; }
 .gate-skip:hover { color: #8fb0c0; }
 .gate-err-msg { font-size: 13px; color: #e8899a; text-align: center; margin-top: 12px; }
+.gate-otp-input { width: 100%; padding: 16px; border-radius: 12px; border: 1.5px solid #2f4f5f; background: #0f1f28; color: #4FC1E9; font-family: monospace; font-size: 28px; font-weight: 700; letter-spacing: 10px; text-align: center; outline: none; transition: all 0.25s; }
+.gate-otp-input:focus { border-color: #4FC1E9; box-shadow: 0 0 0 3px #4FC1E920; }
+.gate-otp-input::placeholder { color: #3a5565; letter-spacing: 10px; font-size: 28px; }
 /* === LOCK BADGE === */
 .lock-icon { display: inline-block; margin-left: 4px; font-size: 11px; vertical-align: middle; }
 /* === SHARE BAR === */
@@ -228,16 +237,27 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 <div class="gate-overlay hidden" id="gate-overlay">
   <div class="gate-modal">
     <button onclick="hideGate()" style="position:absolute;top:14px;right:14px;width:32px;height:32px;border-radius:8px;border:1px solid #4FC1E930;background:transparent;color:#607a88;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s" onmouseover="this.style.color='#e8899a';this.style.borderColor='#e8899a50'" onmouseout="this.style.color='#607a88';this.style.borderColor='#4FC1E930'">✕</button>
-    <h2>Deblochez evaluarea avansată</h2>
-    <div class="gate-sub">Completează datele de mai jos pentru acces complet la toate funcțiile: evaluare pe 9 criterii, versiune îmbunătățită, mod antrenament și bibliotecă.</div>
-    <div class="gate-field"><label>Nume complet</label><input type="text" id="gate-name" placeholder="ex: Maria Ionescu"><div class="field-err" id="err-name">Completează numele</div></div>
-    <div class="gate-field"><label>Email</label><input type="email" id="gate-email" placeholder="ex: maria@email.com"><div class="field-err" id="err-email">Introdu un email valid</div></div>
-    <div class="gate-field"><label>Telefon</label><div style="display:flex;gap:8px"><select id="gate-cc" style="width:120px;flex-shrink:0;padding:12px 8px 12px 12px;border-radius:10px;border:1.5px solid #2f4f5f;background:#0f1f28;color:#e8f0f4;font-family:'Source Sans 3',sans-serif;font-size:14px;cursor:pointer;outline:none;transition:all 0.25s"></select><input type="tel" id="gate-phone" placeholder="722 123 456" style="flex:1"></div><div class="field-err" id="err-phone">Completează telefonul</div></div>
-    <div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true"><label>Website</label><input type="text" id="gate-website" tabindex="-1" autocomplete="off"></div>
-    <div class="gate-err-msg" id="gate-err-msg"></div>
-    <button class="gate-submit" id="gate-submit" onclick="submitGate()">Activează accesul complet</button>
-    <div class="gate-privacy">Datele tale sunt în siguranță. Nu facem spam.</div>
-    <button class="gate-skip" onclick="hideGate()">Continuă doar cu evaluarea de bază →</button>
+    <div id="gate-step1">
+      <h2>Deblochez evaluarea avansată</h2>
+      <div class="gate-sub">Completează datele și vei primi un cod de verificare pe email.</div>
+      <div class="gate-field"><label>Nume complet</label><input type="text" id="gate-name" placeholder="ex: Maria Ionescu"><div class="field-err" id="err-name">Completează numele</div></div>
+      <div class="gate-field"><label>Email</label><input type="email" id="gate-email" placeholder="ex: maria@email.com"><div class="field-err" id="err-email">Introdu un email valid</div></div>
+      <div class="gate-field"><label>Telefon</label><div style="display:flex;gap:8px"><select id="gate-cc" style="width:120px;flex-shrink:0;padding:12px 8px 12px 12px;border-radius:10px;border:1.5px solid #2f4f5f;background:#0f1f28;color:#e8f0f4;font-family:'Source Sans 3',sans-serif;font-size:14px;cursor:pointer;outline:none;transition:all 0.25s"></select><input type="tel" id="gate-phone" placeholder="722 123 456" style="flex:1"></div><div class="field-err" id="err-phone">Completează telefonul</div></div>
+      <div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true"><label>Website</label><input type="text" id="gate-website" tabindex="-1" autocomplete="off"></div>
+      <div class="gate-err-msg" id="gate-err-msg"></div>
+      <button class="gate-submit" id="gate-submit-1" onclick="sendOTP()">Trimite codul de verificare</button>
+      <div class="gate-privacy">Datele tale sunt în siguranță. Nu facem spam.</div>
+      <button class="gate-skip" onclick="hideGate()">Continuă doar cu evaluarea de bază →</button>
+    </div>
+    <div id="gate-step2" style="display:none">
+      <h2>Verifică emailul</h2>
+      <div class="gate-sub">Am trimis un cod de 6 cifre pe <strong id="gate-email-sent"></strong></div>
+      <div class="gate-field"><label>Cod de verificare</label><input type="text" class="gate-otp-input" id="gate-code" placeholder="000000" maxlength="6"><div class="field-err" id="err-code">Introdu codul de 6 cifre</div></div>
+      <div class="gate-err-msg" id="gate-err-msg-2"></div>
+      <button class="gate-submit" id="gate-submit-2" onclick="verifyOTP()">Verifică și activează</button>
+      <button class="gate-skip" onclick="resendOTP()" id="resend-btn">Nu ai primit codul? Retrimite</button>
+      <button class="gate-skip" onclick="showStep1()">← Modifică datele</button>
+    </div>
   </div>
 </div>
 <div class="exit-popup hidden" id="exit-popup">
@@ -268,7 +288,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   </div>
   <div class="card">
     <div class="example-row"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
-    <label class="lbl">Sugestia hipnotică</label>
+    <label class="lbl">Scrie mai jos sugestiile tale și apoi apasă pe butonul galben „Evaluează Sugestia" pentru a vedea scorul tău</label>
     <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..." maxlength="1000" oninput="updateCounter('text','counter-main')"></textarea>
     <div class="char-counter" id="counter-main">0 / 1000 caractere</div>
     <div class="opts">
@@ -276,8 +296,10 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div><label class="lbl-s">Obiectiv terapeutic (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
     </div>
     <button class="cta" id="cta" onclick="runEval()">Evaluează sugestia</button>
+    <button class="rewrite-cta" id="rewrite-btn" onclick="runRewrite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Rescrie sugestia mai bine</button>
   </div>
   <div id="error"></div>
+  <div id="rewrite-result"></div>
   <div id="results"></div>
   <details><summary id="ref-summary">Referință criterii (3)</summary><div class="ref" id="ref-list"></div></details>
   <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa</div>
@@ -377,7 +399,8 @@ function showGate(){document.getElementById('gate-overlay').classList.remove('hi
 function hideGate(){document.getElementById('gate-overlay').classList.add('hidden');}
 function updateLockIcon(){var lock=document.getElementById('lock-adv');if(lock)lock.style.display=isUnlocked()?'none':'inline';}
 function requireGate(){if(isUnlocked())return true;showGate();return false;}
-async function submitGate(){
+function showStep1(){document.getElementById('gate-step1').style.display='block';document.getElementById('gate-step2').style.display='none';}
+async function sendOTP(){
   var name=document.getElementById('gate-name').value.trim();
   var email=document.getElementById('gate-email').value.trim();
   var phone=document.getElementById('gate-phone').value.trim();
@@ -388,18 +411,49 @@ async function submitGate(){
   if(!email||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('err-email').style.display='block';ok=false;}
   if(!phone||phone.replace(/\D/g,'').length<6){document.getElementById('err-phone').style.display='block';ok=false;}
   if(!ok)return;
-  var fullPhone=document.getElementById('gate-cc').value+phone.replace(/^0+/,'');
-  var btn=document.getElementById('gate-submit');
-  btn.disabled=true;btn.textContent='Se activează...';
+  var btn=document.getElementById('gate-submit-1');
+  btn.disabled=true;btn.textContent='Se trimite codul...';
   try{
-    var resp=await fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,phone:fullPhone,website:document.getElementById('gate-website').value})});
-    if(resp.status===429){document.getElementById('gate-err-msg').textContent='Prea multe încercări. Așteaptă câteva minute.';return;}
-    localStorage.setItem('user_unlocked','1');
-    localStorage.setItem('user_data',JSON.stringify({name:name,email:email,phone:fullPhone}));
-    hideGate();updateLockIcon();
-    if(tier==='basic')setTier('advanced');
+    var fullPhone=document.getElementById('gate-cc').value+phone.replace(/^0+/,'');
+    var resp=await fetch('/api/send-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:name,email:email,phone:fullPhone,website:document.getElementById('gate-website').value})});
+    var data=await resp.json();
+    if(!resp.ok){document.getElementById('gate-err-msg').textContent=data.error||'Eroare la trimitere.';return;}
+    document.getElementById('gate-email-sent').textContent=email;
+    document.getElementById('gate-step1').style.display='none';
+    document.getElementById('gate-step2').style.display='block';
+    document.getElementById('gate-code').value='';
+    document.getElementById('gate-code').focus();
   }catch(e){document.getElementById('gate-err-msg').textContent='Eroare de conexiune. Încearcă din nou.';}
-  finally{btn.disabled=false;btn.textContent='Activează accesul complet';}
+  finally{btn.disabled=false;btn.textContent='Trimite codul de verificare';}
+}
+async function verifyOTP(){
+  var email=document.getElementById('gate-email').value.trim();
+  var code=document.getElementById('gate-code').value.trim();
+  document.querySelectorAll('.field-err').forEach(function(e){e.style.display='none';});
+  document.getElementById('gate-err-msg-2').textContent='';
+  if(!code||code.length!==6||!/^\d{6}$/.test(code)){document.getElementById('err-code').style.display='block';return;}
+  var btn=document.getElementById('gate-submit-2');
+  btn.disabled=true;btn.textContent='Se verifică...';
+  try{
+    var resp=await fetch('/api/verify-otp',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,code:code})});
+    var data=await resp.json();
+    if(!resp.ok){document.getElementById('gate-err-msg-2').textContent=data.error||'Cod incorect.';return;}
+    if(data.verified){
+      var name=document.getElementById('gate-name').value.trim();
+      var phone=document.getElementById('gate-phone').value.trim();
+      var fullPhone=document.getElementById('gate-cc').value+phone.replace(/^0+/,'');
+      localStorage.setItem('user_unlocked','1');
+      localStorage.setItem('user_data',JSON.stringify({name:name,email:email,phone:fullPhone}));
+      hideGate();updateLockIcon();
+      if(tier==='basic')setTier('advanced');
+    }
+  }catch(e){document.getElementById('gate-err-msg-2').textContent='Eroare de conexiune. Încearcă din nou.';}
+  finally{btn.disabled=false;btn.textContent='Verifică și activează';}
+}
+function resendOTP(){
+  document.getElementById('gate-code').value='';
+  document.getElementById('gate-err-msg-2').textContent='';
+  sendOTP();
 }
 
 /* === TABS === */
@@ -448,10 +502,11 @@ function stopLoading(){if(loadingInterval){clearInterval(loadingInterval);loadin
 /* === COOLOFF TIMER === */
 function startCooloff(btn){
   var secs=60;btn.disabled=true;
+  var origHTML=btn.innerHTML;
   btn.textContent='Așteaptă '+secs+'s...';
   var iv=setInterval(function(){
     secs--;
-    if(secs<=0){clearInterval(iv);btn.disabled=false;btn.textContent='Evaluează sugestia';}
+    if(secs<=0){clearInterval(iv);btn.disabled=false;btn.innerHTML=origHTML;}
     else{btn.textContent='Așteaptă '+secs+'s...';}
   },1000);
 }
@@ -459,13 +514,46 @@ function startCooloff(btn){
 /* === RE-EVALUATE === */
 function reEval(){if(!lastImproved)return;var circle=document.querySelector('.total-circle');prevScore=circle?parseInt(circle.textContent)||null:null;document.getElementById('text').value=lastImproved;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});setTimeout(function(){runEval();},300);}
 
+/* === REWRITE === */
+var RW_BASIC="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nRescrie sugestia hipnotică de mai jos într-o versiune îmbunătățită care respectă:\n- Formulare 100% pozitivă (zero negații)\n- Specificitate și claritate (imagini senzoriale concrete)\n- Timp verbal prezent (nu viitor, nu condițional)\n\nIMPORTANT: Răspunde DOAR cu versiunea rescrisă, fără explicații, fără introducere. Maxim 50 de cuvinte. Limba română cu diacritice corecte.";
+var RW_ADV="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nRescrie sugestia hipnotică de mai jos într-o versiune profesională care respectă toate cele 9 criterii:\n1. Formulare 100% pozitivă\n2. Specificitate și claritate (imagini senzoriale concrete)\n3. Timp verbal prezent\n4. Gradualitate și progresie naturală\n5. Ancorare senzorială VAKOG (minim 3 canale)\n6. Ritm și cadență hipnotică (propoziții scurte)\n7. Pattern-uri lingvistice corecte pentru tipul de sugestie\n8. Obiectiv terapeutic unic și clar\n9. Activare emoțională (creează starea, nu o descrie)\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE\nCEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nIMPORTANT: Răspunde DOAR cu versiunea rescrisă, fără explicații, fără introducere. Maxim 300 de cuvinte. Limba română cu diacritice corecte.";
+
+async function runRewrite(){
+  var text=document.getElementById('text').value.trim();if(!text)return;
+  if(isEvaluating)return;isEvaluating=true;
+  var btn=document.getElementById('rewrite-btn');var eD=document.getElementById('error');var rwD=document.getElementById('rewrite-result');
+  btn.disabled=true;btn.innerHTML='<span class="spinner"></span><span class="loading-text">Rescriu sugestia...</span>';
+  eD.innerHTML='';rwD.innerHTML='';
+  var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
+  var um='Rescrie această sugestie hipnotică:\n\n"""'+text+'"""';
+  if(tip!=='auto')um+='\n\nTip sugestie: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
+  try{
+    var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?RW_BASIC:RW_ADV,messages:[{role:'user',content:um}]})});
+    if(rsp.status===429){throw new Error('Prea multe cereri. Așteaptă un minut și încearcă din nou.');}
+    if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
+    var data=await rsp.json();var rewritten=(data.content||[]).map(function(c){return c.text||'';}).join('').trim();
+    rewritten=rewritten.replace(/```/g,'').replace(/^["']|["']$/g,'').trim();
+    var wordCount=rewritten.split(/\s+/).length;
+    var h='<div class="rewrite-result"><div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Versiune rescrisă'+(tier==='basic'?' (scurtă — '+wordCount+' cuvinte)':' (completă — '+wordCount+' cuvinte)')+'</div>';
+    h+='<div class="improved-box" style="border-color:rgba(79,193,233,0.25);background:linear-gradient(135deg,rgba(79,193,233,0.1),rgba(79,193,233,0.04))">'+rewritten+'</div>';
+    h+='<div style="display:flex;gap:10px;margin-top:14px"><button class="reeval-btn" style="border-color:#4FC1E950;color:#4FC1E9;background:linear-gradient(135deg,#4FC1E915,#4FC1E908)" onclick="useRewrite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Folosește această versiune</button></div>';
+    if(tier==='basic'&&!isUnlocked()){h+='<div style="margin-top:14px;padding:14px 18px;border-radius:12px;background:#F6D44C08;border:1px solid #F6D44C25;text-align:center;font-size:13px;color:#F6D44C;cursor:pointer" onclick="showGate()">🔒 Versiunea completă (300 cuvinte) e disponibilă în modul avansat — <strong>deblochează gratuit</strong></div>';}
+    h+='</div></div>';
+    rwD.innerHTML=h;rwD.scrollIntoView({behavior:'smooth',block:'start'});
+    lastRewrite=rewritten;
+  }catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
+  finally{isEvaluating=false;btn.disabled=false;btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Rescrie sugestia mai bine';startCooloff(btn);}
+}
+var lastRewrite='';
+function useRewrite(){if(!lastRewrite)return;document.getElementById('text').value=lastRewrite;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});updateCounter('text','counter-main');}
+
 /* === MAIN EVAL === */
 async function runEval(){
   if(isEvaluating)return;var text=document.getElementById('text').value.trim();if(!text)return;
   isEvaluating=true;
   var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
   var cta=document.getElementById('cta');var eD=document.getElementById('error');var rD=document.getElementById('results');
-  cta.disabled=true;startLoading(cta,false);eD.innerHTML='';rD.innerHTML='';
+  cta.disabled=true;startLoading(cta,false);eD.innerHTML='';rD.innerHTML='';document.getElementById('rewrite-result').innerHTML='';
   var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
   if(tip!=='auto')um+='\n\nTip declarat: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
   try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});
