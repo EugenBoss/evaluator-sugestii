@@ -472,7 +472,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div><label class="lbl-s">Obiectiv terapeutic (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
     </div>
     <button class="cta" id="cta" onclick="runEval()">Evaluează sugestia</button>
-    <button class="rewrite-cta" id="rewrite-btn" onclick="runRewrite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Rescrie sugestia mai bine</button>
+    <button class="rewrite-cta" id="rewrite-btn" onclick="runRewrite()" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>Rescrie sugestia mai bine</button>
     <div id="basic-remaining" style="text-align:center;font-size:13px;color:#506a78;margin-top:8px;display:none"></div>
   </div>
   <div id="error"></div>
@@ -565,11 +565,38 @@ var LIBRARY=[
 ];
 var STEPS_B=["Analizez formularea...","Verific specificitatea...","Testez timpul verbal...","Calculez scorul final..."];
 var STEPS_A=["Analizez structura sugestiei...","Verific formularea pozitivă...","Testez ancorarea senzorială VAKOG...","Evaluez ritmul și cadența...","Verific pattern-urile lingvistice...","Analizez obiectivul terapeutic...","Generez versiunea îmbunătățită...","Finalizez raportul..."];
-var PB="Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 3 criterii fundamentale, returnezi JSON strict.\n\nCRITERII:\n1. Formulare pozitivă (1-10): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru perfecțiune teoretică.\n- Dacă o sugestie are zero negații → criteriul 1 = 10.\n- Dacă toate propozițiile sunt la prezent → criteriul 3 = 10.\n- Dacă fiecare propoziție creează o imagine senzorială concretă → criteriul 2 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Scorul 100/100 este complet posibil pentru o sugestie care respectă toate criteriile.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\n3 FILTRE: 1. Înlocuiești subiectul și merge la fel→prea generală. 2. Are film clar? 3. Filmul e cel intenționat?\n\nCalculează scor_total normalizat la 100: suma celor 3 scoruri impartita la 30 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente.\n\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
-var PA="Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 9 criterii obiective, returnezi JSON strict.\n\nBLOC A — STRUCTURALE:\n1. Formulare pozitivă (1-10): 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): 9-10=precise, concrete. 1-2=vagi.\n3. Timp verbal corect (1-10): 9-10=prezent consistent. 1-2=viitor/condițional.\n4. Gradualitate și progresie (1-10): 9-10=progresie naturală. 1-2=salt brusc.\n\nBLOC B — LIMBAJ:\n5. Ancorare senzorială VAKOG (1-10): 9-10=3+ canale. 1-2=zero ancore.\n6. Ritm și cadență (1-10): 9-10=ritm hipnotic. 1-2=text dens.\n7. Pattern-uri lingvistice (1-10): 9-10=corecte, variate. 1-2=greșite.\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic clar (1-10): 9-10=unic și clar. 1-2=contradictorii.\n9. Activare emoțională (1-10): CREEAZĂ starea. 9-10=palpabilă. 1-2=plat.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru o perfecțiune teoretică imposibilă.\n- Zero negații → criteriul 1 = 10. Toate propozițiile la prezent → criteriul 3 = 10. Progresie clară corp→emoție→identitate → criteriul 4 = 10.\n- 3+ canale senzoriale activate natural → criteriul 5 = 9 sau 10. Propoziții scurte cu ritm de respirație → criteriul 6 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Un scor total de 100/100 este complet posibil pentru o sugestie care respectă excelent toate cele 9 criterii.\n- O sugestie bună poate primi 10 pe unele criterii și 7-8 pe altele. Nu trage toate scorurile în jos doar pentru că un criteriu e mai slab.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCalculează scor_total normalizat la 100: suma celor 9 scoruri impartita la 90 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":4,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":5,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":6,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":7,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":8,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":9,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente. Dacă sugestia e excelentă, versiune_imbunatatita poate fi identică sau cu ajustări minore.\n\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj. NU include niciun criteriu despre siguranță sau etică.";
+var PB="Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 3 criterii fundamentale, returnezi JSON strict.\n\nCRITERII:\n1. Formulare pozitivă (1-10): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru perfecțiune teoretică.\n- Dacă o sugestie are zero negații → criteriul 1 = 10.\n- Dacă toate propozițiile sunt la prezent → criteriul 3 = 10.\n- Dacă fiecare propoziție creează o imagine senzorială concretă → criteriul 2 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Scorul 100/100 este complet posibil pentru o sugestie care respectă toate criteriile.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\n3 FILTRE: 1. Înlocuiești subiectul și merge la fel→prea generală. 2. Are film clar? 3. Filmul e cel intenționat?\n\nCalculează scor_total normalizat la 100: suma celor 3 scoruri impartita la 30 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente.\n\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj. NU include niciun criteriu despre siguranță sau etică.\n\nDacă în mesajul utilizatorului există o secțiune COMPARAȚIE CU VERSIUNEA ANTERIOARĂ, adaugă în JSON câmpul \"comparatie_versiune_anterioara\":\"explicație detaliată a fiecărei schimbări și impactul ei asupra scorului\".";
+var PA="Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 9 criterii obiective, returnezi JSON strict.\n\nBLOC A — STRUCTURALE:\n1. Formulare pozitivă (1-10): 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): 9-10=precise, concrete. 1-2=vagi.\n3. Timp verbal corect (1-10): 9-10=prezent consistent. 1-2=viitor/condițional.\n4. Gradualitate și progresie (1-10): 9-10=progresie naturală. 1-2=salt brusc.\n\nBLOC B — LIMBAJ:\n5. Ancorare senzorială VAKOG (1-10): 9-10=3+ canale. 1-2=zero ancore.\n6. Ritm și cadență (1-10): 9-10=ritm hipnotic. 1-2=text dens.\n7. Pattern-uri lingvistice (1-10): 9-10=corecte, variate. 1-2=greșite.\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic clar (1-10): 9-10=unic și clar. 1-2=contradictorii.\n9. Activare emoțională (1-10): CREEAZĂ starea. 9-10=palpabilă. 1-2=plat.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru o perfecțiune teoretică imposibilă.\n- Zero negații → criteriul 1 = 10. Toate propozițiile la prezent → criteriul 3 = 10. Progresie clară corp→emoție→identitate → criteriul 4 = 10.\n- 3+ canale senzoriale activate natural → criteriul 5 = 9 sau 10. Propoziții scurte cu ritm de respirație → criteriul 6 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Un scor total de 100/100 este complet posibil pentru o sugestie care respectă excelent toate cele 9 criterii.\n- O sugestie bună poate primi 10 pe unele criterii și 7-8 pe altele. Nu trage toate scorurile în jos doar pentru că un criteriu e mai slab.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCalculează scor_total normalizat la 100: suma celor 9 scoruri impartita la 90 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":4,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":5,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":6,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":7,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":8,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":9,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente. Dacă sugestia e excelentă, versiune_imbunatatita poate fi identică sau cu ajustări minore.\n\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj. NU include niciun criteriu despre siguranță sau etică.\n\nDacă în mesajul utilizatorului există o secțiune COMPARAȚIE CU VERSIUNEA ANTERIOARĂ, adaugă în JSON câmpul \"comparatie_versiune_anterioara\":\"explicație detaliată a fiecărei schimbări și impactul ei asupra scorului\".";
 
 /* === STATE === */
 var tier='basic',lastImproved='',prevScore=null,loadingInterval=null,isPresentation=false,isEvaluating=false;
+var evalCache={text:'',tier:'',result:null};
+
+/* === TEXT COMPARISON === */
+function normalizeText(t){return t.replace(/\s+/g,' ').trim().toLowerCase();}
+function textsIdentical(a,b){return normalizeText(a)===normalizeText(b);}
+function textSimilarity(a,b){
+  var na=normalizeText(a),nb=normalizeText(b);
+  if(na===nb)return 1;
+  // Simple character-level similarity (Sørensen-Dice on bigrams)
+  function bigrams(s){var b=new Set();for(var i=0;i<s.length-1;i++)b.add(s.substring(i,i+2));return b;}
+  var ba=bigrams(na),bb=bigrams(nb);
+  var inter=0;ba.forEach(function(g){if(bb.has(g))inter++;});
+  return(2*inter)/(ba.size+bb.size);
+}
+function describeChanges(oldT,newT){
+  var ow=oldT.split(/\s+/),nw=newT.split(/\s+/);
+  var added=[],removed=[];
+  var oSet=new Set(ow.map(function(w){return w.toLowerCase();}));
+  var nSet=new Set(nw.map(function(w){return w.toLowerCase();}));
+  nw.forEach(function(w){if(!oSet.has(w.toLowerCase()))added.push(w);});
+  ow.forEach(function(w){if(!nSet.has(w.toLowerCase()))removed.push(w);});
+  var lenDiff=newT.length-oldT.length;
+  var punctOld=(oldT.match(/[.,;:!?"""''…—–\-()]/g)||[]).join('');
+  var punctNew=(newT.match(/[.,;:!?"""''…—–\-()]/g)||[]).join('');
+  var punctChanged=punctOld!==punctNew;
+  return{added:added,removed:removed,lenDiff:lenDiff,punctChanged:punctChanged};
+}
 
 /* === GATE LOGIC === */
 function isUnlocked(){try{return !!localStorage.getItem('user_unlocked');}catch(e){return false;}}
@@ -782,12 +809,36 @@ async function runEval(){
     var bc=parseInt(localStorage.getItem('basic_eval_count')||'0');
     if(bc>=5){showGate('limit');return;}
   }
+  // === CACHE: Identical text → same score, no API call ===
+  if(evalCache.text&&evalCache.tier===tier&&textsIdentical(text,evalCache.text)){
+    var rD=document.getElementById('results');var eD=document.getElementById('error');
+    eD.innerHTML='';rD.innerHTML='';document.getElementById('rewrite-result').innerHTML='';
+    var cachedR=JSON.parse(JSON.stringify(evalCache.result));
+    cachedR._identicalNote='<div style="padding:14px 18px;border-radius:12px;background:#4FC1E908;border:1px solid #4FC1E920;margin-bottom:16px;font-size:15px;color:#8fb0c0;text-align:center">ℹ️ Ai trimis <strong style="color:#4FC1E9">exact același text</strong> ca ultima evaluare. Scorul rămâne identic. Modifică sugestia pentru un nou scor.</div>';
+    renderResult(cachedR);
+    var rwBtn=document.getElementById('rewrite-btn');if(rwBtn)rwBtn.style.display='flex';
+    return;
+  }
+  // === SIMILARITY: Detect minor changes ===
+  var compContext='';var sim=0;
+  if(evalCache.text&&evalCache.tier===tier){
+    sim=textSimilarity(text,evalCache.text);
+    if(sim>0.85&&sim<1){
+      var changes=describeChanges(evalCache.text,text);
+      compContext='\n\n--- COMPARAȚIE CU VERSIUNEA ANTERIOARĂ ---\nVersiunea anterioară (scor: '+evalCache.result.scor_total+'/'+evalCache.result.scor_maxim+'):\n"""'+evalCache.text+'"""\n\nTextul curent a fost MODIFICAT UȘOR față de versiunea anterioară.';
+      if(changes.added.length)compContext+='\nCuvinte adăugate: '+changes.added.join(', ');
+      if(changes.removed.length)compContext+='\nCuvinte eliminate: '+changes.removed.join(', ');
+      if(changes.punctChanged)compContext+='\nPunctuația s-a schimbat.';
+      compContext+='\n\nINSTRUCȚIUNI SPECIALE: În câmpul "comparatie_versiune_anterioara" din JSON, explică EXACT ce s-a modificat, de ce scorul s-a schimbat (sau nu), și cum afectează fiecare schimbare calitatea sugestiei. Fii specific.';
+    }
+  }
   isEvaluating=true;
   var tip=document.getElementById('tip').value;var ob=document.getElementById('obiectiv').value.trim();
   var cta=document.getElementById('cta');var eD=document.getElementById('error');var rD=document.getElementById('results');
   cta.disabled=true;startLoading(cta,false);eD.innerHTML='';rD.innerHTML='';document.getElementById('rewrite-result').innerHTML='';
   var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
   if(tip!=='auto')um+='\n\nTip declarat: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
+  if(compContext)um+=compContext;
   try{var rsp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});
   if(rsp.status===429){throw new Error('Prea multe evaluări. Așteaptă un minut și încearcă din nou.');}
   if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
@@ -802,6 +853,8 @@ async function runEval(){
     for(var fi2=0;fi2<oB-cB;fi2++)fixed+=']';
     try{r=JSON.parse(fixed);}catch(e2){throw new Error('Răspunsul AI nu a putut fi procesat. Încearcă din nou.');}
   }
+  if(sim>0.85&&sim<1){r._similarNote=true;}
+  evalCache={text:text,tier:tier,result:JSON.parse(JSON.stringify(r))};
   renderResult(r);saveHistory(text,r);
   // Increment basic eval counter
   if(tier==='basic'&&!isUnlocked()){var bc=parseInt(localStorage.getItem('basic_eval_count')||'0');localStorage.setItem('basic_eval_count',String(bc+1));updateBasicRemaining();}
@@ -816,6 +869,12 @@ function renderResult(r){
   var cr=tier==='basic'?BC:AC;var validIds=cr.map(function(x){return x.id;});
   var fc=(r.criterii||[]).filter(function(c){return validIds.indexOf(c.id)!==-1;});
   var lv=glv(r.scor_total,r.scor_maxim);var pct=Math.round((r.scor_total/r.scor_maxim)*100);var h='';
+  // Identical text note
+  if(r._identicalNote){h+=r._identicalNote;}
+  // Comparison note from AI
+  if(r._similarNote&&r.comparatie_versiune_anterioara){
+    h+='<div style="padding:16px 18px;border-radius:12px;background:#e8945a08;border:1px solid #e8945a25;margin-bottom:16px"><div style="font-size:14px;font-weight:700;color:#e8945a;margin-bottom:8px">🔍 Schimbări detectate față de versiunea anterioară</div><div style="font-size:15px;color:#8fb0c0;line-height:1.6">'+r.comparatie_versiune_anterioara+'</div></div>';
+  }
   if(prevScore!==null&&prevScore!==r.scor_total){var diff=r.scor_total-prevScore;var dc=diff>0?'#5dd9a6':'#e8506a';var ds=diff>0?'+':'';
     h+='<div class="compare-banner"><div class="compare-score"><div class="cs-num" style="color:#e8945a">'+prevScore+'</div><div class="cs-label">Original</div></div><div class="compare-arrow">→</div><div class="compare-score"><div class="cs-num" style="color:#5dd9a6">'+r.scor_total+'</div><div class="cs-label">Îmbunătățită</div></div><div class="compare-diff" style="color:'+dc+';background:'+dc+'18">'+ds+diff+' puncte</div></div>';prevScore=null;}
   h+='<div class="badge">Tip detectat: '+r.tip_detectat+'</div>';
@@ -846,7 +905,9 @@ function renderResult(r){
   h+='<button class="challenge-friend-btn" onclick="challengeFriend('+r.scor_total+')">🎯 Provoacă un prieten să facă mai bine ca tine!</button>';
   document.getElementById('results').innerHTML='<div class="result">'+h+'</div>';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
   // Award XP
-  awardXP(r.scor_total,pct);}
+  awardXP(r.scor_total,pct);
+  // Show rewrite button
+  var rwBtn=document.getElementById('rewrite-btn');if(rwBtn)rwBtn.style.display='flex';}
 
 /* === EXPORT: COPY === */
 function copyResult(){var r=document.getElementById('results');if(!r.textContent.trim())return;var lines=[];
@@ -1169,8 +1230,8 @@ function completeDailyChallenge(){
 function renderDailyChallenge(){
   var el=document.getElementById('daily-challenge');if(!el)return;
   var ch=getDailyChallenge();var done=isDailyChallengeComplete();
-  if(done){el.innerHTML='<div style="padding:14px 18px;border-radius:12px;background:#5dd9a610;border:1px solid #5dd9a625;text-align:center"><span class="daily-badge" style="background:#5dd9a615;color:#5dd9a6">✅ Challenge completat</span><div style="font-size:14px;color:#5dd9a6;margin-top:6px">Revino mâine pentru un nou challenge!</div></div>';return;}
-  el.innerHTML='<div style="padding:18px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #F6D44C25"><span class="daily-badge">📅 Challenge zilnic</span><div style="font-size:16px;color:#e8f0f4;line-height:1.6;margin-bottom:8px">'+ch.text+'</div><div style="font-size:13px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+ch.goal+' · Categorie: '+ch.cat+'</div><button onclick="loadDailyChallenge()" style="margin-top:12px;padding:10px 18px;border-radius:10px;border:1px solid #F6D44C40;background:#F6D44C15;color:#F6D44C;font-size:14px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s">Acceptă challenge-ul →</button></div>';
+  if(done){el.innerHTML='<div style="padding:18px 22px;border-radius:12px;background:#5dd9a610;border:1px solid #5dd9a625;text-align:center"><span class="daily-badge" style="background:#5dd9a615;color:#5dd9a6;font-size:14px">✅ Challenge completat</span><div style="font-size:18px;color:#5dd9a6;margin-top:8px">Revino mâine pentru un nou challenge!</div></div>';return;}
+  el.innerHTML='<div style="padding:24px;border-radius:14px;background:linear-gradient(145deg,#1e3645,#1a3040);border:1px solid #F6D44C25"><span class="daily-badge" style="font-size:14px">📅 Challenge zilnic</span><div style="font-size:20px;color:#e8f0f4;line-height:1.6;margin-bottom:10px">'+ch.text+'</div><div style="font-size:17px;color:#e8945a;font-weight:600">🎯 Obiectiv: scor minim '+ch.goal+' · Categorie: '+ch.cat+'</div><button onclick="loadDailyChallenge()" style="margin-top:14px;padding:12px 22px;border-radius:10px;border:1px solid #F6D44C40;background:#F6D44C15;color:#F6D44C;font-size:17px;font-weight:700;font-family:\'Source Sans 3\',sans-serif;cursor:pointer;transition:all 0.3s">Acceptă challenge-ul →</button></div>';
 }
 function loadDailyChallenge(){
   var ch=getDailyChallenge();
