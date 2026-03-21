@@ -246,7 +246,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 .gate-field input:focus { border-color: #4FC1E9; box-shadow: 0 0 0 3px #4FC1E920; }
 .gate-field input::placeholder { color: #3a5565; }
 .gate-field .field-err { font-size: 11px; color: #e8899a; margin-top: 4px; display: none; }
-.gate-submit { width: 100%; margin-top: 20px; padding: 18px 28px; border-radius: 14px; border: none; cursor: pointer; font-size: 20px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;  white-space: nowrap;}
+.gate-submit { width: 100%; margin-top: 20px; padding: 16px 28px; border-radius: 14px; border: none; cursor: pointer; font-size: 16px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px;  white-space: nowrap;}
 .gate-submit:hover { box-shadow: 0 6px 28px #F6D44C40; transform: translateY(-1px); }
 .gate-submit:disabled { background: #1a3040; color: #3a5565; box-shadow: none; cursor: default; border: 1px solid #2f4f5f; }
 .gate-privacy { font-size: 15px; color: #506a78; text-align: center; margin-top: 14px; line-height: 1.4; font-weight: 400; }
@@ -425,7 +425,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div class="gate-field"><label>Telefon</label><div style="display:flex;gap:8px"><select id="gate-cc" style="width:120px;flex-shrink:0;padding:12px 8px 12px 12px;border-radius:10px;border:1.5px solid #2f4f5f;background:#0f1f28;color:#e8f0f4;font-family:'Source Sans 3',sans-serif;font-size:14px;cursor:pointer;outline:none;transition:all 0.25s"></select><input type="tel" id="gate-phone" placeholder="722 123 456" style="flex:1"></div><div class="field-err" id="err-phone">Completează telefonul</div></div>
       <div style="position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true"><label>Website</label><input type="text" id="gate-website" tabindex="-1" autocomplete="off"></div>
       <div class="gate-err-msg" id="gate-err-msg"></div>
-      <label style="display:flex;align-items:flex-start;gap:10px;margin-top:16px;cursor:pointer"><input type="checkbox" id="gate-gdpr" style="width:20px;height:20px;margin-top:2px;flex-shrink:0;accent-color:#4FC1E9;cursor:pointer"><span style="font-size:14px;color:#8fb0c0;line-height:1.5;font-weight:400">Sunt de acord cu <a href="https://www.putereamintii.ro/termeni-si-conditii/" target="_blank" style="color:#4FC1E9;text-decoration:underline">Termenii și Condițiile</a> și cu prelucrarea datelor personale.</span></label>
+      <label style="display:flex;align-items:flex-start;gap:10px;margin-top:16px;cursor:pointer"><input type="checkbox" id="gate-gdpr" style="width:18px;height:18px;margin-top:2px;flex-shrink:0;accent-color:#4FC1E9;cursor:pointer"><span style="font-size:12px;color:#8fb0c0;line-height:1.5;font-weight:400">Sunt de acord cu <a href="https://www.putereamintii.ro/termeni-si-conditii/" target="_blank" style="color:#4FC1E9;text-decoration:underline">Termenii și Condițiile</a> și cu prelucrarea datelor personale.</span></label>
       <div class="field-err" id="err-gdpr" style="margin-left:30px">Trebuie să accepți termenii și condițiile</div>
       <button class="gate-submit" id="gate-submit-1" onclick="sendOTP()">Trimite codul de verificare</button>
       <div class="gate-privacy">Datele tale sunt în siguranță. Nu facem spam.</div>
@@ -488,7 +488,6 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div style="font-size:15px;color:#8fb0c0;margin-top:10px;font-weight:400" id="xp-next-hint">Următorul nivel: 📝 Practicant — la 50 XP</div>
     </div>
   </div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div id="tab-antrenament" class="tab-content">
@@ -503,14 +502,12 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   </div>
   <div id="train-error"></div>
   <div id="train-results"></div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div id="tab-biblioteca" class="tab-content">
 <div class="wrap">
   <div style="text-align:center;margin-bottom:28px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#fff;margin-bottom:8px">Biblioteca de Sugestii Model</div><div style="font-size:14px;color:#8fb0c0">Exemple excelente pe categorii terapeutice. Studiază, analizează, învață.</div></div>
   <div id="lib-content"></div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div id="tab-istoric" class="tab-content">
@@ -519,7 +516,6 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div id="badges-section"></div>
   <div id="leaderboard-section"></div>
   <div id="hist-content"></div>
-  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 </div>
 <div class="nav" id="main-nav" style="margin-top:32px">
@@ -530,6 +526,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 </div>
 <div style="max-width:760px;margin:0 auto;padding:20px 20px 40px">
   <div id="daily-challenge"></div>
+  <div class="footer">Dezvoltat pentru <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a> — Eugen Popa · <a href="/privacy.html" style="color:#506a78">Confidențialitate</a></div>
 </div>
 <script>
 /* === DATA === */
