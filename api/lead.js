@@ -26,6 +26,7 @@ function isRateLimited(ip) {
 const ALLOWED_ORIGINS = [
   'https://evaluator-sugestii.vercel.app',
   'https://putereamintii.ro',
+  'https://evaluator.putereamintii.ro',
   'http://localhost:3000',
 ];
 

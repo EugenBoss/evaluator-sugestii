@@ -8,7 +8,7 @@ function isOriginAllowed(req) {
   const check = origin || referer;
   if (/^https:\/\/evaluator-sugestii[a-z0-9-]*\.vercel\.app/.test(check)) return true;
   if (check.includes('eugenboss-projects.vercel.app')) return true;
-  if (check.startsWith('https://putereamintii.ro')) return true;
+  if (check.startsWith('https://putereamintii.ro') || check.startsWith('https://evaluator.putereamintii.ro')) return true;
   if (check.startsWith('http://localhost:3000')) return true;
   return false;
 }
