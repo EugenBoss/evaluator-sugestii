@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,system-ui,sans-serif;background:transparent;color:#e8f0f4;font-size:15px}
+.w{max-width:360px;margin:0 auto;padding:16px}
+.card{background:linear-gradient(145deg,#1e3645,#1a3040);border-radius:16px;padding:20px;border:1px solid #4FC1E915}
+.title{font-size:16px;font-weight:600;color:#4FC1E9;margin-bottom:4px;text-align:center}
+.sub{font-size:12px;color:#8fb0c0;text-align:center;margin-bottom:14px;font-weight:400}
+textarea{width:100%;border:1px solid #4FC1E920;background:#0f1f28;color:#e8f0f4;border-radius:10px;padding:12px;font-size:14px;font-family:inherit;resize:none;outline:none;transition:border-color 0.3s}
+textarea:focus{border-color:#4FC1E960}
+textarea::placeholder{color:#506a78}
+.cta{width:100%;margin-top:12px;padding:14px;border-radius:12px;border:none;cursor:pointer;font-size:15px;font-weight:700;font-family:inherit;background:linear-gradient(135deg,#F6D44C,#e8b820);color:#0f1f28;transition:all 0.3s}
+.cta:hover{box-shadow:0 4px 16px #F6D44C30}
+.cta:disabled{background:#1a3040;color:#3a5565;cursor:default}
+.result{margin-top:14px;text-align:center;display:none}
+.score-circle{width:64px;height:64px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;border:3px solid}
+.level{font-size:14px;font-weight:600;margin-top:6px}
+.desc{font-size:12px;color:#8fb0c0;margin-top:4px}
+.full-link{display:inline-block;margin-top:12px;padding:10px 20px;border-radius:10px;background:#4FC1E915;border:1px solid #4FC1E930;color:#4FC1E9;font-size:13px;font-weight:600;text-decoration:none;transition:all 0.3s}
+.full-link:hover{background:#4FC1E925}
+.brand{font-size:10px;color:#3a5565;text-align:center;margin-top:12px}
+.brand a{color:#506a78}
+.err{margin-top:10px;font-size:13px;color:#e8899a;text-align:center}
+.loading{display:none;text-align:center;margin-top:14px;color:#8fb0c0;font-size:13px}
+.loading .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#4FC1E9;margin:0 2px;animation:bounce 1.2s ease-in-out infinite}
+.loading .dot:nth-child(2){animation-delay:0.2s}
+.loading .dot:nth-child(3){animation-delay:0.4s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-8px)}}
+</style>
+</head>
+<body>
+<div class="w">
+  <div class="card">
+    <div class="title">Testează-ți sugestia hipnotică</div>
+    <div class="sub">Scor obiectiv pe 3 criterii profesionale</div>
+    <textarea id="t" rows="4" placeholder="Scrie sugestia aici..." maxlength="500"></textarea>
+    <button class="cta" id="btn" onclick="run()">Evaluează</button>
+    <div class="err" id="err"></div>
+    <div class="loading" id="load">Analizez <span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+    <div class="result" id="res">
+      <div class="score-circle" id="sc"></div>
+      <div class="level" id="lv"></div>
+      <div class="desc" id="ds"></div>
+      <a class="full-link" href="https://evaluator.putereamintii.ro" target="_blank">Evaluare completă pe 9 criterii →</a>
+    </div>
+  </div>
+  <div class="brand">de la <a href="https://putereamintii.ro" target="_blank">Puterea Minții</a></div>
+</div>
+<script>
+async function run(){
+  var t=document.getElementById('t').value.trim();
+  if(!t||t.length<10){document.getElementById('err').textContent='Scrie cel puțin 10 caractere';return;}
+  document.getElementById('err').textContent='';
+  document.getElementById('res').style.display='none';
+  document.getElementById('load').style.display='block';
+  var btn=document.getElementById('btn');btn.disabled=true;btn.textContent='Se evaluează...';
+  try{
+    var r=await fetch('https://evaluator.putereamintii.ro/api/evaluate',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system:'Evaluează sugestia hipnotică pe 3 criterii (Formulare pozitivă, Specificitate și claritate, Timp verbal corect), fiecare 1-10. Răspunde STRICT în JSON: {"scor_total":N,"scor_maxim":30,"criterii":[{"id":1,"scor":N},{"id":2,"scor":N},{"id":3,"scor":N}]}',messages:[{role:'user',content:t}]})
+    });
+    var d=await r.json();
+    if(d.error){document.getElementById('err').textContent=d.error;return;}
+    var txt=d.choices?d.choices[0].message.content:d.content?d.content[0].text:'';
+    var j=JSON.parse(txt.replace(/```json|```/g,'').trim());
+    var pct=Math.round((j.scor_total/j.scor_maxim)*100);
+    var lv,cl;
+    if(pct>=90){lv='Excelent';cl='#4FC1E9';}else if(pct>=75){lv='Bun';cl='#5dd9a6';}else if(pct>=60){lv='Mediu';cl='#F6D44C';}else if(pct>=40){lv='Slab';cl='#e8945a';}else{lv='Inadecvat';cl='#e8506a';}
+    document.getElementById('sc').textContent=pct;document.getElementById('sc').style.borderColor=cl;document.getElementById('sc').style.color=cl;document.getElementById('sc').style.background=cl+'15';
+    document.getElementById('lv').textContent='Rezultat: '+lv;document.getElementById('lv').style.color=cl;
+    document.getElementById('ds').textContent=pct+' / 100 — evaluare de bază';
+    document.getElementById('res').style.display='block';
+  }catch(e){document.getElementById('err').textContent='Eroare — încearcă din nou';}
+  finally{document.getElementById('load').style.display='none';btn.disabled=false;btn.textContent='Evaluează';}
+}
+</script>
+</body>
+</html>
