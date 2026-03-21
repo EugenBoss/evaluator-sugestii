@@ -12,8 +12,8 @@
 <meta property="og:title" content="Știi cum să Comunici cu Subconștientul tău?">
 <meta property="og:description" content="Scrie o sugestie hipnotică și primești scor obiectiv + feedback pe criterii profesionale. Gratuit.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://evaluator-sugestii.vercel.app">
-<meta property="og:image" content="https://evaluator-sugestii.vercel.app/og-image.png">
+<meta property="og:url" content="https://evaluator.putereamintii.ro">
+<meta property="og:image" content="https://evaluator.putereamintii.ro/og-image.png">
 <meta property="og:locale" content="ro_RO">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Știi cum să Comunici cu Subconștientul tău?">
@@ -743,9 +743,9 @@ function glv(s,m){var p=Math.round((s/m)*100);if(p>=90)return{l:'Rezultat: Excel
 function gpc(i){if(i===0)return{b:'#e8506a28',f:'#e8899a'};if(i===1)return{b:'#e8945a22',f:'#e8945a'};return{b:'#F6D44C18',f:'#F6D44C'};}
 
 /* === SHARE === */
-function getShareText(score){return 'Am obținut '+score+'/100 la Evaluatorul de Sugestii Hipnotice de la Puterea Minții! 🎯\n\nTesteaz\u0103 și tu sugestiile tale:\nhttps://evaluator-sugestii.vercel.app';}
+function getShareText(score){return 'Am obținut '+score+'/100 la Evaluatorul de Sugestii Hipnotice de la Puterea Minții! 🎯\n\nTesteaz\u0103 și tu sugestiile tale:\nhttps://evaluator.putereamintii.ro';}
 function shareWhatsApp(score){window.open('https://wa.me/?text='+encodeURIComponent(getShareText(score)),'_blank');}
-function shareFacebook(score){window.open('https://www.facebook.com/sharer/sharer.php?quote='+encodeURIComponent(getShareText(score))+'&u='+encodeURIComponent('https://evaluator-sugestii.vercel.app'),'_blank','width=600,height=400');}
+function shareFacebook(score){window.open('https://www.facebook.com/sharer/sharer.php?quote='+encodeURIComponent(getShareText(score))+'&u='+encodeURIComponent('https://evaluator.putereamintii.ro'),'_blank','width=600,height=400');}
 function copyShareText(score){navigator.clipboard.writeText(getShareText(score)).then(function(){var btn=document.getElementById('share-copy-btn');if(btn){btn.classList.add('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Copiat!';setTimeout(function(){btn.classList.remove('export-ok');btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>Copiază link';},2000);}});}
 
 /* === EXAMPLE === */
