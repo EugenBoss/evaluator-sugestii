@@ -450,7 +450,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div class="exit-popup-inner">
     <button class="exit-popup-close" onclick="document.getElementById('exit-popup').classList.add('hidden')">✕</button>
     <img src="eugen.png" alt="Eugen Popa" class="exit-popup-photo">
-    <div class="exit-popup-text"><strong>Nu pleca fără evaluarea completă!</strong>Accesează gratuit toate cele 14 criterii ponderate + versiunea îmbunătățită a sugestiei tale.</div>
+    <div class="exit-popup-text"><strong>Nu pleca fără evaluarea avansată!</strong>Accesează gratuit toate cele 14 criterii ponderate + versiunea îmbunătățită a sugestiei tale.</div>
     <button class="exit-popup-btn" onclick="document.getElementById('exit-popup').classList.add('hidden');document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('text').focus()">Accesează acum</button>
     <div class="exit-popup-sub">E gratuit. Durează 10 secunde.</div>
   </div>
@@ -474,7 +474,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
     <div id="obiectiv-wrap" style="display:none;margin-top:16px"><label class="lbl-s">Subiect sau Scop Sugestie (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
     <div style="margin-top:18px;text-align:center"><div style="font-size:16px;color:#4FC1E9;margin-bottom:10px;font-weight:700;letter-spacing:0.5px">Alege tipul evaluării:</div><div class="tier">
       <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de Bază</div><div class="ts">(5 criterii fundamentale)</div></button>
-      <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare Completă <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">(14 criterii ponderate, rescriere, explicații)</div></button>
+      <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare Avansată <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">(14 criterii ponderate, rescriere, explicații)</div></button>
       <button id="btn-expert" onclick="setTier('expert')"><div class="tl">Expert <span class="lock-icon" id="lock-exp">🔑</span></div><div class="ts">(20 criterii + Radar Milton Model)</div></button>
     </div></div>
     <div class="example-row" id="example-row" style="display:none;margin-top:14px"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
@@ -553,7 +553,7 @@ var I18N={
   ro:{
     brand:'PUTEREA MIN\u021aII',title:'\u0218tii cum s\u0103 Comunici cu Subcon\u0219tientul t\u0103u?',subtitle:'Introdu o sugestie \u0219i prime\u0219ti scor obiectiv + feedback pe criterii profesionale',socialProof:'sugestii evaluate',
     obTitle:'Cum func\u021bioneaz\u0103?',obStart:'\u00cencepe acum',
-    tierBasicTitle:'Evaluare de Baz\u0103',tierBasicDesc:'(5 criterii fundamentale)',tierAdvTitle:'Evaluare Complet\u0103',tierAdvDesc:'(14 criterii ponderate, rescriere, explica\u021bii)',tierExpTitle:'Expert',tierExpDesc:'(20 criterii + Radar Milton Model)',
+    tierBasicTitle:'Evaluare de Baz\u0103',tierBasicDesc:'(5 criterii fundamentale)',tierAdvTitle:'Evaluare Avansat\u0103',tierAdvDesc:'(14 criterii ponderate, rescriere, explica\u021bii)',tierExpTitle:'Expert',tierExpDesc:'(20 criterii + Radar Milton Model)',
     inputLabel:'Scrie mai jos sugestia ta \u0219i apoi apas\u0103 pe butonul galben \u201eEvalueaz\u0103 Sugestia\u201d pentru a vedea scorul t\u0103u',inputPlaceholder:'Scrie sau lipe\u0219te sugestia aici...',charCounter:'caractere',
     objectiveLabel:'Subiect sau Scop Sugestie (op\u021bional)',objectivePlaceholder:'ex: reducerea anxiet\u0103\u021bii',tierChoose:'Alege tipul evalu\u0103rii:',
     tipLabel:'Tip sugestie (op\u021bional)',tipAuto:'\ud83d\udd0d Auto-detect',tipDirect:'\ud83d\udccc Direct\u0103 (stil Elman)',tipIndirect:'\ud83c\udf00 Indirect\u0103 (Milton Model)',tipMixed:'\ud83d\udd04 Mixt\u0103',tipPosthypnotic:'\u23f0 Post-hipnotic\u0103',tipMetaphor:'\ud83d\udcd6 Metafor\u0103 terapeutic\u0103',
@@ -570,7 +570,7 @@ var I18N={
     libAll:'Toate',libDirect:'Directe',libIndirect:'Indirecte',libPosthypnotic:'Post-hipnotice',libMetaphor:'Metafore',libEvalBtn:'\u2192 Evalueaz\u0103 aceast\u0103 sugestie',
     historyTitle:'Istoricul Evalu\u0103rilor',historyDesc:'Ultimele 20 de evalu\u0103ri, salvate local.',historyEmpty:'Nicio evaluare \u00eenc\u0103.',historyClear:'\u0218terge tot istoricul',
     btnCopy:'Copiaz\u0103',btnImage:'Imagine',btnStory:'Story 9:16',copied:'Copiat!',
-    gateTitle:'Deblocheaz\u0103 evaluarea complet\u0103',gateText:'Acceseaz\u0103 evaluarea pe 14 criterii ponderate + versiune \u00eembun\u0103t\u0103\u021bit\u0103 + rescriere.',
+    gateTitle:'Deblocheaz\u0103 evaluarea avansat\u0103',gateText:'Acceseaz\u0103 evaluarea pe 14 criterii ponderate + versiune \u00eembun\u0103t\u0103\u021bit\u0103 + rescriere.',
     expertPrompt:'Introdu codul de acces Expert:',expertWrong:'Cod incorect.',
     errTooMany:'Prea multe evalu\u0103ri. A\u0219teapt\u0103 un minut.',errParseFail:'R\u0103spunsul AI nu a putut fi procesat.',
     scoreWeighted:'scor ponderat',scoreFundamental:'evaluare pe 5 criterii fundamentale',
@@ -579,14 +579,14 @@ var I18N={
     challengeBtn:'Provoac\u0103 un prieten!',favSave:'\ud83e\udd0d Salveaz\u0103',favSaved:'\u2764\ufe0f Salvat\u0103',
     shareText:'Am ob\u021binut {score}/100 la Evaluatorul de Sugestii Hipnotice! \ud83c\udfaf\nhttps://evaluator.putereamintii.ro',
     cookieText:'Folosim localStorage pentru progres.',cookieAccept:'Accept',
-    unlockFull:'Vrei evaluarea complet\u0103 pe 14 criterii?',unlockBtn:'Deblocheaz\u0103 Gratuit',
+    unlockFull:'Vrei evaluarea avansat\u0103 pe 14 criterii?',unlockBtn:'Deblocheaz\u0103 Gratuit',
     rewriteWant:'Vrei s\u0103 afli cum se scrie corect?',rewriteNow:'Rescrie acum, corect',focus:'Focus',
     evalRemaining:'evalu\u0103ri gratuite r\u0103mase',evalNone:'0 evalu\u0103ri r\u0103mase'
   },
   en:{
     brand:'PUTEREA MIN\u021aII',title:'Can You Communicate with Your Subconscious?',subtitle:'Enter a suggestion and get objective score + feedback on professional criteria',socialProof:'suggestions evaluated',
     obTitle:'How does it work?',obStart:'Start now',
-    tierBasicTitle:'Basic Evaluation',tierBasicDesc:'(5 fundamental criteria)',tierAdvTitle:'Full Evaluation',tierAdvDesc:'(14 weighted criteria, rewrite, explanations)',tierExpTitle:'Expert',tierExpDesc:'(20 criteria + Milton Model Radar)',
+    tierBasicTitle:'Basic Evaluation',tierBasicDesc:'(5 fundamental criteria)',tierAdvTitle:'Advanced Evaluation',tierAdvDesc:'(14 weighted criteria, rewrite, explanations)',tierExpTitle:'Expert',tierExpDesc:'(20 criteria + Milton Model Radar)',
     inputLabel:'Write your suggestion below and press the yellow button to see your score',inputPlaceholder:'Write or paste your suggestion here...',charCounter:'characters',
     objectiveLabel:'Subject or Goal (optional)',objectivePlaceholder:'e.g.: reducing anxiety',tierChoose:'Choose evaluation type:',
     tipLabel:'Suggestion type (optional)',tipAuto:'\ud83d\udd0d Auto-detect',tipDirect:'\ud83d\udccc Direct (Elman)',tipIndirect:'\ud83c\udf00 Indirect (Milton Model)',tipMixed:'\ud83d\udd04 Mixed',tipPosthypnotic:'\u23f0 Post-hypnotic',tipMetaphor:'\ud83d\udcd6 Therapeutic metaphor',
@@ -603,7 +603,7 @@ var I18N={
     libAll:'All',libDirect:'Direct',libIndirect:'Indirect',libPosthypnotic:'Post-hypnotic',libMetaphor:'Metaphors',libEvalBtn:'\u2192 Evaluate this suggestion',
     historyTitle:'Evaluation History',historyDesc:'Last 20 evaluations, saved locally.',historyEmpty:'No evaluations yet.',historyClear:'Clear all history',
     btnCopy:'Copy',btnImage:'Image',btnStory:'Story 9:16',copied:'Copied!',
-    gateTitle:'Unlock full evaluation',gateText:'Access 14 weighted criteria + improved version + automatic rewrite.',
+    gateTitle:'Unlock advanced evaluation',gateText:'Access 14 weighted criteria + improved version + automatic rewrite.',
     expertPrompt:'Enter Expert access code:',expertWrong:'Incorrect code.',
     errTooMany:'Too many evaluations. Wait a minute.',errParseFail:'AI response could not be processed.',
     scoreWeighted:'weighted score',scoreFundamental:'evaluation on 5 fundamental criteria',
@@ -612,7 +612,7 @@ var I18N={
     challengeBtn:'Challenge a friend!',favSave:'\ud83e\udd0d Save',favSaved:'\u2764\ufe0f Saved',
     shareText:'I scored {score}/100 on the Hypnotic Suggestion Evaluator! \ud83c\udfaf\nhttps://evaluator.putereamintii.ro',
     cookieText:'We use localStorage for your progress.',cookieAccept:'Accept',
-    unlockFull:'Want the full 14-criteria evaluation?',unlockBtn:'Unlock for free',
+    unlockFull:'Want the advanced 14-criteria evaluation?',unlockBtn:'Unlock for free',
     rewriteWant:'Want to know how to write it correctly?',rewriteNow:'Rewrite now',focus:'Focus',
     evalRemaining:'free evaluations remaining',evalNone:'0 evaluations remaining'
   }
@@ -754,7 +754,7 @@ function showGate(reason){
   var skip=document.getElementById('gate-skip-btn');
   if(reason==='limit'){
     if(lm)lm.style.display='block';
-    if(h2)h2.textContent='Continuă cu evaluarea completă';
+    if(h2)h2.textContent='Continuă cu evaluarea avansată';
     if(skip)skip.style.display='none';
   }else{
     if(lm)lm.style.display='none';
@@ -830,7 +830,7 @@ function resendOTP(){
 /* === TABS === */
 function showTab(id,btn){
   if((id==='antrenament'||id==='biblioteca')&&!requireGate())return;
-  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});
+  document.querySelectorAll('.tab-content').forEach(function(tc){tc.classList.remove('active');});
   document.getElementById('tab-'+id).classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b){b.classList.remove('on');});
   if(btn)btn.classList.add('on');
@@ -844,7 +844,7 @@ function togglePresentation(){
   isPresentation=!isPresentation;
   document.body.classList.toggle('presentation',isPresentation);
   if(isPresentation){
-    document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(function(tc){tc.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
     // Show QR code overlay
     var existing=document.getElementById('pres-qr');if(existing)existing.remove();
     var qrDiv=document.createElement('div');qrDiv.id='pres-qr';
@@ -859,13 +859,13 @@ function togglePresentation(){
 }
 
 /* === TIER === */
-function setTier(t){
-  if(t==='advanced'&&!requireGate())return;
-  if(t==='expert'){if(!requireGate())return;if(!requireExpert())return;}
-  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';var btnExp=document.getElementById('btn-expert');if(btnExp)btnExp.className=t==='expert'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();
-  var obWrap=document.getElementById('obiectiv-wrap');if(obWrap)obWrap.style.display=(t==='advanced'||t==='expert')?'block':'none';
-  var tipWrap=document.getElementById('tip-wrap');if(tipWrap)tipWrap.style.display=(t==='advanced'||t==='expert')?'block':'none';
-  var exRow=document.getElementById('example-row');if(exRow)exRow.style.display=(t==='advanced'||t==='expert')?'flex':'none';}
+function setTier(lv){
+  if(lv==='advanced'&&!requireGate())return;
+  if(lv==='expert'){if(!requireGate())return;if(!requireExpert())return;}
+  tier=lv;document.getElementById('btn-basic').className=lv==='basic'?'on':'';document.getElementById('btn-advanced').className=lv==='advanced'?'on':'';var btnExp=document.getElementById('btn-expert');if(btnExp)btnExp.className=lv==='expert'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();
+  var obWrap=document.getElementById('obiectiv-wrap');if(obWrap)obWrap.style.display=(lv==='advanced'||lv==='expert')?'block':'none';
+  var tipWrap=document.getElementById('tip-wrap');if(tipWrap)tipWrap.style.display=(lv==='advanced'||lv==='expert')?'block':'none';
+  var exRow=document.getElementById('example-row');if(exRow)exRow.style.display=(lv==='advanced'||lv==='expert')?'flex':'none';}
 function requireExpert(){
   var code=localStorage.getItem('expert_code');
   if(code==='PM2026')return true;
@@ -874,7 +874,7 @@ function requireExpert(){
   if(input!==null)alert('Cod incorect. Contactează echipa Puterea Minții pentru acces.');
   return false;
 }
-function renderRef(){var l=tier==='basic'?BC:(tier==='expert'?EC:AC);var tierName=tier==='basic'?'Evaluare de Bază (5 criterii-poartă)':(tier==='expert'?'Expert (20 criterii + Radar Milton Model)':'Evaluare Completă (14 criterii ponderate)');document.getElementById('ref-summary').textContent='Referință criterii — '+tierName;document.getElementById('ref-list').innerHTML=l.map(function(c){var gateIcon=c.gate?'⚡ ':'';var wBadge=' <span style="color:#506a78;font-size:13px">×'+c.w+'</span>';return '<div><span class="rn">'+gateIcon+c.id+'. '+c.name+wBadge+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
+function renderRef(){var l=tier==='basic'?BC:(tier==='expert'?EC:AC);var tierName=tier==='basic'?'Evaluare de Bază (5 criterii-poartă)':(tier==='expert'?'Expert (20 criterii + Radar Milton Model)':'Evaluare Avansată (14 criterii ponderate)');document.getElementById('ref-summary').textContent='Referință criterii — '+tierName;document.getElementById('ref-list').innerHTML=l.map(function(c){var gateIcon=c.gate?'⚡ ':'';var wBadge=' <span style="color:#506a78;font-size:13px">×'+c.w+'</span>';return '<div><span class="rn">'+gateIcon+c.id+'. '+c.name+wBadge+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
 
 /* === HELPERS === */
 function gbc(s){if(s<=3)return'#e8506a';if(s<=5)return'#e8945a';if(s<=7)return'#F6D44C';if(s<=8)return'#5dd9a6';return'#4FC1E9';}
@@ -1106,7 +1106,7 @@ function renderResult(r){
     var gateWarn=(m.gate&&c.scor<4)?'<div style="margin-top:4px;font-size:13px;color:#e8506a;font-weight:600">⛔ Criteriu-poartă sub 4 — sugestia e compromisă pe acest aspect</div>':'';
     h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+gateTag+weightTag+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+gateWarn+'</div></div>';});
   if(tier==='basic'&&!isUnlocked()){
-    h+='<div class="locked-divider" onclick="showGate()" style="cursor:pointer;padding:28px 22px"><div style="font-size:18px;color:#e8f0f4;font-weight:400;margin-bottom:6px;text-transform:none;letter-spacing:0">Vrei evaluarea completă pe 14 criterii?</div><div style="font-size:14px;color:#8fb0c0;text-transform:none;letter-spacing:0;font-weight:400;margin-bottom:14px">Gradualitate · VAKOG · Ritm · Pattern-uri · Obiectiv · Emoție · Flux · Pacing-Leading · Densitate</div><div style="display:inline-block;padding:14px 32px;border-radius:12px;background:#F6D44C;color:#0f1f28;font-size:18px;font-weight:700;letter-spacing:0;text-transform:none">Dă click aici și deblochează Gratuit</div></div>';
+    h+='<div class="locked-divider" onclick="showGate()" style="cursor:pointer;padding:28px 22px"><div style="font-size:18px;color:#e8f0f4;font-weight:400;margin-bottom:6px;text-transform:none;letter-spacing:0">Vrei evaluarea avansată pe 14 criterii?</div><div style="font-size:14px;color:#8fb0c0;text-transform:none;letter-spacing:0;font-weight:400;margin-bottom:14px">Gradualitate · VAKOG · Ritm · Pattern-uri · Obiectiv · Emoție · Flux · Pacing-Leading · Densitate</div><div style="display:inline-block;padding:14px 32px;border-radius:12px;background:#F6D44C;color:#0f1f28;font-size:18px;font-weight:700;letter-spacing:0;text-transform:none">Dă click aici și deblochează Gratuit</div></div>';
   }
   h+='</div>';
   // Milton Model Radar Chart (Expert only)
@@ -1124,8 +1124,8 @@ function renderResult(r){
   // Personalized tips for weak criteria
   var tips=getPersonalizedTips(fc);
   if(tips.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Cum să îmbunătățești</div>';
-    tips.forEach(function(t){var cr2=tier==='basic'?BC:AC;var nm=cr2.find(function(x){return x.id===t.id;});
-      h+='<div class="tip-card"><div class="tip-card-id">'+(nm?nm.name:'Criteriu '+t.id)+'</div><div class="tip-card-text">'+esc(t.tip)+'</div></div>';});
+    tips.forEach(function(tp){var cr2=tier==='basic'?BC:AC;var nm=cr2.find(function(x){return x.id===tp.id;});
+      h+='<div class="tip-card"><div class="tip-card-id">'+(nm?nm.name:'Criteriu '+tp.id)+'</div><div class="tip-card-text">'+esc(tp.tip)+'</div></div>';});
     h+='</div>';}
   if(tier==='advanced'&&r.versiune_imbunatatita){lastImproved=r.versiune_imbunatatita;
     h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#5dd9a6;color:#5dd9a6">Versiune îmbunătățită</div><div class="improved-box">'+r.versiune_imbunatatita+'</div>'+(r.explicatii_schimbari?'<div class="improved-expl"><strong>Ce s-a schimbat: </strong>'+r.explicatii_schimbari+'</div>':'')+'<button class="reeval-btn" onclick="reEval()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1 4v6h6"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>Re-evaluează versiunea îmbunătățită</button></div>';}else{lastImproved='';}
@@ -1332,7 +1332,7 @@ function renderHistory(){var hist=getHist();var el=document.getElementById('hist
   var favEl=document.getElementById('badges-section');
   if(favEl){var favHtml=renderFavorites();if(favHtml)favEl.insertAdjacentHTML('beforebegin',favHtml);}}
 function loadFromHist(enc){var text=decodeURIComponent(enc);
-  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(function(tc){tc.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
   document.getElementById('text').value=text;document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});}
 function clearHist(){if(!confirm('Sigur vrei să ștergi tot istoricul evaluărilor?'))return;try{localStorage.removeItem('eval_hist');}catch(e){}renderHistory();}
@@ -1413,7 +1413,7 @@ function renderLibrary(){var el=document.getElementById('lib-content');el.innerH
     h+='<div class="lib-cat"><div class="lib-cat-title">'+cat.cat+' <span style="font-size:14px;color:#506a78;font-weight:400">('+filteredItems.length+')</span></div>';
     filteredItems.forEach(function(item){var ii=cat.items.indexOf(item);h+='<div class="lib-item"><div class="lib-type">'+item.type+'</div><div class="lib-sugestie">'+item.text+'</div><div class="lib-why">'+item.why+'</div><button class="lib-eval-btn" onclick="loadFromLib('+ci+','+ii+')">→ Evaluează această sugestie</button></div>';});h+='</div>';});el.innerHTML=h;}
 function loadFromLib(ci,ii){if(!requireGate())return;var item=LIBRARY[ci].items[ii];
-  document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
+  document.querySelectorAll('.tab-content').forEach(function(tc){tc.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
   document.getElementById('text').value=item.text;document.getElementById('obiectiv').value='';
   setTier('advanced');document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});}
