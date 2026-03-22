@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="description" content="Evaluează-ți sugestiile hipnotice pe 9 criterii profesionale. Primești scor obiectiv + feedback + versiune îmbunătățită. Instrument creat de Puterea Minții.">
+<meta name="description" content="Evaluează-ți sugestiile hipnotice pe 14 criterii profesionale cu ponderi. Primești scor obiectiv + feedback + versiune îmbunătățită. Primul instrument de acest tip din lume. Creat de Puterea Minții.">
 <meta name="theme-color" content="#0f1f28">
 <link rel="manifest" href="/manifest.json">
 <link rel="apple-touch-icon" href="/logo.png">
@@ -30,6 +30,9 @@ body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a3
 @keyframes glow { 0%, 100% { box-shadow: 0 0 20px #4FC1E920; } 50% { box-shadow: 0 0 35px #4FC1E935; } }
 @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 @keyframes shake { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-6px)} 40%{transform:translateX(6px)} 60%{transform:translateX(-4px)} 80%{transform:translateX(4px)} }
+.lib-filter { padding: 8px 16px; border-radius: 8px; border: 1px solid #4FC1E920; background: transparent; color: #607a88; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Source Sans 3', sans-serif; }
+.lib-filter:hover { color: #4FC1E9; border-color: #4FC1E940; }
+.lib-filter.on { background: #4FC1E915; color: #4FC1E9; border-color: #4FC1E950; }
 .fav-btn { padding: 8px 16px; border-radius: 8px; border: 1px solid #F6D44C30; background: #F6D44C08; color: #F6D44C; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.3s; font-family: 'Source Sans 3', sans-serif; white-space: nowrap; }
 .fav-btn:hover { background: #F6D44C18; border-color: #F6D44C50; }
 .fav-btn.faved { background: #F6D44C20; border-color: #F6D44C60; }
@@ -416,7 +419,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
       <div class="gate-limit-msg" id="gate-limit-msg" style="display:none">
         <div class="glm-icon">🏆</div>
         <div class="glm-title">Ai terminat cele 5 evaluări gratuite!</div>
-        <div class="glm-text">Ai văzut cum funcționează. Acum accesează evaluarea completă pe 9 criterii profesionale + versiune îmbunătățită + rescriere automată.</div>
+        <div class="glm-text">Ai văzut cum funcționează. Acum accesează evaluarea completă pe 14 criterii profesionale ponderate + versiune îmbunătățită + rescriere automată.</div>
       </div>
       <h2 id="gate-h2">Deblochez evaluarea avansată</h2>
       <div class="gate-sub">Completează datele și vei primi un cod de verificare pe email.</div>
@@ -447,7 +450,7 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div class="exit-popup-inner">
     <button class="exit-popup-close" onclick="document.getElementById('exit-popup').classList.add('hidden')">✕</button>
     <img src="eugen.png" alt="Eugen Popa" class="exit-popup-photo">
-    <div class="exit-popup-text"><strong>Nu pleca fără evaluarea completă!</strong>Accesează gratuit toate cele 9 criterii + versiunea îmbunătățită a sugestiei tale.</div>
+    <div class="exit-popup-text"><strong>Nu pleca fără evaluarea completă!</strong>Accesează gratuit toate cele 14 criterii ponderate + versiunea îmbunătățită a sugestiei tale.</div>
     <button class="exit-popup-btn" onclick="document.getElementById('exit-popup').classList.add('hidden');document.getElementById('text').scrollIntoView({behavior:'smooth',block:'center'});document.getElementById('text').focus()">Accesează acum</button>
     <div class="exit-popup-sub">E gratuit. Durează 10 secunde.</div>
   </div>
@@ -466,10 +469,12 @@ body.presentation details, body.presentation .footer, body.presentation .export-
     <label class="lbl">Scrie mai jos sugestia ta și apoi apasă pe butonul galben „Evaluează Sugestia" pentru a vedea scorul tău</label>
     <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..." maxlength="1000" oninput="updateCounter('text','counter-main')"></textarea>
     <div class="char-counter" id="counter-main">0 / 1000 caractere</div>
+    <div id="tip-wrap" style="display:none;margin-top:16px"><label class="lbl-s">Tip sugestie (opțional — dacă nu selectezi, se detectează automat)</label><select id="tip-select" style="font-size:18px"><option value="auto">🔍 Auto-detect</option><option value="directă">📌 Directă (stil Elman)</option><option value="indirectă">🌀 Indirectă (Milton Model / Ericksonienă)</option><option value="mixtă">🔄 Mixtă (indirect → direct)</option><option value="post-hipnotică">⏰ Post-hipnotică</option><option value="metaforă">📖 Metaforă terapeutică</option></select></div>
     <div id="obiectiv-wrap" style="display:none;margin-top:16px"><label class="lbl-s">Subiect sau Scop Sugestie (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
     <div style="margin-top:18px;text-align:center"><div style="font-size:16px;color:#4FC1E9;margin-bottom:10px;font-weight:700;letter-spacing:0.5px">Alege tipul evaluării:</div><div class="tier">
-      <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de Bază</div><div class="ts">(doar 3 criterii)</div></button>
-      <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare Completă <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">(9 criterii, rescriere, explicații detaliate)</div></button>
+      <button id="btn-basic" class="on" onclick="setTier('basic')"><div class="tl">Evaluare de Bază</div><div class="ts">(5 criterii fundamentale)</div></button>
+      <button id="btn-advanced" onclick="setTier('advanced')"><div class="tl">Evaluare Completă <span class="lock-icon" id="lock-adv">🔒</span></div><div class="ts">(14 criterii ponderate, rescriere, explicații)</div></button>
+      <button id="btn-expert" onclick="setTier('expert')"><div class="tl">Expert <span class="lock-icon" id="lock-exp">🔑</span></div><div class="ts">(20 criterii + Radar Milton Model)</div></button>
     </div></div>
     <div class="example-row" id="example-row" style="display:none;margin-top:14px"><button class="example-btn" onclick="loadExample()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Încearcă un exemplu</button></div>
     <button class="cta" id="cta" onclick="runEval()">Evaluează sugestia</button>
@@ -507,7 +512,14 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 <div id="tab-biblioteca" class="tab-content">
 <div class="wrap">
   <div style="text-align:center;margin-bottom:28px"><div style="font-family:'DM Serif Display',Georgia,serif;font-size:24px;color:#fff;margin-bottom:8px">Biblioteca de Sugestii Model</div><div style="font-size:14px;color:#8fb0c0">Exemple excelente pe categorii terapeutice. Studiază, analizează, învață.</div></div>
-  <div id="lib-content"></div>
+  <div style="margin-bottom:20px;display:flex;gap:8px;flex-wrap:wrap" id="lib-filters">
+      <button class="lib-filter on" onclick="filterLib('all',this)">Toate</button>
+      <button class="lib-filter" onclick="filterLib('Directă',this)">Directe</button>
+      <button class="lib-filter" onclick="filterLib('Indirectă',this)">Indirecte</button>
+      <button class="lib-filter" onclick="filterLib('Post-hipnotică',this)">Post-hipnotice</button>
+      <button class="lib-filter" onclick="filterLib('Metaforă',this)">Metafore</button>
+    </div>
+    <div id="lib-content"></div>
 </div>
 </div>
 <div id="tab-istoric" class="tab-content">
@@ -530,8 +542,9 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 </div>
 <script>
 /* === DATA === */
-var BC=[{id:1,name:"Formulare pozitivă",block:"A",desc:"Zero negații — subconștientul nu procesează negația"},{id:2,name:"Specificitate și claritate",block:"A",desc:"Imagini senzoriale concrete, nu abstracțiuni"},{id:3,name:"Timp verbal corect",block:"A",desc:"Prezent, nu viitor sau condițional"}];
-var AC=[{id:1,name:"Formulare pozitivă",block:"A · Structurale",desc:"Zero negații — subconștientul nu procesează negația"},{id:2,name:"Specificitate și claritate",block:"A · Structurale",desc:"Imagini senzoriale concrete, nu abstracțiuni"},{id:3,name:"Timp verbal corect",block:"A · Structurale",desc:"Prezent, nu viitor sau condițional"},{id:4,name:"Gradualitate și progresie",block:"A · Structurale",desc:"Schimbare treptată, nu salt brusc"},{id:5,name:"Ancorare senzorială VAKOG",block:"B · Limbaj",desc:"Minim 2 canale senzoriale activate"},{id:6,name:"Ritm și cadență",block:"B · Limbaj",desc:"Propoziții scurte, ritm de respirație"},{id:7,name:"Pattern-uri lingvistice",block:"B · Limbaj",desc:"Corecte pentru tipul de sugestie"},{id:8,name:"Obiectiv terapeutic clar",block:"C · Eficacitate",desc:"Direcție unică, fiecare propoziție contribuie"},{id:9,name:"Activare emoțională",block:"C · Eficacitate",desc:"Creează starea, nu doar o descrie"}];
+var BC=[{id:1,name:"Formulare pozitivă",block:"A · Structurale",desc:"Zero negații — subconștientul nu procesează negația",w:1.5,gate:true},{id:2,name:"Specificitate și claritate",block:"A · Structurale",desc:"Imagini senzoriale concrete, nu abstracțiuni",w:1.5,gate:true},{id:3,name:"Timp verbal corect",block:"A · Structurale",desc:"Prezent, nu viitor sau condițional",w:1.2,gate:true},{id:10,name:"Limbaj de certitudine",block:"D · Noi",desc:"Zero „dacă"/„încearcă" — cuvinte care implică dubiu sau eșec",w:1.5,gate:true},{id:11,name:"Involuntaritate",block:"D · Noi",desc:"Experiență autonomă, nu instrucțiune conștientă",w:1.3,gate:true}];
+var AC=[{id:1,name:"Formulare pozitivă",block:"A · Structurale",desc:"Zero negații — subconștientul nu procesează negația",w:1.5,gate:true},{id:2,name:"Specificitate și claritate",block:"A · Structurale",desc:"Imagini senzoriale concrete, nu abstracțiuni",w:1.5,gate:true},{id:3,name:"Timp verbal corect",block:"A · Structurale",desc:"Prezent, nu viitor sau condițional",w:1.2,gate:true},{id:4,name:"Gradualitate și progresie",block:"A · Structurale",desc:"Schimbare treptată, nu salt brusc",w:1.0,gate:false},{id:5,name:"Ancorare senzorială VAKOG",block:"B · Limbaj",desc:"Minim 2 canale senzoriale activate",w:1.0,gate:false},{id:6,name:"Ritm și cadență",block:"B · Limbaj",desc:"Propoziții scurte, ritm de respirație",w:1.0,gate:false},{id:7,name:"Pattern-uri lingvistice",block:"B · Limbaj",desc:"Corecte pentru tipul de sugestie",w:1.0,gate:false},{id:8,name:"Obiectiv terapeutic clar",block:"C · Eficacitate",desc:"Direcție unică, fiecare propoziție contribuie",w:1.1,gate:false},{id:9,name:"Activare emoțională",block:"C · Eficacitate",desc:"Creează starea, nu doar o descrie",w:1.1,gate:false},{id:10,name:"Limbaj de certitudine",block:"D · Noi",desc:"Zero „dacă"/„încearcă" — cuvinte care implică dubiu sau eșec",w:1.5,gate:true},{id:11,name:"Involuntaritate",block:"D · Noi",desc:"Experiență autonomă, nu instrucțiune conștientă",w:1.3,gate:true},{id:12,name:"Flux și coeziune",block:"D · Noi",desc:"Conectori cauzali, flux neîntrerupt între propoziții",w:1.0,gate:false},{id:13,name:"Pacing-Leading",block:"D · Noi",desc:"Adevăruri verificabile → sugestie terapeutică (2:1–3:1)",w:1.0,gate:false},{id:14,name:"Densitate și economie",block:"D · Noi",desc:"Fiecare cuvânt își justifică prezența",w:0.8,gate:false}];
+var EC=[{id:1,name:"Formulare pozitivă",block:"A · Structurale",desc:"Zero negații — subconștientul nu procesează negația",w:1.5,gate:true},{id:2,name:"Specificitate și claritate",block:"A · Structurale",desc:"Imagini senzoriale concrete, nu abstracțiuni",w:1.5,gate:true},{id:3,name:"Timp verbal corect",block:"A · Structurale",desc:"Prezent, nu viitor sau condițional",w:1.2,gate:true},{id:4,name:"Gradualitate și progresie",block:"A · Structurale",desc:"Schimbare treptată, nu salt brusc",w:1.0,gate:false},{id:5,name:"Ancorare senzorială VAKOG",block:"B · Limbaj",desc:"Minim 2 canale senzoriale activate",w:1.0,gate:false},{id:6,name:"Ritm și cadență",block:"B · Limbaj",desc:"Propoziții scurte, ritm de respirație",w:1.0,gate:false},{id:7,name:"Pattern-uri lingvistice",block:"B · Limbaj",desc:"Corecte pentru tipul de sugestie",w:1.0,gate:false},{id:8,name:"Obiectiv terapeutic clar",block:"C · Eficacitate",desc:"Direcție unică, fiecare propoziție contribuie",w:1.1,gate:false},{id:9,name:"Activare emoțională",block:"C · Eficacitate",desc:"Creează starea, nu doar o descrie",w:1.1,gate:false},{id:10,name:"Limbaj de certitudine",block:"D · Noi",desc:"Zero „dacă"/„încearcă" — cuvinte care implică dubiu sau eșec",w:1.5,gate:true},{id:11,name:"Involuntaritate",block:"D · Noi",desc:"Experiență autonomă, nu instrucțiune conștientă",w:1.3,gate:true},{id:12,name:"Flux și coeziune",block:"D · Noi",desc:"Conectori cauzali, flux neîntrerupt între propoziții",w:1.0,gate:false},{id:13,name:"Pacing-Leading",block:"D · Noi",desc:"Adevăruri verificabile → sugestie terapeutică (2:1–3:1)",w:1.0,gate:false},{id:14,name:"Densitate și economie",block:"D · Noi",desc:"Fiecare cuvânt își justifică prezența",w:0.8,gate:false},{id:15,name:"Repetiție strategică variată",block:"E · Expert",desc:"Aceeași temă prin formulări variate — nu repetiție mecanică",w:0.9,gate:false},{id:16,name:"Raport permisiv-autoritar",block:"E · Expert",desc:"Balans modal: poate/poți vs. ești/simți — adaptat tipului",w:0.9,gate:false},{id:17,name:"Secvențe yes-set / truisme",block:"E · Expert",desc:"3-5 afirmații incontestabile care construiesc momentum",w:0.9,gate:false},{id:18,name:"Limbaj de expectanță",block:"E · Expert",desc:"Anticipare pozitivă: „vei observa", „pe măsură ce continuă"",w:0.8,gate:false},{id:19,name:"Automaticitate / effortlessness",block:"E · Expert",desc:"Framing „fără efort", „natural", „de la sine"",w:0.8,gate:false},{id:20,name:"Stratificare compusă (pattern density)",block:"E · Expert",desc:"Nr. pattern-uri Milton Model co-existente per unitate",w:1.0,gate:false}];
 var EXAMPLES=[
   {label:"Bună — Anxietate",tip:"directă",obiectiv:"Reducerea anxietății",text:"Cu fiecare respirație, simt cum o căldură blândă se răspândește din centrul pieptului. Mușchii umerilor mei se topesc ușor. Mâinile devin grele și calde. Sunt calm. Sunt în siguranță. Corpul meu se destinde tot mai profund cu fiecare expirație."},
   {label:"Bună — Încredere",tip:"directă",obiectiv:"Creșterea încrederii în sine",text:"Spatele meu este drept. Vocea mea este clară și fermă. Cu fiecare pas pe care îl fac, simt pământul ferm sub tălpi. Privesc înainte cu ochi deschiși. Sunt prezent. Sunt puternic. Sunt exact unde trebuie să fiu."},
@@ -541,16 +554,28 @@ var EXAMPLES=[
   {label:"Slabă — Somn",tip:"auto",obiectiv:"",text:"Nu vreau să mă mai trezesc noaptea. Sper că mâine voi fi mai odihnit. Trebuie să încerc să dorm mai bine și să nu mă mai gândesc la probleme."}
 ];
 var BRIEFS=[
-  {cat:"Anxietate",type:"directă",task:"Scrie o sugestie directă pentru reducerea anxietății sociale.",constraint:"Canal senzorial predominant: kinestezic (senzații corporale)."},
-  {cat:"Stimă de sine",type:"directă",task:"Scrie o sugestie directă pentru creșterea încrederii în sine.",constraint:"Folosește minim 3 canale senzoriale VAKOG."},
-  {cat:"Somn",type:"indirectă",task:"Scrie o sugestie indirectă (Milton Model) pentru inducerea somnului profund.",constraint:"Folosește presupuneri și limbaj permisiv (poate, pe măsură ce...)."},
-  {cat:"Motivație",type:"directă",task:"Scrie o sugestie directă pentru depășirea procrastinării.",constraint:"Maxim 5 propoziții. Fiecare propoziție creează o imagine concretă."},
-  {cat:"Copil interior",type:"indirectă",task:"Scrie o sugestie indirectă pentru vindecarea copilului interior.",constraint:"Include o metaforă cu un loc sigur, descris cu minim 2 canale senzoriale."},
-  {cat:"Burnout",type:"directă",task:"Scrie o sugestie directă pentru recuperarea din epuizare cronică.",constraint:"Gradualitate: începe cu corp, apoi emoție, apoi energie."},
-  {cat:"Relații",type:"indirectă",task:"Scrie o sugestie indirectă pentru deschiderea către relații sănătoase.",constraint:"Folosește limbaj de posibilitate (poți observa, e posibil să descoperi...)."},
-  {cat:"Frici",type:"directă",task:"Scrie o sugestie directă pentru transformarea fricii în curaj.",constraint:"Ancorare kinestezică puternică. Descrie senzațiile fizice ale curajului."},
-  {cat:"Bani",type:"directă",task:"Scrie o sugestie directă pentru o relație sănătoasă cu banii.",constraint:"Evită abstracțiunile. Fiecare propoziție creează un film mental clar."},
-  {cat:"Sănătate",type:"indirectă",task:"Scrie o sugestie indirectă pentru activarea energiei vitale.",constraint:"Interspersal: sugestia principală presărată natural în text narativ."}
+  {cat:"Anxietate",type:"directă",task:"Scrie o sugestie directă pentru reducerea anxietății sociale.",constraint:"Canal senzorial predominant: kinestezic (senzații corporale).",focus:[5]},
+  {cat:"Stimă de sine",type:"directă",task:"Scrie o sugestie directă pentru creșterea încrederii în sine.",constraint:"Folosește minim 3 canale senzoriale VAKOG.",focus:[5]},
+  {cat:"Somn",type:"indirectă",task:"Scrie o sugestie indirectă (Milton Model) pentru inducerea somnului profund.",constraint:"Folosește presupuneri și limbaj permisiv (poate, pe măsură ce...).",focus:[7,17]},
+  {cat:"Motivație",type:"directă",task:"Scrie o sugestie directă pentru depășirea procrastinării.",constraint:"Maxim 5 propoziții. Fiecare propoziție creează o imagine concretă.",focus:[2,14]},
+  {cat:"Copil interior",type:"indirectă",task:"Scrie o sugestie indirectă pentru vindecarea copilului interior.",constraint:"Include o metaforă cu un loc sigur, descris cu minim 2 canale senzoriale.",focus:[5,9]},
+  {cat:"Burnout",type:"directă",task:"Scrie o sugestie directă pentru recuperarea din epuizare cronică.",constraint:"Gradualitate: începe cu corp, apoi emoție, apoi energie.",focus:[4]},
+  {cat:"Relații",type:"indirectă",task:"Scrie o sugestie indirectă pentru deschiderea către relații sănătoase.",constraint:"Folosește limbaj de posibilitate (poți observa, e posibil să descoperi...).",focus:[7,16]},
+  {cat:"Frici",type:"directă",task:"Scrie o sugestie directă pentru transformarea fricii în curaj.",constraint:"Ancorare kinestezică puternică. Descrie senzațiile fizice ale curajului.",focus:[5,9]},
+  {cat:"Bani",type:"directă",task:"Scrie o sugestie directă pentru o relație sănătoasă cu banii.",constraint:"Evită abstracțiunile. Fiecare propoziție creează un film mental clar.",focus:[2]},
+  {cat:"Sănătate",type:"indirectă",task:"Scrie o sugestie indirectă pentru activarea energiei vitale.",constraint:"Interspersal: sugestia principală presărată natural în text narativ.",focus:[7,20]},
+  {cat:"Certitudine",type:"directă",task:"Scrie o sugestie directă pentru orice obiectiv, fără niciun cuvânt de dubiu.",constraint:"⚡ ZERO „dacă", „încearcă", „sper", „dar", „poate". Verifică fiecare cuvânt.",focus:[10]},
+  {cat:"Involuntaritate",type:"indirectă",task:"Scrie o sugestie pentru relaxare în care TOTUL se întâmplă de la sine.",constraint:"⚡ Zero instrucțiuni conștiente. Nimic cu „imaginează-ți" sau „vizualizează". Totul autonom.",focus:[11]},
+  {cat:"Flux",type:"indirectă",task:"Scrie o sugestie indirectă de 6-8 propoziții unde fiecare propoziție curge din precedenta.",constraint:"Fiecare propoziție TREBUIE să înceapă cu un conector: și, pe măsură ce, în timp ce, iar, ceea ce face ca...",focus:[12]},
+  {cat:"Pacing-Leading",type:"mixtă",task:"Scrie o sugestie mixtă care folosește structura pacing→leading.",constraint:"Primele 3 propoziții = adevăruri verificabile (pacing). Ultima 1-2 = sugestie terapeutică (leading).",focus:[13]},
+  {cat:"Densitate",type:"directă",task:"Scrie cea mai scurtă și mai puternică sugestie posibilă pentru încredere.",constraint:"Maxim 30 de cuvinte. Fiecare cuvânt TREBUIE să contribuie. Zero umplutură.",focus:[14]},
+  {cat:"Yes-Set",type:"indirectă",task:"Scrie o sugestie indirectă care construiește momentum de acceptare.",constraint:"Primele 3-4 propoziții = truisme incontestabile. Apoi sugestia terapeutică.",focus:[17]},
+  {cat:"Stratificare",type:"indirectă",task:"Scrie o sugestie indirectă cu maximum de pattern-uri Milton Model.",constraint:"Include SIMULTAN: presupunere + embedded command + truism + conector cauzal. Minimum 3 pattern-uri per propoziție.",focus:[20]},
+  {cat:"Expectanță",type:"indirectă",task:"Scrie o sugestie indirectă care construiește anticipare pozitivă.",constraint:"Folosește limbaj de expectanță: „vei observa", „pe măsură ce continuă", „natural, în ritmul tău".",focus:[18]},
+  {cat:"Automaticitate",type:"indirectă",task:"Scrie o sugestie pentru relaxare cu framing complet de automaticitate.",constraint:"Folosește: „natural", „de la sine", „fără efort", „automat", „fără să încerci". Zero verbe voliționale.",focus:[19]},
+  {cat:"Post-hipnotică",type:"post-hipnotică",task:"Scrie o sugestie post-hipnotică care se activează dimineața la trezire.",constraint:"Trebuie să conțină: trigger clar (trezirea), acțiune simplă, ancorare emoțională, prezent continuu.",focus:[8]},
+  {cat:"Metaforă",type:"metaforă",task:"Scrie o metaforă terapeutică pentru depășirea unei frici.",constraint:"Structură completă: setup → personaj → conflict → punct de cotitură → rezoluție. Maxim 150 cuvinte.",focus:[7,9]},
+  {cat:"Repetiție variată",type:"directă",task:"Scrie o sugestie de 5-6 propoziții despre calm interior.",constraint:"Aceeași temă (calmul) repetată în 5 formulări DIFERITE. Nu repeta niciun cuvânt cheie.",focus:[15]}
 ];
 var LIBRARY=[
   {cat:"Anxietate, frici și atacuri de panică",items:[
@@ -576,13 +601,37 @@ var LIBRARY=[
   {cat:"Sănătate fizică și energie",items:[
     {type:"Directă",text:"Cu fiecare respirație, fiecare celulă din corpul meu primește oxigen curat. Sângele circulă liber și cald. Mușchii sunt flexibili și puternici. Energia crește de la baza coloanei, urcă prin piept și se răspândește în brațe, în degete, în întregul corp. Sunt plin de vitalitate.",why:"<strong>De ce funcționează:</strong> Scanare corporală ascendentă, ancorare kinestezică dominantă cu componente vizuale, fiecare propoziție concretă și specifică, gradualitate (respirație → celulă → sânge → mușchi → tot corpul), obiectiv unic: vitalitate."},
     {type:"Directă",text:"Corpul meu știe să se vindece. Știe asta de când s-a născut. Cu fiecare oră de somn, celulele se regenerează. Cu fiecare masă, primesc exact ce am nevoie. Cu fiecare pas în aer liber, plămânii mei se umplu cu putere. Sunt sănătos. Sunt puternic. Corpul meu lucrează pentru mine, în fiecare clipă.",why:"<strong>De ce funcționează:</strong> Truism puternic la deschidere (corpul știe), repetiție structurală (cu fiecare...), concretizare prin acțiuni zilnice (somn, masă, mers), evită orice promisiune medicală, finalizare cu declarație identitară."}
+  ]},
+  {cat:"Dependențe și comportamente compulsive",items:[
+    {type:"Post-hipnotică",text:"În fiecare dimineață, în momentul în care deschizi ochii, simți o liniște profundă. Mâna ta dreaptă se duce natural spre piept. Simți bătaia inimii — calmă, puternică, a ta. Și în acel moment știi: astăzi aleg eu. Astăzi sunt liber.",why:"<strong>De ce funcționează:</strong> Trigger clar (dimineața la trezire), acțiune simplă (mâna pe piept), ancorare kinestezică (bătaia inimii), trecere de la senzație la identitate (sunt liber). Formulare post-hipnotică clasică."},
+    {type:"Indirectă (Milton Model)",text:"Și poate că ai observat deja cum anumite obiceiuri se schimbă... uneori fără să îți dai seama... ca atunci când mergeai pe un drum vechi și brusc descoperi o cărare nouă... una pe care n-o văzuseși înainte... și picioarele tale o aleg natural... pentru că de fapt, corpul tău știe ce e bine pentru tine...",why:"<strong>De ce funcționează:</strong> Limbaj permisiv (poate, uneori), metaforă accesibilă (cărare nouă), truism (corpul tău știe), presupoziție (ai observat deja), automaticitate (fără să îți dai seama, natural), zero confruntare directă cu dependența."}
+  ]},
+  {cat:"Relație cu banii și securitate materială",items:[
+    {type:"Directă",text:"Mâinile mele sunt deschise. Primesc cu recunoștință. Dau cu generozitate. Banii curg spre mine ca un râu care și-a găsit drumul natural. Cu fiecare decizie pe care o iau, simt claritate. Cu fiecare acțiune, construiesc. Sunt prosper. Sunt în siguranță. Abundența e starea mea naturală.",why:"<strong>De ce funcționează:</strong> Metaforă concretă (râu), kinestezic (mâini deschise), repetiție variată (primesc/dau, decizie/acțiune), progresie de la acțiune la identitate (sunt prosper), zero promisiuni nerealiste, ancorare în senzație de siguranță."},
+    {type:"Indirectă (Milton Model)",text:"Și pe măsură ce asculți aceste cuvinte... s-ar putea să observi cum ceva se schimbă în modul în care te gândești la bani... poate o ușurință în piept... poate o curiozitate liniștită... pentru că uneori cele mai importante schimbări încep cu o simplă permisiune pe care ți-o dai ție...",why:"<strong>De ce funcționează:</strong> Permisivitate completă (s-ar putea, poate), acoperirea posibilităților (ușurință SAU curiozitate), truism (cele mai importante schimbări), non-directiv pe conținut — permite subiectului să completeze, ancorare kinestezică subtilă (ușurință în piept)."}
+  ]},
+  {cat:"Metafore terapeutice (exemplu complet)",items:[
+    {type:"Metaforă terapeutică",text:"Și poate îți imaginezi un copac foarte vechi, într-o pădure liniștită... un copac care a trecut prin multe furtuni... și fiecare furtună i-a lăsat o cicatrice pe scoarță... dar fiecare cicatrice l-a făcut și mai puternic... și rădăcinile lui au crescut mai adânc cu fiecare vânt puternic... și acum, când bate vântul, frunzele lui dansează ușor... pentru că știe că rădăcinile sunt adânc și puternice... și că nicio furtună nu l-a putut doborî...",why:"<strong>De ce funcționează:</strong> Izomorfism: copac=subiect, furtuni=traumă, cicatrici=experiențe dureroase, rădăcini=resurse interioare, dans=reziliență. Structură narativă completă. Reframing: cicatricile = sursă de putere. Rezoluție prezentă: „acum, când bate vântul". VAKOG: vizual (copac, frunze), auditiv (vânt), kinestezic (dans, adâncime)."},
+    {type:"Metaforă terapeutică",text:"Odată, într-un sat de la marginea unui lac, trăia un pescar care în fiecare dimineață ieșea pe apă... și în fiecare seară se întorcea cu peștii pe care apele i-i dădeau... nu mai mulți, nu mai puțini... exact cât avea nevoie... și într-o zi un călător l-a întrebat: cum faci de prinde mereu ce trebuie?... iar pescarul a zâmbit și a spus: eu nu prind nimic... eu doar las plasa și apa face restul...",why:"<strong>De ce funcționează:</strong> Metaforă despre control și lăsare — izomorfism cu dependența de control/anxietate. Truism final puternic (apa face restul = subconștientul face restul). Structură: setup → rutină → întrebare → reveal. Automaticitate implicită: „eu nu prind nimic, eu las". Ancorare vizuală și kinestezică."}
   ]}
 ];
-var STEPS_B=["Analizez formularea...","Verific specificitatea...","Testez timpul verbal...","Calculez scorul final..."];
-var STEPS_A=["Analizez structura sugestiei...","Verific formularea pozitivă...","Testez ancorarea senzorială VAKOG...","Evaluez ritmul și cadența...","Verific pattern-urile lingvistice...","Analizez obiectivul terapeutic...","Generez versiunea îmbunătățită...","Finalizez raportul..."];
-var PB="Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 3 criterii fundamentale, returnezi JSON strict.\n\nCRITERII:\n1. Formulare pozitivă (1-10): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru perfecțiune teoretică.\n- Dacă o sugestie are zero negații → criteriul 1 = 10.\n- Dacă toate propozițiile sunt la prezent → criteriul 3 = 10.\n- Dacă fiecare propoziție creează o imagine senzorială concretă → criteriul 2 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Scorul 100/100 este complet posibil pentru o sugestie care respectă toate criteriile.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\n3 FILTRE: 1. Înlocuiești subiectul și merge la fel→prea generală. 2. Are film clar? 3. Filmul e cel intenționat?\n\nCalculează scor_total normalizat la 100: suma celor 3 scoruri impartita la 30 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente.\n\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj. NU include niciun criteriu despre siguranță sau etică.\n\nDacă în mesajul utilizatorului există o secțiune COMPARAȚIE CU VERSIUNEA ANTERIOARĂ, adaugă în JSON câmpul \"comparatie_versiune_anterioara\":\"explicație detaliată a fiecărei schimbări și impactul ei asupra scorului\".";
-var PA="Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 9 criterii obiective, returnezi JSON strict.\n\nBLOC A — STRUCTURALE:\n1. Formulare pozitivă (1-10): 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10): 9-10=precise, concrete. 1-2=vagi.\n3. Timp verbal corect (1-10): 9-10=prezent consistent. 1-2=viitor/condițional.\n4. Gradualitate și progresie (1-10): 9-10=progresie naturală. 1-2=salt brusc.\n\nBLOC B — LIMBAJ:\n5. Ancorare senzorială VAKOG (1-10): 9-10=3+ canale. 1-2=zero ancore.\n6. Ritm și cadență (1-10): 9-10=ritm hipnotic. 1-2=text dens.\n7. Pattern-uri lingvistice (1-10): 9-10=corecte, variate. 1-2=greșite.\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic clar (1-10): 9-10=unic și clar. 1-2=contradictorii.\n9. Activare emoțională (1-10): CREEAZĂ starea. 9-10=palpabilă. 1-2=plat.\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet. Nu rezerva 10 pentru o perfecțiune teoretică imposibilă.\n- Zero negații → criteriul 1 = 10. Toate propozițiile la prezent → criteriul 3 = 10. Progresie clară corp→emoție→identitate → criteriul 4 = 10.\n- 3+ canale senzoriale activate natural → criteriul 5 = 9 sau 10. Propoziții scurte cu ritm de respirație → criteriul 6 = 9 sau 10.\n- NU fi artificial conservator. Evaluează ce e acolo, nu ce ar putea lipsi teoretic.\n- Un scor total de 100/100 este complet posibil pentru o sugestie care respectă excelent toate cele 9 criterii.\n- O sugestie bună poate primi 10 pe unele criterii și 7-8 pe altele. Nu trage toate scorurile în jos doar pentru că un criteriu e mai slab.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCalculează scor_total normalizat la 100: suma celor 9 scoruri impartita la 90 inmultita cu 100, rotunjit.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks). Câmpul observatie este OBLIGATORIU pentru fiecare criteriu:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":2,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":3,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":4,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":5,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":6,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":7,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":8,\"scor\":X,\"observatie\":\"explicatie scurta aici\"},{\"id\":9,\"scor\":X,\"observatie\":\"explicatie scurta aici\"}],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente. Dacă sugestia e excelentă, versiune_imbunatatita poate fi identică sau cu ajustări minore.\n\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj. NU include niciun criteriu despre siguranță sau etică.\n\nDacă în mesajul utilizatorului există o secțiune COMPARAȚIE CU VERSIUNEA ANTERIOARĂ, adaugă în JSON câmpul \"comparatie_versiune_anterioara\":\"explicație detaliată a fiecărei schimbări și impactul ei asupra scorului\".";
+var STEPS_B=["Analizez formularea pozitivă...","Verific specificitatea...","Testez timpul verbal...","Detectez cuvinte de dubiu...","Evaluez involuntaritatea...","Calculez scorul ponderat..."];
+var STEPS_E=["Analizez structura sugestiei...","Verific criteriile gate...","Detectez cuvinte interzise...","Evaluez involuntaritatea...","Scanez pattern-uri Milton Model...","Detectez presupoziții...","Detectez comenzi încorporate...","Detectez truisme și yes-set...","Analizez raportul permisiv-autoritar...","Evaluez repetiția strategică...","Testez automaticitatea...","Evaluez stratificarea compusă...","Construiesc radar chart...","Generez avertizări lingvistice...","Generez versiunea îmbunătățită...","Calculez scorul ponderat Expert...","Finalizez raportul Expert..."];
+var STEPS_A=["Analizez structura sugestiei...","Verific formularea pozitivă...","Detectez cuvinte interzise...","Evaluez involuntaritatea...","Testez ancorarea senzorială VAKOG...","Evaluez ritmul și cadența...","Verific pattern-urile lingvistice...","Analizez fluxul și coeziunea...","Verific structura pacing-leading...","Evaluez densitatea...","Generez avertizări lingvistice...","Generez versiunea îmbunătățită...","Calculez scorul ponderat...","Finalizez raportul..."];
+var PB="Ești un evaluator expert de sugestii hipnotice. Evaluezi pe 5 criterii GATE fundamentale (criterii-poartă — dacă pică, sugestia nu funcționează), cu ponderi diferite. Returnezi JSON strict.\n\nCRITERII GATE (cu ponderi):\n1. Formulare pozitivă (1-10, pondere ×1.5): Subconștientul nu procesează negația. 9-10=100% pozitivă. 1-2=majoritar negații.\n2. Specificitate și claritate (1-10, pondere ×1.5): Imagini concrete, multi-senzoriale. 9-10=precise. 1-2=vagi.\n3. Timp verbal corect (1-10, pondere ×1.2): Prezent=experiența ACUM. 9-10=prezent consistent. 1-2=viitor/condițional.\n10. Limbaj de certitudine (1-10, pondere ×1.5): Absența cuvintelor de dubiu. „Dacă"=implică eșec posibil (→„Când"). „Încearcă"=implică efort/eșec (→elimină). „Sper să"/„Aș vrea"=incertitudine. „Dar"/„Însă"=anulează ce e înainte (→„Și"). ATENȚIE: „Poate"/„S-ar putea" sunt CORECTE la sugestii indirecte permisive intenționate. Penalizează doar folosirea neintenționată. 9-10=zero cuvinte de dubiu sau permisivitate intenționată. 1-2=„dacă"/„încearcă" constant.\n11. Involuntaritate / Non-agency (1-10, pondere ×1.3): Sugestia produce experiență AUTONOMĂ, nu instrucțiune conștientă. ✅ „Observi cum căldura se extinde" (se întâmplă de la sine) ❌ „Imaginează-ți că simți căldură" (comandă conștientă). Markeri buni: voce pasivă, verbe autonome (se întâmplă, apare, vine, curge), metafore de forță externă, „de la sine/natural/fără efort". Markeri răi: „imaginează-ți", „vizualizează", „fă", „alege", „decide". 9-10=experiență complet autonomă. 1-2=100% instrucțiuni conștiente.\n\nVERIFICĂRI LINGVISTICE (warnings separate, NU scoruri):\n- VL1: Diacritice corecte (ă,â,î,ș,ț)\n- VL3: Registru tu/dvs consistent\n- VL4: Limbaj teoretic depășit (adormi/somn profund=GREȘIT, transa NU e somn)\n- VL5: Cuvinte interzise detectate (dacă, încearcă, dar, trebuie, nu uita)\n\nCALCUL SCOR PONDERAT:\nScor_ponderat = (scor_1×1.5)+(scor_2×1.5)+(scor_3×1.2)+(scor_10×1.5)+(scor_11×1.3)\nScor_maxim = 70\nscor_total = ROUND(Scor_ponderat / 70 × 100)\n\nCALIBRARE: Scorul 10 e CORECT când criteriul e respectat complet. NU fi artificial conservator.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE SENZORIALĂ→REPREZENTARE INTERIOARĂ→EMOȚIE→REACȚIE BIOLOGICĂ→EXPERIENȚĂ NOUĂ→CONVINGERE NOUĂ→IDENTITATE NOUĂ\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"...\"},{\"id\":2,\"scor\":X,\"observatie\":\"...\"},{\"id\":3,\"scor\":X,\"observatie\":\"...\"},{\"id\":10,\"scor\":X,\"observatie\":\"...\"},{\"id\":11,\"scor\":X,\"observatie\":\"...\"}],\"warnings\":[],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"sumar\":\"...\"}\n\nCâmpul warnings: array de obiecte {\"cod\":\"VL1|VL3|VL4|VL5\",\"mesaj\":\"explicație scurtă\"}. Dacă nu sunt probleme, warnings=[].\n\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente.\nLimba: română cu diacritice corecte. Evaluare directă, fără periaj. NU include niciun criteriu despre siguranță sau etică.\nDacă în mesajul utilizatorului există o secțiune COMPARAȚIE CU VERSIUNEA ANTERIOARĂ, adaugă în JSON câmpul \"comparatie_versiune_anterioara\":\"explicație detaliată\".";
+var PA="Ești un evaluator expert de sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții. Evaluezi pe 14 criterii obiective cu PONDERI DIFERITE. Returnezi JSON strict.\n\nCriterii marcate ⚡ = GATE (criterii-poartă: dacă scorul e sub 4, sugestia e compromisă indiferent de celelalte scoruri).\n\nBLOC A — STRUCTURALE:\n⚡1. Formulare pozitivă (1-10, ×1.5): 9-10=100% pozitivă. 1-2=majoritar negații.\n⚡2. Specificitate și claritate (1-10, ×1.5): 9-10=precise, concrete. 1-2=vagi.\n⚡3. Timp verbal corect (1-10, ×1.2): 9-10=prezent consistent. 1-2=viitor/condițional.\n4. Gradualitate și progresie (1-10, ×1.0): 9-10=progresie naturală. 1-2=salt brusc.\n\nBLOC B — LIMBAJ:\n5. Ancorare senzorială VAKOG (1-10, ×1.0): 9-10=3+ canale. 1-2=zero ancore.\n6. Ritm și cadență (1-10, ×1.0): 9-10=ritm hipnotic, 5-15 cuv/propoziție. 1-2=text dens.\n7. Pattern-uri lingvistice (1-10, ×1.0): 9-10=corecte, variate. 1-2=greșite.\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic clar (1-10, ×1.1): 9-10=unic și clar. 1-2=contradictorii.\n9. Activare emoțională (1-10, ×1.1): CREEAZĂ starea. 9-10=palpabilă. 1-2=plat.\n\nBLOC D — CRITERII NOI (v3.0):\n⚡10. Limbaj de certitudine (1-10, ×1.5): Zero „dacă"/„încearcă"/„sper". „Dacă"→„Când". „Încearcă"→elimină. „Dar"→„Și". ATENȚIE: „Poate"/„S-ar putea" corecte la sugestii indirecte permisive intenționate.\n⚡11. Involuntaritate / Non-agency (1-10, ×1.3): Experiență autonomă vs instrucțiune conștientă. ✅ „Observi cum căldura se extinde" ❌ „Imaginează-ți că simți căldură". Markeri: voce pasivă, verbe autonome (se întâmplă, apare, vine), „de la sine/natural/fără efort". Penalizează: „imaginează-ți", „vizualizează", „fă", „alege".\n12. Flux și coeziune (1-10, ×1.0): Conectori cauzali între propoziții (și, pe măsură ce, în timp ce, ceea ce face ca). 9-10=flux continuu. 1-2=propoziții izolate.\n13. Pacing-Leading (1-10, ×1.0): Adevăruri verificabile (pacing) → sugestie (leading). Raport ideal 2:1–3:1. Se aplică DOAR la indirecte/mixte. La directe scurte → N/A, dă 7 implicit.\n14. Densitate și economie (1-10, ×0.8): Fiecare cuvânt contribuie. 9-10=zero umplutură. 1-2=extrem verbos.\n\nVERIFICĂRI LINGVISTICE (warnings separate, NU scoruri):\n- VL1: Diacritice lipsă/greșite (ă,â,î,ș,ț)\n- VL2: Acord de gen incorect (relaxat vs relaxată)\n- VL3: Registru tu/dvs inconsistent\n- VL4: Limbaj teoretic depășit (adormi/somn profund/cazi în somn = transa NU e somn; te fac să/te oblig = lipsă autonomie)\n- VL5: Cuvinte interzise detectate cu locația (dacă, încearcă, dar, trebuie, nu uita, nu pierde)\n\nCALCUL SCOR PONDERAT:\nScor_ponderat = Σ(scor_criteriu × pondere)\nScor_maxim_ponderat = 160 (suma 10×pondere pentru toate 14 criteriile)\nscor_total = ROUND(Scor_ponderat / 160 × 100)\n\nCALIBRARE SCORURI:\n- Scorul 10 este CORECT și OBLIGATORIU când criteriul e respectat complet.\n- NU fi artificial conservator. Evaluează ce e acolo.\n- Un scor total de 100/100 este posibil.\n- Criteriile GATE cu scor sub 4 = semnalează în top_probleme ca prioritare.\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE.\n3 FILTRE: Conținut vs Structură, Are film?, Ce film? CEI 3P: Personal, Pozitiv, Prezent.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"...\"},{\"id\":2,\"scor\":X,\"observatie\":\"...\"},{\"id\":3,\"scor\":X,\"observatie\":\"...\"},{\"id\":4,\"scor\":X,\"observatie\":\"...\"},{\"id\":5,\"scor\":X,\"observatie\":\"...\"},{\"id\":6,\"scor\":X,\"observatie\":\"...\"},{\"id\":7,\"scor\":X,\"observatie\":\"...\"},{\"id\":8,\"scor\":X,\"observatie\":\"...\"},{\"id\":9,\"scor\":X,\"observatie\":\"...\"},{\"id\":10,\"scor\":X,\"observatie\":\"...\"},{\"id\":11,\"scor\":X,\"observatie\":\"...\"},{\"id\":12,\"scor\":X,\"observatie\":\"...\"},{\"id\":13,\"scor\":X,\"observatie\":\"...\"},{\"id\":14,\"scor\":X,\"observatie\":\"...\"}],\"warnings\":[],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nCâmpul warnings: array de obiecte {\"cod\":\"VL1|VL2|VL3|VL4|VL5\",\"mesaj\":\"explicație scurtă\"}. Dacă nu sunt probleme, warnings=[].\nDacă scorul total e peste 90, top_probleme POATE fi array gol []. Nu inventa probleme inexistente.\nLimba: română cu diacritice corecte. Evaluare directă, onestă, fără periaj. NU include niciun criteriu despre siguranță sau etică.\nDacă în mesajul utilizatorului există o secțiune COMPARAȚIE CU VERSIUNEA ANTERIOARĂ, adaugă în JSON câmpul \"comparatie_versiune_anterioara\":\"explicație detaliată\".";
 
+var PE="Ești un evaluator EXPERT de sugestii hipnotice, nivel cel mai avansat. Format pe criteriile Eugen Popa / Puterea Minții + cercetare academică (Hammond, Yapko, Erickson/Rossi, Lynn & Kirsch, Martin & Pacherie). Evaluezi pe 20 criterii cu PONDERI. Returnezi JSON strict.\n\n⚡ = GATE (criteriu-poartă).\n\nBLOC A — STRUCTURALE:\n⚡1. Formulare pozitivă (×1.5)\n⚡2. Specificitate și claritate (×1.5)\n⚡3. Timp verbal corect (×1.2)\n4. Gradualitate și progresie (×1.0)\n\nBLOC B — LIMBAJ:\n5. VAKOG (×1.0)\n6. Ritm și cadență (×1.0)\n7. Pattern-uri lingvistice (×1.0)\n\nBLOC C — EFICACITATE:\n8. Obiectiv terapeutic (×1.1)\n9. Activare emoțională (×1.1)\n\nBLOC D — CRITERII v3:\n⚡10. Limbaj certitudine (×1.5): zero dacă/încearcă/sper\n⚡11. Involuntaritate (×1.3): experiență autonomă vs instrucțiune conștientă\n12. Flux și coeziune (×1.0): conectori cauzali\n13. Pacing-Leading (×1.0): raport 2:1-3:1. La directe scurte→7 implicit\n14. Densitate (×0.8)\n\nBLOC E — EXPERT:\n15. Repetiție strategică variată (×0.9): Aceeași temă terapeutică repetată cu formulări diferite. NU repetiție mecanică. Evaluezi: variația semantică a formulărilor + consistența tematică.\n16. Raport permisiv-autoritar (×0.9): Distribuția verbe modale permisive (poate, poți, s-ar putea) vs autoritative (ești, simți, observi). Sugestii indirecte→mai permisiv. Directe→mai autoritar. Mixte→balans.\n17. Secvențe yes-set/truisme (×0.9): Afirmații universale incontestabile care construiesc momentum de acceptare. „Toată lumea știe..." „Știi deja cum..." „Corpul tău știe...". 9-10=3+ truisme bine plasate. 1-2=zero truisme.\n18. Limbaj de expectanță (×0.8): Fraze care construiesc anticipare pozitivă: „vei observa", „pe măsură ce continuă să se dezvolte", „natural, în ritmul tău". Distinct de certitudine (C10): expectanța CONSTRUIEȘTE anticipare, certitudinea ELIMINĂ dubiul.\n19. Automaticitate/effortlessness (×0.8): Framing explicit fără efort: „natural", „automat", „fără să încerci", „de la sine". Distinct de involuntaritate (C11): automaticitatea e mecanismul LINGVISTIC, involuntaritatea e EXPERIENȚA produsă.\n20. Stratificare compusă / pattern density (×1.0): Câte pattern-uri Milton Model DISTINCTE co-există într-o singură unitate de sugestie. Presupoziție+embedded command+truism simultan=stratificare înaltă. 9-10=3+ pattern-uri stratificate natural. 1-2=un singur pattern sau zero.\n\nMILTON MODEL RADAR (obligatoriu în response):\nAnalizează și returnează câmpul \"milton_radar\" cu scoruri 0-10 pe 8 axe:\n1. presupozitii: presupoziții (temporale, de conștiință, ordinale)\n2. comenzi_incorporate: embedded commands marcate\n3. truisme_yesset: truisme și secvențe yes-set\n4. conectori_cauzali: și, pe măsură ce, în timp ce, ceea ce face ca\n5. binds: double binds, bind alternative comparabile\n6. ambiguitate: fonologică, sintactică, de scop, punctuație\n7. nominalizari: verbe transformate în substantive abstracte\n8. intrebari_sugestie: întrebări retorice, postulate conversaționale, tag questions\n\nVERIFICĂRI LINGVISTICE (warnings): VL1-VL5 (la fel ca Avansat).\n\nCALCUL: Σ(scor×pondere). Scor_maxim_ponderat=204.4. scor_total=ROUND(Scor_ponderat/204.4×100).\n\nRĂSPUNDE DOAR cu JSON valid:\n{\"tip_detectat\":\"directă|indirectă|mixtă\",\"criterii\":[{\"id\":1,\"scor\":X,\"observatie\":\"...\"},{\"id\":2,\"scor\":X,\"observatie\":\"...\"},{\"id\":3,\"scor\":X,\"observatie\":\"...\"},{\"id\":4,\"scor\":X,\"observatie\":\"...\"},{\"id\":5,\"scor\":X,\"observatie\":\"...\"},{\"id\":6,\"scor\":X,\"observatie\":\"...\"},{\"id\":7,\"scor\":X,\"observatie\":\"...\"},{\"id\":8,\"scor\":X,\"observatie\":\"...\"},{\"id\":9,\"scor\":X,\"observatie\":\"...\"},{\"id\":10,\"scor\":X,\"observatie\":\"...\"},{\"id\":11,\"scor\":X,\"observatie\":\"...\"},{\"id\":12,\"scor\":X,\"observatie\":\"...\"},{\"id\":13,\"scor\":X,\"observatie\":\"...\"},{\"id\":14,\"scor\":X,\"observatie\":\"...\"},{\"id\":15,\"scor\":X,\"observatie\":\"...\"},{\"id\":16,\"scor\":X,\"observatie\":\"...\"},{\"id\":17,\"scor\":X,\"observatie\":\"...\"},{\"id\":18,\"scor\":X,\"observatie\":\"...\"},{\"id\":19,\"scor\":X,\"observatie\":\"...\"},{\"id\":20,\"scor\":X,\"observatie\":\"...\"}],\"milton_radar\":{\"presupozitii\":X,\"comenzi_incorporate\":X,\"truisme_yesset\":X,\"conectori_cauzali\":X,\"binds\":X,\"ambiguitate\":X,\"nominalizari\":X,\"intrebari_sugestie\":X},\"warnings\":[],\"scor_total\":X,\"scor_maxim\":100,\"top_probleme\":[],\"versiune_imbunatatita\":\"...\",\"explicatii_schimbari\":\"...\",\"sumar\":\"...\"}\n\nCALIBRARE: Scorul 10 e CORECT când criteriul e respectat. NU fi conservator.\nLimba: română cu diacritice corecte. Evaluare directă. NU evalua siguranța/etica.\nDacă comparație versiune anterioară, adaugă \"comparatie_versiune_anterioara\".";
+
+
+/* === TYPE-SPECIFIC EVALUATION SUPPLEMENTS === */
+var TYPE_SUPPLEMENTS={
+  'directă':'\n\nTIP SUGESTIE: DIRECTĂ (stil Elman)\nCriterii specifice pentru sugestii directe:\n- CEI 3P: Personal (Eu sunt/am/pot), Pozitiv (ce este, nu ce nu este), Prezent (Sunt/Am/Fac)\n- Maxim 7-9 cuvinte per sugestie. Scurtă și de impact ca un laser.\n- Emoție la rostire: „Când o rostesc, mă trec fiorii." Dacă nu simt nimic, sugestia e moartă.\n- Legea Efectului Inversat: nu apela la voința conștientă, ci la imaginație.\n- Prima sugestie = spărgătorul de gheață (Eugen Popa). Ultimele = imprimă cel mai profund (Hammond).\n- Criteriul 13 (Pacing-Leading): NU se aplică la directe scurte. Dă 7 implicit.\n- Repetare cu amplificare: fiecare sugestie acceptată deschide poarta pentru următoarea.\n- Criteriu suplimentar: Măsurabilitate — „Dacă nu poți măsura, nu poți transforma."',
+  'indirectă':'\n\nTIP SUGESTIE: INDIRECTĂ (Milton Model / Ericksonienă)\nCriterii specifice pentru sugestii indirecte:\n- Pattern-uri Milton Model obligatorii: presupoziții, comenzi încorporate, truisme, conectori cauzali, ambiguitate, binds.\n- Limbaj PERMISIV: „poate", „s-ar putea", „e posibil să observi" = CORECTE aici (nu penaliza la C10).\n- Criteriul 13 (Pacing-Leading): CRITIC. Raport ideal 2:1-3:1 (pace:lead).\n- Criteriul 17 (Yes-set/Truisme): CRITIC. Momentum de acceptare.\n- Criteriul 20 (Stratificare compusă): Evaluează câte pattern-uri co-există.\n- Not Knowing/Not Doing: „Nu trebuie să faci nimic" = descarcă presiunea conștientă.\n- Acoperirea tuturor posibilităților de răspuns: orice se întâmplă confirmă sugestia.\n- Ambiguitate intenționată: cuvinte cu sensuri multiple, fonologice, sintactice.',
+  'mixtă':'\n\nTIP SUGESTIE: MIXTĂ (indirect → direct)\nCriterii specifice pentru sugestii mixte:\n- Structura clasică: început INDIRECT (pacing, truisme, limbaj permisiv) → tranziție → sugestii DIRECTE (leading, comenzi clare).\n- Criteriul 13 (Pacing-Leading): CRITIC. Verifică tranziția de la pacing la leading.\n- Verifică dacă tranziția e graduală (bun) sau abruptă (slab).\n- Raport indirect:direct ideal = 60:40 sau 70:30.\n- Primele propoziții = indirecte (calibrare, raport, bypass factor critic).\n- Ultimele propoziții = directe (imprimă mesajul terapeutic).\n- Cel mai versatil tip — recomandat pentru majoritatea situațiilor.',
+  'post-hipnotică':'\n\nTIP SUGESTIE: POST-HIPNOTICĂ\nCriterii specifice OBLIGATORII (evaluează suplimentar):\n1. TRIGGER: Clar, specific, natural (ex: „dimineața când te trezești", „când bei prima gură de apă"). NU evenimente rare/neobișnuite.\n2. ACȚIUNE: Simplă, directă, o singură acțiune per sugestie.\n3. TIMP: Prezent continuu sau viitorul imediat (excepție acceptabilă la C3).\n4. FORMULARE: 100% pozitivă.\n5. ANCORARE EMOȚIONALĂ: Conectează acțiunea la o emoție pozitivă.\n6. OPȚIONAL DAR VALOROS: Amnezie sugerată pentru sugestie (crește eficacitatea).\n7. IDENTITATE: „Ești un nefumător" > „Nu mai fumezi" (nivel identitar > comportamental).\n8. REPETIȚIE: Sugestia post-hipnotică trebuie repetată minim 3×.\nAdaugă în JSON câmpul \"criterii_specifice_tip\":{\"trigger\":X/10,\"actiune\":X/10,\"ancorare_emotionala\":X/10} cu observații.',
+  'metaforă':'\n\nTIP SUGESTIE: METAFORĂ TERAPEUTICĂ\nCriterii specifice OBLIGATORII (evaluează suplimentar):\n1. IZOMORFISM (David Gordon): Corespondență 1:1 între elementele metaforei și problema clientului. Există elemente paralele identificabile?\n2. STRUCTURĂ NARATIVĂ: Setup → personaje → conflict → punct de cotitură → rezoluție → denouement.\n3. REZOLUȚIE/CONECTARE: Metafora TREBUIE să conțină o cale înainte, o soluție, un model de rezolvare.\n4. DOMENIU SURSĂ: Familiar, accesibil emoțional, universal (natură, călătorie, creștere).\n5. EMBEDDED ELEMENTS: Comenzi încorporate, presupoziții, truisme presărate natural în narațiune.\n6. ZEIGARNIK: Dacă e metaforă multiplă imbricată (Lankton), verifică open-close sequencing.\n7. DISOCIERE: Metafora creează distanță terapeutică naturală de problemă.\nAdaugă în JSON câmpul \"criterii_specifice_tip\":{\"izomorfism\":X/10,\"structura_narativa\":X/10,\"rezolutie\":X/10,\"embedded\":X/10} cu observații.'
+};
 /* === STATE === */
 var tier='basic',lastImproved='',prevScore=null,loadingInterval=null,isPresentation=false,isEvaluating=false;
 var evalCache={text:'',tier:'',result:null};
@@ -729,10 +778,20 @@ function togglePresentation(){
 /* === TIER === */
 function setTier(t){
   if(t==='advanced'&&!requireGate())return;
-  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();
-  var obWrap=document.getElementById('obiectiv-wrap');if(obWrap)obWrap.style.display=t==='advanced'?'block':'none';
-  var exRow=document.getElementById('example-row');if(exRow)exRow.style.display=t==='advanced'?'flex':'none';}
-function renderRef(){var l=tier==='basic'?BC:AC;var tierName=tier==='basic'?'Evaluare de Bază':'Evaluare Completă';document.getElementById('ref-summary').textContent='Referință criterii — '+tierName+' ('+l.length+')';document.getElementById('ref-list').innerHTML=l.map(function(c){return '<div><span class="rn">'+c.id+'. '+c.name+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
+  if(t==='expert'){if(!requireGate())return;if(!requireExpert())return;}
+  tier=t;document.getElementById('btn-basic').className=t==='basic'?'on':'';document.getElementById('btn-advanced').className=t==='advanced'?'on':'';var btnExp=document.getElementById('btn-expert');if(btnExp)btnExp.className=t==='expert'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();
+  var obWrap=document.getElementById('obiectiv-wrap');if(obWrap)obWrap.style.display=(t==='advanced'||t==='expert')?'block':'none';
+  var tipWrap=document.getElementById('tip-wrap');if(tipWrap)tipWrap.style.display=(t==='advanced'||t==='expert')?'block':'none';
+  var exRow=document.getElementById('example-row');if(exRow)exRow.style.display=(t==='advanced'||t==='expert')?'flex':'none';}
+function requireExpert(){
+  var code=localStorage.getItem('expert_code');
+  if(code==='PM2026')return true;
+  var input=prompt('Introdu codul de acces Expert (primit la Training Profesional de Hipnoză):');
+  if(input&&input.trim().toUpperCase()==='PM2026'){localStorage.setItem('expert_code','PM2026');return true;}
+  if(input!==null)alert('Cod incorect. Contactează echipa Puterea Minții pentru acces.');
+  return false;
+}
+function renderRef(){var l=tier==='basic'?BC:(tier==='expert'?EC:AC);var tierName=tier==='basic'?'Evaluare de Bază (5 criterii-poartă)':(tier==='expert'?'Expert (20 criterii + Radar Milton Model)':'Evaluare Completă (14 criterii ponderate)');document.getElementById('ref-summary').textContent='Referință criterii — '+tierName;document.getElementById('ref-list').innerHTML=l.map(function(c){var gateIcon=c.gate?'⚡ ':'';var wBadge=' <span style="color:#506a78;font-size:13px">×'+c.w+'</span>';return '<div><span class="rn">'+gateIcon+c.id+'. '+c.name+wBadge+'</span> <span class="rd">— '+c.desc+'</span></div>';}).join('');}
 
 /* === HELPERS === */
 function gbc(s){if(s<=3)return'#e8506a';if(s<=5)return'#e8945a';if(s<=7)return'#F6D44C';if(s<=8)return'#5dd9a6';return'#4FC1E9';}
@@ -749,7 +808,7 @@ function copyShareText(score){navigator.clipboard.writeText(getShareText(score))
 function loadExample(){var ex=EXAMPLES[Math.floor(Math.random()*EXAMPLES.length)];document.getElementById('text').value=ex.text;document.getElementById('obiectiv').value=ex.obiectiv||'';document.getElementById('text').focus();}
 
 /* === LOADING STEPS === */
-function startLoading(btn,isTrain){var steps=(isTrain||tier==='advanced')?STEPS_A:STEPS_B;var idx=0;btn.innerHTML='<span class="spinner"></span><span class="loading-text">'+steps[0]+'</span>';loadingInterval=setInterval(function(){idx=(idx+1)%steps.length;var lt=btn.querySelector('.loading-text');if(lt)lt.textContent=steps[idx];},2000);}
+function startLoading(btn,isTrain){var steps=tier==='expert'?STEPS_E:((isTrain||tier==='advanced')?STEPS_A:STEPS_B);var idx=0;btn.innerHTML='<span class="spinner"></span><span class="loading-text">'+steps[0]+'</span>';loadingInterval=setInterval(function(){idx=(idx+1)%steps.length;var lt=btn.querySelector('.loading-text');if(lt)lt.textContent=steps[idx];},2000);}
 function stopLoading(){if(loadingInterval){clearInterval(loadingInterval);loadingInterval=null;}}
 
 /* === COOLOFF TIMER === */
@@ -769,7 +828,7 @@ function reEval(){if(!lastImproved)return;var circle=document.querySelector('.to
 
 /* === REWRITE === */
 var RW_BASIC="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nPrimești o sugestie hipnotică. Rescrie-o într-o versiune îmbunătățită și evaluează versiunea rescrisă.\n\nCriterii de rescriere:\n1. Formulare 100% pozitivă (zero negații)\n2. Specificitate și claritate (imagini senzoriale concrete)\n3. Timp verbal prezent (nu viitor, nu condițional)\n\nMaxim 50 de cuvinte pentru versiunea rescrisă.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{\"versiune_rescrisa\":\"textul rescris aici\",\"scor\":X,\"scor_maxim\":100,\"explicatie\":\"De ce e mai bună: explicație scurtă, 2-3 propoziții\"}\n\nLimba: română cu diacritice corecte.";
-var RW_ADV="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nPrimești o sugestie hipnotică. Rescrie-o într-o versiune profesională și evaluează versiunea rescrisă.\n\nCele 9 criterii:\n1. Formulare 100% pozitivă\n2. Specificitate și claritate (imagini senzoriale concrete)\n3. Timp verbal prezent\n4. Gradualitate și progresie naturală\n5. Ancorare senzorială VAKOG (minim 3 canale)\n6. Ritm și cadență hipnotică (propoziții scurte)\n7. Pattern-uri lingvistice corecte\n8. Obiectiv terapeutic unic și clar\n9. Activare emoțională (creează starea, nu o descrie)\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE\nCEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă.\n\nCALIBRARE: Scorul 10 e CORECT când criteriul e respectat complet. Nu fi artificial conservator.\n\nMaxim 300 de cuvinte pentru versiunea rescrisă.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{\"versiune_rescrisa\":\"textul rescris aici\",\"scor\":X,\"scor_maxim\":100,\"criterii_scor\":[{\"id\":1,\"scor\":X},{\"id\":2,\"scor\":X},{\"id\":3,\"scor\":X},{\"id\":4,\"scor\":X},{\"id\":5,\"scor\":X},{\"id\":6,\"scor\":X},{\"id\":7,\"scor\":X},{\"id\":8,\"scor\":X},{\"id\":9,\"scor\":X}],\"explicatie\":\"De ce e mai bună: explicație detaliată, ce s-a schimbat și de ce, 3-5 propoziții\"}\n\nLimba: română cu diacritice corecte.";
+var RW_ADV="Ești un expert în sugestii hipnotice, format pe criteriile Eugen Popa / Puterea Minții.\n\nPrimești o sugestie hipnotică. Rescrie-o într-o versiune profesională și evaluează versiunea rescrisă.\n\nCele 14 criterii (cu ponderi):\n⚡1. Formulare 100% pozitivă (×1.5)\n⚡2. Specificitate și claritate — imagini senzoriale concrete (×1.5)\n⚡3. Timp verbal prezent (×1.2)\n4. Gradualitate și progresie naturală (×1.0)\n5. Ancorare senzorială VAKOG — minim 3 canale (×1.0)\n6. Ritm și cadență hipnotică — propoziții scurte (×1.0)\n7. Pattern-uri lingvistice corecte (×1.0)\n8. Obiectiv terapeutic unic și clar (×1.1)\n9. Activare emoțională — creează starea, nu o descrie (×1.1)\n⚡10. Limbaj de certitudine — zero dacă/încearcă/sper (×1.5)\n⚡11. Involuntaritate — experiență autonomă, nu instrucțiune conștientă (×1.3)\n12. Flux și coeziune — conectori cauzali între propoziții (×1.0)\n13. Pacing-Leading — raport 2:1-3:1 pace:lead (×1.0)\n14. Densitate și economie — fiecare cuvânt contribuie (×0.8)\n\nLANȚUL CAUZAL: CUVÂNT→IMAGINE→REPREZENTARE→EMOȚIE→BIOLOGIE→EXPERIENȚĂ→CONVINGERE→IDENTITATE\nCEI 3P: Personal, Pozitiv, Prezent. INTERZISE: dacă, încearcă, dar, trebuie.\n\nCALCUL: Scor_ponderat = Σ(scor×pondere). Scor_maxim=160. scor_total=ROUND(Scor_ponderat/160×100).\nCALIBRARE: Scorul 10 e CORECT când criteriul e respectat complet.\n\nMaxim 300 de cuvinte pentru versiunea rescrisă.\n\nRĂSPUNDE DOAR cu JSON valid (fără markdown, fără backticks):\n{\"versiune_rescrisa\":\"textul rescris aici\",\"scor\":X,\"scor_maxim\":100,\"criterii_scor\":[{\"id\":1,\"scor\":X},{\"id\":2,\"scor\":X},{\"id\":3,\"scor\":X},{\"id\":4,\"scor\":X},{\"id\":5,\"scor\":X},{\"id\":6,\"scor\":X},{\"id\":7,\"scor\":X},{\"id\":8,\"scor\":X},{\"id\":9,\"scor\":X},{\"id\":10,\"scor\":X},{\"id\":11,\"scor\":X},{\"id\":12,\"scor\":X},{\"id\":13,\"scor\":X},{\"id\":14,\"scor\":X}],\"explicatie\":\"De ce e mai bună: explicație detaliată, ce s-a schimbat și de ce, 3-5 propoziții\"}\n\nLimba: română cu diacritice corecte.";
 
 async function runRewrite(){
   var text=document.getElementById('text').value.trim();if(!text)return;
@@ -783,7 +842,7 @@ async function runRewrite(){
   var btn=document.getElementById('rewrite-btn');var eD=document.getElementById('error');var rwD=document.getElementById('rewrite-result');
   btn.disabled=true;btn.innerHTML='<span class="spinner"></span><span class="loading-text">Rescriu sugestia...</span>';
   eD.innerHTML='';rwD.innerHTML='';
-  var tip='auto';var ob=document.getElementById('obiectiv').value.trim();
+  var tipSel=document.getElementById('tip-select');var tip=tipSel?tipSel.value:'auto';var ob=document.getElementById('obiectiv').value.trim();
   var um='Rescrie și evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
   if(tip!=='auto')um+='\n\nTip sugestie: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
   try{
@@ -821,7 +880,7 @@ async function runRewrite(){
     if(rwExpl){h+='<div class="improved-expl" style="margin-top:16px"><strong style="color:#4FC1E9">De ce e mai bună: </strong>'+rwExpl+'</div>';}
     // Action buttons
     h+='<div style="display:flex;gap:10px;margin-top:14px"><button class="reeval-btn" style="border-color:#4FC1E950;color:#4FC1E9;background:linear-gradient(135deg,#4FC1E915,#4FC1E908)" onclick="useRewrite()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:16px;height:16px"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Folosește această versiune</button></div>';
-    if(tier==='basic'&&!isUnlocked()){h+='<div style="margin-top:14px;padding:14px 18px;border-radius:12px;background:#F6D44C08;border:1px solid #F6D44C25;text-align:center;font-size:13px;color:#F6D44C;cursor:pointer" onclick="showGate()">🔒 Versiunea completă (300 cuvinte) + evaluare pe 9 criterii — <strong>deblochează gratuit</strong></div>';}
+    if(tier==='basic'&&!isUnlocked()){h+='<div style="margin-top:14px;padding:14px 18px;border-radius:12px;background:#F6D44C08;border:1px solid #F6D44C25;text-align:center;font-size:13px;color:#F6D44C;cursor:pointer" onclick="showGate()">🔒 Versiunea completă (300 cuvinte) + evaluare pe 14 criterii — <strong>deblochează gratuit</strong></div>';}
     h+='</div></div>';
     rwD.innerHTML=h;rwD.scrollIntoView({behavior:'smooth',block:'start'});
     lastRewrite=rewritten;
@@ -873,13 +932,13 @@ async function runEval(){
     }
   }
   isEvaluating=true;
-  var tip='auto';var ob=document.getElementById('obiectiv').value.trim();
+  var tipSel=document.getElementById('tip-select');var tip=tipSel?tipSel.value:'auto';var ob=document.getElementById('obiectiv').value.trim();
   var cta=document.getElementById('cta');var eD=document.getElementById('error');var rD=document.getElementById('results');
   cta.disabled=true;startLoading(cta,false);eD.innerHTML='';rD.innerHTML='';document.getElementById('rewrite-result').innerHTML='';
   var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
-  if(tip!=='auto')um+='\n\nTip declarat: '+tip;if(ob)um+='\nObiectiv terapeutic: '+ob;
+  if(tip!=='auto')um+='\n\nTip declarat de utilizator: '+tip+'. Evaluează conform criteriilor specifice acestui tip.';if(ob)um+='\nObiectiv terapeutic: '+ob;
   if(compContext)um+=compContext;
-  try{var rsp=await fetchWithRetry('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='basic'?PB:PA,messages:[{role:'user',content:um}]})});
+  try{var rsp=await fetchWithRetry('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:(tier==='basic'?PB:(tier==='expert'?PE:PA))+(tip!=='auto'&&TYPE_SUPPLEMENTS[tip]?TYPE_SUPPLEMENTS[tip]:''),messages:[{role:'user',content:um}]})});
   if(rsp.status===429){throw new Error('Prea multe evaluări. Așteaptă un minut și încearcă din nou.');}
   if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
   var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();
@@ -908,9 +967,14 @@ async function runEval(){
 
 /* === RENDER RESULT === */
 function renderResult(r){
-  var cr=tier==='basic'?BC:AC;var validIds=cr.map(function(x){return x.id;});
+  var cr=tier==='basic'?BC:(tier==='expert'?EC:AC);var validIds=cr.map(function(x){return x.id;});
   var fc=(r.criterii||[]).filter(function(c){return validIds.indexOf(c.id)!==-1;});
-  var lv=glv(r.scor_total,r.scor_maxim);var pct=Math.round((r.scor_total/r.scor_maxim)*100);var h='';
+  // Recalculate weighted score client-side for accuracy
+  var wSum=0,wMax=0;
+  fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;});if(m){wSum+=c.scor*m.w;wMax+=10*m.w;}});
+  var calcTotal=wMax>0?Math.round(wSum/wMax*100):r.scor_total;
+  r.scor_total=calcTotal;r.scor_maxim=100;
+  var lv=glv(r.scor_total,r.scor_maxim);var pct=r.scor_total;var h='';
   // Identical text note
   if(r._identicalNote){h+=r._identicalNote;}
   // Comparison note from AI
@@ -919,21 +983,59 @@ function renderResult(r){
   }
   if(prevScore!==null&&prevScore!==r.scor_total){var diff=r.scor_total-prevScore;var dc=diff>0?'#5dd9a6':'#e8506a';var ds=diff>0?'+':'';
     h+='<div class="compare-banner"><div class="compare-score"><div class="cs-num" style="color:#e8945a">'+prevScore+'</div><div class="cs-label">Original</div></div><div class="compare-arrow">→</div><div class="compare-score"><div class="cs-num" style="color:#5dd9a6">'+r.scor_total+'</div><div class="cs-label">Îmbunătățită</div></div><div class="compare-diff" style="color:'+dc+';background:'+dc+'18">'+ds+diff+' puncte</div></div>';prevScore=null;}
-  h+='<div class="badge">Tip detectat: '+r.tip_detectat+'</div>';
+  var tipLabel=r.tip_detectat;var tipSelVal=document.getElementById('tip-select')?document.getElementById('tip-select').value:'auto';if(tipSelVal!=='auto')tipLabel=tipSelVal+' (declarat)';h+='<div class="badge">Tip: '+tipLabel+'</div>';
+  // Warnings section
+  if(r.warnings&&r.warnings.length){
+    h+='<div style="margin:12px 0;padding:16px 18px;border-radius:12px;background:#9B3A4D08;border:1px solid #9B3A4D30">';
+    h+='<div style="font-size:14px;font-weight:700;color:#e8945a;margin-bottom:10px">⚠️ Avertizări lingvistice</div>';
+    r.warnings.forEach(function(w){
+      h+='<div style="font-size:15px;color:#c4848f;line-height:1.6;margin-bottom:6px;padding-left:12px;border-left:2px solid #9B3A4D40"><strong style="color:#e8945a">'+w.cod+'</strong> — '+w.mesaj+'</div>';
+    });
+    h+='</div>';
+  }
+  // Type-specific criteria (post-hipnotice, metafore)
+  if(r.criterii_specifice_tip){
+    var cst=r.criterii_specifice_tip;
+    h+='<div style="margin:12px 0;padding:16px 18px;border-radius:12px;background:#5dd9a608;border:1px solid #5dd9a630">';
+    h+='<div style="font-size:14px;font-weight:700;color:#5dd9a6;margin-bottom:10px">🎯 Criterii specifice tipului</div>';
+    Object.keys(cst).forEach(function(k){
+      var val=cst[k];var label=k.replace(/_/g,' ').replace(/\b\w/g,function(l){return l.toUpperCase();});
+      if(typeof val==='object'){
+        h+='<div style="margin-bottom:8px;padding-left:12px;border-left:2px solid #5dd9a640"><strong style="color:#5dd9a6">'+label+':</strong> <span style="color:#4FC1E9;font-weight:700">'+val.scor+'/10</span>'+(val.observatie?' — <span style="color:#8fb0c0">'+val.observatie+'</span>':'')+'</div>';
+      }else if(typeof val==='number'){
+        var cl=gbc(val);
+        h+='<div style="margin-bottom:8px;padding-left:12px;border-left:2px solid #5dd9a640"><strong style="color:#5dd9a6">'+label+':</strong> <span style="color:'+cl+';font-weight:700">'+val+'/10</span></div>';
+      }
+    });
+    h+='</div>';
+  }
   if(tier==='basic'&&!isUnlocked()){
-    h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' — evaluare parțială pe 3 criterii</div></div></div>';
+    h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' — evaluare pe 5 criterii fundamentale (ponderat)</div></div></div>';
     if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:14px;color:#e8f0f4;margin-bottom:8px;font-weight:400">Vrei să afli cum se scrie corect?</div><div style="font-size:18px;font-weight:700;color:#0f1f28;display:inline-block;padding:10px 28px;border-radius:10px;background:linear-gradient(135deg,#4FC1E9,#3aa8d4);box-shadow:0 4px 16px #4FC1E930">Rescrie acum, corect</div></div>';}
   }else{
-    h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
+    h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' (scor ponderat) — '+lv.d+'</div></div></div>';
     if(pct<75){h+='<div onclick="document.getElementById(\'rewrite-btn\').click();document.getElementById(\'rewrite-btn\').scrollIntoView({behavior:\'smooth\',block:\'center\'})" style="cursor:pointer;margin-top:12px;padding:16px 20px;border-radius:12px;background:linear-gradient(135deg,#4FC1E910,#4FC1E905);border:1px solid #4FC1E930;text-align:center;transition:all 0.2s"><div style="font-size:14px;color:#e8f0f4;margin-bottom:8px;font-weight:400">Vrei să afli cum se scrie corect?</div><div style="font-size:18px;font-weight:700;color:#0f1f28;display:inline-block;padding:10px 28px;border-radius:10px;background:linear-gradient(135deg,#4FC1E9,#3aa8d4);box-shadow:0 4px 16px #4FC1E930">Rescrie acum, corect</div></div>';}
   }
-  h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>';
+  h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii <span style="font-size:13px;color:#506a78;font-weight:400;font-family:Source Sans 3,sans-serif">(⚡ = criteriu-poartă)</span></div>';
   fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
-    h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
+    var gateTag=m.gate?'<span style="color:#F6D44C;font-size:13px;margin-left:6px" title="Criteriu-poartă: dacă scorul e sub 4, sugestia e compromisă">⚡</span>':'';
+    var weightTag='<span style="color:#506a78;font-size:12px;margin-left:6px">×'+m.w+'</span>';
+    var gateWarn=(m.gate&&c.scor<4)?'<div style="margin-top:4px;font-size:13px;color:#e8506a;font-weight:600">⛔ Criteriu-poartă sub 4 — sugestia e compromisă pe acest aspect</div>':'';
+    h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+gateTag+weightTag+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+gateWarn+'</div></div>';});
   if(tier==='basic'&&!isUnlocked()){
-    h+='<div class="locked-divider" onclick="showGate()" style="cursor:pointer;padding:28px 22px"><div style="font-size:18px;color:#e8f0f4;font-weight:400;margin-bottom:6px;text-transform:none;letter-spacing:0">Vrei o evaluare completă?</div><div style="font-size:14px;color:#8fb0c0;text-transform:none;letter-spacing:0;font-weight:400;margin-bottom:14px">Gradualitate · VAKOG · Ritm · Pattern-uri · Obiectiv terapeutic · Activare emoțională</div><div style="display:inline-block;padding:14px 32px;border-radius:12px;background:#F6D44C;color:#0f1f28;font-size:18px;font-weight:700;letter-spacing:0;text-transform:none">Dă click aici și deblochează Gratuit</div></div>';
+    h+='<div class="locked-divider" onclick="showGate()" style="cursor:pointer;padding:28px 22px"><div style="font-size:18px;color:#e8f0f4;font-weight:400;margin-bottom:6px;text-transform:none;letter-spacing:0">Vrei evaluarea completă pe 14 criterii?</div><div style="font-size:14px;color:#8fb0c0;text-transform:none;letter-spacing:0;font-weight:400;margin-bottom:14px">Gradualitate · VAKOG · Ritm · Pattern-uri · Obiectiv · Emoție · Flux · Pacing-Leading · Densitate</div><div style="display:inline-block;padding:14px 32px;border-radius:12px;background:#F6D44C;color:#0f1f28;font-size:18px;font-weight:700;letter-spacing:0;text-transform:none">Dă click aici și deblochează Gratuit</div></div>';
   }
   h+='</div>';
+  // Milton Model Radar Chart (Expert only)
+  if(tier==='expert'&&r.milton_radar){
+    h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Radar Milton Model</div>';
+    h+='<div style="text-align:center;margin:16px 0"><canvas id="radar-canvas" width="400" height="400" style="max-width:100%;height:auto"></canvas></div>';
+    var radarTotal=0;var radarKeys=["presupozitii","comenzi_incorporate","truisme_yesset","conectori_cauzali","binds","ambiguitate","nominalizari","intrebari_sugestie"];
+    radarKeys.forEach(function(k){radarTotal+=(r.milton_radar[k]||0);});
+    var radarAvg=Math.round(radarTotal/radarKeys.length*10)/10;
+    h+='<div style="text-align:center;font-size:16px;color:#8fb0c0;margin-top:8px">Densitate medie pattern-uri: <strong style="color:#4FC1E9">'+radarAvg+'/10</strong></div>';
+    h+='</div>';
+  }
   if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
   if(r.sumar)h+='<div class="summary">'+esc(r.sumar)+'</div>';
   // Personalized tips for weak criteria
@@ -957,6 +1059,7 @@ function renderResult(r){
   document.getElementById('results').innerHTML='<div class="result">'+h+'</div>';document.getElementById('results').scrollIntoView({behavior:'smooth',block:'start'});
   // Confetti for ≥90, shake for <40
   if(pct>=90)setTimeout(fireConfetti,400);
+  if(tier==='expert'&&r.milton_radar)setTimeout(function(){drawRadar('radar-canvas',r.milton_radar);},100);
   if(pct<40)setTimeout(shakeResult,300);
   // Award XP
   awardXP(r.scor_total,pct);
@@ -1140,7 +1243,7 @@ function renderHistory(){var hist=getHist();var el=document.getElementById('hist
   h+='</div>';
   h+=renderProgressChart();
   hist.forEach(function(item){var lv=glv(item.s,item.m||100);var d=new Date(item.d);var ds=d.toLocaleDateString('ro-RO',{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString('ro-RO',{hour:'2-digit',minute:'2-digit'});
-    h+='<div class="hist-item" onclick="loadFromHist(\''+encodeURIComponent(item.t)+'\')"><div class="hist-score" style="background:'+lv.c+'20;border:2px solid '+lv.c+';color:'+lv.c+'">'+item.s+'</div><div class="hist-info"><div class="hist-text">'+item.t+'</div><div class="hist-date">'+ds+' · '+item.tip+'</div></div><div class="hist-tier">'+(item.tier==='basic'?'3':'9')+'</div></div>';});
+    h+='<div class="hist-item" onclick="loadFromHist(\''+encodeURIComponent(item.t)+'\')"><div class="hist-score" style="background:'+lv.c+'20;border:2px solid '+lv.c+';color:'+lv.c+'">'+item.s+'</div><div class="hist-info"><div class="hist-text">'+item.t+'</div><div class="hist-date">'+ds+' · '+item.tip+'</div></div><div class="hist-tier">'+(item.tier==='basic'?'5':'14')+'</div></div>';});
   h+='<button class="hist-clear" onclick="clearHist()">Șterge tot istoricul</button>';el.innerHTML=h;
   renderBadges();renderLeaderboard();
   var favEl=document.getElementById('badges-section');
@@ -1153,14 +1256,15 @@ function clearHist(){if(!confirm('Sigur vrei să ștergi tot istoricul evaluări
 
 /* === TRAINING === */
 function generateBrief(){var b=BRIEFS[Math.floor(Math.random()*BRIEFS.length)];
-  document.getElementById('brief-area').innerHTML='<div class="brief-card"><div class="brief-meta"><span class="brief-tag">'+b.cat+'</span><span class="brief-tag type">'+b.type+'</span></div><div class="brief-text">'+b.task+'</div><div class="brief-constraint">⚡ '+b.constraint+'</div></div><div style="text-align:right;margin-bottom:16px"><button class="new-brief-btn" onclick="generateBrief()">↻ Alt exercițiu</button></div>';
+  var focusHtml='';if(b.focus&&b.focus.length){var allC=EC||AC;var focusNames=b.focus.map(function(fid){var c=allC.find(function(x){return x.id===fid;});return c?c.name:'C'+fid;});focusHtml='<div style="margin-top:8px;font-size:13px;color:#4FC1E9">🎯 Focus: '+focusNames.join(', ')+'</div>';}
+  document.getElementById('brief-area').innerHTML='<div class="brief-card"><div class="brief-meta"><span class="brief-tag">'+b.cat+'</span><span class="brief-tag type">'+b.type+'</span></div><div class="brief-text">'+b.task+'</div><div class="brief-constraint">⚡ '+b.constraint+'</div>'+focusHtml+'</div><div style="text-align:right;margin-bottom:16px"><button class="new-brief-btn" onclick="generateBrief()">↻ Alt exercițiu</button></div>';
   document.getElementById('train-text').value='';document.getElementById('train-results').innerHTML='';document.getElementById('train-error').innerHTML='';}
 async function runTrainEval(){if(isEvaluating)return;var text=document.getElementById('train-text').value.trim();if(!text)return;
   isEvaluating=true;
   var cta=document.getElementById('train-cta');var eD=document.getElementById('train-error');var rD=document.getElementById('train-results');
   cta.disabled=true;startLoading(cta,true);eD.innerHTML='';rD.innerHTML='';
   var um='Evaluează această sugestie hipnotică:\n\n"""'+text+'"""';
-  try{var rsp=await fetchWithRetry('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:PA,messages:[{role:'user',content:um}]})});
+  try{var rsp=await fetchWithRetry('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:tier==='expert'?PE:PA,messages:[{role:'user',content:um}]})});
   if(rsp.status===429){throw new Error('Prea multe evaluări. Așteaptă un minut și încearcă din nou.');}
   if(!rsp.ok){var e=await rsp.json().catch(function(){return null;});throw new Error(e&&e.error&&e.error.message?e.error.message:'Eroare: '+rsp.status);}
   var data=await rsp.json();var raw=(data.content||[]).map(function(c){return c.text||'';}).join('');var clean=raw.replace(/```json|```/g,'').trim();
@@ -1178,23 +1282,53 @@ async function runTrainEval(){if(isEvaluating)return;var text=document.getElemen
   var tpct=Math.round((r.scor_total/r.scor_maxim)*100);awardXP(r.scor_total,tpct);
   }catch(e){eD.innerHTML='<div class="err">'+e.message+'</div>';}
   finally{stopLoading();isEvaluating=false;cta.disabled=false;cta.textContent='Evaluează sugestia';startCooloff(cta);}}
-function renderTrainResult(r,container){var cr=AC;var fc=(r.criterii||[]).filter(function(c){return c.id>=1&&c.id<=9;});
-  var lv=glv(r.scor_total,r.scor_maxim);var pct=Math.round((r.scor_total/r.scor_maxim)*100);var h='';
-  h+='<div class="badge">Tip detectat: '+r.tip_detectat+'</div>';
+function renderTrainResult(r,container){var cr=tier==='expert'?EC:AC;var validIds=cr.map(function(x){return x.id;});var fc=(r.criterii||[]).filter(function(c){return validIds.indexOf(c.id)!==-1;});
+  // Recalculate weighted score
+  var wSum=0,wMax=0;fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;});if(m){wSum+=c.scor*m.w;wMax+=10*m.w;}});
+  var calcTotal=wMax>0?Math.round(wSum/wMax*100):r.scor_total;r.scor_total=calcTotal;r.scor_maxim=100;
+  var lv=glv(r.scor_total,r.scor_maxim);var pct=r.scor_total;var h='';
+  var tipLabel=r.tip_detectat;var tipSelVal=document.getElementById('tip-select')?document.getElementById('tip-select').value:'auto';if(tipSelVal!=='auto')tipLabel=tipSelVal+' (declarat)';h+='<div class="badge">Tip: '+tipLabel+'</div>';
   h+='<div class="total" style="border:2px solid '+lv.c+'35"><div class="total-circle" style="background:'+lv.c+'20;border:3px solid '+lv.c+';color:'+lv.c+';text-shadow:0 0 20px '+lv.c+'40">'+r.scor_total+'</div><div><div class="total-label" style="color:'+lv.c+';text-shadow:0 0 15px '+lv.c+'25">'+lv.l+'</div><div class="total-sub">'+r.scor_total+' / '+r.scor_maxim+' ('+pct+'%) — '+lv.d+'</div></div></div>';
   h+='<div class="rcard"><div class="rcard-head">Scoruri pe criterii</div>';
   fc.forEach(function(c){var m=cr.find(function(x){return x.id===c.id;})||{};var cl=gbc(c.scor);var pb=(c.scor/10)*100;var obs=c.observatie||c.observation||c.obs||'';
-    h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
+    var gateTag2=m.gate?'<span style="color:#F6D44C;font-size:13px;margin-left:6px">⚡</span>':'';
+    var weightTag2='<span style="color:#506a78;font-size:12px;margin-left:6px">×'+m.w+'</span>';
+    h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+gateTag2+weightTag2+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
   h+='</div>';
+  // Warnings in training
+  if(r.warnings&&r.warnings.length){h+='<div style="margin:12px 0;padding:14px 16px;border-radius:12px;background:#9B3A4D08;border:1px solid #9B3A4D30"><div style="font-size:13px;font-weight:700;color:#e8945a;margin-bottom:8px">⚠️ Avertizări lingvistice</div>';r.warnings.forEach(function(w){h+='<div style="font-size:14px;color:#c4848f;line-height:1.5;margin-bottom:4px;padding-left:10px;border-left:2px solid #9B3A4D40"><strong style="color:#e8945a">'+w.cod+'</strong> — '+w.mesaj+'</div>';});h+='</div>';}
+  // Milton Model Radar Chart (Expert only)
+  if(tier==='expert'&&r.milton_radar){
+    h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Radar Milton Model</div>';
+    h+='<div style="text-align:center;margin:16px 0"><canvas id="radar-canvas" width="400" height="400" style="max-width:100%;height:auto"></canvas></div>';
+    var radarTotal=0;var radarKeys=["presupozitii","comenzi_incorporate","truisme_yesset","conectori_cauzali","binds","ambiguitate","nominalizari","intrebari_sugestie"];
+    radarKeys.forEach(function(k){radarTotal+=(r.milton_radar[k]||0);});
+    var radarAvg=Math.round(radarTotal/radarKeys.length*10)/10;
+    h+='<div style="text-align:center;font-size:16px;color:#8fb0c0;margin-top:8px">Densitate medie pattern-uri: <strong style="color:#4FC1E9">'+radarAvg+'/10</strong></div>';
+    h+='</div>';
+  }
   if(r.top_probleme&&r.top_probleme.length){h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none">Probleme principale</div>';r.top_probleme.forEach(function(p,i){var pc=gpc(i);h+='<div class="prob"><div class="prob-num" style="background:'+pc.b+';color:'+pc.f+'">'+(i+1)+'</div><div class="prob-text">'+p+'</div></div>';});h+='</div>';}
   if(r.sumar)h+='<div class="summary">'+r.sumar+'</div>';
   if(r.versiune_imbunatatita)h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="padding:0 0 14px 0;border:none;-webkit-text-fill-color:#5dd9a6;color:#5dd9a6">Versiune îmbunătățită</div><div class="improved-box">'+r.versiune_imbunatatita+'</div>'+(r.explicatii_schimbari?'<div class="improved-expl"><strong>Ce s-a schimbat: </strong>'+r.explicatii_schimbari+'</div>':'')+'</div>';
   container.innerHTML='<div class="result">'+h+'</div>';container.scrollIntoView({behavior:'smooth',block:'start'});}
 
 /* === LIBRARY === */
-function renderLibrary(){var el=document.getElementById('lib-content');if(el.innerHTML)return;var h='';
-  LIBRARY.forEach(function(cat,ci){h+='<div class="lib-cat"><div class="lib-cat-title">'+cat.cat+'</div>';
-    cat.items.forEach(function(item,ii){h+='<div class="lib-item"><div class="lib-type">'+item.type+'</div><div class="lib-sugestie">'+item.text+'</div><div class="lib-why">'+item.why+'</div><button class="lib-eval-btn" onclick="loadFromLib('+ci+','+ii+')">→ Evaluează această sugestie</button></div>';});h+='</div>';});el.innerHTML=h;}
+var libFilter='all';
+function filterLib(type,btn){
+  libFilter=type;
+  document.querySelectorAll('.lib-filter').forEach(function(b){b.classList.remove('on');});
+  if(btn)btn.classList.add('on');
+  document.getElementById('lib-content').innerHTML='';renderLibrary();
+}
+function renderLibrary(){var el=document.getElementById('lib-content');el.innerHTML='';var h='';
+  LIBRARY.forEach(function(cat,ci){
+    var filteredItems=cat.items.filter(function(item){
+      if(libFilter==='all')return true;
+      return item.type.indexOf(libFilter)!==-1;
+    });
+    if(!filteredItems.length)return;
+    h+='<div class="lib-cat"><div class="lib-cat-title">'+cat.cat+' <span style="font-size:14px;color:#506a78;font-weight:400">('+filteredItems.length+')</span></div>';
+    filteredItems.forEach(function(item){var ii=cat.items.indexOf(item);h+='<div class="lib-item"><div class="lib-type">'+item.type+'</div><div class="lib-sugestie">'+item.text+'</div><div class="lib-why">'+item.why+'</div><button class="lib-eval-btn" onclick="loadFromLib('+ci+','+ii+')">→ Evaluează această sugestie</button></div>';});h+='</div>';});el.innerHTML=h;}
 function loadFromLib(ci,ii){if(!requireGate())return;var item=LIBRARY[ci].items[ii];
   document.querySelectorAll('.tab-content').forEach(function(t){t.classList.remove('active');});document.getElementById('tab-evaluare').classList.add('active');
   document.querySelectorAll('#main-nav button').forEach(function(b,i){b.classList.toggle('on',i===0);});
@@ -1235,7 +1369,7 @@ var LEVELS=[
   {name:'Începător',min:0,emoji:'🌱',desc:'Faci primii pași. Fiecare evaluare te învață ce face o sugestie hipnotică eficientă.'},
   {name:'Practicant',min:50,emoji:'📝',desc:'Înțelegi principiile de bază. Sugestiile tale încep să producă imagini mentale clare.'},
   {name:'Avansat',min:150,emoji:'⚡',desc:'Știi să construiești sugestii cu ancorare senzorială și ritm hipnotic. Progres real.'},
-  {name:'Expert',min:350,emoji:'🧠',desc:'Stăpânești toate cele 9 criterii. Sugestiile tale sunt gata de utilizare profesională.'},
+  {name:'Expert',min:350,emoji:'🧠',desc:'Stăpânești toate cele 14 criterii. Sugestiile tale sunt gata de utilizare profesională.'},
   {name:'Maestru',min:600,emoji:'👑',desc:'Nivel de trainer. Comunici cu subconștientul la cel mai înalt nivel.'}
 ];
 function getXP(){try{return parseInt(localStorage.getItem('user_xp')||'0');}catch(e){return 0;}}
@@ -1439,7 +1573,18 @@ var CRITERIA_TIPS={
   6:{low:'Scurtează propozițiile. Max 10-12 cuvinte. Ritmul trebuie să fie ca respirația: scurt, pauză, scurt.',mid:'Unele propoziții sunt prea lungi. Sparge-le. Ritmul hipnotic = propoziții scurte + pauze naturale.'},
   7:{low:'Verifică pattern-urile Milton Model. Folosește: presupuneri, comenzi mascate, dublu sens.',mid:'Pattern-urile sunt parțial corecte. Revizuiește: „poți observa cum..." e mai bun decât „observă cum..."'},
   8:{low:'Un singur obiectiv per sugestie. Dacă vorbești și despre relaxare și despre încredere, alege unul.',mid:'Obiectivul e parțial clar. Fiecare propoziție trebuie să servească ACELAȘI scop terapeutic.'},
-  9:{low:'Sugestia descrie, nu creează. În loc de „vei simți liniște" → „liniștea se răspândește acum prin tot corpul tău..."',mid:'Activare parțială. Intensifică: folosește verbe senzoriale puternice, creează experiența, nu o numi.'}
+  9:{low:'Sugestia descrie, nu creează. În loc de „vei simți liniște" → „liniștea se răspândește acum prin tot corpul tău..."',mid:'Activare parțială. Intensifică: folosește verbe senzoriale puternice, creează experiența, nu o numi.'},
+  10:{low:'Cuvinte de dubiu detectate: „dacă", „încearcă", „sper". Rescrie: „dacă te relaxezi" → „pe măsură ce te relaxezi". Elimină complet „încearcă".',mid:'1-2 cuvinte de incertitudine. Verifică: „poate" e ok la indirecte, dar „dacă" și „dar" sabotează.'},
+  11:{low:'Sugestia e formulată ca instrucțiune conștientă (imaginează-ți, vizualizează). Rescrie ca experiență autonomă: „observi cum se întâmplă", „vine de la sine".',mid:'Mix de autonom și instrucțional. Înlocuiește „imaginează-ți" cu „observi cum...", „fă" cu „se întâmplă".'},
+  12:{low:'Propozițiile sunt izolate, fără conexiune. Adaugă conectori: „și", „pe măsură ce", „în timp ce", „ceea ce face ca..."',mid:'Flux parțial. Verifică: fiecare propoziție începe cu un conector care o leagă de precedenta?'},
+  13:{low:'Sugestia sare direct la leading fără pacing. Începe cu 2-3 adevăruri verificabile înainte de sugestie.',mid:'Raport pace:lead dezechilibrat. Ideal: 2-3 pacing → 1 leading. Pacing = ce subiectul experimentează deja.'},
+  14:{low:'Sugestia e prea verbosă. Poți spune același lucru în jumătate din cuvinte. Elimină umpluturile.',mid:'Câteva expresii redundante. Testează: dacă elimini un cuvânt și sensul rămâne, era de prisos.'},
+  15:{low:'Zero variație — aceeași formulare repetată mecanic. Repetă IDEEA, nu CUVINTELE.',mid:'Variație parțială. Reformulează aceeași temă cu verbe, imagini și structuri diferite.'},
+  16:{low:'Dezechilibru major: prea autoritar sau prea permisiv pentru tipul de sugestie.',mid:'Ușor dezechilibrat. Directe = mai autoritar. Indirecte = mai permisiv. Mixte = balans.'},
+  17:{low:'Zero truisme sau yes-set. Adaugă 2-3 afirmații incontestabile înainte de sugestie.',mid:'Truisme prezente dar insuficiente. Construiește momentum: 3 „da-uri" interioare → sugestie.'},
+  18:{low:'Nu construiește anticipare. Adaugă: „vei observa", „pe măsură ce continuă", „în ritmul tău".',mid:'Expectanță parțială. Amplifică: anticiparea pozitivă face subiectul receptiv la sugestie.'},
+  19:{low:'Lipsește framingul de automaticitate. Adaugă: „natural", „de la sine", „fără efort".',mid:'Câteva referințe la automaticitate. Intensifică: „se întâmplă fără să faci nimic special".'},
+  20:{low:'Un singur pattern Milton Model sau zero. Stratifică: presupunere + embedded command + truism în aceeași unitate.',mid:'2 pattern-uri. Crește densitatea: cele mai puternice sugestii combină 3+ pattern-uri natural.'}
 };
 function getPersonalizedTips(criterii){
   var tips=[];
@@ -1449,6 +1594,37 @@ function getPersonalizedTips(criterii){
     else if(c.scor<=6)tips.push({id:c.id,tip:tip.mid,severity:'mid'});
   });
   return tips.slice(0,3);// max 3 tips
+}
+
+
+/* === RADAR CHART (Milton Model) === */
+function drawRadar(canvasId,data){
+  var canvas=document.getElementById(canvasId);if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var W=canvas.width,H=canvas.height,cx=W/2,cy=H/2,R=Math.min(W,H)/2-40;
+  var labels=['Presupoziții','Comenzi\nÎncorporate','Truisme\n/ Yes-set','Conectori\nCauzali','Binds','Ambiguitate','Nominalizări','Întrebări\nSugestie'];
+  var keys=['presupozitii','comenzi_incorporate','truisme_yesset','conectori_cauzali','binds','ambiguitate','nominalizari','intrebari_sugestie'];
+  var n=labels.length;var angle=2*Math.PI/n;
+  ctx.clearRect(0,0,W,H);
+  // Grid
+  [0.2,0.4,0.6,0.8,1.0].forEach(function(f){
+    ctx.beginPath();for(var i=0;i<n;i++){var a=i*angle-Math.PI/2;var x=cx+R*f*Math.cos(a);var y=cy+R*f*Math.sin(a);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}ctx.closePath();ctx.strokeStyle='#4FC1E9'+(f===1?'30':'15');ctx.lineWidth=1;ctx.stroke();
+  });
+  // Axes
+  for(var i=0;i<n;i++){var a=i*angle-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+R*Math.cos(a),cy+R*Math.sin(a));ctx.strokeStyle='#4FC1E915';ctx.stroke();}
+  // Data polygon
+  ctx.beginPath();
+  for(var i=0;i<n;i++){var val=(data[keys[i]]||0)/10;var a=i*angle-Math.PI/2;var x=cx+R*val*Math.cos(a);var y=cy+R*val*Math.sin(a);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+  ctx.closePath();ctx.fillStyle='#4FC1E920';ctx.fill();ctx.strokeStyle='#4FC1E9';ctx.lineWidth=2;ctx.stroke();
+  // Data points
+  for(var i=0;i<n;i++){var val=(data[keys[i]]||0)/10;var a=i*angle-Math.PI/2;var x=cx+R*val*Math.cos(a);var y=cy+R*val*Math.sin(a);
+    ctx.beginPath();ctx.arc(x,y,4,0,2*Math.PI);ctx.fillStyle='#4FC1E9';ctx.fill();}
+  // Labels
+  ctx.font='12px Source Sans 3, sans-serif';ctx.fillStyle='#8fb0c0';ctx.textAlign='center';ctx.textBaseline='middle';
+  for(var i=0;i<n;i++){var a=i*angle-Math.PI/2;var lx=cx+(R+28)*Math.cos(a);var ly=cy+(R+28)*Math.sin(a);
+    var lines=labels[i].split('\n');lines.forEach(function(line,li){ctx.fillText(line,lx,ly+(li-lines.length/2+0.5)*14);});
+    var sv=data[keys[i]]||0;ctx.font='bold 11px Source Sans 3, sans-serif';ctx.fillStyle=gbc(sv);ctx.fillText(sv+'/10',cx+(R+10)*Math.cos(a),cy+(R+10)*Math.sin(a)+lines.length*7+6);ctx.font='12px Source Sans 3, sans-serif';ctx.fillStyle='#8fb0c0';
+  }
 }
 
 /* === COOKIE CONSENT === */
