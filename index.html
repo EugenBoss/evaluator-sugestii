@@ -50,14 +50,14 @@ body { min-height: 100vh; background: linear-gradient(170deg, #0f1f28 0%, #152a3
 .onboarding { position: fixed; top: 0; left: 0; right: 0; bottom: 0; width: 100%; height: 100%; background: rgba(10,20,28,0.92); backdrop-filter: blur(8px); z-index: 1001; display: flex; align-items: center; justify-content: center; padding: 20px; animation: fadeIn 0.3s ease-out; overflow: auto; }
 .onboarding.hidden { display: none; }
 .onboarding-inner { max-width: 420px; width: 100%; padding: 36px 28px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 20px; border: 1px solid #4FC1E925; box-shadow: 0 20px 60px rgba(0,0,0,0.5); text-align: center; margin: auto; }
-.onboarding-inner h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 34px; color: #fff; margin-bottom: 24px; }
+.onboarding-inner h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: 30px; color: #fff; margin-bottom: 28px; font-weight: 400; letter-spacing: 0.5px; }
 .ob-steps { text-align: left; margin-bottom: 28px; }
 .ob-step { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 18px; }
 .ob-step:last-child { margin-bottom: 0; }
-.ob-num { width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 800; }
-.ob-text { font-size: 21px; color: #e8f0f4; line-height: 1.5; padding-top: 5px; font-weight: 400; }
-.ob-text strong { color: #4FC1E9; }
-.ob-start { width: 100%; padding: 20px 28px; border-radius: 12px; border: none; cursor: pointer; font-size: 20px; font-weight: 700; font-family: 'Source Sans 3', sans-serif; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s;  white-space: nowrap;}
+.ob-num { width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; font-weight: 600; }
+.ob-text { font-size: 19px; color: #c0d8e4; line-height: 1.6; padding-top: 7px; font-weight: 300; }
+.ob-text strong { color: #4FC1E9; font-weight: 500; }
+.ob-start { width: 100%; padding: 18px 28px; border-radius: 12px; border: none; cursor: pointer; font-size: 18px; font-weight: 600; font-family: 'Source Sans 3', sans-serif; background: linear-gradient(135deg, #F6D44C 0%, #e8b820 100%); color: #0f1f28; box-shadow: 0 4px 20px #F6D44C25; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s;  white-space: nowrap;}
 .ob-start:hover { box-shadow: 0 6px 28px #F6D44C40; transform: translateY(-1px); }
 .header h1 { font-family: 'DM Serif Display', Georgia, serif; font-size: 44px; font-weight: 400; color: #fff; line-height: 1.2; margin-bottom: 10px; text-shadow: 0 2px 20px rgba(79,193,233,0.15); }
 .header p { font-size: 20px; color: #8fb0c0; max-width: 540px; margin: 0 auto; line-height: 1.5; font-weight: 400; }
@@ -468,8 +468,8 @@ body.presentation details, body.presentation .footer, body.presentation .export-
 <div class="wrap">
   <div class="card">
     <label class="lbl">Scrie mai jos sugestia ta și apoi apasă pe butonul galben „Evaluează Sugestia" pentru a vedea scorul tău</label>
-    <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..." maxlength="1000" oninput="updateCounter('text','counter-main')"></textarea>
-    <div class="char-counter" id="counter-main">0 / 1000 caractere</div>
+    <textarea id="text" rows="5" placeholder="Scrie sau lipește sugestia aici..." maxlength="500" oninput="updateCounter('text','counter-main')"></textarea>
+    <div class="char-counter" id="counter-main">0 / 500 caractere</div>
     <div id="tip-wrap" style="display:none;margin-top:16px"><label class="lbl-s">Tip sugestie (opțional — dacă nu selectezi, se detectează automat)</label><select id="tip-select" style="font-size:18px"><option value="auto">🔍 Auto-detect</option><option value="directă">📌 Directă (stil Elman)</option><option value="indirectă">🌀 Indirectă (Milton Model / Ericksonienă)</option><option value="mixtă">🔄 Mixtă (indirect → direct)</option><option value="post-hipnotică">⏰ Post-hipnotică</option><option value="metaforă">📖 Metaforă terapeutică</option></select></div>
     <div id="obiectiv-wrap" style="display:none;margin-top:16px"><label class="lbl-s">Subiect sau Scop Sugestie (opțional)</label><input type="text" class="inp" id="obiectiv" placeholder="ex: reducerea anxietății"></div>
     <div style="margin-top:18px;text-align:center"><div style="font-size:16px;color:#4FC1E9;margin-bottom:10px;font-weight:700;letter-spacing:0.5px">Alege tipul evaluării:</div><div class="tier">
@@ -502,8 +502,8 @@ body.presentation details, body.presentation .footer, body.presentation .export-
   <div id="brief-area"></div>
   <div class="card">
     <label class="lbl">Sugestia ta</label>
-    <textarea id="train-text" rows="5" placeholder="Scrie sugestia conform briefului de mai sus..." maxlength="1000" oninput="updateCounter('train-text','counter-train')"></textarea>
-    <div class="char-counter" id="counter-train">0 / 1000 caractere</div>
+    <textarea id="train-text" rows="5" placeholder="Scrie sugestia conform briefului de mai sus..." maxlength="1500" oninput="updateCounter('train-text','counter-train')"></textarea>
+    <div class="char-counter" id="counter-train">0 / 1500 caractere</div>
     <button class="cta" id="train-cta" onclick="runTrainEval()">Evaluează sugestia</button>
   </div>
   <div id="train-error"></div>
@@ -717,6 +717,8 @@ var TYPE_SUPPLEMENTS={
 };
 /* === STATE: App state variables === */
 var tier='basic',lastImproved='',prevScore=null,loadingInterval=null,isPresentation=false,isEvaluating=false;
+var CHAR_LIMITS={basic:500,advanced:1500,expert:6000};
+function updateCharLimit(){var lim=CHAR_LIMITS[tier]||1000;var ta=document.getElementById('text');if(ta)ta.maxLength=lim;var ta2=document.getElementById('train-text');if(ta2)ta2.maxLength=tier==='basic'?1500:lim;updateCounter('text','counter-main');updateCounter('train-text','counter-train');}
 var evalCache={text:'',tier:'',result:null};
 
 /* === TEXT COMPARISON === */
@@ -861,11 +863,11 @@ function togglePresentation(){
 /* === TIER === */
 function setTier(lv){
   if(lv==='advanced'&&!requireGate())return;
-  if(lv==='expert'){if(!requireGate())return;if(!requireExpert())return;}
-  tier=lv;document.getElementById('btn-basic').className=lv==='basic'?'on':'';document.getElementById('btn-advanced').className=lv==='advanced'?'on':'';var btnExp=document.getElementById('btn-expert');if(btnExp)btnExp.className=lv==='expert'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateBasicRemaining();
+  if(lv==='expert'){if(!requireExpert())return;}
+  tier=lv;document.getElementById('btn-basic').className=lv==='basic'?'on':'';document.getElementById('btn-advanced').className=lv==='advanced'?'on':'';var btnExp=document.getElementById('btn-expert');if(btnExp)btnExp.className=lv==='expert'?'on':'';document.getElementById('results').innerHTML='';document.getElementById('error').innerHTML='';lastImproved='';prevScore=null;renderRef();updateCharLimit();updateBasicRemaining();
   var obWrap=document.getElementById('obiectiv-wrap');if(obWrap)obWrap.style.display=(lv==='advanced'||lv==='expert')?'block':'none';
   var tipWrap=document.getElementById('tip-wrap');if(tipWrap)tipWrap.style.display=(lv==='advanced'||lv==='expert')?'block':'none';
-  var exRow=document.getElementById('example-row');if(exRow)exRow.style.display=(lv==='advanced'||lv==='expert')?'flex':'none';}
+  var exRow=document.getElementById('example-row');if(exRow)exRow.style.display=(lv==='advanced'||lv==='expert')?'flex':'none';updateCharLimit();}
 function requireExpert(){
   var code=localStorage.getItem('expert_code');
   if(code==='PM2026')return true;
@@ -1753,11 +1755,10 @@ function renderFavorites(){
 }
 
 /* === CHARACTER COUNTER === */
-var CHAR_LIMIT=1000;
 function updateCounter(textId,counterId){
   var el=document.getElementById(textId);var c=document.getElementById(counterId);if(!el||!c)return;
-  var len=el.value.length;c.textContent=len+' / '+CHAR_LIMIT+' caractere';
-  c.className='char-counter'+(len>=900?' warn':'')+(len>=CHAR_LIMIT?' over':'');
+  var max=el.maxLength||1000;var len=el.value.length;c.textContent=len+' / '+max+' caractere';
+  c.className='char-counter'+(len>=Math.floor(max*0.9)?' warn':'')+(len>=max?' over':'');
 }
 
 /* === BASIC EVAL COUNTER === */
@@ -1773,6 +1774,7 @@ function updateBasicRemaining(){
 
 /* === INIT === */
 renderRef();
+updateCharLimit();
 applyI18n();
 var _langSel=document.getElementById('lang-switcher');if(_langSel)_langSel.value=LANG;
 updateLockIcon();
