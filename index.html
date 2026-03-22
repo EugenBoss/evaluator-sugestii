@@ -90,6 +90,13 @@ textarea::placeholder, .inp::placeholder { color: #3a5565; }
 .char-counter { text-align: right; font-size: 13px; color: #506a78; margin-top: 6px; transition: color 0.3s; font-weight: 400; }
 .char-counter.warn { color: #e8945a; }
 .char-counter.over { color: #e8506a; font-weight: 700; }
+
+/* === PROGRESS BAR === */
+.eval-progress { margin-top: 20px; padding: 20px 24px; background: linear-gradient(145deg, #1e3645, #1a3040); border-radius: 14px; border: 1px solid #4FC1E918; animation: fadeIn 0.3s ease-out; }
+.eval-progress-step { font-size: 14px; color: #4FC1E9; font-weight: 400; margin-bottom: 12px; min-height: 20px; }
+.eval-progress-track { height: 6px; border-radius: 3px; background: rgba(255,255,255,0.06); overflow: hidden; }
+.eval-progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, #4FC1E9, #5dd9a6); transition: width 0.4s ease-out; width: 0%; }
+.eval-progress-meta { display: flex; justify-content: space-between; margin-top: 8px; font-size: 12px; color: #506a78; font-weight: 300; }
 /* === REWRITE BUTTON === */
 .rewrite-cta { width: 100%; margin-top: 10px; padding: 14px 24px; border-radius: 12px; border: 1.5px solid #4FC1E940; cursor: pointer; font-size: 16px; font-weight: 500; font-family: 'Source Sans 3', sans-serif; transition: all 0.3s; background: linear-gradient(135deg, #4FC1E912, #4FC1E908); color: #4FC1E9; display: flex; align-items: center; justify-content: center; gap: 8px;  white-space: nowrap;}
 .rewrite-cta:hover:not(:disabled) { background: linear-gradient(135deg, #4FC1E920, #4FC1E915); border-color: #4FC1E970; box-shadow: 0 4px 20px #4FC1E920; transform: translateY(-1px); }
@@ -893,8 +900,46 @@ function copyShareText(score){navigator.clipboard.writeText(getShareText(score))
 function loadExample(){var ex=EXAMPLES[Math.floor(Math.random()*EXAMPLES.length)];document.getElementById('text').value=ex.text;document.getElementById('obiectiv').value=ex.obiectiv||'';document.getElementById('text').focus();}
 
 /* === LOADING STEPS === */
-function startLoading(btn,isTrain){var steps=tier==='expert'?STEPS_E:((isTrain||tier==='advanced')?STEPS_A:STEPS_B);var idx=0;btn.innerHTML='<span class="spinner"></span><span class="loading-text">'+steps[0]+'</span>';loadingInterval=setInterval(function(){idx=(idx+1)%steps.length;var lt=btn.querySelector('.loading-text');if(lt)lt.textContent=steps[idx];},2000);}
-function stopLoading(){if(loadingInterval){clearInterval(loadingInterval);loadingInterval=null;}}
+function startLoading(btn,isTrain){
+  var steps=tier==='expert'?STEPS_E:((isTrain||tier==='advanced')?STEPS_A:STEPS_B);
+  var textLen=(document.getElementById(isTrain?'train-text':'text').value||'').length;
+  // Estimate total time based on tier + text length
+  var baseTime=tier==='expert'?35:(tier==='advanced'?20:10);
+  var lenFactor=Math.max(1,textLen/500);
+  var estTotal=Math.round(baseTime*Math.min(lenFactor,3));
+  var stepDur=Math.max(1500,Math.round((estTotal*1000)/steps.length));
+  var idx=0;var startTime=Date.now();
+  // Update button
+  btn.innerHTML='<span class="spinner"></span><span class="loading-text">'+steps[0]+'</span>';
+  // Create progress bar
+  var prog=document.createElement('div');prog.className='eval-progress';prog.id='eval-progress';
+  prog.innerHTML='<div class="eval-progress-step" id="ep-step">'+steps[0]+'</div><div class="eval-progress-track"><div class="eval-progress-fill" id="ep-fill"></div></div><div class="eval-progress-meta"><span id="ep-pct">0%</span><span id="ep-time">~'+estTotal+' sec</span></div>';
+  var errDiv=document.getElementById(isTrain?'train-error':'error');
+  if(errDiv)errDiv.parentNode.insertBefore(prog,errDiv.nextSibling);
+  // Animate
+  window._epEst=estTotal;
+  loadingInterval=setInterval(function(){
+    idx=(idx+1)%steps.length;
+    var lt=btn.querySelector('.loading-text');if(lt)lt.textContent=steps[idx];
+    var epStep=document.getElementById('ep-step');if(epStep)epStep.textContent=steps[idx];
+    var elapsed=(Date.now()-startTime)/1000;
+    var pct=Math.min(92,Math.round((elapsed/estTotal)*100));
+    var fill=document.getElementById('ep-fill');if(fill)fill.style.width=pct+'%';
+    var epPct=document.getElementById('ep-pct');if(epPct)epPct.textContent=pct+'%';
+    var remain=Math.max(1,Math.round(estTotal-elapsed));
+    var epTime=document.getElementById('ep-time');if(epTime)epTime.textContent='~'+remain+' sec';
+  },stepDur);
+}
+function stopLoading(){
+  if(loadingInterval){clearInterval(loadingInterval);loadingInterval=null;}
+  // Complete progress bar
+  var fill=document.getElementById('ep-fill');if(fill)fill.style.width='100%';
+  var epPct=document.getElementById('ep-pct');if(epPct)epPct.textContent='100%';
+  var epTime=document.getElementById('ep-time');if(epTime)epTime.textContent='Gata';
+  var epStep=document.getElementById('ep-step');if(epStep)epStep.textContent='Evaluare completă';
+  // Remove progress bar after short delay
+  setTimeout(function(){var prog=document.getElementById('eval-progress');if(prog)prog.remove();},800);
+}
 
 /* === COOLOFF TIMER === */
 function startCooloff(btn){
@@ -1074,7 +1119,9 @@ function renderResult(r){
     h+='<div style="margin:12px 0;padding:16px 18px;border-radius:12px;background:#9B3A4D08;border:1px solid #9B3A4D30">';
     h+='<div style="font-size:14px;font-weight:700;color:#e8945a;margin-bottom:10px">Avertizări lingvistice</div>';
     r.warnings.forEach(function(w){
-      h+='<div style="font-size:15px;color:#c4848f;line-height:1.6;margin-bottom:6px;padding-left:12px;border-left:2px solid #9B3A4D40"><strong style="color:#e8945a">'+w.cod+'</strong> — '+w.mesaj+'</div>';
+      var wCod=w.cod||w.code||w.id||'';var wMsg=w.mesaj||w.message||w.text||w.description||(typeof w==='string'?w:'');
+      if(!wCod&&!wMsg&&typeof w==='object'){var ks=Object.keys(w);if(ks.length>=2){wCod=w[ks[0]];wMsg=w[ks[1]];} else if(ks.length===1){wMsg=w[ks[0]];}}
+      h+='<div style="font-size:14px;color:#c4848f;line-height:1.6;margin-bottom:6px;padding-left:12px;border-left:2px solid #9B3A4D40">'+(wCod?'<strong style="color:#e8945a">'+wCod+'</strong> — ':'')+wMsg+'</div>';
     });
     h+='</div>';
   }
@@ -1381,7 +1428,7 @@ function renderTrainResult(r,container){var cr=tier==='expert'?EC:AC;var validId
     h+='<div class="crow"><div class="crow-top"><div style="flex:1"><div class="crow-name">'+c.id+'. '+(m.name||'Criteriu '+c.id)+gateTag2+weightTag2+'</div>'+(m.block?'<div class="crow-block">'+m.block+'</div>':'')+'</div><div class="bar-wrap"><div class="bar-bg"><div class="bar-fill" style="width:'+pb+'%;background:'+cl+';box-shadow:0 0 8px '+cl+'30"></div></div><div class="bar-num" style="color:'+cl+'">'+c.scor+'</div></div></div><div class="crow-obs">'+obs+'</div></div>';});
   h+='</div>';
   // Warnings in training
-  if(r.warnings&&r.warnings.length){h+='<div style="margin:12px 0;padding:14px 16px;border-radius:12px;background:#9B3A4D08;border:1px solid #9B3A4D30"><div style="font-size:13px;font-weight:700;color:#e8945a;margin-bottom:8px">Avertizări lingvistice</div>';r.warnings.forEach(function(w){h+='<div style="font-size:14px;color:#c4848f;line-height:1.5;margin-bottom:4px;padding-left:10px;border-left:2px solid #9B3A4D40"><strong style="color:#e8945a">'+w.cod+'</strong> — '+w.mesaj+'</div>';});h+='</div>';}
+  if(r.warnings&&r.warnings.length){h+='<div style="margin:12px 0;padding:14px 16px;border-radius:12px;background:#9B3A4D08;border:1px solid #9B3A4D30"><div style="font-size:13px;font-weight:700;color:#e8945a;margin-bottom:8px">Avertizări lingvistice</div>';r.warnings.forEach(function(w){var wCod=w.cod||w.code||w.id||'';var wMsg=w.mesaj||w.message||w.text||w.description||(typeof w==='string'?w:'');if(!wCod&&!wMsg&&typeof w==='object'){var ks=Object.keys(w);if(ks.length>=2){wCod=w[ks[0]];wMsg=w[ks[1]];}else if(ks.length===1){wMsg=w[ks[0]];}}h+='<div style="font-size:14px;color:#c4848f;line-height:1.5;margin-bottom:4px;padding-left:10px;border-left:2px solid #9B3A4D40">'+(wCod?'<strong style="color:#e8945a">'+wCod+'</strong> — ':'')+wMsg+'</div>';});h+='</div>';}
   // Milton Model Radar Chart (Expert only)
   if(tier==='expert'&&r.milton_radar){
     h+='<div class="rcard" style="padding:22px"><div class="rcard-head" style="-webkit-text-fill-color:#4FC1E9;color:#4FC1E9">Radar Milton Model</div>';
