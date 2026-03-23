@@ -8,7 +8,6 @@ export default async function handler(req, res) {
   }
   try {
     const { system, messages } = req.body;
-    // Expert prompts (17 criteria + NLP analysis) need more tokens
     const isExpert = system && system.includes('17 criterii');
     const maxTokens = isExpert ? 2500 : 1500;
     const response = await fetch('https://api.anthropic.com/v1/messages', {
