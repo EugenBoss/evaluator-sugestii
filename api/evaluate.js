@@ -8,6 +8,9 @@ export default async function handler(req, res) {
   }
   try {
     const { system, messages } = req.body;
+    // Expert prompts (17 criteria + NLP analysis) need more tokens
+    const isExpert = system && system.includes('17 criterii');
+    const maxTokens = isExpert ? 2500 : 1500;
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
       headers: {
@@ -17,8 +20,7 @@ export default async function handler(req, res) {
       },
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
-        max_tokens: 1500,
-        temperature: 0,
+        max_tokens: maxTokens,
         system,
         messages,
       }),
