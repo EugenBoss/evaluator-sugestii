@@ -83,20 +83,20 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 #results{display:none;margin-top:24px}#results.visible{display:block}
 .lead-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:300;align-items:center;justify-content:center;padding:20px}
 .lead-overlay.visible{display:flex}
-.lead-box{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:32px;max-width:420px;width:100%;animation:fadeIn 0.25s ease}
+
 .lead-box h3{font-size:1.15rem;font-weight:700;color:var(--text-heading);margin-bottom:4px}
-.lead-box .lead-subtitle{font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px;line-height:1.5}
-.lead-box .lead-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 12px;background:rgba(79,193,233,0.1);border:1px solid rgba(79,193,233,0.25);border-radius:20px;font-size:0.75rem;font-weight:600;color:var(--accent-blue);margin-bottom:16px}
-.lead-field{margin-bottom:14px}
+.lead-box 
+.lead-box 
+
 .lead-field label{display:block;font-size:0.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px}
 .lead-field input{width:100%;padding:11px 14px;border:1px solid var(--border-input);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-family:var(--font-main);font-size:0.9rem;outline:none;transition:border-color var(--transition)}
 .lead-field input:focus{border-color:var(--accent-blue)}
 .lead-field input.error{border-color:var(--accent-red)}
 .lead-field .field-error{font-size:0.75rem;color:var(--accent-red);margin-top:4px;display:none}
 .lead-field input.error+.field-error{display:block}
-.lead-btns{display:flex;gap:10px;margin-top:20px}
+
 .lead-btns .btn-primary{flex:1;justify-content:center}
-.lead-privacy{font-size:0.72rem;color:var(--text-muted);margin-top:14px;line-height:1.5;text-align:center}
+
 
 .result-header{display:flex;align-items:center;gap:24px;margin-bottom:28px;flex-wrap:wrap}
 .score-circle{width:100px;height:100px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;position:relative}
@@ -268,6 +268,58 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <section class="page-section" id="sec-biblioteca"><div class="section-tag" data-i18n="lib_tag">Referință</div><h1 class="section-title" data-i18n="lib_title">Biblioteca de Sugestii Model</h1><p class="section-desc" data-i18n="lib_desc">Sugestii hipnotice model, clasificate pe categorii terapeutice.</p><div class="card"><div class="placeholder-box"><div class="ph-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><h3 data-i18n="placeholder_coming">În curând</h3><p data-i18n="lib_placeholder">Biblioteca va fi disponibilă în curând.</p></div></div></section>
 <section class="page-section" id="sec-ghid"><div class="section-tag" data-i18n="guide_tag">Referință</div><h1 class="section-title" data-i18n="guide_title">Ghid</h1><p class="section-desc" data-i18n="guide_desc">Principii fundamentale, criterii de evaluare și lanțul cauzal.</p><div id="guideContent"></div></section>
 <section class="page-section" id="sec-istoric"><div class="section-tag" data-i18n="hist_tag">Istoric evaluări</div><h1 class="section-title" data-i18n="hist_title">Istoric</h1><p class="section-desc" data-i18n="hist_desc">Evaluările tale anterioare, salvate local.</p><div class="card"><div class="placeholder-box"><div class="ph-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 data-i18n="placeholder_coming">În curând</h3><p data-i18n="hist_placeholder">Istoricul evaluărilor va fi disponibil în curând.</p></div></div></section>
+
+<div class="onboard-overlay" id="onboardPopup" onclick="if(event.target===this)closeOnboard()">
+<div class="onboard-box">
+<h3 id="onboardTitle">Cum funcționează</h3>
+<div class="onboard-steps">
+<div class="onboard-step"><div class="step-num">1</div><div class="step-text"><strong>Scrie sugestia</strong><br>Introdu sau lipește sugestia hipnotică pe care vrei să o evaluezi.</div></div>
+<div class="onboard-step"><div class="step-num">2</div><div class="step-text"><strong>Primești evaluare</strong><br>AI-ul analizează pe criterii obiective și îți dă scor normalizat la 100.</div></div>
+<div class="onboard-step"><div class="step-num">3</div><div class="step-text"><strong>Îmbunătățește</strong><br>Primești probleme identificate, versiune îmbunătățită și explicații.</div></div>
+</div>
+<button class="btn-primary" onclick="closeOnboard()" style="width:100%;justify-content:center">Am înțeles →</button>
+</div>
+</div>
+<div class="lead-overlay" id="leadGate" onclick="if(event.target===this)closeLeadGate()">
+<div class="gate-box">
+<div class="gate-step active" id="leadStep1">
+<div class="gate-badge">🔓 Acces gratuit</div>
+<h3>Deblochează Evaluarea Avansată</h3>
+<div class="gate-subtitle">9 criterii profesionale, versiune îmbunătățită și explicații detaliate.<br>Completează datele pentru acces gratuit.</div>
+<div class="gate-field"><label>Nume *</label><input type="text" id="leadNume" placeholder="Numele tău"><div class="field-err">Completează numele</div></div>
+<div class="gate-field"><label>Email *</label><input type="email" id="leadEmail" placeholder="email@exemplu.ro"><div class="field-err">Completează un email valid</div></div>
+<div class="gate-field"><label>Telefon (opțional)</label><div class="phone-row"><select id="leadCountry"></select><input type="tel" id="leadTelefon" placeholder="7xx xxx xxx"></div></div>
+<div class="gate-sending" id="leadSending"><div class="mini-spin"></div><span>Se trimite codul...</span></div>
+<div class="gate-btns" id="leadBtns1"><button class="btn-secondary" onclick="closeLeadGate()">Anulează</button><button class="btn-primary" onclick="sendVerifCode()" style="background:var(--accent-blue)">Trimite codul →</button></div>
+<div class="gate-privacy">🔒 Datele tale sunt în siguranță. Nu facem spam.</div>
+</div>
+<div class="gate-step" id="leadStep2">
+<div class="gate-badge">📧 Verificare email</div>
+<h3>Introdu codul de verificare</h3>
+<div class="gate-subtitle">Am trimis un cod de 6 cifre la adresa de email:</div>
+<div class="email-display"><div class="email-addr" id="leadEmailShow">—</div><div class="email-change" onclick="changeLeadEmail()">Nu e corect? Schimbă adresa →</div></div>
+<div class="code-input-wrap" id="codeWrap"><input type="text" maxlength="1" data-idx="0" inputmode="numeric"><input type="text" maxlength="1" data-idx="1" inputmode="numeric"><input type="text" maxlength="1" data-idx="2" inputmode="numeric"><input type="text" maxlength="1" data-idx="3" inputmode="numeric"><input type="text" maxlength="1" data-idx="4" inputmode="numeric"><input type="text" maxlength="1" data-idx="5" inputmode="numeric"></div>
+<div id="codeError" style="text-align:center;font-size:0.82rem;color:var(--accent-red);display:none"></div>
+<div class="gate-sending" id="verifSending"><div class="mini-spin"></div><span>Se verifică...</span></div>
+<div class="gate-btns" id="leadBtns2"><button class="btn-secondary" onclick="closeLeadGate()">Anulează</button><button class="btn-primary" onclick="submitVerifCode()" style="background:var(--accent-blue)">Verifică →</button></div>
+<div class="resend-link" id="resendLink" onclick="resendVerifCode()">Nu ai primit codul? Retrimite</div>
+</div>
+</div>
+</div>
+<div class="expert-overlay" id="expertGate" onclick="if(event.target===this)closeExpertGate()">
+<div class="gate-box">
+<div class="gate-badge" style="background:rgba(246,212,76,0.1);border-color:rgba(246,212,76,0.25);color:var(--accent-gold)">👑 Expert</div>
+<h3>Acces Nivel Expert</h3>
+<div class="gate-subtitle">17 criterii cu ponderi, analiză Milton Model și congruență predicate senzoriale.</div>
+<div class="expert-gate-options">
+<div class="expert-option" onclick="toggleExpertPw()"><div class="opt-title">🔑 Am parolă de acces</div><div class="opt-desc">Primită în Training Profesional de Hipnoză</div></div>
+<div class="expert-pw-row" id="expertPwRow"><input type="password" id="expertPwInput" placeholder="Introdu parola..." onkeydown="if(event.key==='Enter')tryExpertPw()"><button class="btn-primary" onclick="tryExpertPw()" style="padding:11px 20px">OK</button></div>
+<div id="expertPwErr" style="font-size:0.82rem;color:var(--accent-red);display:none;margin-top:-6px;padding-left:4px">Parolă incorectă</div>
+<a href="https://buy.stripe.com/28E14n9VP2Ca3PB59bebu1w" target="_blank" class="expert-option" style="text-decoration:none;color:inherit"><div class="opt-title">💳 Cumpără acces 30 zile</div><div class="opt-desc">Acces Expert nelimitat, plată unică prin Stripe</div></a>
+</div>
+<div class="gate-btns" style="margin-top:16px"><button class="btn-secondary" onclick="closeExpertGate()" style="width:100%;justify-content:center">Anulează</button></div>
+</div>
+</div>
 </main>
 <script>
 // ===== PRESERVED TRANSLATIONS & CONSTANTS =====
@@ -347,7 +399,7 @@ function closeLeadGate(){document.getElementById('leadGate').classList.remove('v
 async function sendVerifCode(){const n=document.getElementById('leadNume'),e=document.getElementById('leadEmail');n.classList.remove('err');e.classList.remove('err');let ok=true;if(!n.value.trim()){n.classList.add('err');ok=false}if(!e.value.trim()||!e.value.includes('@')||!e.value.includes('.')){e.classList.add('err');ok=false}if(!ok)return;_verifEmail=e.value.trim();document.getElementById('leadSending').classList.add('visible');document.getElementById('leadBtns1').style.display='none';try{const r=await fetch('/api/send-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_verifEmail,name:n.value.trim()})});if(!r.ok)throw new Error('send failed');const d=await r.json();_hmac=d.hmac;_hmacExpires=d.expires;document.getElementById('leadSending').classList.remove('visible');document.getElementById('leadStep1').classList.remove('active');document.getElementById('leadStep2').classList.add('active');document.getElementById('leadEmailShow').textContent=_verifEmail;const inputs=document.querySelectorAll('#codeWrap input');inputs.forEach(i=>{i.value='';i.classList.remove('err')});inputs[0].focus();document.getElementById('codeError').style.display='none';setupCodeInputs();startResendTimer()}catch(err){document.getElementById('leadSending').classList.remove('visible');document.getElementById('leadBtns1').style.display='flex';alert(t('lead_send_error'));console.error(err)}}
 function setupCodeInputs(){const inputs=document.querySelectorAll('#codeWrap input');inputs.forEach((inp,i)=>{inp.oninput=()=>{inp.value=inp.value.replace(/[^0-9]/g,'');if(inp.value&&i<5)inputs[i+1].focus();if(i===5&&inp.value){submitVerifCode()}};inp.onkeydown=(e)=>{if(e.key==='Backspace'&&!inp.value&&i>0){inputs[i-1].focus()}};inp.onpaste=(e)=>{e.preventDefault();const p=(e.clipboardData.getData('text')||'').replace(/[^0-9]/g,'').slice(0,6);p.split('').forEach((ch,j)=>{if(inputs[i+j])inputs[i+j].value=ch});if(p.length===6)submitVerifCode()}})}
 function startResendTimer(){const rl=document.getElementById('resendLink');let sec=30;rl.classList.add('disabled');rl.textContent=t('lead_resend_wait')+' '+sec+'s';const iv=setInterval(()=>{sec--;if(sec<=0){clearInterval(iv);rl.classList.remove('disabled');rl.textContent=t('lead_resend')}else{rl.textContent=t('lead_resend_wait')+' '+sec+'s'}},1000)}
-async function submitVerifCode(){const inputs=document.querySelectorAll('#codeWrap input');const code=Array.from(inputs).map(i=>i.value).join('');if(code.length!==6)return;document.getElementById('verifSending').classList.add('visible');document.getElementById('leadBtns2').style.display='none';document.getElementById('codeError').style.display='none';try{const r=await fetch('/api/verify-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_verifEmail,code:code,hmac:_hmac,expires:_hmacExpires})});const d=await r.json();document.getElementById('verifSending').classList.remove('visible');document.getElementById('leadBtns2').style.display='flex';if(d.verified){localStorage.setItem('eval_lead_ok','1');localStorage.setItem('eval_lead_name',document.getElementById('leadNume').value.trim());localStorage.setItem('eval_lead_email',_verifEmail);const cc=document.getElementById('leadCountry').value;const ph=document.getElementById('leadTelefon').value.trim();localStorage.setItem('eval_lead_phone',ph?cc+' '+ph:'');fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:document.getElementById('leadNume').value.trim(),email:_verifEmail,phone:ph?cc+' '+ph:'',source:'evaluator-sugestii',tier:'avansat',timestamp:new Date().toISOString()})}).catch(()=>{});closeLeadGate();if(window._leadCb)window._leadCb()}else{const err=d.error==='expired'?t('lead_code_expired'):t('lead_code_invalid');document.getElementById('codeError').textContent=err;document.getElementById('codeError').style.display='block';inputs.forEach(i=>i.classList.add('err'))}}catch(err){document.getElementById('verifSending').classList.remove('visible');document.getElementById('leadBtns2').style.display='flex';document.getElementById('codeError').textContent=t('lead_code_error');document.getElementById('codeError').style.display='block';console.error(err)}}
+async function submitVerifCode(){const inputs=document.querySelectorAll('#codeWrap input');const code=Array.from(inputs).map(i=>i.value).join('');if(code.length!==6)return;document.getElementById('verifSending').classList.add('visible');document.getElementById('leadBtns2').style.display='none';document.getElementById('codeError').style.display='none';try{const r=await fetch('/api/verify-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_verifEmail,code:code,hmac:_hmac,expires:_hmacExpires})});const d=await r.json();document.getElementById('verifSending').classList.remove('visible');document.getElementById('leadBtns2').style.display='flex';if(d.verified){localStorage.setItem('eval_lead_ok','1');localStorage.setItem('eval_lead_name',document.getElementById('leadNume').value.trim());localStorage.setItem('eval_lead_email',_verifEmail);const cc=document.getElementById('leadCountry').value;const ph=document.getElementById('leadTelefon').value.trim();localStorage.setItem('eval_lead_phone',ph?cc+' '+ph:'');fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:document.getElementById('leadNume').value.trim(),email:_verifEmail,phone:ph?cc+' '+ph:'',source:'evaluator-sugestii',tier:'avansat',timestamp:new Date().toISOString()})}).catch(()=>{});const _savedCb=window._leadCb;closeLeadGate();if(_savedCb)_savedCb()}else{const err=d.error==='expired'?t('lead_code_expired'):t('lead_code_invalid');document.getElementById('codeError').textContent=err;document.getElementById('codeError').style.display='block';inputs.forEach(i=>i.classList.add('err'))}}catch(err){document.getElementById('verifSending').classList.remove('visible');document.getElementById('leadBtns2').style.display='flex';document.getElementById('codeError').textContent=t('lead_code_error');document.getElementById('codeError').style.display='block';console.error(err)}}
 async function resendVerifCode(){const rl=document.getElementById('resendLink');if(rl.classList.contains('disabled'))return;document.getElementById('codeError').style.display='none';document.querySelectorAll('#codeWrap input').forEach(i=>{i.value='';i.classList.remove('err')});try{const r=await fetch('/api/send-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_verifEmail,name:document.getElementById('leadNume').value.trim()})});if(!r.ok)throw new Error('resend failed');const d=await r.json();_hmac=d.hmac;_hmacExpires=d.expires;startResendTimer();document.querySelectorAll('#codeWrap input')[0].focus()}catch(err){alert(t('lead_send_error'));console.error(err)}}
 function changeLeadEmail(){document.getElementById('leadStep2').classList.remove('active');document.getElementById('leadStep1').classList.add('active');document.getElementById('leadBtns1').style.display='flex';document.getElementById('leadEmail').focus()}
 
@@ -356,7 +408,7 @@ function hasExpertAccess(){if(sessionStorage.getItem('expert_ok')==='1')return t
 function showExpertGate(cb){window._expertCb=cb||null;document.getElementById('expertGate').classList.add('visible');document.getElementById('expertPwRow').classList.remove('show');document.getElementById('expertPwErr').style.display='none';document.getElementById('expertPwInput').value=''}
 function closeExpertGate(){document.getElementById('expertGate').classList.remove('visible');window._expertCb=null}
 function toggleExpertPw(){const row=document.getElementById('expertPwRow');row.classList.toggle('show');if(row.classList.contains('show'))document.getElementById('expertPwInput').focus()}
-function tryExpertPw(){const p=document.getElementById('expertPwInput').value;if(p==='PM2026'){sessionStorage.setItem('expert_ok','1');closeExpertGate();if(window._expertCb)window._expertCb()}else{document.getElementById('expertPwErr').style.display='block'}}
+function tryExpertPw(){const p=document.getElementById('expertPwInput').value;if(p==='PM2026'){sessionStorage.setItem('expert_ok','1');const _savedECb=window._expertCb;closeExpertGate();if(_savedECb)_savedECb()}else{document.getElementById('expertPwErr').style.display='block'}}
 function checkStripeSuccess(){const params=new URLSearchParams(window.location.search);if(params.get('expert_access')==='success'){localStorage.setItem('eval_expert_until',(Date.now()+30*24*60*60*1000).toString());window.history.replaceState({},'',window.location.pathname+(window.location.hash||''));setTimeout(()=>{alert(t('expert_activated'));navigateTo('evaluator')},300)}}
 
 // ===== TIER MANAGEMENT =====
@@ -393,55 +445,4 @@ window.addEventListener('hashchange',handleHash);
 (function(){checkStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500)})();
 </script>
 </body>
-</html><div class="onboard-overlay" id="onboardPopup" onclick="if(event.target===this)closeOnboard()">
-<div class="onboard-box">
-<h3 id="onboardTitle">Cum funcționează</h3>
-<div class="onboard-steps">
-<div class="onboard-step"><div class="step-num">1</div><div class="step-text"><strong>Scrie sugestia</strong><br>Introdu sau lipește sugestia hipnotică pe care vrei să o evaluezi.</div></div>
-<div class="onboard-step"><div class="step-num">2</div><div class="step-text"><strong>Primești evaluare</strong><br>AI-ul analizează pe criterii obiective și îți dă scor normalizat la 100.</div></div>
-<div class="onboard-step"><div class="step-num">3</div><div class="step-text"><strong>Îmbunătățește</strong><br>Primești probleme identificate, versiune îmbunătățită și explicații.</div></div>
-</div>
-<button class="btn-primary" onclick="closeOnboard()" style="width:100%;justify-content:center">Am înțeles →</button>
-</div>
-</div>
-<div class="lead-overlay" id="leadGate" onclick="if(event.target===this)closeLeadGate()">
-<div class="gate-box">
-<div class="gate-step active" id="leadStep1">
-<div class="gate-badge">🔓 Acces gratuit</div>
-<h3>Deblochează Evaluarea Avansată</h3>
-<div class="gate-subtitle">9 criterii profesionale, versiune îmbunătățită și explicații detaliate.<br>Completează datele pentru acces gratuit.</div>
-<div class="gate-field"><label>Nume *</label><input type="text" id="leadNume" placeholder="Numele tău"><div class="field-err">Completează numele</div></div>
-<div class="gate-field"><label>Email *</label><input type="email" id="leadEmail" placeholder="email@exemplu.ro"><div class="field-err">Completează un email valid</div></div>
-<div class="gate-field"><label>Telefon (opțional)</label><div class="phone-row"><select id="leadCountry"></select><input type="tel" id="leadTelefon" placeholder="7xx xxx xxx"></div></div>
-<div class="gate-sending" id="leadSending"><div class="mini-spin"></div><span>Se trimite codul...</span></div>
-<div class="gate-btns" id="leadBtns1"><button class="btn-secondary" onclick="closeLeadGate()">Anulează</button><button class="btn-primary" onclick="sendVerifCode()" style="background:var(--accent-blue)">Trimite codul →</button></div>
-<div class="gate-privacy">🔒 Datele tale sunt în siguranță. Nu facem spam.</div>
-</div>
-<div class="gate-step" id="leadStep2">
-<div class="gate-badge">📧 Verificare email</div>
-<h3>Introdu codul de verificare</h3>
-<div class="gate-subtitle">Am trimis un cod de 6 cifre la adresa de email:</div>
-<div class="email-display"><div class="email-addr" id="leadEmailShow">—</div><div class="email-change" onclick="changeLeadEmail()">Nu e corect? Schimbă adresa →</div></div>
-<div class="code-input-wrap" id="codeWrap"><input type="text" maxlength="1" data-idx="0" inputmode="numeric"><input type="text" maxlength="1" data-idx="1" inputmode="numeric"><input type="text" maxlength="1" data-idx="2" inputmode="numeric"><input type="text" maxlength="1" data-idx="3" inputmode="numeric"><input type="text" maxlength="1" data-idx="4" inputmode="numeric"><input type="text" maxlength="1" data-idx="5" inputmode="numeric"></div>
-<div id="codeError" style="text-align:center;font-size:0.82rem;color:var(--accent-red);display:none"></div>
-<div class="gate-sending" id="verifSending"><div class="mini-spin"></div><span>Se verifică...</span></div>
-<div class="gate-btns" id="leadBtns2"><button class="btn-secondary" onclick="closeLeadGate()">Anulează</button><button class="btn-primary" onclick="submitVerifCode()" style="background:var(--accent-blue)">Verifică →</button></div>
-<div class="resend-link" id="resendLink" onclick="resendVerifCode()">Nu ai primit codul? Retrimite</div>
-</div>
-</div>
-</div>
-<div class="expert-overlay" id="expertGate" onclick="if(event.target===this)closeExpertGate()">
-<div class="gate-box">
-<div class="gate-badge" style="background:rgba(246,212,76,0.1);border-color:rgba(246,212,76,0.25);color:var(--accent-gold)">👑 Expert</div>
-<h3>Acces Nivel Expert</h3>
-<div class="gate-subtitle">17 criterii cu ponderi, analiză Milton Model și congruență predicate senzoriale.</div>
-<div class="expert-gate-options">
-<div class="expert-option" onclick="toggleExpertPw()"><div class="opt-title">🔑 Am parolă de acces</div><div class="opt-desc">Primită în Training Profesional de Hipnoză</div></div>
-<div class="expert-pw-row" id="expertPwRow"><input type="password" id="expertPwInput" placeholder="Introdu parola..." onkeydown="if(event.key==='Enter')tryExpertPw()"><button class="btn-primary" onclick="tryExpertPw()" style="padding:11px 20px">OK</button></div>
-<div id="expertPwErr" style="font-size:0.82rem;color:var(--accent-red);display:none;margin-top:-6px;padding-left:4px">Parolă incorectă</div>
-<a href="https://buy.stripe.com/28E14n9VP2Ca3PB59bebu1w" target="_blank" class="expert-option" style="text-decoration:none;color:inherit"><div class="opt-title">💳 Cumpără acces 30 zile</div><div class="opt-desc">Acces Expert nelimitat, plată unică prin Stripe</div></a>
-</div>
-<div class="gate-btns" style="margin-top:16px"><button class="btn-secondary" onclick="closeExpertGate()" style="width:100%;justify-content:center">Anulează</button></div>
-</div>
-</div>
-
+</html>
