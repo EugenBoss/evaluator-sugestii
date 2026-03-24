@@ -8,7 +8,7 @@ module.exports = async function handler(req, res) {
   try {
     const data = req.body;
 
-    // Payload — 16 fields, always same keys, blank if no data
+    // Payload — 17 fields, always same keys, blank if no data
     const payload = {
       name: data.name || '',
       email: data.email || '',
@@ -25,7 +25,8 @@ module.exports = async function handler(req, res) {
       suggestion_text: data.suggestion_text || '',
       score: data.score !== undefined && data.score !== null ? String(data.score) : '',
       detected_type: data.detected_type || '',
-      level: data.level || ''
+      level: data.level || '',
+      lead_type: data.lead_type || ''
     };
 
     const WEBHOOK_GSHEET = 'https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjcwNTZmMDYzMjA0M2Q1MjZjNTUzMTUxMzAi_pc';
