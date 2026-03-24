@@ -1,4 +1,4 @@
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -10,7 +10,6 @@ export default async function handler(req, res) {
 
     // Payload — 16 fields, always same keys, blank if no data
     const payload = {
-      // Personal (from gate form)
       name: data.name || '',
       email: data.email || '',
       phone: data.phone || '',
@@ -23,14 +22,12 @@ export default async function handler(req, res) {
       device: data.device || '',
       lang: data.lang || '',
       timestamp: data.timestamp || '',
-      // Evaluation (filled after eval, blank if user left before)
       suggestion_text: data.suggestion_text || '',
       score: data.score !== undefined && data.score !== null ? String(data.score) : '',
       detected_type: data.detected_type || '',
       level: data.level || ''
     };
 
-    // Webhook URLs (Pabbly Connect)
     const WEBHOOK_GSHEET = 'https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjcwNTZmMDYzMjA0M2Q1MjZjNTUzMTUxMzAi_pc';
     const WEBHOOK_GHL = 'https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjcwNTZmMDYzMjA0MzI1MjY0NTUzNDUxMzYi_pc';
 
@@ -60,4 +57,4 @@ export default async function handler(req, res) {
     console.error('Lead webhook error:', err);
     return res.status(500).json({ error: 'Internal server error' });
   }
-}
+};
