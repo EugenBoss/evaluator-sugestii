@@ -8,8 +8,8 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{--bg-body:#0c1820;--bg-sidebar:#111d27;--bg-sidebar-hover:#1a2d3d;--bg-sidebar-active:#1e3645;--bg-main:#0f1f28;--bg-card:#162a36;--bg-card-hover:#1b3244;--bg-input:#0f1f28;--border-card:#1e3f52;--border-subtle:rgba(79,193,233,0.12);--border-input:#2a4a5a;--text-primary:#e8edf0;--text-secondary:#8fa3b0;--text-muted:#5a7585;--text-heading:#f0f4f6;--accent-blue:#4FC1E9;--accent-gold:#F6D44C;--accent-red:#e74c5e;--accent-teal:#3B596A;--accent-green:#2ecc71;--accent-orange:#f39c12;--brand-red:#c0392b;--brand-red-soft:rgba(192,57,43,0.15);--brand-red-glow:rgba(192,57,43,0.4);--brand-gold-glow:rgba(246,212,76,0.3);--sidebar-w:250px;--radius:12px;--radius-sm:8px;--transition:0.25s cubic-bezier(0.4,0,0.2,1);--font-main:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;--font-mono:'JetBrains Mono',monospace}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{font-size:16px;scroll-behavior:smooth}
-body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-primary);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden}
+body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-primary);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
 .sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--bg-sidebar);border-right:1px solid var(--border-subtle);display:flex;flex-direction:column;z-index:100;transition:transform var(--transition)}
 .sidebar-brand{padding:24px 20px 20px;border-bottom:1px solid var(--border-subtle);text-align:center}
 .sidebar-brand .brand-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--accent-blue),var(--accent-teal));border-radius:12px;display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px}
@@ -199,6 +199,15 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .gate-sending{display:none;align-items:center;gap:8px;justify-content:center;padding:12px;color:var(--accent-blue);font-size:0.88rem}
 .gate-sending.visible{display:flex}
 .gate-sending .mini-spin{width:16px;height:16px;border:2px solid var(--border-card);border-top-color:var(--accent-blue);border-radius:50%;animation:spin 0.8s linear infinite}
+.onboard-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:400;align-items:center;justify-content:center;padding:20px}
+.onboard-overlay.visible{display:flex}
+.onboard-box{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:36px 32px;max-width:460px;width:100%;animation:fadeIn 0.3s ease;text-align:center}
+.onboard-box h3{font-size:1.2rem;font-weight:700;color:var(--text-heading);margin-bottom:20px}
+.onboard-steps{display:flex;flex-direction:column;gap:16px;text-align:left;margin-bottom:24px}
+.onboard-step{display:flex;gap:14px;align-items:flex-start}
+.onboard-step .step-num{width:32px;height:32px;border-radius:50%;background:rgba(79,193,233,0.15);color:var(--accent-blue);font-weight:700;font-size:0.9rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.onboard-step .step-text{font-size:0.9rem;color:var(--text-secondary);line-height:1.5}
+.onboard-step .step-text strong{color:var(--text-heading)}
 
 </style>
 </head>
@@ -250,9 +259,9 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="tier-toggle"><button class="active" onclick="setTier('basic',this)" data-i18n="tier_basic">Basic · 3 criterii</button><button onclick="setTier('avansat',this)" data-i18n="tier_advanced">Avansat · 9 criterii</button><button onclick="setTier('expert',this)" data-i18n="tier_expert">Expert · 17 criterii 🔒</button></div>
 <div class="usage-bar" id="usageMeter"><span class="usage-label" id="usageLabel">USAGE</span><span class="usage-stat"><span class="usage-dot" style="background:var(--accent-blue)"></span><span id="usageStat1">—</span></span><span class="usage-stat"><span class="usage-dot" style="background:var(--accent-gold)"></span><span id="usageStat2">—</span></span><div class="usage-track"><div class="usage-fill" id="usageFill" style="background:var(--accent-blue);width:0%"></div></div></div>
 
-<div class="card eval-input-card"><label data-i18n="input_label">Sugestia ta hipnotică</label><div class="input-hint" data-i18n="input_hint">Scrie sau lipește sugestia pe care vrei să o evaluezi.</div><textarea id="suggestionInput" class="eval-textarea" data-i18n-placeholder="input_placeholder" placeholder="ex: Cu fiecare respirație, simți cum o căldură blândă se răspândește..." oninput="updateCharCount()"></textarea></div><div class="eval-footer"><span class="char-count" id="charCount">0 / 500</span><button class="btn-primary" id="evalBtn" onclick="runEval()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="eval_btn_text">Evaluează</span></button></div>
+<div class="card eval-input-card"><label data-i18n="input_label">Sugestia ta hipnotică</label><div class="input-hint" data-i18n="input_hint">Scrie sau lipește sugestia pe care vrei să o evaluezi.</div><textarea id="suggestionInput" class="eval-textarea" data-i18n-placeholder="input_placeholder" placeholder="ex: Cu fiecare respirație, simți cum o căldură blândă se răspândește..." oninput="updateCharCount()"></textarea><div class="eval-footer"><span class="char-count" id="charCount">0 / 500</span><button class="btn-primary" id="evalBtn" onclick="runEval()"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="eval_btn_text">Evaluează</span></button></div>
 <div class="cooldown-bar" id="cooldownBar"><div class="cd-spinner"></div><span id="cooldownText">Poți evalua din nou în 60s...</span></div></div>
-
+<div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)" data-i18n="loading_title">Se evaluează sugestia...</div><div class="progress-bar-wrap"><div class="progress-bar-track"><div class="progress-bar-fill" id="progressBarFill"></div></div><div class="progress-bar-info"><span id="progressPct">0%</span><span id="progressEta">~15s</span></div></div><div class="loading-steps" id="loadingSteps"><div class="loading-step" id="lstep1"><span class="step-dot"></span><span data-i18n="lstep1">Analizez structura...</span></div><div class="loading-step" id="lstep2"><span class="step-dot"></span><span data-i18n="lstep2">Verific limbajul...</span></div><div class="loading-step" id="lstep3"><span class="step-dot"></span><span data-i18n="lstep3">Evaluez eficacitatea...</span></div><div class="loading-step" id="lstep4"><span class="step-dot"></span><span data-i18n="lstep4">Generez feedback...</span></div></div></div>
 <div id="results"></div>
 </section>
 <section class="page-section" id="sec-antrenament"><div class="section-tag" data-i18n="train_tag">Practică dirijată</div><h1 class="section-title" data-i18n="train_title">Mod Antrenament</h1><p class="section-desc" data-i18n="train_desc">Primești un brief terapeutic, scrii sugestia, apoi o evaluezi automat.</p><div class="card"><div class="placeholder-box"><div class="ph-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h3 data-i18n="placeholder_coming">În curând</h3><p data-i18n="train_placeholder">Modul de antrenament va fi disponibil în curând.</p></div></div></section>
@@ -373,13 +382,28 @@ function getScoreLevel(s){if(s>=90)return{level:t('level_excellent'),color:'var(
 function renderGuide(){const el=document.getElementById('guideContent');if(!el)return;const ss=[{part:t('guide_part1'),items:[{t:t('guide_chain_title'),d:t('guide_chain_desc'),c:'#4FC1E9',i:'⛓'},{t:t('guide_filters_title'),d:t('guide_filter1')+'<br><br>'+t('guide_filter2')+'<br><br>'+t('guide_filter3'),c:'#F6D44C',i:'🔍'},{t:t('guide_3p_title'),d:t('guide_3p_desc'),c:'#2ecc71',i:'✓'}]},{part:t('guide_part2'),items:[{t:t('guide_crit_struct'),d:'',c:'#e74c5e',i:'🏗',h:1},{t:t('guide_c1_t'),d:t('guide_c1_d'),c:'#e74c5e',i:'➕'},{t:t('guide_c2_t'),d:t('guide_c2_d'),c:'#e74c5e',i:'🎯'},{t:t('guide_c3_t'),d:t('guide_c3_d'),c:'#e74c5e',i:'⏱'},{t:t('guide_crit_lang'),d:'',c:'#F6D44C',i:'💬',h:1},{t:t('guide_c4_t'),d:t('guide_c4_d'),c:'#F6D44C',i:'📈'},{t:t('guide_c5_t'),d:t('guide_c5_d'),c:'#F6D44C',i:'👁'},{t:t('guide_c6_t'),d:t('guide_c6_d'),c:'#F6D44C',i:'🎵'},{t:t('guide_c7_t'),d:t('guide_c7_d'),c:'#F6D44C',i:'🔤'},{t:t('guide_crit_eff'),d:'',c:'#2ecc71',i:'⚡',h:1},{t:t('guide_c8_t'),d:t('guide_c8_d'),c:'#2ecc71',i:'🎯'},{t:t('guide_c9_t'),d:t('guide_c9_d'),c:'#2ecc71',i:'❤'}]},{part:t('guide_part3'),items:[{t:t('guide_part3'),d:t('guide_scale_desc'),c:'#4FC1E9',i:'📊'}]}];let h='';ss.forEach(s=>{h+=`<div style="margin-bottom:8px"><div style="padding:16px 0 10px"><span style="font-size:0.7rem;font-family:var(--font-mono);color:var(--accent-red);text-transform:uppercase;letter-spacing:0.1em">${s.part}</span></div>`;s.items.forEach(it=>{if(it.h){h+=`<div style="display:flex;align-items:center;gap:10px;padding:14px 20px"><span style="font-size:1rem">${it.i}</span><span style="font-size:0.95rem;font-weight:700;color:var(--text-heading)">${it.t}</span></div>`}else{const u='a_'+Math.random().toString(36).substr(2,6);h+=`<div class="accordion-item" id="${u}"><button class="accordion-header" onclick="toggleAccordion('${u}')"><span class="acc-icon" style="background:${it.c}22;color:${it.c};font-size:0.9rem">${it.i}</span><span>${it.t}</span><span class="acc-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></span></button><div class="accordion-body"><div class="accordion-content">${it.d}</div></div></div>`}});h+='</div>'});el.innerHTML=h}
 function toggleAccordion(id){const it=document.getElementById(id),bd=it.querySelector('.accordion-body'),ct=it.querySelector('.accordion-content');if(it.classList.contains('open')){bd.style.maxHeight='0';it.classList.remove('open')}else{bd.style.maxHeight=ct.scrollHeight+40+'px';it.classList.add('open')}}
 
+// ===== ONBOARDING =====
+function showOnboard(){if(localStorage.getItem('eval_onboard_done'))return;document.getElementById('onboardPopup').classList.add('visible')}
+function closeOnboard(){document.getElementById('onboardPopup').classList.remove('visible');localStorage.setItem('eval_onboard_done','1')}
+
 // ===== INIT =====
 document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();navigateTo(a.getAttribute('data-section'))})});
 window.addEventListener('hashchange',handleHash);
-(function(){checkStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash()})();
+(function(){checkStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500)})();
 </script>
 </body>
-</html><div class="lead-overlay" id="leadGate" onclick="if(event.target===this)closeLeadGate()">
+</html><div class="onboard-overlay" id="onboardPopup" onclick="if(event.target===this)closeOnboard()">
+<div class="onboard-box">
+<h3 id="onboardTitle">Cum funcționează</h3>
+<div class="onboard-steps">
+<div class="onboard-step"><div class="step-num">1</div><div class="step-text"><strong>Scrie sugestia</strong><br>Introdu sau lipește sugestia hipnotică pe care vrei să o evaluezi.</div></div>
+<div class="onboard-step"><div class="step-num">2</div><div class="step-text"><strong>Primești evaluare</strong><br>AI-ul analizează pe criterii obiective și îți dă scor normalizat la 100.</div></div>
+<div class="onboard-step"><div class="step-num">3</div><div class="step-text"><strong>Îmbunătățește</strong><br>Primești probleme identificate, versiune îmbunătățită și explicații.</div></div>
+</div>
+<button class="btn-primary" onclick="closeOnboard()" style="width:100%;justify-content:center">Am înțeles →</button>
+</div>
+</div>
+<div class="lead-overlay" id="leadGate" onclick="if(event.target===this)closeLeadGate()">
 <div class="gate-box">
 <div class="gate-step active" id="leadStep1">
 <div class="gate-badge">🔓 Acces gratuit</div>
