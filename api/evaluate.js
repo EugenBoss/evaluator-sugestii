@@ -60,11 +60,14 @@ function checkRateLimit(ip, fingerprint, email, tier, charCount) {
     }
   }
 
-  // Limits per tier
+  // Limits per tier (evaluate + generate modes)
   const limits = {
-    basic:   { perHour: 5,  perDay: Infinity, charsPerHour: Infinity },
-    avansat: { perHour: 3,  perDay: 7,        charsPerHour: Infinity },
-    expert:  { perHour: 10, perDay: Infinity,  charsPerHour: 60000 }
+    basic:       { perHour: 5,  perDay: Infinity, charsPerHour: Infinity },
+    avansat:     { perHour: 3,  perDay: 7,        charsPerHour: Infinity },
+    expert:      { perHour: 10, perDay: Infinity,  charsPerHour: 60000 },
+    gen_simplu:  { perHour: 3,  perDay: 5,        charsPerHour: Infinity },
+    gen_avansat: { perHour: 3,  perDay: 5,        charsPerHour: Infinity },
+    gen_expert:  { perHour: 2,  perDay: 3,        charsPerHour: Infinity }
   };
 
   const limit = limits[tier] || limits.basic;
@@ -143,7 +146,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { system, messages, temperature, tier, fingerprint, email } = req.body;
+  const { system, messages, temperature, tier, fingerprint, email, max_tokens: reqMaxTokens } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ error: 'Invalid request body' });
@@ -184,7 +187,7 @@ export default async function handler(req, res) {
           },
           body: JSON.stringify({
             model: 'claude-sonnet-4-20250514',
-            max_tokens: 4096,
+            max_tokens: Math.min(reqMaxTokens || 4096, 8192),
             temperature: typeof temperature === 'number' ? temperature : 0,
             system: system || '',
             messages: messages
@@ -233,7 +236,8 @@ export default async function handler(req, res) {
     if (sheetUrl) {
       try {
         const raspunsAI = data.content ? data.content.map(c => c.text || '').join('') : '';
-        const nivel = (system || '').includes('17 criterii') ? 'Expert' :
+        const nivel = (system || '').includes('MODUL GENERATOR') ? 'Generator' :
+                      (system || '').includes('17 criterii') ? 'Expert' :
                       (system || '').includes('9 criterii') ? 'Avansat' :
                       (system || '').includes('3 criterii') ? 'Basic' : 'Necunoscut';
         
