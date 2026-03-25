@@ -244,13 +244,14 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .app-wrap{width:100%;max-width:100%;overflow-x:hidden;position:relative}
 
 /* ===== GENERATOR STYLES ===== */
+.gen-page-bg{background:linear-gradient(180deg,#0e1e27 0%,#132832 50%,#0e1e27 100%);border-radius:var(--radius);padding:28px 24px}
 .gen-wizard{display:flex;flex-direction:column;gap:20px}
 .gen-step{display:none;animation:fadeIn 0.3s ease}.gen-step.active{display:block}
-.gen-question{font-size:1.15rem;font-weight:700;color:var(--text-heading);margin-bottom:16px;line-height:1.4}
-.gen-cards{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:20px}
-.gen-card{padding:14px 18px;background:var(--bg-input);border:1px solid var(--border-card);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--transition);font-size:0.92rem;color:var(--text-primary);line-height:1.4;text-align:left}
-.gen-card:hover{border-color:var(--accent-blue);background:rgba(79,193,233,0.04)}
-.gen-card.selected{border-color:var(--accent-blue);background:rgba(79,193,233,0.08);color:var(--text-heading);font-weight:600}
+.gen-question{font-size:1.15rem;font-weight:700;color:var(--text-heading);margin-bottom:14px;line-height:1.4}
+.gen-cards{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.gen-card{padding:9px 16px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.18);border-radius:20px;cursor:pointer;transition:all var(--transition);font-size:0.82rem;color:var(--text-secondary);line-height:1.3;text-align:center;white-space:nowrap}
+.gen-card:hover{border-color:var(--accent-blue);color:var(--text-primary);background:rgba(79,193,233,0.1)}
+.gen-card.selected{border-color:var(--accent-blue);background:rgba(79,193,233,0.15);color:var(--accent-blue);font-weight:600}
 .gen-or{display:flex;align-items:center;gap:12px;margin:12px 0;color:var(--text-muted);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em}
 .gen-or::before,.gen-or::after{content:'';flex:1;height:1px;background:var(--border-subtle)}
 .gen-free-input{width:100%;padding:12px 16px;border:1px solid var(--border-input);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-family:var(--font-main);font-size:0.9rem;outline:none;transition:border-color var(--transition);resize:none}
@@ -260,7 +261,9 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .gen-slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .gen-slider-label span:first-child{font-size:0.88rem;font-weight:600;color:var(--text-secondary)}
 .gen-slider-label .gen-slider-val{font-family:var(--font-mono);font-size:0.95rem;font-weight:700;color:var(--accent-blue);min-width:28px;text-align:right}
-.gen-slider{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--bg-input);border:1px solid var(--border-input);outline:none;transition:all var(--transition)}
+.gen-slider-wrap{display:flex;align-items:center;gap:10px}
+.gen-slider-wrap .gen-endpoint{font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);font-weight:600;min-width:16px;text-align:center}
+.gen-slider{-webkit-appearance:none;flex:1;height:6px;border-radius:3px;background:var(--bg-input);border:1px solid var(--border-input);outline:none;transition:all var(--transition)}
 .gen-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent-blue);cursor:pointer;border:2px solid var(--bg-body);box-shadow:0 0 8px rgba(79,193,233,0.3)}
 .gen-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent-blue);cursor:pointer;border:2px solid var(--bg-body)}
 .gen-nav{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
@@ -317,7 +320,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="section-tag" data-i18n="home_tag">Platforma ta de evaluare</div>
 <h1 class="section-title" data-i18n="home_title">Cât de bine comunici cu Subconștientul?</h1>
 <p class="section-desc" data-i18n="home_desc">Primul instrument din lume care evaluează calitatea textului sugestiilor hipnotice pe criterii obiective.</p>
-<div class="home-hero"><h2 data-i18n="hero_title">Scrie. Evaluează. Îmbunătățește.</h2><p data-i18n="hero_desc">Introdu sugestia ta hipnotică și primești evaluare pe criterii validate, scor normalizat la 100 și o versiune îmbunătățită cu explicații.</p><div class="home-hero-btns"><button class="btn-primary" onclick="navigateTo('evaluator')" data-i18n="hero_cta">Evaluează o sugestie →</button><button class="btn-secondary" onclick="loadExample()" data-i18n="hero_example">Încearcă un exemplu</button></div></div>
+<div class="home-hero"><h2 data-i18n="hero_title">Scrie. Evaluează. Îmbunătățește.</h2><p data-i18n="hero_desc">Introdu sugestia ta hipnotică și primești evaluare pe criterii validate, scor normalizat la 100 și o versiune îmbunătățită cu explicații.</p><div class="home-hero-btns"><button class="btn-primary" onclick="navigateTo('generator')" data-i18n="hero_cta">Generează sugestii →</button><button class="btn-secondary" onclick="loadExample()" data-i18n="hero_example">Încearcă un exemplu</button></div></div>
 <div class="card-grid" style="margin-bottom:28px">
 <div class="card stat-card"><div class="stat-icon" style="background:rgba(79,193,233,0.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4FC1E9" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div class="stat-num">17</div><div class="stat-label" data-i18n="stat_criteria">Criterii de evaluare</div></div></div>
 <div class="card stat-card"><div class="stat-icon" style="background:rgba(246,212,76,0.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#F6D44C" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div><div class="stat-num">100</div><div class="stat-label" data-i18n="stat_max">Scor maxim</div></div></div>
@@ -378,41 +381,41 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <h1 class="section-title">Generator de Sugestii</h1>
 <p class="section-desc">Raspunde la 2 intrebari simple si primesti afirmatii si sugestii hipnotice personalizate, gata de folosit.</p>
 <div class="gen-daily-counter" id="genDailyCounter"></div>
-<div class="card gen-wizard" id="genWizard">
+<div class="gen-page-bg"><div class="gen-wizard" id="genWizard">
 
 <div class="gen-step active" id="genStep1">
 <div class="gen-question">Ce vrei sa rezolvi sau sa vindeci?</div>
-<div class="gen-cards" id="genProblemCards">
-<div class="gen-card" data-val="Anxietate, frici, atacuri de panica" onclick="selectGenCard(this,'problem')">Anxietate, frici, panica</div>
-<div class="gen-card" data-val="Nu am incredere in mine, stima de sine scazuta" onclick="selectGenCard(this,'problem')">Nu am incredere in mine</div>
-<div class="gen-card" data-val="Ma cert cu partenerul, probleme in relatie" onclick="selectGenCard(this,'problem')">Ma cert cu partenerul</div>
-<div class="gen-card" data-val="Mananc sau beau prea mult, dependente" onclick="selectGenCard(this,'problem')">Mananc/beau prea mult</div>
-<div class="gen-card" data-val="Nu pot dormi, sunt epuizat, burnout" onclick="selectGenCard(this,'problem')">Nu pot dormi / sunt epuizat(a)</div>
-</div>
-<div class="gen-or">sau scrie cu cuvintele tale</div>
 <textarea class="gen-free-input" id="genProblemFree" rows="2" placeholder="Descrie pe scurt ce te deranjeaza..."></textarea>
-<div class="gen-slider-group">
-<div class="gen-slider-label"><span>Cat de mare e problema?</span><span class="gen-slider-val" id="genIntensityVal">5</span></div>
-<input type="range" class="gen-slider" id="genIntensity" min="1" max="10" value="5" oninput="document.getElementById('genIntensityVal').textContent=this.value">
+<div class="gen-or">sau alege</div>
+<div class="gen-cards" id="genProblemCards">
+<div class="gen-card" data-val="Anxietate, frici, atacuri de panica" onclick="selectGenCard(this,'problem')">Anxietate si frici</div>
+<div class="gen-card" data-val="Nu am incredere in mine, stima de sine scazuta" onclick="selectGenCard(this,'problem')">Lipsa de incredere</div>
+<div class="gen-card" data-val="Ma cert cu partenerul, probleme in relatie" onclick="selectGenCard(this,'problem')">Probleme in relatie</div>
+<div class="gen-card" data-val="Mananc sau beau prea mult, dependente" onclick="selectGenCard(this,'problem')">Dependente</div>
+<div class="gen-card" data-val="Nu pot dormi, sunt epuizat, burnout" onclick="selectGenCard(this,'problem')">Epuizare si insomnie</div>
 </div>
 <div class="gen-slider-group">
-<div class="gen-slider-label"><span>Cat de mult iti doresti sa rezolvi?</span><span class="gen-slider-val" id="genMotivationVal">7</span></div>
-<input type="range" class="gen-slider" id="genMotivation" min="1" max="10" value="7" oninput="document.getElementById('genMotivationVal').textContent=this.value">
+<div class="gen-slider-label"><span>Cat de mare e problema?</span><span class="gen-slider-val" id="genIntensityVal">3</span></div>
+<div class="gen-slider-wrap"><span class="gen-endpoint">1</span><input type="range" class="gen-slider" id="genIntensity" min="1" max="10" value="3" oninput="document.getElementById('genIntensityVal').textContent=this.value"><span class="gen-endpoint">10</span></div>
+</div>
+<div class="gen-slider-group">
+<div class="gen-slider-label"><span>Cat de mult iti doresti sa rezolvi?</span><span class="gen-slider-val" id="genMotivationVal">3</span></div>
+<div class="gen-slider-wrap"><span class="gen-endpoint">1</span><input type="range" class="gen-slider" id="genMotivation" min="1" max="10" value="3" oninput="document.getElementById('genMotivationVal').textContent=this.value"><span class="gen-endpoint">10</span></div>
 </div>
 <div class="gen-nav"><button class="btn-primary" onclick="genNextStep(2)">Continua <span style="margin-left:4px">&#8594;</span></button></div>
 </div>
 
 <div class="gen-step" id="genStep2">
 <div class="gen-question">Cum vrei sa fii? Ce rezultat doresti?</div>
+<textarea class="gen-free-input" id="genGoalFree" rows="2" placeholder="Descrie cum vrei sa te simti..."></textarea>
+<div class="gen-or">sau alege</div>
 <div class="gen-cards" id="genGoalCards">
-<div class="gen-card" data-val="Liniste si calm interior" onclick="selectGenCard(this,'goal')">Liniste si calm interior</div>
+<div class="gen-card" data-val="Liniste si calm interior" onclick="selectGenCard(this,'goal')">Liniste si calm</div>
 <div class="gen-card" data-val="Incredere si curaj" onclick="selectGenCard(this,'goal')">Incredere si curaj</div>
-<div class="gen-card" data-val="Somn bun si energie" onclick="selectGenCard(this,'goal')">Somn bun si energie</div>
+<div class="gen-card" data-val="Somn bun si energie" onclick="selectGenCard(this,'goal')">Somn si energie</div>
 <div class="gen-card" data-val="Relatii armonioase" onclick="selectGenCard(this,'goal')">Relatii armonioase</div>
 <div class="gen-card" data-val="Control si libertate" onclick="selectGenCard(this,'goal')">Control si libertate</div>
 </div>
-<div class="gen-or">sau descrie tu</div>
-<textarea class="gen-free-input" id="genGoalFree" rows="2" placeholder="Descrie cum vrei sa te simti..."></textarea>
 <div class="gen-nav"><button class="gen-nav btn-back" onclick="genNextStep(1)">&#8592; Inapoi</button><button class="btn-primary" onclick="genNextStep(3)">Continua <span style="margin-left:4px">&#8594;</span></button></div>
 </div>
 
@@ -439,7 +442,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="gen-nav" style="justify-content:space-between"><button class="gen-nav btn-back" onclick="resetGenerator()">&#8592; Genereaza altele</button><button class="btn-secondary" onclick="genEvaluateFirst()">Evalueaza o sugestie</button></div>
 </div>
 
-</div>
+</div></div>
 </section>
 
 <section class="page-section" id="sec-antrenament"><div class="section-tag" data-i18n="train_tag">Practică dirijată</div><h1 class="section-title" data-i18n="train_title">Mod Antrenament</h1><p class="section-desc" data-i18n="train_desc">Primești un brief terapeutic, scrii sugestia, apoi o evaluezi automat.</p>
@@ -638,7 +641,7 @@ function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.d
 function t(k){return(T[currentLang]&&T[currentLang][k])||T.en[k]||T.ro[k]||k}
 function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.getAttribute('data-i18n'));if(v)el.textContent=v});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.getAttribute('data-i18n-placeholder'));if(v)el.placeholder=v})}
 function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter()}
-function handleHash(){navigateTo(window.location.hash.replace('#','')||'evaluator')}
+function handleHash(){navigateTo(window.location.hash.replace('#','')||'generator')}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function initCountryDropdown(){const sel=document.getElementById('leadCountry');if(!sel||sel.options.length>1)return;sel.innerHTML='';const defCode=currentLang==='ro'?'+40':currentLang==='pt'?'+351':currentLang==='es'?'+34':currentLang==='fr'?'+33':currentLang==='de'?'+49':'+44';CC.forEach(c=>{const o=document.createElement('option');o.value=c.c;o.textContent=c.f+' '+c.c;if(c.c===defCode)o.selected=true;sel.appendChild(o)})}
 
@@ -807,7 +810,7 @@ function renderHighTicketCTA(score,cats,lang){if(score>=70)return'';const isRo=(
 
 
 // ===== GENERATOR DE SUGESTII =====
-let genState={problem:'',problemFree:'',goal:'',goalFree:'',intensity:5,motivation:7,level:'simplu',name:'',step:1};
+let genState={problem:'',problemFree:'',goal:'',goalFree:'',intensity:3,motivation:3,level:'simplu',name:'',step:1};
 
 function selectGenCard(el,type){
   const container=el.parentElement;
@@ -1107,14 +1110,14 @@ function copyGenScript(){
 }
 
 function resetGenerator(){
-  genState={problem:'',problemFree:'',goal:'',goalFree:'',intensity:5,motivation:7,level:'simplu',name:'',step:1};
+  genState={problem:'',problemFree:'',goal:'',goalFree:'',intensity:3,motivation:3,level:'simplu',name:'',step:1};
   document.querySelectorAll('.gen-card').forEach(c=>c.classList.remove('selected'));
   document.getElementById('genProblemFree').value='';
   document.getElementById('genGoalFree').value='';
-  document.getElementById('genIntensity').value='5';
-  document.getElementById('genIntensityVal').textContent='5';
-  document.getElementById('genMotivation').value='7';
-  document.getElementById('genMotivationVal').textContent='7';
+  document.getElementById('genIntensity').value='3';
+  document.getElementById('genIntensityVal').textContent='3';
+  document.getElementById('genMotivation').value='3';
+  document.getElementById('genMotivationVal').textContent='3';
   document.getElementById('genNameInput').value='';
   document.querySelectorAll('.gen-level-card').forEach(c=>c.classList.remove('selected'));
   document.querySelector('.gen-level-card[data-level="simplu"]').classList.add('selected');
