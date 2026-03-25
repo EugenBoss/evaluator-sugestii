@@ -1,0 +1,4447 @@
+{
+  "version": "1.0",
+  "generated": "2026-03-25",
+  "total_courses": 93,
+  "total_entries": 1670,
+  "categories": {
+    "anxietate": {
+      "label_ro": "Anxietate, frici și atacuri de panică",
+      "label_en": "Anxiety, fears and panic attacks",
+      "keywords_ro": [
+        "anxietate",
+        "frică",
+        "panică",
+        "teamă",
+        "neliniște",
+        "anxiozitate",
+        "frica",
+        "panica"
+      ],
+      "keywords_en": [
+        "anxiety",
+        "fear",
+        "panic",
+        "worry",
+        "dread",
+        "anxious",
+        "fearful",
+        "panic attack"
+      ],
+      "total_entries": 381,
+      "top_courses": [
+        {
+          "curs": "NLP Masters Summit 2022",
+          "entries": 28,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare de Shelle Rose Chavret - NLP Masters Summit 2022",
+            "Prezentare de Andy Smith - NLP Masters Summit 2022",
+            "Prezentare de Connirae Andreas - NLP Masters Summit 2022",
+            "Prezentare de Dave Shepard - NLP Masters Summit 2022",
+            "Prezentare de Dianne Lowther - NLP Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 3 + Recuperare LOT 2",
+          "entries": 22,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sesiune - Sentiment de Frica",
+            "Sesiune - Sentimentul ca Nu Merit",
+            "Sesiune - Simt ca Lipseste ceva din Mine",
+            "Sesiune Ionela - Stari de Rau Periodice",
+            "Sesiune de Lucru - Fobie de Omizi - Linia Timpului"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2023 — Curs și Practică",
+          "entries": 19,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "LEcția 10",
+            "LEcția 6",
+            "Lecția 1",
+            "Lecția 11",
+            "Lecția 13"
+          ]
+        },
+        {
+          "curs": "Hipnoza Directivă - Elman 2016",
+          "entries": 13,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoza Elman și prezentarea instructorilor",
+            "Principii de inducție și importanța urmării scriptului exact",
+            "Niveluri de transă: de la ușoară la starea Esdaile",
+            "Semantica în hipnoterapie: alegerea cuvintelor și impactul",
+            "Autoritate, raport și discuția pre-sesiune în hipnoterapie"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 13,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducerea IEMT și principiile fundamentale ale mișcării ochilor",
+            "Efectele inițiale — disocierea și progresia în vârstă",
+            "Emoții discrete vs. continuume și durata optimă a sesiunii",
+            "PTSD, fast fobie vs. IEMT și elicitare indirectă",
+            "Reacții fiziologice și gestionarea procesului terapeutic"
+          ]
+        },
+        {
+          "curs": "Curs Hipnoză 2023",
+          "entries": 13,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoză - Dimineață - Lecția 1",
+            "Autohipnoză - Dimineață - Lecția 7",
+            "Autohipnoză - Dimineață - Lecția 9",
+            "Autohipnoză - Dimineață - Lecția 10",
+            "Autohipnoză - Dimineață - Lecția 11"
+          ]
+        },
+        {
+          "curs": "2021 Hypnosis Masters Summit International",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Helen Mitas - Clinical Hypnosis Presentation",
+            "Finalizat - Tim Box - Clinical Hypnosis Presentation",
+            "Doug O Brien - Clinical Hypnosis Presentation",
+            "Finalizat - Roy Hunter - Clinical Hypnosis Presentation",
+            "James Elliot - Clinical Hypnosis Presentation"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2022",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lectia 2",
+            "Lectia 3",
+            "Lectia 4",
+            "Lectia 5",
+            "Lectia 6"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2024",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lectia 2",
+            "Lectia 4",
+            "Lectia 5",
+            "Lectia 7",
+            "Lectia 8"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 1",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Atacuri de panică",
+            "Cum Fac Sa Nu Ma Mai Blochez ",
+            "Cum Fac sa scap de graba si nervozitate",
+            "FOBIE de sange",
+            "Fobia De Ace"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 4 (Completare)",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Atacuri de panică",
+            "Fobia De Ace",
+            "Fobia De Soareci",
+            "Fobia de Apa",
+            "Fobia de Caine"
+          ]
+        },
+        {
+          "curs": "Tehnici Hipnotice Bob Burns 2017",
+          "entries": 10,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnici Hipnotice - Ziua 1, Lectia 1: Prezentare curs, obiective, audiență și mentorat",
+            "Tehnici Hipnotice - Ziua 1, Lectia 2: Sistemul de succes, recunoaștere, asimilare, aplicare în hipnoză",
+            "Tehnici Hipnotice - Ziua 1, Lectia 3: Sisteme și procese, cum funcționează principiile în practică",
+            "Tehnici Hipnotice - Ziua 1, Lectia 4: Demonstrații practice, experiențe reale, cazuri de lucru",
+            "Tehnici Hipnotice - Ziua 1, Lectia 5: Incheierea Ziua 1, informații administrative, reduceri curs"
+          ]
+        },
+        {
+          "curs": "2021 Secrets to Effective Self-Hypnosis",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Self-Hypnosis Secrets Session 1",
+            "Self-Hypnosis Secrets Session 2",
+            "Self-Hypnosis Secrets Session 3",
+            "Self-Hypnosis Secrets Session 4",
+            "Self-Hypnosis Secrets Session 5"
+          ]
+        },
+        {
+          "curs": "2022 Comunicarea Cu Sinele",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sistemul imunitar emoțional și rolul terapeutului ca spațiu sigur",
+            "Demonstrație practică scurtă — relaxare și mișcare involuntară",
+            "Exercițiu atenție și curiozitate — senzații în mâini",
+            "Curiozitate naivă în context zilnic — distorsiune temporală",
+            "Orientarea atenției și câmpul de posibilități — Mirroring Hands pt anxietate"
+          ]
+        },
+        {
+          "curs": "Masterclass Inductia Elman 2017",
+          "entries": 8,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Demonstrație inducție Elman cu relaxare progresivă",
+            "Variante inducție și management rezistență client",
+            "Fracționare, timing și controlul procesului hipnotic",
+            "Relaxarea brațului și management tensiune corporală",
+            "Numărare descrescătoare și golirea minții"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 8,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1 - Modul 1",
+            "Lecția 2 - Modul 1",
+            "Lecția 3 - Modul 1",
+            "Lecția 4 - Modul 1",
+            "Lecția 5 - Modul 1"
+          ]
+        },
+        {
+          "curs": "The Elman Induction EN 2015",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Understanding the 5 Stages of Elman Induction",
+            "Pre-Induction Setup and Client Rapport",
+            "Deepening Techniques After Elman Induction",
+            "Troubleshooting Eye Relaxation Step",
+            "Fractionation: Testing and Deepening"
+          ]
+        },
+        {
+          "curs": "2019 Resource Therapy Introduction",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Resource Therapy Day 1 Part 1",
+            "Resource Therapy Day 1 Part 2",
+            "Resource Therapy Day 1 Part 3",
+            "Resource Therapy Day 2 Part 1",
+            "Resource Therapy Day 2 Part 2"
+          ]
+        },
+        {
+          "curs": "Sănătate și Imunitate 2020",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1 - Sănătate și Imunitate",
+            "Lecția 2 - Sănătate și Imunitate",
+            "Lecția 3 - Sănătate și Imunitate",
+            "Lecția 4 - Sănătate și Imunitate",
+            "Lecția 5 - Sănătate și Imunitate"
+          ]
+        },
+        {
+          "curs": "4 Tehnici Terapeutice 2022 Tîrgu Mureș",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Fundamentele comportamentului și subconștientului",
+            "Tehnica Flash - Rescriere rapidă de comportament",
+            "Practicarea Tehnicii Flash - Demonstrații și role-play",
+            "Tehnica Rewind - Eliminarea traumelor și fobiilor",
+            "Demonstrații live și cazuri complexe cu toate 4 tehnicile"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei En",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Definiția traumei — neurobiologie și Body Keeps the Score",
+            "Respirație vagală și activare nerv vag prin zâmbet",
+            "Respirație abdominală și box breathing (Sama Vritti Pranayama)",
+            "Disociere și re-codificare — perspectiva observatorului",
+            "Reframing lingvistic — limbaj factual vs. emotiv"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 7",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 1.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 15.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 18.mp4"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 4",
+            "Modul 5, Lecția 10",
+            "Modul 5, Lecția 11",
+            "Modul 5, Lecția 12",
+            "Modul 5, Lecția 2"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 2",
+            "Modul 6, Lecția 3",
+            "Modul 6, Lecția 4",
+            "Modul 6, Lecția 1",
+            "Modul 6, Lecția 7"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2020",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modulul 1 ",
+            "Modulul 2 ",
+            "Modulul 3 ",
+            "Modulul 4 ",
+            "Modulul 5 "
+          ]
+        },
+        {
+          "curs": "Tehnica Săgeata 2018",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1-1: Ziua 1 - Partea 1",
+            "Lecția 1-2: Ziua 1 - Partea 2",
+            "Lecția 1-4: Ziua 1 - Partea 4",
+            "Lecția 2-1: Ziua 2 - Partea 1",
+            "Lecția 2-2: Ziua 2 - Partea 2"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 8",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 18.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 24.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 4.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 6.mp4"
+          ]
+        },
+        {
+          "curs": "Identificarea și Utilizarea Resurselor Interioare",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tabelul resurselor interioare: tipuri, patologii și protocol de identificare",
+            "Protocolul de identificare: pași practici, exerciții și primele demonstrații",
+            "Demonstrații live: identificarea resurselor cu Mihaela — Profesionista și Mama",
+            "Demonstrații live: Prietenia, Pusher-ul și tehnica detaliilor concrete",
+            "VAKOG, ancorarea resurselor și integrare finală"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Niyama și tehnica stării de conștientizare (Stop)",
+            "Distincția regresie-memorie și principii de siguranță",
+            "Expansiunea conștiinței — meditație ghidată 360 de grade",
+            "Respirația Pătrată (Sama Vritti Pranayama) — teorie și practică",
+            "The Wholeness Process (Connirae Andreas) — NLP și disoluție"
+          ]
+        },
+        {
+          "curs": "ECP.ro — Vindecarea Copilului Interior",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Trei metode de lucru în terapia copilului interior",
+            "Meditație de mulțumire și recunoștință pentru copilul interior",
+            "Exerciții practici pentru comunicare și legătură cu copilul interior",
+            "Exercițiu de regresie și perceție din perspectiva copilului interior",
+            "Zece diferențe fundamentale între mintea conștientă și subconștient"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Hashimoto",
+            "Ma Apuca Panica cand vorbesc in public",
+            "Probelem cu Somnul - Insomnie",
+            "Sesiune - Frica de Caini",
+            "Sesiune - Probleme de Timiditate"
+          ]
+        },
+        {
+          "curs": "Tehnici de Coaching și Terapie",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în Clean Language și metaforele subconștientului",
+            "Tehnica Poveste Fără Sfârșit: deconstrucția problemelor și filmul intern",
+            "Aprofundare Poveste Fără Sfârșit: troubleshooting, film complet și măsurare",
+            "Metaforele Mișcării: categorizarea metaforelor și materializarea lor",
+            "Terapia Integrativă de Mișcare a Ochilor (EMT) și Regresia Hipnotică"
+          ]
+        },
+        {
+          "curs": "Inductia Dave Elman - 2017 (Ro)",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Inducția completă: pre-inducție, contract și demonstrație integrală",
+            "Pasul 1: Relaxarea ochilor — tehnica de bază și 7 variante de troubleshooting",
+            "Pasul 3: Relaxarea brațului — tehnica standard și variante pentru rezistență",
+            "Pasul 4: Amnezia numerelor — tehnica completă cu 6+ metafore și variante"
+          ]
+        },
+        {
+          "curs": "Inițiere în Secretele Hipnozei",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ce este și ce nu este hipnoza: definiție, mituri și structura creierului",
+            "Demonstrație completă: Inducția Elman cu Vasilica — directivă și rapidă",
+            "Unde cerebrale, sugestii directe (cei 3P) și regulile sugestiilor eficiente",
+            "Sugestii indirecte, metafore și demonstrație de inducție Ericksoniană cu Gina"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere: Cele 4 moduri de descriere a problemelor și întrebarea 'Cum este?'",
+            "Matching terapeutic: structura problemei vs. structura soluției",
+            "Metafore de obstrucție: 4 strategii pentru obstacole",
+            "Principiul metaforei infinite: clientul este întotdeauna înăuntru"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 6",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 1.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 6.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 8.mp4"
+          ]
+        },
+        {
+          "curs": "Consilier Dezvoltare Personală — Evergreen",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 3 Lecția 10",
+            "Intrebari ce conduc...",
+            "Tehnica Pumnului St...",
+            "Marketing pentru Co..."
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 2",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1 - Modul 2",
+            "Lecția 9 - Modul 2",
+            "Lecția 2 - Modul 2",
+            "Lecția 4 - Modul 2"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 3",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1 - Modul 3",
+            "Lecția 13 - Modul 3",
+            "Lecția 3 - Modul 3",
+            "Lecția 4 - Modul 3"
+          ]
+        },
+        {
+          "curs": "Controlul Durerii prin Puterea Minții",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ce este durerea, tipuri de durere și primele tehnici de control",
+            "Tehnica Săgeata, limbaj hipnotic pentru durere și disocierea durere-persoană",
+            "Autosugestie, lucru cu copiii la dentist și exerciții practice în perechi"
+          ]
+        },
+        {
+          "curs": "2020 Summit Starea de Bine",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2020 Summit Starea de Bine"
+          ]
+        },
+        {
+          "curs": "2020 Terapia Partilor",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere Terapia Părților — concepte fundamentale și principii",
+            "Cele trei faze ale sesiunii și pregătirea clientului",
+            "Protocolul celor 11 pași — alegerea inducției și prioritizare client"
+          ]
+        },
+        {
+          "curs": "2022 Hypnosis Masters Summit",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Anthony Jacquin Hypnosis Masters Summit 2022",
+            "Richard Hill Hypnosis Masters Summit 2022",
+            "Shelley Stockwell-Nicholas Hypnosis Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei RO",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Vindecarea-Traumei-Andreea-Manolica",
+            "Vindecarea-Traumei-Lucian-Negoita",
+            "Vindecarea-Traumei-Roxana-Borz"
+          ]
+        },
+        {
+          "curs": "Autohipnoza Esențial",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza Esential - Lectia 12",
+            "Autohipnoza Esential - Lectia 2",
+            "Autohipnoza Esential - Lectia 6"
+          ]
+        },
+        {
+          "curs": "Rewind Technique — Certificare Internațională",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere PTSD și avantajele Tehnicii Rewind",
+            "Demonstrație live Rewind pe victimă — Helene (atac în familie)",
+            "Q&A final — cazuri speciale, legalitate, limitări"
+          ]
+        },
+        {
+          "curs": "2015 Yagerian RO",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2015 Yagerian RO - Ziua 2"
+          ]
+        },
+        {
+          "curs": "2017 Yagerian Brazil",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian Brazil - Day 3",
+            "2017 Yagerian Brazil - Day 2"
+          ]
+        },
+        {
+          "curs": "Copilul Interior",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în conceptul de copil interior și prima experiență pe linia timpului",
+            "Troubleshooting copil interior, iertare, prevenire pe linia timpului și cadoul simbolic"
+          ]
+        },
+        {
+          "curs": "Învață să hipnotizezi 2018",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoză - Ziua 1, Partea 5",
+            "Introducere în hipnoză - Ziua 2, Partea 1"
+          ]
+        },
+        {
+          "curs": "2022 Depresie Yapko",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Comorbiditate anxietate-depresie și orientare temporală",
+            "Q&A final — clienți nemotivați, control, PTSD-depresie"
+          ]
+        },
+        {
+          "curs": "Healing Trauma From the Root 2022 (International)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Trauma Processing Methodology",
+            "Trauma & Memory Mechanisms"
+          ]
+        },
+        {
+          "curs": "2022 Skills Over Pills (Depression — Michael Yapko)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Leția 5 — Depression & Skills",
+            "Leția 5 — Lucru cu Depresia"
+          ]
+        },
+        {
+          "curs": "Parts Therapy 2024 (International) — Bonus",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Parts Therapy — Continuation & Practical Demonstrations (Day 2)",
+            "Parts Therapy — Live Demonstration with Volunteer"
+          ]
+        },
+        {
+          "curs": "Deconstructia Crezurilor",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Perfecționismul, crezul soluției perfecte și continuarea inventarului Ellis"
+          ]
+        },
+        {
+          "curs": "Accesarea Geniului Personal (2021)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "State management și fundamente meta-states"
+          ]
+        },
+        {
+          "curs": "IEMT 2021 — Supliment Z3-5 + Z4",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Fobii: modele, disociere, specifice vs generale"
+          ]
+        },
+        {
+          "curs": "Tehnica Lebădă - Bob Burns 2021",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnica Lebădă - Comunicare directă cu subconștientul fără hipnoză"
+          ]
+        },
+        {
+          "curs": "2023-curs-autohipnoza",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Curs Autohipnoza 2023-Dimineata-Lecția 9"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 10",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 10  lecția 7.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 3",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 3 Lecția 26"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 4",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 4 Lecția 16"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 9",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 21.mp4"
+          ]
+        }
+      ]
+    },
+    "bani": {
+      "label_ro": "Relație cu banii",
+      "label_en": "Relationship with money",
+      "keywords_ro": [
+        "bani",
+        "finanțe",
+        "bogăție",
+        "sărăcie",
+        "lipsă",
+        "prosperous"
+      ],
+      "keywords_en": [
+        "money",
+        "finance",
+        "wealth",
+        "poverty",
+        "financial",
+        "abundance"
+      ],
+      "total_entries": 3,
+      "top_courses": [
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Frica de a Face Bani Multi",
+            "Fug de Bani ca de Dracul",
+            "Rezolvarea Diabetului"
+          ]
+        }
+      ]
+    },
+    "burnout": {
+      "label_ro": "Burnout și epuizare cronică",
+      "label_en": "Burnout and chronic exhaustion",
+      "keywords_ro": [
+        "burnout",
+        "epuizare",
+        "oboseală",
+        "plictis profesional",
+        "slăbire",
+        "epuizat"
+      ],
+      "keywords_en": [
+        "burnout",
+        "exhaustion",
+        "fatigue",
+        "chronic fatigue",
+        "overworked"
+      ],
+      "total_entries": 30,
+      "top_courses": [
+        {
+          "curs": "2021 Secrets to Effective Self-Hypnosis",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Self-Hypnosis Secrets Session 1",
+            "Self-Hypnosis Secrets Session 2",
+            "Self-Hypnosis Secrets Session 3",
+            "Self-Hypnosis Secrets Session 4",
+            "Self-Hypnosis Secrets Session 5"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 8,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 12",
+            "Modul 6, Lecția 15",
+            "Modul 6, Lecția 2",
+            "Modul 6, Lecția 5",
+            "Modul 6, Lecția 3"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Expansiunea conștiinței — meditație ghidată 360 de grade",
+            "Respirația Pătrată (Sama Vritti Pranayama) — teorie și practică"
+          ]
+        },
+        {
+          "curs": "Accesarea Geniului Personal (2021)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Accesarea stării de geniu prin fiziologie și ancore",
+            "Geniu și flow — eliberarea resurselor interioare"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Reacții fiziologice și gestionarea procesului terapeutic",
+            "Disciplina emoțională, incongruență afectivă și Supermarket Game"
+          ]
+        },
+        {
+          "curs": "2022 Comunicarea Cu Sinele",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ciclul creativ în 4 etape și ritmuri ultradiane",
+            "Rezolvare probleme prin co-creație — modelul experiențial"
+          ]
+        },
+        {
+          "curs": "The Elman Induction EN 2015",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Arm and Shoulder Relaxation Technique"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Cele 7 structuri relaționale și poziționarea spațială în relații"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei En",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Respirație abdominală și box breathing (Sama Vritti Pranayama)"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 4",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4, Lecția 8"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 9"
+          ]
+        }
+      ]
+    },
+    "dependențe": {
+      "label_ro": "Dependențe și comportamente compulsive",
+      "label_en": "Addictions and compulsive behaviors",
+      "keywords_ro": [
+        "dependență",
+        "adicție",
+        "compulsiv",
+        "viciu",
+        "obicei"
+      ],
+      "keywords_en": [
+        "addiction",
+        "dependence",
+        "compulsive",
+        "habit",
+        "substance abuse"
+      ],
+      "total_entries": 103,
+      "top_courses": [
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 16,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1 - Modul 1",
+            "Lecția 11 - Modul 1",
+            "Lecția 2 - Modul 1",
+            "Lecția 4 - Modul 1",
+            "Lecția 5 - Modul 1"
+          ]
+        },
+        {
+          "curs": "2021 Hypnosis Masters Summit International",
+          "entries": 15,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Adriana James - Clinical Hypnosis Presentation",
+            "Alberto Dell Isola - Clinical Hypnosis Presentation",
+            "Bob Burns - Clinical Hypnosis Presentation",
+            "Helen Mitas - Clinical Hypnosis Presentation",
+            "Sheila Granger - Clinical Hypnosis Presentation"
+          ]
+        },
+        {
+          "curs": "Cursuri Intro (Site + Gratuit)",
+          "entries": 15,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "1.Curs Online Terapia Yageriană.mp4",
+            "2.Ce este Terapia Yageriana？.mp4",
+            "3.Dependenta de Tutun - Tratata prin Terapia Yageriana.mp4",
+            "4.Terapie Fara Continut.mp4",
+            "5.Terapia Yageriana - Centrum.mp4"
+          ]
+        },
+        {
+          "curs": "Învață să hipnotizezi 2018",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoză - Ziua 1, Partea 1",
+            "Introducere în hipnoză - Ziua 1, Partea 2",
+            "Introducere în hipnoză - Ziua 1, Partea 3",
+            "Introducere în hipnoză - Ziua 1, Partea 4",
+            "Introducere în hipnoză - Ziua 1, Partea 5"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Mananc in Exces Problema cu kilogramele",
+            "Mancatul Excesiv si Nefericrea",
+            "Nu mai vreau sa simt nevoia sa fumez",
+            "Probleme cu Greutatea Excesiva",
+            "Probleme cu Greutatea"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 3 + Recuperare LOT 2",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sesiune - VReau sa ma las de Fumat",
+            "Vreau o Greautate Echilibrata",
+            "Vreau sa Slabesc",
+            "Vreau sa imi pese de mine!",
+            "Vreau sa scap de Bautura"
+          ]
+        },
+        {
+          "curs": "Inel Gastric Virtual",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "De ce dietele nu funcționează, mâncat în transă, regulile de bază",
+            "Hainele ca ancoră-țintă, audio zilnic, autohipnoză, pattern-uri alimentare",
+            "Scenariul intervenției chirurgicale imaginare, metoda Dickens, sesiuni practice",
+            "Ziua 2 — feedback participanți, rezultate peste noapte",
+            "Ședință de aversiune alimentară, premiu, comunitate Facebook"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Manipulare emoțională și validare strategică în terapie",
+            "Disciplina emoțională, incongruență afectivă și Supermarket Game",
+            "Fracționare și schimbare de identitate prin poveste",
+            "Reframe lingvistic, pronume subînțelese și schimbare identitate"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 1",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Dependenta de Cocaina ",
+            "Dependenta de Cocaina 2",
+            "Dependenta de Cocaina 3",
+            "Dependenta de Fumat - Anamaria"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 2",
+            "Modul 5, Lecția 6",
+            "Modul 5, Lecția 7"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Metafore de rănire: sufocare, vătămare penetrantă și non-penetrantă",
+            "Metafore de împlinire: container, schimburi emoționale și legea substituirii"
+          ]
+        },
+        {
+          "curs": "2020 Terapia Partilor",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Interviu Roy Hunter — regresie vs. Parts Therapy și spiritualitate",
+            "Q&A Roy Hunter — dependențe, suicid, părți furioase, Sine Superior"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 2",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 2 - Modul 2",
+            "Lecția 3 - Modul 2"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 3",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 10 - Modul 3",
+            "Lecția 7 - Modul 3"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 4",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4, Lecția 10",
+            "Modul 4, Lecția 4"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2023 — Curs și Practică",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 19",
+            "Lecția 5"
+          ]
+        },
+        {
+          "curs": "Rewind Technique — Certificare Internațională",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Evaluare pre-tratament: furie, vinovăție, depresie, what-if",
+            "Q&A: disociere, abuz prelungit, preverbal, alcool, somatics"
+          ]
+        },
+        {
+          "curs": "2017-autohipnoza",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza 5"
+          ]
+        },
+        {
+          "curs": "Copilul Interior",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Conceptul de Introject, fixația orală, ACE test și tehnica liniei timpului pozitive"
+          ]
+        },
+        {
+          "curs": "Deconstructia Crezurilor",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Punctul de cotitură, gândirea laterală, detașarea de identitate și identificarea crezurilor prin limbaj"
+          ]
+        },
+        {
+          "curs": "Hipnoza de Scenă - 2019",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Inducția instantă, street hypnosis și bypassing the critical factor"
+          ]
+        },
+        {
+          "curs": "Accesarea Geniului Personal (2021)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Aplicații clinice — adicții, de-pleasuring și coaching"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 16"
+          ]
+        },
+        {
+          "curs": "Tehnici de Coaching și Terapie",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Terapia Integrativă de Mișcare a Ochilor (EMT) și Regresia Hipnotică"
+          ]
+        }
+      ]
+    },
+    "depresie": {
+      "label_ro": "Depresie, tristețe cronică",
+      "label_en": "Depression, chronic sadness",
+      "keywords_ro": [
+        "depresie",
+        "tristețe",
+        "melancolie",
+        "dezmaț",
+        "apatie",
+        "nemotivare"
+      ],
+      "keywords_en": [
+        "depression",
+        "sadness",
+        "melancholy",
+        "despair",
+        "apathy",
+        "hopelessness"
+      ],
+      "total_entries": 154,
+      "top_courses": [
+        {
+          "curs": "2022 Skills Over Pills (Depression — Michael Yapko)",
+          "entries": 21,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Leția 1 — Depression & Skills",
+            "Leția 10 — Depression & Skills",
+            "Leția 13 — Depression & Skills",
+            "Leția 2 — Depression & Skills",
+            "Leția 3 — Depression & Skills"
+          ]
+        },
+        {
+          "curs": "2022 Hypnosis Masters Summit",
+          "entries": 17,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Anthony Jacquin Hypnosis Masters Summit 2022",
+            "Barry Neale Hypnosis Masters Summit 2022",
+            "Bruce Grimley Hypnosis Masters Summit 2022",
+            "David Key Hypnosis Masters Summit 2022",
+            "Douglas Flemons Hypnosis Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "2022 Healing Trauma Summit",
+          "entries": 16,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Arayeh Norouzi — Trauma-Informed Care & Client Safety",
+            "Christine Forner — Somatic Healing & Body-Based Trauma",
+            "Cynthia Allen — Trauma Recovery & Neurobiological Healing",
+            "David Muss — EMDR & Trauma Processing",
+            "Gordon Emmerson — Trauma Therapy & Neuroplasticity"
+          ]
+        },
+        {
+          "curs": "2024 Healing Trauma Summit",
+          "entries": 14,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Laurel Parnell — Imaginal Experiencing & EMDR Art",
+            "Adriana James — Rapid Change & Trauma Release",
+            "Doug O'Brien — Behavioral Change & Phobia Resolution",
+            "MIke Mandel — Hypnotherapy & Rapid Transformation",
+            "Paul GIlbert — Compassion & Self-Criticism"
+          ]
+        },
+        {
+          "curs": "2022 Depresie Yapko",
+          "entries": 13,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Depresia ca fenomen social și învățat — demitizare model genetic",
+            "Studiul serotonină pe 300k subiecți — medicamente vs. psihoterapie",
+            "Contagiune emoțională și transmitere transgenerațională a depresiei",
+            "Me Manual — evaluare vulnerabilitate, puncte forte și caz militar",
+            "Comorbiditate anxietate-depresie și orientare temporală"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei RO",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Vindecarea-Traumei-Alexandru-Plesea",
+            "Vindecarea-Traumei-Camelia-Paduraru",
+            "Vindecarea-Traumei-Lucian-Negoita",
+            "Vindecarea-Traumei-Parintele-Necula",
+            "Vindecarea-Traumei-Pera-Novacovici"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Niyama și tehnica stării de conștientizare (Stop)",
+            "Metoda Sedona și demistificarea fanteziilor despre regresie",
+            "Distincția regresie-memorie și principii de siguranță",
+            "Explorarea scopului divin și relația ego — Sinele Suprem"
+          ]
+        },
+        {
+          "curs": "Învață să hipnotizezi 2018",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoză - Ziua 1, Partea 2",
+            "Introducere în hipnoză - Ziua 1, Partea 3",
+            "Introducere în hipnoză - Ziua 1, Partea 4",
+            "Introducere în hipnoză - Ziua 1, Partea 5"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Emoții discrete vs. continuume și durata optimă a sesiunii",
+            "Identitate și cele 4 aspecte ale eului",
+            "Cauzalitate vs. alternativă — reframing-ul responsabilității",
+            "Reframe lingvistic, pronume subînțelese și schimbare identitate"
+          ]
+        },
+        {
+          "curs": "2022 Comunicarea Cu Sinele",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Terapie prin artă și caz 12 săptămâni — eliberare prin creație",
+            "Puterea cuvintelor DA/NU — sugestie directă și schimbare fiziologică",
+            "Depresia ca mesaj al corpului — rezistența ca ghid terapeutic",
+            "Ședință completă live — tăcere, lacrimi și procesare în ritm propriu"
+          ]
+        },
+        {
+          "curs": "Consilier Dezvoltare Personală — Evergreen",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 1 Lecția 3",
+            "Modul 2 Lecția 1",
+            "Modul 3 Lecția 5"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 3",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 12 - Modul 3",
+            "Lecția 14 - Modul 3",
+            "Lecția 6 - Modul 3"
+          ]
+        },
+        {
+          "curs": "Tehnici de Coaching și Terapie",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în Clean Language și metaforele subconștientului",
+            "Metaforele Mișcării: categorizarea metaforelor și materializarea lor",
+            "Clean Language aprofundat: întrebări curate și diagnosticul prin metafore"
+          ]
+        },
+        {
+          "curs": "Tehnici Terapeutice pt Coachi",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnici Terapeutice pt Coachi"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Metafore de elevație: status, ierarhie și cădere/ridicare",
+            "Principiul metaforei infinite: clientul este întotdeauna înăuntru"
+          ]
+        },
+        {
+          "curs": "Deconstructia Crezurilor",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Inventarul crezurilor iraționale (REBT Ellis) și tirania lui 'trebuie'",
+            "Punctul de cotitură, gândirea laterală, detașarea de identitate și identificarea crezurilor prin limbaj"
+          ]
+        },
+        {
+          "curs": "IEMT 2021 — Supliment Z3-5 + Z4",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Relații între identități: eu-mine-tu și depresie ca posesie",
+            "Identități non-umane, fantome familiale, legendă și practică IEMT"
+          ]
+        },
+        {
+          "curs": "2021-initiere-autohipnoza",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Initiere in Autohipnoza 5",
+            "Initiere in Autohipnoza 9"
+          ]
+        },
+        {
+          "curs": "2023-curs-autohipnoza",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Curs Autohipnoza 2023-Dimineata-Lecția 5",
+            "Curs Autohipnoza 2023-Dimineata-Lecția 9"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 19 - Modul 1",
+            "Lecția 20 - Modul 1"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 2",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 11 - Modul 2",
+            "Lecția 12 - Modul 2"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 4",
+            "Modul 5, Lecția 10"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 15",
+            "Modul 6, Lecția 3"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2020",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modulul 6 ",
+            "Modulul 8 "
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2024",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lectia 5",
+            "Lectia 12"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 4 (Completare)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sesiune - Gândire Negativă",
+            "Sesiune - Stari de Tristețe"
+          ]
+        },
+        {
+          "curs": "The Elman Induction EN 2015",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Amnesia and Losing the Numbers"
+          ]
+        },
+        {
+          "curs": "2015 Yagerian RO",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2015 Yagerian RO - Ziua 2"
+          ]
+        },
+        {
+          "curs": "2017 Yagerian Brazil",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian Brazil - Day 2"
+          ]
+        },
+        {
+          "curs": "Copilul Interior",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Exercițiu complet de prevenție, cercul calităților, Sumi Yama și integrarea copilului interior"
+          ]
+        },
+        {
+          "curs": "2020-autohipnoza-avansata",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza Avansata - Lectia 6"
+          ]
+        },
+        {
+          "curs": "2020 Autovindecare Online",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2020 Autovindecare Online - ."
+          ]
+        },
+        {
+          "curs": "2020 Terapia Partilor",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Q&A Roy Hunter — dependențe, suicid, părți furioase, Sine Superior"
+          ]
+        },
+        {
+          "curs": "Accesarea Geniului Personal (2021)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Crezuri limitatoare — identificare și transformare"
+          ]
+        },
+        {
+          "curs": "4 Tehnici Terapeutice 2022 Tîrgu Mureș",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Integrare și consolidare - Validarea subconștientă"
+          ]
+        },
+        {
+          "curs": "ECP.ro — Vindecarea Copilului Interior",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Cum să identifici și să vindeci copilul interior; Q&A și cazuri din viață"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2023 — Curs și Practică",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 11"
+          ]
+        },
+        {
+          "curs": "Rewind Technique — Certificare Internațională",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Evaluare pre-tratament: furie, vinovăție, depresie, what-if"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 1",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "De la Boala la Liniste"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Mancatul Excesiv si Nefericrea"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 3 + Recuperare LOT 2",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "[sub] Ana Maria - Sesiunea 2 - Gol si Depresie_converted"
+          ]
+        }
+      ]
+    },
+    "procrastinare": {
+      "label_ro": "Procrastinare și lipsă de motivație",
+      "label_en": "Procrastination and lack of motivation",
+      "keywords_ro": [
+        "procrastinare",
+        "motivație",
+        "amânare",
+        "inactivitate",
+        "dorință"
+      ],
+      "keywords_en": [
+        "procrastination",
+        "motivation",
+        "delay",
+        "laziness",
+        "avoidance"
+      ],
+      "total_entries": 151,
+      "top_courses": [
+        {
+          "curs": "NLP Masters Summit 2022",
+          "entries": 35,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare de Avinash Deshpande - NLP Masters Summit 2022",
+            "Prezentare de Shelle Rose Chavret - NLP Masters Summit 2022",
+            "Prezentare de Andy Smith - NLP Masters Summit 2022",
+            "Prezentare de Bogdan Gamalet - NLP Masters Summit 2022",
+            "Prezentare de Connirae Andreas - NLP Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "Coaching Masters Summit 2023 (EN)",
+          "entries": 32,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare Adrian Cahill - 2023 Coaching Masters Summit",
+            "Prezentare Anthony Jacquin - 2023 Coaching Masters Summit",
+            "Prezentare Arline Davis - 2023 Coaching Masters Summit",
+            "Prezentare Barbara Vercruysse - 2023 Coaching Masters Summit",
+            "Prezentare Brett Hill - 2023 Coaching Masters Summit"
+          ]
+        },
+        {
+          "curs": "Accesarea Geniului Personal (2021)",
+          "entries": 16,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Meta-States și starea optimală — fundamente",
+            "State management și fundamente meta-states",
+            "Pattern-uri avansate meta-states și aplicații practice",
+            "Crezuri limitatoare — identificare și transformare",
+            "Sinteză Ziua 1 și integrare pattern-uri"
+          ]
+        },
+        {
+          "curs": "Coaching Masters Summit 2023 (RO)",
+          "entries": 15,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare Marius Simion  - Eva Diro - 2023 Coaching Masters Summit",
+            "Prezentare Mihaela Stroe  - Corina Nazaru - Final - 2023 Coaching Masters Summit",
+            "Prezentare Mioara Soldan  - Diana Nicolae - Final - 2023 Coaching Masters Summit",
+            "Prezentare Octavian Baban  - Lenuta Rus - Final - 2023 Coaching Masters Summit",
+            "Prezentare Prezentare Melinda Fouts.mp4 - 2023 Coaching Masters Summit"
+          ]
+        },
+        {
+          "curs": "Învață să hipnotizezi 2018",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoză - Ziua 1, Partea 1",
+            "Introducere în hipnoză - Ziua 1, Partea 2",
+            "Introducere în hipnoză - Ziua 2, Partea 2",
+            "Introducere în hipnoză - Ziua 2, Partea 3",
+            "Introducere în hipnoză - Ziua 2, Partea 5"
+          ]
+        },
+        {
+          "curs": "Deconstructia Crezurilor",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ce sunt crezurile, cum ne guvernează viața și de ce e esențial să le identifici",
+            "Perfecționismul, crezul soluției perfecte și continuarea inventarului Ellis",
+            "Tehnica Deconstrucției: obiectivare, dezasamblare în elemente primare și disociere",
+            "Instrucțiuni practice de repetiție, antrenament progresiv și consolidare"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 6 - Modul 1",
+            "Lecția 15 - Modul 1",
+            "Lecția 18 - Modul 1",
+            "Lecția 23 - Modul 1"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 3",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 2 - Modul 3",
+            "Lecția 6 - Modul 3",
+            "Lecția 7 - Modul 3",
+            "Lecția 9 - Modul 3"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "De ce vin clienții la terapie: validare vs. schimbare reală",
+            "Structura rezultatelor și protocolul pașilor direcționali",
+            "Metafore de obstrucție: 4 strategii pentru obstacole"
+          ]
+        },
+        {
+          "curs": "2020-autohipnoza-avansata",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza Avansata - Lectia 2",
+            "Autohipnoza Avansata - Lectia 9",
+            "Autohipnoza avansata - lectia 10"
+          ]
+        },
+        {
+          "curs": "2022 Depresie Yapko",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Gândire globală vs. specifică și flexibilitate cognitivă",
+            "Toleranță ambiguitate, reatribuire și cadre de decizie",
+            "Stil atribuțional — stabil vs. instabil, intern vs. extern"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 2",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 10 - Modul 2",
+            "Lecția 2 - Modul 2",
+            "Lecția 3 - Modul 2"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 1",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Cum Fac Sa Nu Ma Mai Blochez ",
+            "Cum fac sa iau cele mai bune decizii",
+            "Dificultatea de a lua o Decizie"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modelul 'Dar dacă' și provocarea gândirii divergente",
+            "Observație ultra-precisă și antrenament senzorial"
+          ]
+        },
+        {
+          "curs": "4 Tehnici Terapeutice 2022 Tîrgu Mureș",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnica Flash - Rescriere rapidă de comportament",
+            "Swish Pattern - Schimbarea automată de stare și reflex"
+          ]
+        },
+        {
+          "curs": "2023-curs-autohipnoza",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Curs Autohipnoza 2023-Dimineata-Lecția 10",
+            "Curs Autohipnoza 2023-Dimineata-Lecția 13"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 6",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 1.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 3.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 7",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 17.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 5.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 9",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 3.mp4"
+          ]
+        },
+        {
+          "curs": "Consilier Dezvoltare Personală — Evergreen",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4 Lecția 7",
+            "Modul 5 Lectia 7 Principiul Amanarii"
+          ]
+        },
+        {
+          "curs": "The Elman Induction EN 2015",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Summary and Practice Recommendations"
+          ]
+        },
+        {
+          "curs": "Inel Gastric Virtual",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Vizualizare cinema — proiecție viitor, tehnica pașirii în ecran"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Niyama și tehnica stării de conștientizare (Stop)"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 10",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 3.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 8",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 16.mp4"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ma simt Demotivata - Valoarea Externa"
+          ]
+        },
+        {
+          "curs": "Tehnici de Coaching și Terapie",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnica Poveste Fără Sfârșit: deconstrucția problemelor și filmul intern"
+          ]
+        }
+      ]
+    },
+    "relatii": {
+      "label_ro": "Probleme relaționale și de cuplu",
+      "label_en": "Relationship and couple issues",
+      "keywords_ro": [
+        "relație",
+        "cuplu",
+        "relații",
+        "partner",
+        "iubire",
+        "înțelegere",
+        "comunicare",
+        "divorț"
+      ],
+      "keywords_en": [
+        "relationship",
+        "couple",
+        "partner",
+        "love",
+        "marriage",
+        "communication",
+        "divorce"
+      ],
+      "total_entries": 352,
+      "top_courses": [
+        {
+          "curs": "NLP Masters Summit 2022",
+          "entries": 34,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare de Avinash Deshpande - NLP Masters Summit 2022",
+            "Prezentare de Shelle Rose Chavret - NLP Masters Summit 2022",
+            "Prezentare de Andy Smith - NLP Masters Summit 2022",
+            "Prezentare de Bogdan Gamalet - NLP Masters Summit 2022",
+            "Prezentare de Connirae Andreas - NLP Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "Coaching Masters Summit 2023 (EN)",
+          "entries": 31,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare Adrian Cahill - 2023 Coaching Masters Summit",
+            "Prezentare Anthony Jacquin - 2023 Coaching Masters Summit",
+            "Prezentare Arline Davis - 2023 Coaching Masters Summit",
+            "Prezentare Barbara Vercruysse - 2023 Coaching Masters Summit",
+            "Prezentare Brett Hill - 2023 Coaching Masters Summit"
+          ]
+        },
+        {
+          "curs": "Consilier Dezvoltare Personală — Evergreen",
+          "entries": 30,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 1 Lecția 1",
+            "Modul 2 Lecția 3",
+            "Modul 2 Lecția 4",
+            "Modul 2 Lecția 5",
+            "Modul 2 Lecția 7"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 8",
+          "entries": 19,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 1.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 14.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 15.mp4"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2024",
+          "entries": 19,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lectia 1",
+            "Lectia 4",
+            "Lectia 7",
+            "Lectia 8",
+            "Lectia 10"
+          ]
+        },
+        {
+          "curs": "2022 Hypnosis Masters Summit",
+          "entries": 18,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Barry Neale Hypnosis Masters Summit 2022",
+            "Bruce Grimley Hypnosis Masters Summit 2022",
+            "David Key Hypnosis Masters Summit 2022",
+            "Douglas Flemons Hypnosis Masters Summit 2022",
+            "Freddy Jacquin Hypnosis Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 6",
+          "entries": 18,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 1.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 14.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 7",
+          "entries": 14,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 1.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 14.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 9",
+          "entries": 14,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 9 LEcția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 LEcția 6.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 14.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 15.mp4"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2022",
+          "entries": 12,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lectia 1",
+            "Lectia 5",
+            "Lectia 7",
+            "Lectia 10",
+            "Lectia 13"
+          ]
+        },
+        {
+          "curs": "Tehnici Hipnotice Bob Burns 2017",
+          "entries": 10,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnici Hipnotice - Ziua 1, Lectia 1: Prezentare curs, obiective, audiență și mentorat",
+            "Tehnici Hipnotice - Ziua 1, Lectia 2: Sistemul de succes, recunoaștere, asimilare, aplicare în hipnoză",
+            "Tehnici Hipnotice - Ziua 1, Lectia 3: Sisteme și procese, cum funcționează principiile în practică",
+            "Tehnici Hipnotice - Ziua 1, Lectia 4: Demonstrații practice, experiențe reale, cazuri de lucru",
+            "Tehnici Hipnotice - Ziua 1, Lectia 5: Incheierea Ziua 1, informații administrative, reduceri curs"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 10",
+          "entries": 10,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 10  LEcția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  LEcția 6.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 14.mp4"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere: Cele 4 moduri de descriere a problemelor și întrebarea 'Cum este?'",
+            "Cele 6 întrebări direcționale și exercițiul de desenare a metaforei",
+            "Matching terapeutic: structura problemei vs. structura soluției",
+            "De ce vin clienții la terapie: validare vs. schimbare reală",
+            "Metafore de elevație: status, ierarhie și cădere/ridicare"
+          ]
+        },
+        {
+          "curs": "Coaching Masters Summit 2023 (RO)",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare Anca Maftei  - Adrian Dan - Final - 2023 Coaching Masters Summit",
+            "Prezentare Eugen C. Popa  - Dan Adrian - Final - 2023 Coaching Masters Summit",
+            "Prezentare Madi Rădulescu  - Raluca Dariciuc - 2023 Coaching Masters Summit",
+            "Prezentare Prezentare Melinda Fouts.mp4 - 2023 Coaching Masters Summit",
+            "Prezentare Terri Levine - 2023 Coaching Masters Summit"
+          ]
+        },
+        {
+          "curs": "2015 Yagerian RO",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2015 Yagerian RO - Ziua 1",
+            "2015 Yagerian RO - Ziua 2",
+            "2015 Yagerian RO - Ziua 3"
+          ]
+        },
+        {
+          "curs": "2017 Yagerian Brazil",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian Brazil - Day 3",
+            "2017 Yagerian Brazil - Day 1",
+            "2017 Yagerian Brazil - Day 2"
+          ]
+        },
+        {
+          "curs": "2019 Resource Therapy Introduction",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Resource Therapy Day 1 Part 1",
+            "Resource Therapy Day 1 Part 2",
+            "Resource Therapy Day 1 Part 3",
+            "Resource Therapy Day 2 Part 1",
+            "Resource Therapy Day 2 Part 2"
+          ]
+        },
+        {
+          "curs": "Tehnica Săgeata 2018",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1-1: Ziua 1 - Partea 1",
+            "Lecția 1-2: Ziua 1 - Partea 2",
+            "Lecția 1-4: Ziua 1 - Partea 4",
+            "Lecția 2-1: Ziua 2 - Partea 1",
+            "Lecția 2-2: Ziua 2 - Partea 2"
+          ]
+        },
+        {
+          "curs": "Core Transformation — Workshop 3 Zile (2018)",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ziua 1 — Introducerea workshopului și primele exerciții de sub-modalități",
+            "Ziua 1 — Sub-modalități avansate și discuții despre experiențe",
+            "Ziua 1 — Alinierea pozițiilor perceptuale și feedback practică",
+            "Ziua 2 — Versiunea corectată a feedbackului de la Ziua 1 (alinierea sinelui)",
+            "Ziua 3 — Demonstrație live: Rescrierea Liniei Temporale Parentale cu Mark Andreas"
+          ]
+        },
+        {
+          "curs": "IEMT 2021 — Supliment Z3-5 + Z4",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Identitate: kinestezic vs analogic, relații între euri",
+            "Relații între identități: eu-mine-tu și depresie ca posesie",
+            "Metoda monedelor: configurații de familie și dinamică relațională",
+            "Metoda monedelor: aplicații avansate și dinamici pereche",
+            "Identități non-umane, fantome familiale, legendă și practică IEMT"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Efectele inițiale — disocierea și progresia în vârstă",
+            "Reguli practice de lucru cu clienți individuali",
+            "Identitate și cele 4 aspecte ale eului",
+            "Manipulare emoțională și validare strategică în terapie",
+            "Modelul parental și inhibarea răspunsului la feedback"
+          ]
+        },
+        {
+          "curs": "2017 Yagerian New York",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian New York - Day 1",
+            "2017 Yagerian New York - Day 3",
+            "2017 Yagerian New York - Demonstrations"
+          ]
+        },
+        {
+          "curs": "Autohipnoza Esențial",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza Esential - Lectia 10",
+            "Autohipnoza Esential - Lectia 11",
+            "Autohipnoza Esential - Lectia 12",
+            "Autohipnoza Esential - Lectia 2"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 10 - Modul 1",
+            "Lecția 9 - Modul 1",
+            "Lecția 13 - Modul 1",
+            "Lecția 21 - Modul 1"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 13",
+            "Modul 6, Lecția 5",
+            "Modul 6, Lecția 6"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2023 — Curs și Practică",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 13",
+            "Lecția 18",
+            "Lecția 20",
+            "Lecția 21"
+          ]
+        },
+        {
+          "curs": "Învață să hipnotizezi 2018",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoză - Ziua 1, Partea 1",
+            "Introducere în hipnoză - Ziua 1, Partea 3",
+            "Introducere în hipnoză - Ziua 2, Partea 1"
+          ]
+        },
+        {
+          "curs": "2020 Terapia Partilor",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Medierea între părți — negociere, compromisuri și test două săptămâni",
+            "Demonstrație live — inducție Elman și identificare problemă agresivitate",
+            "Demonstrație impasse — negociere multi-parte și Sinele Superior"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei RO",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Vindecarea-Traumei-Alexandru-Plesea",
+            "Vindecarea-Traumei-Florentina-Niculescu",
+            "Vindecarea-Traumei-Stephen-Porges"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Tehnici",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Emotive Journeying",
+            "Inner Structures",
+            "Modulul 6 Sesiune practică 1-Coach-ul Interior"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 3 + Recuperare LOT 2",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sesiune Ionela - Stari de Rau Periodice",
+            "Trei Pasi Simpli pentru a avea o Stare de Bine",
+            "[sub] Claudia Both"
+          ]
+        },
+        {
+          "curs": "Tehnici de Coaching și Terapie",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Metaforele Mișcării: categorizarea metaforelor și materializarea lor",
+            "Clean Language aprofundat: întrebări curate și diagnosticul prin metafore",
+            "Specificitate vs. generalizare în coaching: evitarea stereotipurilor"
+          ]
+        },
+        {
+          "curs": "Deconstructia Crezurilor",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ce sunt crezurile, cum ne guvernează viața și de ce e esențial să le identifici",
+            "Inventarul crezurilor iraționale (REBT Ellis) și tirania lui 'trebuie'"
+          ]
+        },
+        {
+          "curs": "2020 Autovindecare Online",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2020 Autovindecare Online - ."
+          ]
+        },
+        {
+          "curs": "4 Tehnici Terapeutice 2022 Tîrgu Mureș",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Practicarea Tehnicii Flash - Demonstrații și role-play",
+            "Demonstrații live și cazuri complexe cu toate 4 tehnicile"
+          ]
+        },
+        {
+          "curs": "Healing Trauma From the Root 2022 (International)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Pattern Recognition & Dialogue",
+            "Deep Understanding & Integration"
+          ]
+        },
+        {
+          "curs": "ECP.ro — Vindecarea Copilului Interior",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Meditație de mulțumire și recunoștință pentru copilul interior",
+            "Cum să identifici și să vindeci copilul interior; Q&A și cazuri din viață"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2020",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modulul 3 ",
+            "Modulul 4 "
+          ]
+        },
+        {
+          "curs": "Hipnoza Directivă - Elman 2016",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autoritate, raport și discuția pre-sesiune în hipnoterapie"
+          ]
+        },
+        {
+          "curs": "2016 Seminar Autovindecare",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2016 Seminar Autovindecare - ."
+          ]
+        },
+        {
+          "curs": "Inel Gastric Virtual",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Marketing și atragere clienți pentru practicieni"
+          ]
+        },
+        {
+          "curs": "Copilul Interior",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Conceptul de Introject, fixația orală, ACE test și tehnica liniei timpului pozitive"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Fundamentele hipnozei spirituale și Yoga Sutras — Yama"
+          ]
+        },
+        {
+          "curs": "2020-autohipnoza-avansata",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza avansata - lectia 10"
+          ]
+        },
+        {
+          "curs": "2020 Summit Starea de Bine",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2020 Summit Starea de Bine"
+          ]
+        },
+        {
+          "curs": "2022 Depresie Yapko",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Contagiune emoțională și transmitere transgenerațională a depresiei"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 1",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 1 Lecția 19"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 3",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 3 Lecția 8"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 4",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4, Lecția 1"
+          ]
+        },
+        {
+          "curs": "Rewind Technique — Certificare Internațională",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Q&A: atașament, self-treatment, traume multiple, variații NLP"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Nu ma Accepta Altii"
+          ]
+        }
+      ]
+    },
+    "sanatate": {
+      "label_ro": "Sănătate fizică și energie",
+      "label_en": "Physical health and energy",
+      "keywords_ro": [
+        "sănătate",
+        "energie",
+        "boală",
+        "durere fizică",
+        "imunitate",
+        "vigor"
+      ],
+      "keywords_en": [
+        "health",
+        "energy",
+        "illness",
+        "pain",
+        "physical",
+        "wellness"
+      ],
+      "total_entries": 149,
+      "top_courses": [
+        {
+          "curs": "2017 Yagerian New York",
+          "entries": 15,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian New York - Day 1",
+            "2017 Yagerian New York - Day 2",
+            "2017 Yagerian New York - Day 3",
+            "2017 Yagerian New York - Demonstrations"
+          ]
+        },
+        {
+          "curs": "2015 Yagerian RO",
+          "entries": 12,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2015 Yagerian RO - Ziua 1",
+            "2015 Yagerian RO - Ziua 2",
+            "2015 Yagerian RO - Ziua 3"
+          ]
+        },
+        {
+          "curs": "2022 Hypnosis Masters Summit",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Anthony Jacquin Hypnosis Masters Summit 2022",
+            "Barbara Scholl Hypnosis Masters Summit 2022",
+            "Douglas Flemons Hypnosis Masters Summit 2022",
+            "Freddy Jacquin Hypnosis Masters Summit 2022",
+            "Ina Oostrom Hypnosis Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 16",
+            "Modul 6, Lecția 2",
+            "Modul 6, Lecția 4",
+            "Modul 6, Lecția 1",
+            "Modul 6, Lecția 5"
+          ]
+        },
+        {
+          "curs": "Inel Gastric Virtual",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere, prezentări participanți, exercițiu de ancore",
+            "De ce dietele nu funcționează, mâncat în transă, regulile de bază",
+            "Hainele ca ancoră-țintă, audio zilnic, autohipnoză, pattern-uri alimentare",
+            "Q&A mese, autohipnoză de grup, metabolismul și frecvența meselor",
+            "Scenariul intervenției chirurgicale imaginare, metoda Dickens, sesiuni practice"
+          ]
+        },
+        {
+          "curs": "2021 Secrets to Effective Self-Hypnosis",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Self-Hypnosis Secrets Session 1",
+            "Self-Hypnosis Secrets Session 2",
+            "Self-Hypnosis Secrets Session 3",
+            "Self-Hypnosis Secrets Session 4",
+            "Self-Hypnosis Secrets Session 5"
+          ]
+        },
+        {
+          "curs": "2017 Yagerian Brazil",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian Brazil - Day 3",
+            "2017 Yagerian Brazil - Demonstrations",
+            "2017 Yagerian Brazil - Day 1",
+            "2017 Yagerian Brazil - Day 2"
+          ]
+        },
+        {
+          "curs": "Sănătate și Imunitate 2020",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1 - Sănătate și Imunitate",
+            "Lecția 2 - Sănătate și Imunitate",
+            "Lecția 3 - Sănătate și Imunitate",
+            "Lecția 4 - Sănătate și Imunitate",
+            "Lecția 5 - Sănătate și Imunitate"
+          ]
+        },
+        {
+          "curs": "Curs Hipnoză 2023",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoză - Dimineață - Lecția 2",
+            "Autohipnoză - Dimineață - Lecția 9",
+            "Autohipnoză - După-Amiază - Lecția 1",
+            "Autohipnoză - După-Amiază - Lecția 2",
+            "Autohipnoză - După-Amiază - Lecția 3"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Frica De A Imghiti",
+            "Frica de Neputinta",
+            "Hashimoto",
+            "Probelem cu Somnul - Insomnie",
+            "Rezolvarea Diabetului"
+          ]
+        },
+        {
+          "curs": "Hipnoza Directivă - Elman 2016",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Niveluri de transă: de la ușoară la starea Esdaile",
+            "Aplicații ale hipnozei: medicină, sport, creativitate și autohipnoză",
+            "Autohipnoză practică și aplicații terapeutice",
+            "Management durerii: anesteziere vs analgeziere",
+            "Aplicații clinice avansate și practică terapeutică"
+          ]
+        },
+        {
+          "curs": "Controlul Durerii prin Puterea Minții",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ce este durerea, tipuri de durere și primele tehnici de control",
+            "Tehnica Săgeata, limbaj hipnotic pentru durere și disocierea durere-persoană",
+            "Autosugestie, lucru cu copiii la dentist și exerciții practice în perechi",
+            "Demonstrație Angela: sesiune live de hipnoză pentru durere de spate cronică",
+            "Plasturele magic, tehnica braziliană și extracția durerii — tehnici spectaculoase"
+          ]
+        },
+        {
+          "curs": "2016 Seminar Autovindecare",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2016 Seminar Autovindecare - ."
+          ]
+        },
+        {
+          "curs": "2020 Autovindecare Online",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2020 Autovindecare Online - ."
+          ]
+        },
+        {
+          "curs": "2021 Hypnosis Masters Summit International",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sheila Granger - Clinical Hypnosis Presentation",
+            "Freddy Jacquin - Clinical Hypnosis Presentation",
+            "Kate Beaven - Marks - Clinical Hypnosis Presentation",
+            "Kathy Welter - Clinical Hypnosis Presentation"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 1",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Alergie",
+            "De la Boala la Liniste",
+            "Durere la Genunchi",
+            "Durerere in Genunchi"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 4 (Completare)",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Alergie",
+            "Durere la Genunchi",
+            "Sesiune - Stari de Tristețe",
+            "Sesiune - Tiroidită Autoimună - Hashimoto - Finalizat"
+          ]
+        },
+        {
+          "curs": "2020-autohipnoza-avansata",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza Avansata - Lectia 4",
+            "Autohipnoza Avansata - Lectia 6",
+            "Autohipnoza Avansata - Lectia 9"
+          ]
+        },
+        {
+          "curs": "2022 Comunicarea Cu Sinele",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ciclul creativ în 4 etape și ritmuri ultradiane",
+            "Auto-hipnoză și observatorul intern — transfer de durere",
+            "Post-procesare — 84 oportunități de vindecare pe săptămână"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei RO",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Vindecarea-Traumei-Alexandru-Plesea",
+            "Vindecarea-Traumei-Lucian-Negoita",
+            "Vindecarea-Traumei-Pera-Novacovici"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 4",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4, Lecția 6",
+            "Modul 4, Lecția 5",
+            "Modul 4, Lecția 7"
+          ]
+        },
+        {
+          "curs": "Masterclass Inductia Elman 2017",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Relaxarea brațului și management tensiune corporală"
+          ]
+        },
+        {
+          "curs": "Core Transformation — Workshop 3 Zile (2018)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ziua 3 — Troubleshooting practic și cazul durerii de tălpi"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Respirația Pătrată (Sama Vritti Pranayama) — teorie și practică"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "IEMT pentru durere cronică, tinitus și lucru kinestezic"
+          ]
+        },
+        {
+          "curs": "2023-curs-autohipnoza",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Curs Autohipnoza 2023-Dupa-amiaza-Lecția 10"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 4",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 4 Lecția 3"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 7"
+          ]
+        },
+        {
+          "curs": "Rewind Technique — Certificare Internațională",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Demonstrație live Rewind pe observator — Sujal (moartea tatălui pe FaceTime)"
+          ]
+        }
+      ]
+    },
+    "singurătate": {
+      "label_ro": "Singurătate și izolare socială",
+      "label_en": "Loneliness and social isolation",
+      "keywords_ro": [
+        "singurătate",
+        "izolare",
+        "singuratic",
+        "deprivare socială",
+        "izolat"
+      ],
+      "keywords_en": [
+        "loneliness",
+        "isolation",
+        "lonely",
+        "social isolation",
+        "isolated"
+      ],
+      "total_entries": 83,
+      "top_courses": [
+        {
+          "curs": "Consilier Dezvoltare Personală — Evergreen",
+          "entries": 30,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 1 Lecția 3",
+            "Modul 2 Lecția 1",
+            "Modul 2 Lecția 10",
+            "Modul 2 Lecția 2",
+            "Modul 2 Lecția 3"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 12,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 10 - Modul 1",
+            "Lecția 2 - Modul 1",
+            "Lecția 3 - Modul 1",
+            "Lecția 5 - Modul 1",
+            "Lecția 7 - Modul 1"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 11",
+            "Modul 6, Lecția 16",
+            "Modul 6, Lecția 5",
+            "Modul 6, Lecția 10",
+            "Modul 6, Lecția 4"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 2",
+          "entries": 8,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 2 - Modul 2",
+            "Lecția 7 - Modul 2",
+            "Lecția 10 - Modul 2",
+            "Lecția 11 - Modul 2",
+            "Lecția 12 - Modul 2"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 3",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 13 - Modul 3",
+            "Lecția 15 - Modul 3",
+            "Lecția 2 - Modul 3",
+            "Lecția 4 - Modul 3",
+            "Lecția 5 - Modul 3"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 4",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4, Lecția 10",
+            "Modul 4, Lecția 4",
+            "Modul 4, Lecția 8",
+            "Modul 4, Lecția 12",
+            "Modul 4, Lecția 7"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 10",
+            "Modul 5, Lecția 3",
+            "Modul 5, Lecția 7",
+            "Modul 5, Lecția 8",
+            "Modul 5, Lecția 9"
+          ]
+        },
+        {
+          "curs": "Învață să hipnotizezi 2018",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoză - Ziua 2, Partea 1",
+            "Introducere în hipnoză - Ziua 2, Partea 2"
+          ]
+        },
+        {
+          "curs": "2023-curs-autohipnoza",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Curs Autohipnoza 2023-Dimineata-Lecția 10",
+            "Curs Autohipnoza 2023-Dupa-amiaza-Lecția 8"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Metafore de împlinire: container, schimburi emoționale și legea substituirii"
+          ]
+        }
+      ]
+    },
+    "stima": {
+      "label_ro": "Stimă de sine și încredere în sine",
+      "label_en": "Self-esteem and self-confidence",
+      "keywords_ro": [
+        "stimă",
+        "încredere",
+        "autoestimă",
+        "valoare",
+        "respect",
+        "merite"
+      ],
+      "keywords_en": [
+        "self-esteem",
+        "confidence",
+        "self-worth",
+        "self-respect",
+        "worthy"
+      ],
+      "total_entries": 276,
+      "top_courses": [
+        {
+          "curs": "NLP Masters Summit 2022",
+          "entries": 29,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare de Avinash Deshpande - NLP Masters Summit 2022",
+            "Prezentare de Shelle Rose Chavret - NLP Masters Summit 2022",
+            "Prezentare de Andy Smith - NLP Masters Summit 2022",
+            "Prezentare de Bogdan Gamalet - NLP Masters Summit 2022",
+            "Prezentare de Connirae Andreas - NLP Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 8",
+          "entries": 25,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 1.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 13.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 6",
+          "entries": 13,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 14.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 15.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 16.mp4"
+          ]
+        },
+        {
+          "curs": "Accesarea Geniului Personal (2021)",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Meta-States și starea optimală — fundamente",
+            "Meta-stating self și ego mastery",
+            "Self-esteem vs. self-confidence — distincția fundamentală",
+            "Pattern-uri avansate meta-states și aplicații practice",
+            "Crezuri limitatoare — identificare și transformare"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 3",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1 - Modul 3",
+            "Lecția 11 - Modul 3",
+            "Lecția 12 - Modul 3",
+            "Lecția 13 - Modul 3",
+            "Lecția 14 - Modul 3"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 10,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Reguli practice de lucru cu clienți individuali",
+            "Modelul 'Dar dacă' și provocarea gândirii divergente",
+            "Identitate și cele 4 aspecte ale eului",
+            "Modelul parental și inhibarea răspunsului la feedback",
+            "Observație ultra-precisă și antrenament senzorial"
+          ]
+        },
+        {
+          "curs": "2021 Never Ending Stories",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Never Ending Stories Session 1",
+            "Never Ending Stories Session 2",
+            "Never Ending Stories Session 3",
+            "Never Ending Stories Session 4",
+            "Never Ending Stories Session 5"
+          ]
+        },
+        {
+          "curs": "Curs Hipnoză 2023",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoză - Dimineață - Lecția 5",
+            "Autohipnoză - Dimineață - Lecția 6",
+            "Autohipnoză - Dimineață - Lecția 9",
+            "Autohipnoză - Dimineață - Lecția 10",
+            "Autohipnoză - Dimineață - Lecția 11"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 7",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 15.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 16.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 17.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 19.mp4"
+          ]
+        },
+        {
+          "curs": "Core Transformation — Workshop 3 Zile (2018)",
+          "entries": 8,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ziua 1 — Introducerea workshopului și primele exerciții de sub-modalități",
+            "Ziua 1 — Sub-modalități avansate și discuții despre experiențe",
+            "Ziua 1 — Procesul de curățenie interioară și imagistica subconștientului",
+            "Ziua 1 — Alinierea pozițiilor perceptuale și feedback practică",
+            "Ziua 2 — Versiunea corectată a feedbackului de la Ziua 1 (alinierea sinelui)"
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 8,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Cele 6 întrebări direcționale și exercițiul de desenare a metaforei",
+            "Matching terapeutic: structura problemei vs. structura soluției",
+            "De ce vin clienții la terapie: validare vs. schimbare reală",
+            "Structura rezultatelor și protocolul pașilor direcționali",
+            "Metafore de obstrucție: 4 strategii pentru obstacole"
+          ]
+        },
+        {
+          "curs": "2019 Resource Therapy Introduction",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Resource Therapy Day 1 Part 1",
+            "Resource Therapy Day 1 Part 2",
+            "Resource Therapy Day 1 Part 3",
+            "Resource Therapy Day 2 Part 1",
+            "Resource Therapy Day 2 Part 2"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 9",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 9 LEcția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 19.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 4.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 5.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 8.mp4"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 10 - Modul 1",
+            "Lecția 6 - Modul 1",
+            "Lecția 14 - Modul 1",
+            "Lecția 15 - Modul 1",
+            "Lecția 17 - Modul 1"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 2",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 10 - Modul 2",
+            "Lecția 12 - Modul 2",
+            "Lecția 9 - Modul 2",
+            "Lecția 13 - Modul 2",
+            "Lecția 4 - Modul 2"
+          ]
+        },
+        {
+          "curs": "Identificarea și Utilizarea Resurselor Interioare",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în conceptul de părți ale personalității și resurse interioare",
+            "Tabelul resurselor interioare: tipuri, patologii și protocol de identificare",
+            "Protocolul de identificare: pași practici, exerciții și primele demonstrații",
+            "Demonstrații live: identificarea resurselor cu Mihaela — Profesionista și Mama",
+            "Demonstrații live: Prietenia, Pusher-ul și tehnica detaliilor concrete"
+          ]
+        },
+        {
+          "curs": "Tehnica Săgeata 2018",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 1-1: Ziua 1 - Partea 1",
+            "Lecția 1-2: Ziua 1 - Partea 2",
+            "Lecția 1-4: Ziua 1 - Partea 4",
+            "Lecția 2-1: Ziua 2 - Partea 1",
+            "Lecția 2-2: Ziua 2 - Partea 2"
+          ]
+        },
+        {
+          "curs": "Deconstructia Crezurilor",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ce sunt crezurile, cum ne guvernează viața și de ce e esențial să le identifici",
+            "Inventarul crezurilor iraționale (REBT Ellis) și tirania lui 'trebuie'",
+            "Perfecționismul, crezul soluției perfecte și continuarea inventarului Ellis",
+            "Tehnica Deconstrucției: obiectivare, dezasamblare în elemente primare și disociere",
+            "Punctul de cotitură, gândirea laterală, detașarea de identitate și identificarea crezurilor prin limbaj"
+          ]
+        },
+        {
+          "curs": "2022 Skills Over Pills (Depression — Michael Yapko)",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Leția 1 — Depression & Skills",
+            "Leția 4 — Depression & Skills",
+            "Leția 7 — Depression & Skills",
+            "Leția 8 — Depression & Skills",
+            "Leția 9 — Depression & Skills"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 11",
+            "Modul 6, Lecția 15",
+            "Modul 6, Lecția 2",
+            "Modul 6, Lecția 3",
+            "Modul 6, Lecția 9"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Fundamentele hipnozei spirituale și Yoga Sutras — Yama",
+            "Metoda Sedona și demistificarea fanteziilor despre regresie",
+            "Expansiunea conștiinței — meditație ghidată 360 de grade",
+            "The Wholeness Process (Connirae Andreas) — NLP și disoluție",
+            "Explorarea scopului divin și relația ego — Sinele Suprem"
+          ]
+        },
+        {
+          "curs": "2020 Terapia Partilor",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Protocol detaliat — pregătire, proces, încheiere și explicarea așteptărilor",
+            "Comunicare cu părți — ancorare, nume, intenții pozitive",
+            "Demonstrație live — inducție Elman și identificare problemă agresivitate",
+            "Demonstrație impasse — negociere multi-parte și Sinele Superior",
+            "Pașii 9-10 — oferire rol nou, integrare și joc mental terapeutic"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 10",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 10  LEcția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 2.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 5.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 9.mp4"
+          ]
+        },
+        {
+          "curs": "ECP.ro — Vindecarea Copilului Interior",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Trei metode de lucru în terapia copilului interior",
+            "Meditație de mulțumire și recunoștință pentru copilul interior",
+            "Exerciții practici pentru comunicare și legătură cu copilul interior",
+            "Zece afirmații puternice pentru comunicare cu copilul interior",
+            "Zece diferențe fundamentale între mintea conștientă și subconștient"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 4",
+            "Modul 5, Lecția 11",
+            "Modul 5, Lecția 12",
+            "Modul 5, Lecția 2",
+            "Modul 5, Lecția 8"
+          ]
+        },
+        {
+          "curs": "Consilier Dezvoltare Personală — Evergreen",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5 Lectia 1 Pasii catre indeplinirea obiectivului",
+            "Modul 5 Lectia 4 Tehnici de Comunicare directa",
+            "Modul 5 Lectia 5 Cererea Permisiunii",
+            "Modul 5 Lectia 6 Cum formulam intrebarile catre client"
+          ]
+        },
+        {
+          "curs": "The Elman Induction EN 2015",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introduction to Dave Elman and His Legacy",
+            "Pre-Induction Setup and Client Rapport",
+            "Complete Elman Induction Demonstration"
+          ]
+        },
+        {
+          "curs": "Copilul Interior",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în conceptul de copil interior și prima experiență pe linia timpului",
+            "Troubleshooting copil interior, iertare, prevenire pe linia timpului și cadoul simbolic",
+            "Exercițiu complet de prevenție, cercul calităților, Sumi Yama și integrarea copilului interior"
+          ]
+        },
+        {
+          "curs": "Inițiere în Secretele Hipnozei",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ce este și ce nu este hipnoza: definiție, mituri și structura creierului",
+            "Unde cerebrale, sugestii directe (cei 3P) și regulile sugestiilor eficiente",
+            "Sugestii indirecte, metafore și demonstrație de inducție Ericksoniană cu Gina"
+          ]
+        },
+        {
+          "curs": "2021 Hypnosis Masters Summit International",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tommy Vee - Clinical Hypnosis Presentation",
+            "Richard Barker - Clinical Hypnosis Presentation",
+            "Steve G. Jones - Clinical Hypnosis Presentation"
+          ]
+        },
+        {
+          "curs": "IEMT 2021 — Supliment Z3-5 + Z4",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Identitate: kinestezic vs analogic, relații între euri",
+            "Metoda monedelor: configurații de familie și dinamică relațională",
+            "Metoda monedelor: aplicații avansate și dinamici pereche"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ma simt Demotivata - Valoarea Externa",
+            "Ne-ncredere in Mine",
+            "Nu ma Accepta Altii"
+          ]
+        },
+        {
+          "curs": "Tehnici de Coaching și Terapie",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnica Poveste Fără Sfârșit: deconstrucția problemelor și filmul intern",
+            "Clean Language aprofundat: întrebări curate și diagnosticul prin metafore",
+            "Specificitate vs. generalizare în coaching: evitarea stereotipurilor"
+          ]
+        },
+        {
+          "curs": "Inductia Dave Elman - 2017 (Ro)",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Inducția completă: pre-inducție, contract și demonstrație integrală",
+            "Felicitări și îndemn la practică"
+          ]
+        },
+        {
+          "curs": "2017 Yagerian Brazil",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian Brazil - Day 3",
+            "2017 Yagerian Brazil - Day 2"
+          ]
+        },
+        {
+          "curs": "4 Tehnici Terapeutice 2022 Tîrgu Mureș",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Swish Pattern - Schimbarea automată de stare și reflex",
+            "Integrare și consolidare - Validarea subconștientă"
+          ]
+        },
+        {
+          "curs": "2022 Depresie Yapko",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Me Manual — evaluare vulnerabilitate, puncte forte și caz militar",
+            "Discriminări cognitive și evaluare control — caz John"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei En",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Locus de control — victimizare vs. responsabilitate",
+            "Responsabilitate și întrebări transformative — de la traumă la creștere"
+          ]
+        },
+        {
+          "curs": "2023-curs-autohipnoza",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Curs Autohipnoza 2023-Dimineata-Lecția 11",
+            "Curs Autohipnoza 2023-Dimineata-Lecția 13"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2020",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modulul 1 ",
+            "Modulul 11 "
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2023 — Curs și Practică",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "LEcția 10",
+            "Lecția 15"
+          ]
+        },
+        {
+          "curs": "2017 Yagerian New York",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2017 Yagerian New York - Day 3"
+          ]
+        },
+        {
+          "curs": "2020 Summit Starea de Bine",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2020 Summit Starea de Bine"
+          ]
+        },
+        {
+          "curs": "2021 Clinical Hypnotic Regression",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2021 Clinical Hypnotic Regression - Day 2"
+          ]
+        },
+        {
+          "curs": "2022 Comunicarea Cu Sinele",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "De la instructor la facilitator — receptivitate și acceptare"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 1",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 1 Lecția 16"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 5",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 5 Lecția 8"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Tehnici",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modulul 6 Sesiune practică 1-Coach-ul Interior"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 4",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4, Lecția 2"
+          ]
+        },
+        {
+          "curs": "Rewind Technique — Certificare Internațională",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Demonstrație live Rewind pe victimă — Helene (atac în familie)"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 1",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Cum sa nu ma mai compar"
+          ]
+        }
+      ]
+    },
+    "trauma": {
+      "label_ro": "Traumă și copil interior",
+      "label_en": "Trauma and inner child",
+      "keywords_ro": [
+        "traumă",
+        "copil interior",
+        "rană",
+        "dureră",
+        "suferință",
+        "durere",
+        "rănit"
+      ],
+      "keywords_en": [
+        "trauma",
+        "inner child",
+        "wound",
+        "pain",
+        "suffering",
+        "hurt",
+        "abuse"
+      ],
+      "total_entries": 407,
+      "top_courses": [
+        {
+          "curs": "NLP Masters Summit 2022",
+          "entries": 32,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Prezentare de Avinash Deshpande - NLP Masters Summit 2022",
+            "Prezentare de Shelle Rose Chavret - NLP Masters Summit 2022",
+            "Prezentare de Connirae Andreas - NLP Masters Summit 2022",
+            "Prezentare de Dave Shepard - NLP Masters Summit 2022",
+            "Prezentare de Dianne Lowther - NLP Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "2020 Terapia Partilor",
+          "entries": 19,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere Terapia Părților — concepte fundamentale și principii",
+            "Neutralitatea terapeutului — principii etice în Terapia Părților",
+            "Cele trei faze ale sesiunii și pregătirea clientului",
+            "Selectarea problemei și practică în breakout rooms",
+            "Protocolul celor 11 pași — alegerea inducției și prioritizare client"
+          ]
+        },
+        {
+          "curs": "2023-curs-autohipnoza",
+          "entries": 17,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Curs Autohipnoza 2023-Dimineata-Lecția 1",
+            "Curs Autohipnoza 2023-Dimineata-Lecția 14",
+            "Curs Autohipnoza 2023-Dimineata-Lecția 2 - Magda Tomescu.txt",
+            "Curs Autohipnoza 2023-Dimineata-Lecția 6",
+            "Curs Autohipnoza 2023-Dimineata-Lecția 7"
+          ]
+        },
+        {
+          "curs": "IEMT — Integral Eye Movement Therapy (2021)",
+          "entries": 16,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducerea IEMT și principiile fundamentale ale mișcării ochilor",
+            "Efectele inițiale — disocierea și progresia în vârstă",
+            "Reguli practice de lucru cu clienți individuali",
+            "Emoții discrete vs. continuume și durata optimă a sesiunii",
+            "PTSD, fast fobie vs. IEMT și elicitare indirectă"
+          ]
+        },
+        {
+          "curs": "2022 Healing Trauma Summit",
+          "entries": 16,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Arayeh Norouzi — Trauma-Informed Care & Client Safety",
+            "Christine Forner — Somatic Healing & Body-Based Trauma",
+            "Cynthia Allen — Trauma Recovery & Neurobiological Healing",
+            "David Muss — EMDR & Trauma Processing",
+            "Gordon Emmerson — Trauma Therapy & Neuroplasticity"
+          ]
+        },
+        {
+          "curs": "Cursuri Intro (Site + Gratuit)",
+          "entries": 16,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "1.Hipnoza Regresivă - Învață cum se face.mp4",
+            "2.Hipnoză Regresivă - Principiile de Bază.mp4",
+            "3.Ședință de Hipnoză Regresivă de Succes - Sfaturi U...",
+            "4.Tipuri de Hipnoză Regresivă.mp4",
+            "5.Hipnoză Regresivă - Fobia de Șerpi - Demonstrație L..."
+          ]
+        },
+        {
+          "curs": "2022 Hypnosis Masters Summit",
+          "entries": 15,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Barbara Scholl Hypnosis Masters Summit 2022",
+            "Barry Neale Hypnosis Masters Summit 2022",
+            "Bruce Grimley Hypnosis Masters Summit 2022",
+            "David Key Hypnosis Masters Summit 2022",
+            "Gabor Filo Hypnosis Masters Summit 2022"
+          ]
+        },
+        {
+          "curs": "2022 Comunicarea Cu Sinele",
+          "entries": 14,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sistemul imunitar emoțional și rolul terapeutului ca spațiu sigur",
+            "Lucru somatic vs. cognitiv — mâinile ca manipulare simbolică",
+            "Sisteme complexe și proprietăți emergente — observare fără presupuneri",
+            "Practică oglindire — facilitare vs. instrucțiune, co-creație",
+            "De la instructor la facilitator — receptivitate și acceptare"
+          ]
+        },
+        {
+          "curs": "2024 Healing Trauma Summit",
+          "entries": 14,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Laurel Parnell — Imaginal Experiencing & EMDR Art",
+            "Adriana James — Rapid Change & Trauma Release",
+            "Doug O'Brien — Behavioral Change & Phobia Resolution",
+            "MIke Mandel — Hypnotherapy & Rapid Transformation",
+            "Paul GIlbert — Compassion & Self-Criticism"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei En",
+          "entries": 13,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere program — protocol măsurare pre/post 0-10",
+            "Prezentare program — metodologie NLP și exemple clinice",
+            "Definiția traumei — neurobiologie și Body Keeps the Score",
+            "Respirație vagală și activare nerv vag prin zâmbet",
+            "Disociere și re-codificare — perspectiva observatorului"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 6",
+          "entries": 13,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 14.mp4",
+            "Coaching 2023 Grupa 1 Modul 6 Lecția 17.mp4"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2023 — Curs și Practică",
+          "entries": 12,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "LEcția 6",
+            "Lecția 14",
+            "Lecția 16",
+            "Lecția 17",
+            "Lecția 18"
+          ]
+        },
+        {
+          "curs": "Rewind Technique — Certificare Internațională",
+          "entries": 12,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere PTSD și avantajele Tehnicii Rewind",
+            "Evaluare pre-tratament: furie, vinovăție, depresie, what-if",
+            "Procedura Rewind pas cu pas — demonstrație cu Eugen",
+            "Q&A: disociere, abuz prelungit, preverbal, alcool, somatics",
+            "Q&A: atașament, self-treatment, traume multiple, variații NLP"
+          ]
+        },
+        {
+          "curs": "2021-initiere-autohipnoza",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Initiere in Autohipnoza 1",
+            "Initiere in Autohipnoza 10",
+            "Initiere in Autohipnoza 11",
+            "Initiere in Autohipnoza 12",
+            "Initiere in Autohipnoza 13"
+          ]
+        },
+        {
+          "curs": "Healing Trauma From the Root 2022 (International)",
+          "entries": 11,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Course Introduction & Welcome",
+            "Foundations of Trauma Understanding",
+            "Trauma Events & Life Impact",
+            "Guided Visualization Technique",
+            "Core Concepts & Memory Work"
+          ]
+        },
+        {
+          "curs": "Tehnici Hipnotice Bob Burns 2017",
+          "entries": 10,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnici Hipnotice - Ziua 1, Lectia 1: Prezentare curs, obiective, audiență și mentorat",
+            "Tehnici Hipnotice - Ziua 1, Lectia 2: Sistemul de succes, recunoaștere, asimilare, aplicare în hipnoză",
+            "Tehnici Hipnotice - Ziua 1, Lectia 3: Sisteme și procese, cum funcționează principiile în practică",
+            "Tehnici Hipnotice - Ziua 1, Lectia 4: Demonstrații practice, experiențe reale, cazuri de lucru",
+            "Tehnici Hipnotice - Ziua 1, Lectia 5: Incheierea Ziua 1, informații administrative, reduceri curs"
+          ]
+        },
+        {
+          "curs": "Core Transformation — Workshop 3 Zile (2018)",
+          "entries": 10,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Ziua 1 — Procesul de curățenie interioară și imagistica subconștientului",
+            "Ziua 1 — Rolul notițelor, interpretarea procesului și cele 4 aspecte cheie",
+            "Ziua 2 — Recapitulare, întrebări și introducere lucrul cu părțile",
+            "Ziua 2 — Cele 4 aspecte cheie ale Core Transformation: părți, minte subconștientă, intenție pozitivă, stări esențiale",
+            "Ziua 2 — Practică ghidată și troubleshooting proces Core Transformation"
+          ]
+        },
+        {
+          "curs": "2020 Summit Starea de Bine",
+          "entries": 10,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2020 Summit Starea de Bine"
+          ]
+        },
+        {
+          "curs": "2021 Hypnosis Masters Summit International",
+          "entries": 9,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Foojan Zeine - Clinical Hypnosis Presentation",
+            "Andy Hahn Transcription - finished - Clinical Hypnosis Presentation",
+            "James Elliot - Clinical Hypnosis Presentation",
+            "Liza Boubari - Clinical Hypnosis Presentation",
+            "Tommy Vee - Clinical Hypnosis Presentation"
+          ]
+        },
+        {
+          "curs": "2022 Vindecarea Traumei RO",
+          "entries": 8,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Vindecarea-Traumei-Andreea-Manolica",
+            "Vindecarea-Traumei-Camelia-Paduraru",
+            "Vindecarea-Traumei-Florentina-Niculescu",
+            "Vindecarea-Traumei-Matei-Georgescu",
+            "Vindecarea-Traumei-Parintele-Necula"
+          ]
+        },
+        {
+          "curs": "2019 Resource Therapy Introduction",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Resource Therapy Day 1 Part 1",
+            "Resource Therapy Day 1 Part 2",
+            "Resource Therapy Day 1 Part 3",
+            "Resource Therapy Day 2 Part 1",
+            "Resource Therapy Day 2 Part 2"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 9",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 17.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 2.mp4",
+            "Coaching 2023 Grupa 1 Modul 9 Lecția 21.mp4"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 3 + Recuperare LOT 2",
+          "entries": 7,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sesiune - Sentiment de Frica",
+            "Vreau sa imi pese de mine!",
+            "Vreau sa scap de Bautura",
+            "[sub] Ana Buiculescu - frica de inec cu alimente",
+            "[sub] Aurora Constantinescu - teama de a iesi din casa"
+          ]
+        },
+        {
+          "curs": "2017-autohipnoza",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza 1",
+            "Autohipnoza 2",
+            "Autohipnoza 2017.txt",
+            "Autohipnoza 3",
+            "Autohipnoza 4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 7",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 15.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 17.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 2.mp4",
+            "Coaching 2023 Grupa 1 Modul 7 Lecția 6.mp4"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 8",
+          "entries": 6,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 23.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 25.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 26.mp4",
+            "Coaching 2023 Grupa 1 Modul 8 Lecția 27.mp4"
+          ]
+        },
+        {
+          "curs": "The Elman Induction EN 2015",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Understanding the 5 Stages of Elman Induction",
+            "Deepening Techniques After Elman Induction",
+            "Fractionation: Testing and Deepening",
+            "Amnesia and Losing the Numbers",
+            "Complete Elman Induction Demonstration"
+          ]
+        },
+        {
+          "curs": "Hipnoza Spirituală (2018)",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Fundamentele hipnozei spirituale și Yoga Sutras — Yama",
+            "Metoda Sedona și demistificarea fanteziilor despre regresie",
+            "Distincția regresie-memorie și principii de siguranță",
+            "The Wholeness Process (Connirae Andreas) — NLP și disoluție",
+            "Explorarea scopului divin și relația ego — Sinele Suprem"
+          ]
+        },
+        {
+          "curs": "2020-autohipnoza-avansata",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza Avansata - Lectia 1",
+            "Autohipnoza Avansata - Lectia 3",
+            "Autohipnoza Avansata - Lectia 5",
+            "Autohipnoza Avansata - Lectia 7",
+            "Autohipnoza Avansata - Lectia 8"
+          ]
+        },
+        {
+          "curs": "IEMT 2021 — Supliment Z3-5 + Z4",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Fobii: modele, disociere, specifice vs generale",
+            "Relații între identități: eu-mine-tu și depresie ca posesie",
+            "Metoda monedelor: configurații de familie și dinamică relațională",
+            "Metoda monedelor: aplicații avansate și dinamici pereche",
+            "Identități non-umane, fantome familiale, legendă și practică IEMT"
+          ]
+        },
+        {
+          "curs": "2022 Skills Over Pills (Depression — Michael Yapko)",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Leția 12 — Depression & Skills",
+            "Leția 3 — Depression & Skills",
+            "Leția 13 — Lucru cu Depresia",
+            "Leția 9 — Lucru cu Depresia",
+            "Leția 3 — Lucru cu Depresia"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 10",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 10  LEcția 10.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 11.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 12.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 13.mp4",
+            "Coaching 2023 Grupa 1 Modul 10  Lecția 3.mp4"
+          ]
+        },
+        {
+          "curs": "ECP.ro — Vindecarea Copilului Interior",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Trei metode de lucru în terapia copilului interior",
+            "Exerciții practici pentru comunicare și legătură cu copilul interior",
+            "Zece afirmații puternice pentru comunicare cu copilul interior",
+            "Exercițiu de regresie și perceție din perspectiva copilului interior",
+            "Cum să identifici și să vindeci copilul interior; Q&A și cazuri din viață"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 1",
+          "entries": 5,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Am Sentimentul ca sunt Tradata",
+            "Camera Gri - Angela",
+            "Cum scap de ce mi s-a inoculat",
+            "Duc dupa mine problema",
+            "Eliberare in 5 Pasi - Explicatie"
+          ]
+        },
+        {
+          "curs": "Copilul Interior",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în conceptul de copil interior și prima experiență pe linia timpului",
+            "Conceptul de Introject, fixația orală, ACE test și tehnica liniei timpului pozitive",
+            "Troubleshooting copil interior, iertare, prevenire pe linia timpului și cadoul simbolic",
+            "Exercițiu complet de prevenție, cercul calităților, Sumi Yama și integrarea copilului interior"
+          ]
+        },
+        {
+          "curs": "Învață să hipnotizezi 2018",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în hipnoză - Ziua 1, Partea 4",
+            "Introducere în hipnoză - Ziua 2, Partea 2",
+            "Introducere în hipnoză - Ziua 2, Partea 3",
+            "Introducere în hipnoză - Ziua 2, Partea 5"
+          ]
+        },
+        {
+          "curs": "4 Tehnici Terapeutice 2022 Tîrgu Mureș",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Fundamentele comportamentului și subconștientului",
+            "Tehnica Rewind - Eliminarea traumelor și fobiilor",
+            "Demonstrații live și cazuri complexe cu toate 4 tehnicile",
+            "Recapitulare și sistematizare - Protocoale integrate finale"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2020",
+          "entries": 4,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modulul 4 ",
+            "Modulul 6 ",
+            "Modulul 8 ",
+            "Modulul 9 "
+          ]
+        },
+        {
+          "curs": "Metaforele Mișcării - 2018",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere: Cele 4 moduri de descriere a problemelor și întrebarea 'Cum este?'",
+            "Principiul metaforei infinite: clientul este întotdeauna înăuntru",
+            "Metafore de rănire: sufocare, vătămare penetrantă și non-penetrantă"
+          ]
+        },
+        {
+          "curs": "Autohipnoza Esențial",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Autohipnoza Esential - Lectia 1",
+            "Autohipnoza Esential - Lectia 4",
+            "Autohipnoza Esential - Lectia 6"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 3",
+          "entries": 3,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 11 - Modul 3",
+            "Lecția 2 - Modul 3",
+            "Lecția 8 - Modul 3"
+          ]
+        },
+        {
+          "curs": "Identificarea și Utilizarea Resurselor Interioare",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Introducere în conceptul de părți ale personalității și resurse interioare",
+            "Demonstrații live: Prietenia, Pusher-ul și tehnica detaliilor concrete"
+          ]
+        },
+        {
+          "curs": "Parts Therapy 2024 (International) — Bonus",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Parts Therapy — Continuation & Practical Demonstrations (Day 2)",
+            "Parts Therapy — Live Demonstration with Volunteer"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 5",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 5, Lecția 3",
+            "Modul 5, Lecția 8"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 6",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 6, Lecția 13",
+            "IP-Lenuta-Webinar Marius.mp4"
+          ]
+        },
+        {
+          "curs": "Tehnici de Coaching și Terapie",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Aprofundare Poveste Fără Sfârșit: troubleshooting, film complet și măsurare",
+            "Terapia Integrativă de Mișcare a Ochilor (EMT) și Regresia Hipnotică"
+          ]
+        },
+        {
+          "curs": "Tehnici Terapeutice pt Coachi",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnici Terapeutice pt Coachi"
+          ]
+        },
+        {
+          "curs": "2015 Yagerian RO",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "2015 Yagerian RO - Ziua 2"
+          ]
+        },
+        {
+          "curs": "Deconstructia Crezurilor",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnica Deconstrucției: obiectivare, dezasamblare în elemente primare și disociere"
+          ]
+        },
+        {
+          "curs": "Accesarea Geniului Personal (2021)",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Meta-stating self și ego mastery"
+          ]
+        },
+        {
+          "curs": "Tehnica Lebădă - Bob Burns 2021",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Tehnica Lebădă - Comunicare directă cu subconștientul fără hipnoză"
+          ]
+        },
+        {
+          "curs": "2022 Depresie Yapko",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Contagiune emoțională și transmitere transgenerațională a depresiei"
+          ]
+        },
+        {
+          "curs": "2023 Hypnotic Regression International",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Day 2 - Leția 4 — Regresie Hipnotică"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Tehnici",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modulul 6 Sesiune practică 2"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 1",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lecția 20 - Modul 1"
+          ]
+        },
+        {
+          "curs": "Hipnoza Online 2021-2022 — Modul 4",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Modul 4, Lecția 2"
+          ]
+        },
+        {
+          "curs": "Marketing pentru Coachi",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Marketing pentru Coachi"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2022",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lectia 22"
+          ]
+        },
+        {
+          "curs": "Regresia Hipnotică 2024",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Lectia 18"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Schimbarea Perspectivei"
+          ]
+        }
+      ]
+    },
+    "trauma_morala": {
+      "label_ro": "Traumă morală și conflict de valori",
+      "label_en": "Moral trauma and value conflict",
+      "keywords_ro": [
+        "traumă morală",
+        "valori",
+        "conflict",
+        "demnitate",
+        "principii"
+      ],
+      "keywords_en": [
+        "moral trauma",
+        "values",
+        "conflict",
+        "integrity",
+        "principles"
+      ],
+      "total_entries": 6,
+      "top_courses": [
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 1",
+          "entries": 2,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 1 Lecția 11",
+            "Coaching 2023 Grupa 1 Modul 1 Lecția 12"
+          ]
+        },
+        {
+          "curs": "Parts Therapy 2024 (International) — Bonus",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Parts Therapy — Continuation & Practical Demonstrations (Day 2)"
+          ]
+        },
+        {
+          "curs": "Coaching 2023 Grupa 1 — Modul 5",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Coaching 2023 Grupa 1 Modul 5 Lecția 7"
+          ]
+        },
+        {
+          "curs": "ECP.ro — Vindecarea Copilului Interior",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Exercițiu de regresie și perceție din perspectiva copilului interior"
+          ]
+        },
+        {
+          "curs": "Transcrieri Sesiuni Terapeutice — Lot 2",
+          "entries": 1,
+          "hipnoza_pct": 100,
+          "coaching_pct": 0,
+          "sample_titles": [
+            "Sesiune - Lucru Fara Continut"
+          ]
+        }
+      ]
+    }
+  }
+}
