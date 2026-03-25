@@ -242,6 +242,50 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 
 .upgrade-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:500;align-items:center;justify-content:center;padding:20px}.upgrade-overlay.visible{display:flex}.upgrade-box{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:32px 28px;max-width:560px;width:100%;animation:fadeIn 0.3s ease}.upgrade-box h3{font-size:1.15rem;font-weight:700;color:var(--text-heading);margin-bottom:6px;text-align:center}.upgrade-box .upgrade-sub{font-size:0.88rem;color:var(--text-secondary);text-align:center;margin-bottom:20px;line-height:1.5}.upgrade-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}.upgrade-card{padding:18px 16px;border:1px solid var(--border-card);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--transition);text-align:center}.upgrade-card:hover{transform:translateY(-2px)}.upgrade-card.card-av{border-color:rgba(79,193,233,0.3)}.upgrade-card.card-av:hover{border-color:var(--accent-blue);background:rgba(79,193,233,0.06)}.upgrade-card.card-ex{border-color:rgba(246,212,76,0.3)}.upgrade-card.card-ex:hover{border-color:var(--accent-gold);background:rgba(246,212,76,0.06)}.upgrade-card .uc-tier{font-size:0.95rem;font-weight:700;margin-bottom:4px}.upgrade-card .uc-criteria{font-size:0.78rem;color:var(--text-muted);margin-bottom:10px}.upgrade-card .uc-features{font-size:0.8rem;color:var(--text-secondary);line-height:1.6;text-align:left;margin-bottom:14px}.upgrade-card .uc-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:10px 20px;border:none;border-radius:var(--radius-sm);font-family:var(--font-main);font-size:0.85rem;font-weight:600;cursor:pointer;transition:all var(--transition);width:100%}.upgrade-card.card-av .uc-tier{color:var(--accent-blue)}.upgrade-card.card-av .uc-btn{background:var(--accent-blue);color:#0f1f28}.upgrade-card.card-ex .uc-tier{color:var(--accent-gold)}.upgrade-card.card-ex .uc-btn{background:var(--accent-gold);color:#0f1f28}.upgrade-dismiss{display:block;margin:0 auto;padding:8px 16px;border:none;background:transparent;color:var(--text-muted);font-family:var(--font-main);font-size:0.82rem;cursor:pointer;transition:color var(--transition)}.upgrade-dismiss:hover{color:var(--text-primary)}@media(max-width:480px){.upgrade-cards{grid-template-columns:1fr}.upgrade-box{padding:24px 20px}}
 .app-wrap{width:100%;max-width:100%;overflow-x:hidden;position:relative}
+
+/* ===== GENERATOR STYLES ===== */
+.gen-wizard{display:flex;flex-direction:column;gap:20px}
+.gen-step{display:none;animation:fadeIn 0.3s ease}.gen-step.active{display:block}
+.gen-question{font-size:1.15rem;font-weight:700;color:var(--text-heading);margin-bottom:16px;line-height:1.4}
+.gen-cards{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:20px}
+.gen-card{padding:14px 18px;background:var(--bg-input);border:1px solid var(--border-card);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--transition);font-size:0.92rem;color:var(--text-primary);line-height:1.4;text-align:left}
+.gen-card:hover{border-color:var(--accent-blue);background:rgba(79,193,233,0.04)}
+.gen-card.selected{border-color:var(--accent-blue);background:rgba(79,193,233,0.08);color:var(--text-heading);font-weight:600}
+.gen-or{display:flex;align-items:center;gap:12px;margin:12px 0;color:var(--text-muted);font-size:0.78rem;font-weight:600;text-transform:uppercase;letter-spacing:0.1em}
+.gen-or::before,.gen-or::after{content:'';flex:1;height:1px;background:var(--border-subtle)}
+.gen-free-input{width:100%;padding:12px 16px;border:1px solid var(--border-input);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-family:var(--font-main);font-size:0.9rem;outline:none;transition:border-color var(--transition);resize:none}
+.gen-free-input:focus{border-color:var(--accent-blue)}
+.gen-free-input::placeholder{color:var(--text-muted)}
+.gen-slider-group{margin:16px 0}
+.gen-slider-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.gen-slider-label span:first-child{font-size:0.88rem;font-weight:600;color:var(--text-secondary)}
+.gen-slider-label .gen-slider-val{font-family:var(--font-mono);font-size:0.95rem;font-weight:700;color:var(--accent-blue);min-width:28px;text-align:right}
+.gen-slider{-webkit-appearance:none;width:100%;height:6px;border-radius:3px;background:var(--bg-input);border:1px solid var(--border-input);outline:none;transition:all var(--transition)}
+.gen-slider::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--accent-blue);cursor:pointer;border:2px solid var(--bg-body);box-shadow:0 0 8px rgba(79,193,233,0.3)}
+.gen-slider::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent-blue);cursor:pointer;border:2px solid var(--bg-body)}
+.gen-nav{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+.gen-nav .btn-back{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;border:1px solid var(--border-card);border-radius:var(--radius-sm);background:transparent;color:var(--text-secondary);font-family:var(--font-main);font-size:0.85rem;font-weight:500;cursor:pointer;transition:all var(--transition)}
+.gen-nav .btn-back:hover{border-color:var(--accent-blue);color:var(--accent-blue)}
+.gen-level-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px}
+.gen-level-card{padding:16px 14px;background:var(--bg-input);border:2px solid var(--border-card);border-radius:var(--radius-sm);cursor:pointer;transition:all var(--transition);text-align:center}
+.gen-level-card:hover{border-color:var(--accent-blue)}
+.gen-level-card.selected{border-color:var(--accent-blue);background:rgba(79,193,233,0.08)}
+.gen-level-card .gl-name{font-size:0.92rem;font-weight:700;color:var(--text-heading);margin-bottom:4px}
+.gen-level-card .gl-desc{font-size:0.75rem;color:var(--text-muted);line-height:1.4}
+.gen-name-row{display:none;margin-bottom:16px}.gen-name-row.visible{display:block}
+.gen-name-row label{display:block;font-size:0.85rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px}
+.gen-name-row input{width:100%;padding:11px 14px;border:1px solid var(--border-input);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-family:var(--font-main);font-size:0.9rem;outline:none;transition:border-color var(--transition)}
+.gen-name-row input:focus{border-color:var(--accent-blue)}
+.gen-result-block{margin-bottom:20px}
+.gen-result-block h3{font-size:1rem;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.gen-item{padding:12px 16px;background:var(--bg-input);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);margin-bottom:8px;font-size:0.9rem;line-height:1.6;color:var(--text-primary);position:relative}
+.gen-item .gen-copy{position:absolute;top:8px;right:8px;padding:4px 8px;border:1px solid var(--border-subtle);border-radius:4px;background:var(--bg-card);color:var(--text-muted);font-size:0.7rem;cursor:pointer;transition:all var(--transition);font-family:var(--font-mono)}
+.gen-item .gen-copy:hover{border-color:var(--accent-blue);color:var(--accent-blue)}
+.gen-usage-note{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;padding:14px 16px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm);margin-bottom:20px}
+.gen-script-block{padding:20px;background:var(--bg-input);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm);font-size:0.9rem;line-height:1.8;color:var(--text-primary);white-space:pre-wrap;max-height:500px;overflow-y:auto}
+.gen-daily-counter{font-size:0.78rem;color:var(--text-muted);font-family:var(--font-mono);text-align:right;margin-bottom:8px}
+@media(max-width:768px){.gen-level-cards{grid-template-columns:1fr}.gen-nav{flex-direction:column}.gen-nav button{width:100%;justify-content:center}}
+/* ===== END GENERATOR STYLES ===== */
 </style>
 </head>
 <body>
@@ -253,6 +297,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <nav class="sidebar-nav" id="sidebarNav">
 <a href="#acasa" data-section="acasa" class="active"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span><span data-i18n="nav_home">Acasă</span></a>
 <a href="#evaluator" data-section="evaluator"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><span data-i18n="nav_evaluator">Evaluator</span></a>
+<a href="#generator" data-section="generator"><span class="nav-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span data-i18n="nav_generator">Generator</span><span class="nav-badge" style="background:rgba(46,204,113,0.15);color:var(--accent-green)">NOU</span></a>
 <a href="#antrenament" data-section="antrenament"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span><span data-i18n="nav_training">Antrenament</span><span class="nav-badge" style="background:rgba(46,204,113,0.15);color:var(--accent-green)">NOU</span></a>
 <a href="#biblioteca" data-section="biblioteca"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span><span data-i18n="nav_library">Bibliotecă</span><span class="nav-badge" data-i18n="badge_soon">În curând</span></a>
 <a href="#ghid" data-section="ghid"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span data-i18n="nav_guide">Ghid</span></a>
@@ -283,6 +328,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="card-grid">
 <div class="card toolkit-card" onclick="navigateTo('evaluator')"><div class="toolkit-icon" style="background:rgba(231,76,94,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#e74c5e" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4 data-i18n="tool_eval_title">Evaluator</h4><p data-i18n="tool_eval_desc">Evaluează sugestii pe criterii obiective.</p></div>
 <div class="card toolkit-card" onclick="navigateTo('antrenament')"><div class="toolkit-icon" style="background:rgba(246,212,76,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#F6D44C" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h4 data-i18n="tool_train_title">Antrenament</h4><p data-i18n="tool_train_desc">Brief terapeutic, scrie sugestia, evaluează.</p></div>
+<div class="card toolkit-card" onclick="navigateTo('generator')"><div class="toolkit-icon" style="background:rgba(46,204,113,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h4 data-i18n="tool_gen_title">Generator</h4><p data-i18n="tool_gen_desc">Primești sugestii personalizate, gata de folosit.</p></div>
 <div class="card toolkit-card" onclick="navigateTo('ghid')"><div class="toolkit-icon" style="background:rgba(79,193,233,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#4FC1E9" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/></svg></div><h4 data-i18n="tool_guide_title">Ghid</h4><p data-i18n="tool_guide_desc">Principii, criterii, lanțul cauzal.</p></div>
 </div>
 </section>
@@ -327,6 +373,75 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="loading-overlay" id="loadingOverlay"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)" data-i18n="loading_title">Se evaluează sugestia...</div><div class="progress-bar-wrap"><div class="progress-bar-track"><div class="progress-bar-fill" id="progressBarFill"></div></div><div class="progress-bar-info"><span id="progressPct">0%</span><span id="progressEta">~15s</span></div></div><div class="loading-steps" id="loadingSteps"><div class="loading-step" id="lstep1"><span class="step-dot"></span><span data-i18n="lstep1">Analizez structura...</span></div><div class="loading-step" id="lstep2"><span class="step-dot"></span><span data-i18n="lstep2">Verific limbajul...</span></div><div class="loading-step" id="lstep3"><span class="step-dot"></span><span data-i18n="lstep3">Evaluez eficacitatea...</span></div><div class="loading-step" id="lstep4"><span class="step-dot"></span><span data-i18n="lstep4">Generez feedback...</span></div></div></div>
 <div id="results"></div>
 </section>
+<section class="page-section" id="sec-generator">
+<div class="section-tag">Generator AI</div>
+<h1 class="section-title">Generator de Sugestii</h1>
+<p class="section-desc">Raspunde la 2 intrebari simple si primesti afirmatii si sugestii hipnotice personalizate, gata de folosit.</p>
+<div class="gen-daily-counter" id="genDailyCounter"></div>
+<div class="card gen-wizard" id="genWizard">
+
+<div class="gen-step active" id="genStep1">
+<div class="gen-question">Ce vrei sa rezolvi sau sa vindeci?</div>
+<div class="gen-cards" id="genProblemCards">
+<div class="gen-card" data-val="Anxietate, frici, atacuri de panica" onclick="selectGenCard(this,'problem')">Anxietate, frici, panica</div>
+<div class="gen-card" data-val="Nu am incredere in mine, stima de sine scazuta" onclick="selectGenCard(this,'problem')">Nu am incredere in mine</div>
+<div class="gen-card" data-val="Ma cert cu partenerul, probleme in relatie" onclick="selectGenCard(this,'problem')">Ma cert cu partenerul</div>
+<div class="gen-card" data-val="Mananc sau beau prea mult, dependente" onclick="selectGenCard(this,'problem')">Mananc/beau prea mult</div>
+<div class="gen-card" data-val="Nu pot dormi, sunt epuizat, burnout" onclick="selectGenCard(this,'problem')">Nu pot dormi / sunt epuizat(a)</div>
+</div>
+<div class="gen-or">sau scrie cu cuvintele tale</div>
+<textarea class="gen-free-input" id="genProblemFree" rows="2" placeholder="Descrie pe scurt ce te deranjeaza..."></textarea>
+<div class="gen-slider-group">
+<div class="gen-slider-label"><span>Cat de mare e problema?</span><span class="gen-slider-val" id="genIntensityVal">5</span></div>
+<input type="range" class="gen-slider" id="genIntensity" min="1" max="10" value="5" oninput="document.getElementById('genIntensityVal').textContent=this.value">
+</div>
+<div class="gen-slider-group">
+<div class="gen-slider-label"><span>Cat de mult iti doresti sa rezolvi?</span><span class="gen-slider-val" id="genMotivationVal">7</span></div>
+<input type="range" class="gen-slider" id="genMotivation" min="1" max="10" value="7" oninput="document.getElementById('genMotivationVal').textContent=this.value">
+</div>
+<div class="gen-nav"><button class="btn-primary" onclick="genNextStep(2)">Continua <span style="margin-left:4px">&#8594;</span></button></div>
+</div>
+
+<div class="gen-step" id="genStep2">
+<div class="gen-question">Cum vrei sa fii? Ce rezultat doresti?</div>
+<div class="gen-cards" id="genGoalCards">
+<div class="gen-card" data-val="Liniste si calm interior" onclick="selectGenCard(this,'goal')">Liniste si calm interior</div>
+<div class="gen-card" data-val="Incredere si curaj" onclick="selectGenCard(this,'goal')">Incredere si curaj</div>
+<div class="gen-card" data-val="Somn bun si energie" onclick="selectGenCard(this,'goal')">Somn bun si energie</div>
+<div class="gen-card" data-val="Relatii armonioase" onclick="selectGenCard(this,'goal')">Relatii armonioase</div>
+<div class="gen-card" data-val="Control si libertate" onclick="selectGenCard(this,'goal')">Control si libertate</div>
+</div>
+<div class="gen-or">sau descrie tu</div>
+<textarea class="gen-free-input" id="genGoalFree" rows="2" placeholder="Descrie cum vrei sa te simti..."></textarea>
+<div class="gen-nav"><button class="gen-nav btn-back" onclick="genNextStep(1)">&#8592; Inapoi</button><button class="btn-primary" onclick="genNextStep(3)">Continua <span style="margin-left:4px">&#8594;</span></button></div>
+</div>
+
+<div class="gen-step" id="genStep3">
+<div class="gen-question">Alege nivelul si genereaza</div>
+<div class="gen-level-cards">
+<div class="gen-level-card selected" data-level="simplu" onclick="selectGenLevel(this)"><div class="gl-name">Simplu</div><div class="gl-desc">5 afirmatii + 5 sugestii</div></div>
+<div class="gen-level-card" data-level="avansat" onclick="selectGenLevel(this)"><div class="gl-name">Avansat</div><div class="gl-desc">+ 3 sugestii cu scenariu senzorial</div></div>
+<div class="gen-level-card" data-level="expert" onclick="selectGenLevel(this)"><div class="gl-name">Expert</div><div class="gl-desc">+ script complet autohipnoza (5-7 min)</div></div>
+</div>
+<div class="gen-name-row" id="genNameRow">
+<label>Prenumele tau (optional — apare in sugestii)</label>
+<input type="text" id="genNameInput" placeholder="ex: Maria" maxlength="30">
+</div>
+<div class="gen-nav"><button class="gen-nav btn-back" onclick="genNextStep(2)">&#8592; Inapoi</button><button class="btn-primary" id="genSubmitBtn" onclick="runGenerator()">Genereaza sugestii <span style="margin-left:4px">&#8594;</span></button></div>
+</div>
+
+<div class="gen-step" id="genStepLoading">
+<div class="loading-overlay" style="display:flex"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Se genereaza sugestiile tale...</div><div class="loading-steps" style="margin-top:16px"><div class="loading-step active"><span class="step-dot"></span><span>Analizez problema...</span></div><div class="loading-step"><span class="step-dot"></span><span>Construiesc scenariul...</span></div><div class="loading-step"><span class="step-dot"></span><span>Creez afirmatii si sugestii...</span></div></div></div>
+</div>
+
+<div class="gen-step" id="genStepResult">
+<div id="genResults"></div>
+<div class="gen-nav" style="justify-content:space-between"><button class="gen-nav btn-back" onclick="resetGenerator()">&#8592; Genereaza altele</button><button class="btn-secondary" onclick="genEvaluateFirst()">Evalueaza o sugestie</button></div>
+</div>
+
+</div>
+</section>
+
 <section class="page-section" id="sec-antrenament"><div class="section-tag" data-i18n="train_tag">Practică dirijată</div><h1 class="section-title" data-i18n="train_title">Mod Antrenament</h1><p class="section-desc" data-i18n="train_desc">Primești un brief terapeutic, scrii sugestia, apoi o evaluezi automat.</p>
 <div class="card" style="margin-bottom:20px;border-color:rgba(246,212,76,0.3)">
 <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px">
@@ -464,8 +579,8 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 (function(){if(typeof document.body?.style!=='undefined'){document.body.style.zoom='100%';document.documentElement.style.zoom='100%'}})();
 // ===== PRESERVED TRANSLATIONS & CONSTANTS =====
 // === T ===
-const T={ro:{brand_title:'Puterea Minții',nav_home:'Acasă',nav_evaluator:'Evaluator',nav_training:'Antrenament',nav_library:'Bibliotecă',nav_guide:'Ghid',nav_history:'Istoric',badge_soon:'În curând',home_tag:'Platforma ta de evaluare',home_title:'Cât de bine comunici cu Subconștientul?',home_desc:'Primul instrument din lume care evaluează calitatea textului sugestiilor hipnotice pe criterii obiective. Scor, feedback detaliat și versiune îmbunătățită — totul într-un singur loc.',hero_title:'Scrie. Evaluează. Îmbunătățește.',hero_desc:'Introdu sugestia ta hipnotică și primești evaluare pe criterii validate, scor normalizat la 100, identificarea celor mai importante probleme și o versiune îmbunătățită cu explicații.',hero_cta:'Evaluează o sugestie →',hero_example:'Încearcă un exemplu',stat_criteria:'Criterii de evaluare',stat_max:'Scor maxim',stat_ai_label:'Evaluat de Claude',toolkit_title:'Instrumentele tale',toolkit_desc:'Tot ce ai nevoie pentru sugestii hipnotice de calitate profesională.',tool_eval_title:'Evaluator',tool_eval_desc:'Evaluează sugestii pe criterii obiective.',tool_train_title:'Antrenament',tool_train_desc:'Brief terapeutic, scrie sugestia, evaluează.',tool_guide_title:'Ghid',tool_guide_desc:'Principii, criterii, lanțul cauzal.',eval_tag:'Evaluare AI',eval_title:'Evaluator',eval_desc:'Introdu sugestia hipnotică și primești evaluare pe criterii obiective cu scor normalizat la 100.',tier_basic:'Basic · 3 criterii',tier_advanced:'Avansat · 9 criterii',tier_expert:'Expert · 17 criterii 🔒',input_label:'Sugestia ta hipnotică',input_hint:'Scrie sau lipește sugestia pe care vrei să o evaluezi. Cu cât e mai specifică, cu atât feedback-ul e mai precis.',input_placeholder:'ex: Cu fiecare respirație, simți cum o căldură blândă se răspândește în tot corpul tău...',eval_btn_text:'Evaluează',loading_title:'Se evaluează sugestia...',lstep1:'Analizez structura...',lstep2:'Verific limbajul...',lstep3:'Evaluez eficacitatea...',lstep4:'Generez feedback...',train_tag:'Practică dirijată',train_title:'Mod Antrenament',train_desc:'Primești un brief terapeutic, scrii sugestia, apoi o evaluezi automat.',train_placeholder:'Modul de antrenament va fi disponibil în curând.',lib_tag:'Referință',lib_title:'Biblioteca de Sugestii Model',lib_desc:'Sugestii hipnotice model, clasificate pe categorii terapeutice.',lib_placeholder:'Biblioteca va fi disponibilă în curând.',guide_tag:'Referință',guide_title:'Ghid',guide_desc:'Principii fundamentale, criterii de evaluare și lanțul cauzal.',hist_tag:'Istoric evaluări',hist_title:'Istoric',hist_desc:'Evaluările tale anterioare, salvate local.',hist_placeholder:'Istoricul evaluărilor va fi disponibil în curând.',placeholder_coming:'În curând',res_detected_type:'Tip detectat',res_problems:'Probleme principale',res_improved:'Versiune îmbunătățită',res_changes:'Ce s-a schimbat și de ce',res_criteria:'Criteriu',res_score_col:'Scor',res_obs:'Observație',res_new_eval:'← Evaluare nouă',error_empty:'Scrie sau lipește o sugestie hipnotică mai întâi.',error_api:'Eroare la evaluare. Încearcă din nou.',level_excellent:'Excelent',level_good:'Bun',level_medium:'Mediu',level_weak:'Slab',level_inadequate:'Inadecvat',level_desc_excellent:'Gata de utilizare profesională',level_desc_good:'Cu mici ajustări devine excelent',level_desc_medium:'Necesită îmbunătățiri pe 2-3 criterii',level_desc_weak:'Probleme structurale semnificative',level_desc_inadequate:'Rescrie de la zero',guide_part1:'Principii Fundamentale',guide_chain_title:'Lanțul Cauzal',guide_chain_desc:'CUVÂNT → IMAGINE SENZORIALĂ → REPREZENTARE INTERIOARĂ → EMOȚIE/TRĂIRE → REACȚIE BIOLOGICĂ → EXPERIENȚĂ NOUĂ → CONVINGERE NOUĂ → IDENTITATE NOUĂ. Dacă sugestia nu produce imagine senzorială la primul pas, nimic nu se produce.',guide_filters_title:'Cele 3 Filtre de Verificare Rapidă',guide_filter1:'1. CONȚINUT vs. STRUCTURĂ — Dacă poți înlocui subiectul și sugestia funcționează la fel, e prea generală.',guide_filter2:'2. ARE FILM? — Citește sugestia. Apare o imagine mentală clară? Dacă nu, rescrie.',guide_filter3:'3. CE FILM? — Dacă 10 oameni văd 10 scene diferite, sugestia e prea vagă.',guide_3p_title:'Cei 3P (sugestii directe)',guide_3p_desc:'Personală (despre mine), Pozitivă (ce este, nu ce nu este), Prezent (Sunt, Am, Fac).',guide_part2:'Criterii de Evaluare',guide_crit_struct:'Bloc A — Structurale',guide_c1_t:'C1: Formulare Pozitivă',guide_c1_d:'Subconștientul nu procesează negația. Zero „nu", „fără", „încetează".',guide_c2_t:'C2: Specificitate și Claritate',guide_c2_d:'Imagini concrete, multi-senzoriale, nu abstracțiuni.',guide_c3_t:'C3: Timp Verbal Corect',guide_c3_d:'Prezent = experiența ACUM. Viitorul amână, condiționalul pune la îndoială.',guide_crit_lang:'Bloc B — Limbaj',guide_c4_t:'C4: Gradualitate și Progresie',guide_c4_d:'Schimbarea se construiește treptat: „din ce în ce mai...", „cu fiecare respirație...".',guide_c5_t:'C5: Ancorare Senzorială VAKOG',guide_c5_d:'Minim 2 canale senzoriale: Vizual, Auditiv, Kinestezic, Olfactiv, Gustativ.',guide_c6_t:'C6: Ritm și Cadență',guide_c6_d:'Sincronizat cu respirația. Propoziții 5-15 cuvinte.',guide_c7_t:'C7: Pattern-uri Lingvistice',guide_c7_d:'Directe: comenzi, repetiție. Indirecte: presupoziții, comenzi încorporate, truisme.',guide_crit_eff:'Bloc C — Eficacitate',guide_c8_t:'C8: Obiectiv Terapeutic Clar',guide_c8_d:'Direcție unică, fiecare propoziție contribuie.',guide_c9_t:'C9: Activare Emoțională',guide_c9_d:'CREEAZĂ starea, nu o descrie.',guide_part3:'Scale de Interpretare',guide_scale_desc:'90-100: Excelent · 75-89: Bun · 60-74: Mediu · 40-59: Slab · Sub 40: Inadecvat.'},
-en:{brand_title:'Puterea Minții',nav_home:'Home',nav_evaluator:'Evaluator',nav_training:'Training',nav_library:'Library',nav_guide:'Guide',nav_history:'History',badge_soon:'Coming soon',home_tag:'Your evaluation platform',home_title:'How well do you communicate with the Subconscious?',home_desc:'The world\'s first tool that evaluates hypnotic suggestion text quality on objective criteria. Score, detailed feedback, and improved version — all in one place.',hero_title:'Write. Evaluate. Improve.',hero_desc:'Enter your hypnotic suggestion and receive evaluation on validated criteria, a score normalized to 100, key issue identification, and an improved version with explanations.',hero_cta:'Evaluate a suggestion →',hero_example:'Try an example',stat_criteria:'Evaluation criteria',stat_max:'Maximum score',stat_ai_label:'Evaluated by Claude',toolkit_title:'Your Toolkit',toolkit_desc:'Everything you need for professional-quality hypnotic suggestions.',tool_eval_title:'Evaluator',tool_eval_desc:'Evaluate suggestions on objective criteria.',tool_train_title:'Training',tool_train_desc:'Therapeutic brief, write suggestion, evaluate.',tool_guide_title:'Guide',tool_guide_desc:'Principles, criteria, causal chain.',eval_tag:'AI Evaluation',eval_title:'Evaluator',eval_desc:'Enter a hypnotic suggestion and receive evaluation on objective criteria with a score normalized to 100.',tier_basic:'Basic · 3 criteria',tier_advanced:'Advanced · 9 criteria',tier_expert:'Expert · 17 criteria 🔒',input_label:'Your hypnotic suggestion',input_hint:'Write or paste the suggestion you want to evaluate. The more specific, the more precise the feedback.',input_placeholder:'e.g.: With each breath, you feel a gentle warmth spreading throughout your entire body...',eval_btn_text:'Evaluate',loading_title:'Evaluating suggestion...',lstep1:'Analyzing structure...',lstep2:'Checking language...',lstep3:'Evaluating efficacy...',lstep4:'Generating feedback...',train_tag:'Guided practice',train_title:'Training Mode',train_desc:'Receive a therapeutic brief, write the suggestion, then auto-evaluate.',train_placeholder:'Training mode will be available soon.',lib_tag:'Reference',lib_title:'Model Suggestion Library',lib_desc:'Model hypnotic suggestions, classified by therapeutic categories.',lib_placeholder:'The library will be available soon.',guide_tag:'Reference',guide_title:'Guide',guide_desc:'Core principles, evaluation criteria, and the causal chain.',hist_tag:'Evaluation history',hist_title:'History',hist_desc:'Your previous evaluations, saved locally.',hist_placeholder:'Evaluation history will be available soon.',placeholder_coming:'Coming soon',res_detected_type:'Detected type',res_problems:'Main issues',res_improved:'Improved version',res_changes:'What changed and why',res_criteria:'Criterion',res_score_col:'Score',res_obs:'Observation',res_new_eval:'← New evaluation',error_empty:'Please write or paste a hypnotic suggestion first.',error_api:'Evaluation error. Please try again.',level_excellent:'Excellent',level_good:'Good',level_medium:'Average',level_weak:'Weak',level_inadequate:'Inadequate',level_desc_excellent:'Ready for professional use',level_desc_good:'Minor adjustments needed',level_desc_medium:'Needs improvement on 2-3 criteria',level_desc_weak:'Significant structural issues',level_desc_inadequate:'Rewrite from scratch',guide_part1:'Core Principles',guide_chain_title:'The Causal Chain',guide_chain_desc:'WORD → SENSORY IMAGE → INNER REPRESENTATION → EMOTION → BIOLOGICAL REACTION → NEW EXPERIENCE → NEW BELIEF → NEW IDENTITY. If the suggestion doesn\'t produce a sensory image at the first step, nothing occurs.',guide_filters_title:'The 3 Quick Verification Filters',guide_filter1:'1. CONTENT vs. STRUCTURE — If you can replace the subject and the suggestion works the same, it\'s too general.',guide_filter2:'2. DOES IT HAVE A MOVIE? — Read the suggestion. Does a clear mental image appear? If not, rewrite.',guide_filter3:'3. WHAT MOVIE? — If 10 people see 10 different scenes, the suggestion is too vague.',guide_3p_title:'The 3P Rule (direct suggestions)',guide_3p_desc:'Personal (about me), Positive (what is, not what isn\'t), Present (I am, I have, I do).',guide_part2:'Evaluation Criteria',guide_crit_struct:'Block A — Structural',guide_c1_t:'C1: Positive Formulation',guide_c1_d:'The subconscious doesn\'t process negation. Zero "don\'t", "without", "stop".',guide_c2_t:'C2: Specificity & Clarity',guide_c2_d:'Concrete, multi-sensory images, not abstractions.',guide_c3_t:'C3: Correct Verb Tense',guide_c3_d:'Present = experience NOW. Future delays, conditional questions.',guide_crit_lang:'Block B — Language',guide_c4_t:'C4: Graduality & Progression',guide_c4_d:'Change builds gradually: "more and more...", "with each breath...".',guide_c5_t:'C5: VAKOG Sensory Anchoring',guide_c5_d:'Min 2 sensory channels: Visual, Auditory, Kinesthetic, Olfactory, Gustatory.',guide_c6_t:'C6: Rhythm & Cadence',guide_c6_d:'Synchronized with breathing. Sentences of 5-15 words.',guide_c7_t:'C7: Linguistic Patterns',guide_c7_d:'Direct: commands, repetition. Indirect: presuppositions, embedded commands, truisms.',guide_crit_eff:'Block C — Efficacy',guide_c8_t:'C8: Clear Therapeutic Objective',guide_c8_d:'Single direction, every sentence contributes.',guide_c9_t:'C9: Emotional Activation',guide_c9_d:'CREATE the state, don\'t describe it.',guide_part3:'Interpretation Scales',guide_scale_desc:'90-100: Excellent · 75-89: Good · 60-74: Average · 40-59: Weak · Below 40: Inadequate.'},
+const T={ro:{brand_title:'Puterea Minții',nav_home:'Acasă',nav_evaluator:'Evaluator',nav_training:'Antrenament',nav_library:'Bibliotecă',nav_guide:'Ghid',nav_history:'Istoric',badge_soon:'În curând',home_tag:'Platforma ta de evaluare',home_title:'Cât de bine comunici cu Subconștientul?',home_desc:'Primul instrument din lume care evaluează calitatea textului sugestiilor hipnotice pe criterii obiective. Scor, feedback detaliat și versiune îmbunătățită — totul într-un singur loc.',hero_title:'Scrie. Evaluează. Îmbunătățește.',hero_desc:'Introdu sugestia ta hipnotică și primești evaluare pe criterii validate, scor normalizat la 100, identificarea celor mai importante probleme și o versiune îmbunătățită cu explicații.',hero_cta:'Evaluează o sugestie →',hero_example:'Încearcă un exemplu',stat_criteria:'Criterii de evaluare',stat_max:'Scor maxim',stat_ai_label:'Evaluat de Claude',toolkit_title:'Instrumentele tale',toolkit_desc:'Tot ce ai nevoie pentru sugestii hipnotice de calitate profesională.',tool_eval_title:'Evaluator',tool_eval_desc:'Evaluează sugestii pe criterii obiective.',tool_train_title:'Antrenament',tool_train_desc:'Brief terapeutic, scrie sugestia, evaluează.',tool_guide_title:'Ghid',tool_guide_desc:'Principii, criterii, lanțul cauzal.',nav_generator:'Generator',tool_gen_title:'Generator',tool_gen_desc:'Primești sugestii personalizate, gata de folosit.',eval_tag:'Evaluare AI',eval_title:'Evaluator',eval_desc:'Introdu sugestia hipnotică și primești evaluare pe criterii obiective cu scor normalizat la 100.',tier_basic:'Basic · 3 criterii',tier_advanced:'Avansat · 9 criterii',tier_expert:'Expert · 17 criterii 🔒',input_label:'Sugestia ta hipnotică',input_hint:'Scrie sau lipește sugestia pe care vrei să o evaluezi. Cu cât e mai specifică, cu atât feedback-ul e mai precis.',input_placeholder:'ex: Cu fiecare respirație, simți cum o căldură blândă se răspândește în tot corpul tău...',eval_btn_text:'Evaluează',loading_title:'Se evaluează sugestia...',lstep1:'Analizez structura...',lstep2:'Verific limbajul...',lstep3:'Evaluez eficacitatea...',lstep4:'Generez feedback...',train_tag:'Practică dirijată',train_title:'Mod Antrenament',train_desc:'Primești un brief terapeutic, scrii sugestia, apoi o evaluezi automat.',train_placeholder:'Modul de antrenament va fi disponibil în curând.',lib_tag:'Referință',lib_title:'Biblioteca de Sugestii Model',lib_desc:'Sugestii hipnotice model, clasificate pe categorii terapeutice.',lib_placeholder:'Biblioteca va fi disponibilă în curând.',guide_tag:'Referință',guide_title:'Ghid',guide_desc:'Principii fundamentale, criterii de evaluare și lanțul cauzal.',hist_tag:'Istoric evaluări',hist_title:'Istoric',hist_desc:'Evaluările tale anterioare, salvate local.',hist_placeholder:'Istoricul evaluărilor va fi disponibil în curând.',placeholder_coming:'În curând',res_detected_type:'Tip detectat',res_problems:'Probleme principale',res_improved:'Versiune îmbunătățită',res_changes:'Ce s-a schimbat și de ce',res_criteria:'Criteriu',res_score_col:'Scor',res_obs:'Observație',res_new_eval:'← Evaluare nouă',error_empty:'Scrie sau lipește o sugestie hipnotică mai întâi.',error_api:'Eroare la evaluare. Încearcă din nou.',level_excellent:'Excelent',level_good:'Bun',level_medium:'Mediu',level_weak:'Slab',level_inadequate:'Inadecvat',level_desc_excellent:'Gata de utilizare profesională',level_desc_good:'Cu mici ajustări devine excelent',level_desc_medium:'Necesită îmbunătățiri pe 2-3 criterii',level_desc_weak:'Probleme structurale semnificative',level_desc_inadequate:'Rescrie de la zero',guide_part1:'Principii Fundamentale',guide_chain_title:'Lanțul Cauzal',guide_chain_desc:'CUVÂNT → IMAGINE SENZORIALĂ → REPREZENTARE INTERIOARĂ → EMOȚIE/TRĂIRE → REACȚIE BIOLOGICĂ → EXPERIENȚĂ NOUĂ → CONVINGERE NOUĂ → IDENTITATE NOUĂ. Dacă sugestia nu produce imagine senzorială la primul pas, nimic nu se produce.',guide_filters_title:'Cele 3 Filtre de Verificare Rapidă',guide_filter1:'1. CONȚINUT vs. STRUCTURĂ — Dacă poți înlocui subiectul și sugestia funcționează la fel, e prea generală.',guide_filter2:'2. ARE FILM? — Citește sugestia. Apare o imagine mentală clară? Dacă nu, rescrie.',guide_filter3:'3. CE FILM? — Dacă 10 oameni văd 10 scene diferite, sugestia e prea vagă.',guide_3p_title:'Cei 3P (sugestii directe)',guide_3p_desc:'Personală (despre mine), Pozitivă (ce este, nu ce nu este), Prezent (Sunt, Am, Fac).',guide_part2:'Criterii de Evaluare',guide_crit_struct:'Bloc A — Structurale',guide_c1_t:'C1: Formulare Pozitivă',guide_c1_d:'Subconștientul nu procesează negația. Zero „nu", „fără", „încetează".',guide_c2_t:'C2: Specificitate și Claritate',guide_c2_d:'Imagini concrete, multi-senzoriale, nu abstracțiuni.',guide_c3_t:'C3: Timp Verbal Corect',guide_c3_d:'Prezent = experiența ACUM. Viitorul amână, condiționalul pune la îndoială.',guide_crit_lang:'Bloc B — Limbaj',guide_c4_t:'C4: Gradualitate și Progresie',guide_c4_d:'Schimbarea se construiește treptat: „din ce în ce mai...", „cu fiecare respirație...".',guide_c5_t:'C5: Ancorare Senzorială VAKOG',guide_c5_d:'Minim 2 canale senzoriale: Vizual, Auditiv, Kinestezic, Olfactiv, Gustativ.',guide_c6_t:'C6: Ritm și Cadență',guide_c6_d:'Sincronizat cu respirația. Propoziții 5-15 cuvinte.',guide_c7_t:'C7: Pattern-uri Lingvistice',guide_c7_d:'Directe: comenzi, repetiție. Indirecte: presupoziții, comenzi încorporate, truisme.',guide_crit_eff:'Bloc C — Eficacitate',guide_c8_t:'C8: Obiectiv Terapeutic Clar',guide_c8_d:'Direcție unică, fiecare propoziție contribuie.',guide_c9_t:'C9: Activare Emoțională',guide_c9_d:'CREEAZĂ starea, nu o descrie.',guide_part3:'Scale de Interpretare',guide_scale_desc:'90-100: Excelent · 75-89: Bun · 60-74: Mediu · 40-59: Slab · Sub 40: Inadecvat.'},
+en:{brand_title:'Puterea Minții',nav_home:'Home',nav_evaluator:'Evaluator',nav_training:'Training',nav_library:'Library',nav_guide:'Guide',nav_history:'History',badge_soon:'Coming soon',home_tag:'Your evaluation platform',home_title:'How well do you communicate with the Subconscious?',home_desc:'The world\'s first tool that evaluates hypnotic suggestion text quality on objective criteria. Score, detailed feedback, and improved version — all in one place.',hero_title:'Write. Evaluate. Improve.',hero_desc:'Enter your hypnotic suggestion and receive evaluation on validated criteria, a score normalized to 100, key issue identification, and an improved version with explanations.',hero_cta:'Evaluate a suggestion →',hero_example:'Try an example',stat_criteria:'Evaluation criteria',stat_max:'Maximum score',stat_ai_label:'Evaluated by Claude',toolkit_title:'Your Toolkit',toolkit_desc:'Everything you need for professional-quality hypnotic suggestions.',tool_eval_title:'Evaluator',tool_eval_desc:'Evaluate suggestions on objective criteria.',tool_train_title:'Training',tool_train_desc:'Therapeutic brief, write suggestion, evaluate.',tool_guide_title:'Guide',tool_guide_desc:'Principles, criteria, causal chain.',nav_generator:'Generator',tool_gen_title:'Generator',tool_gen_desc:'Get personalized suggestions, ready to use.',eval_tag:'AI Evaluation',eval_title:'Evaluator',eval_desc:'Enter a hypnotic suggestion and receive evaluation on objective criteria with a score normalized to 100.',tier_basic:'Basic · 3 criteria',tier_advanced:'Advanced · 9 criteria',tier_expert:'Expert · 17 criteria 🔒',input_label:'Your hypnotic suggestion',input_hint:'Write or paste the suggestion you want to evaluate. The more specific, the more precise the feedback.',input_placeholder:'e.g.: With each breath, you feel a gentle warmth spreading throughout your entire body...',eval_btn_text:'Evaluate',loading_title:'Evaluating suggestion...',lstep1:'Analyzing structure...',lstep2:'Checking language...',lstep3:'Evaluating efficacy...',lstep4:'Generating feedback...',train_tag:'Guided practice',train_title:'Training Mode',train_desc:'Receive a therapeutic brief, write the suggestion, then auto-evaluate.',train_placeholder:'Training mode will be available soon.',lib_tag:'Reference',lib_title:'Model Suggestion Library',lib_desc:'Model hypnotic suggestions, classified by therapeutic categories.',lib_placeholder:'The library will be available soon.',guide_tag:'Reference',guide_title:'Guide',guide_desc:'Core principles, evaluation criteria, and the causal chain.',hist_tag:'Evaluation history',hist_title:'History',hist_desc:'Your previous evaluations, saved locally.',hist_placeholder:'Evaluation history will be available soon.',placeholder_coming:'Coming soon',res_detected_type:'Detected type',res_problems:'Main issues',res_improved:'Improved version',res_changes:'What changed and why',res_criteria:'Criterion',res_score_col:'Score',res_obs:'Observation',res_new_eval:'← New evaluation',error_empty:'Please write or paste a hypnotic suggestion first.',error_api:'Evaluation error. Please try again.',level_excellent:'Excellent',level_good:'Good',level_medium:'Average',level_weak:'Weak',level_inadequate:'Inadequate',level_desc_excellent:'Ready for professional use',level_desc_good:'Minor adjustments needed',level_desc_medium:'Needs improvement on 2-3 criteria',level_desc_weak:'Significant structural issues',level_desc_inadequate:'Rewrite from scratch',guide_part1:'Core Principles',guide_chain_title:'The Causal Chain',guide_chain_desc:'WORD → SENSORY IMAGE → INNER REPRESENTATION → EMOTION → BIOLOGICAL REACTION → NEW EXPERIENCE → NEW BELIEF → NEW IDENTITY. If the suggestion doesn\'t produce a sensory image at the first step, nothing occurs.',guide_filters_title:'The 3 Quick Verification Filters',guide_filter1:'1. CONTENT vs. STRUCTURE — If you can replace the subject and the suggestion works the same, it\'s too general.',guide_filter2:'2. DOES IT HAVE A MOVIE? — Read the suggestion. Does a clear mental image appear? If not, rewrite.',guide_filter3:'3. WHAT MOVIE? — If 10 people see 10 different scenes, the suggestion is too vague.',guide_3p_title:'The 3P Rule (direct suggestions)',guide_3p_desc:'Personal (about me), Positive (what is, not what isn\'t), Present (I am, I have, I do).',guide_part2:'Evaluation Criteria',guide_crit_struct:'Block A — Structural',guide_c1_t:'C1: Positive Formulation',guide_c1_d:'The subconscious doesn\'t process negation. Zero "don\'t", "without", "stop".',guide_c2_t:'C2: Specificity & Clarity',guide_c2_d:'Concrete, multi-sensory images, not abstractions.',guide_c3_t:'C3: Correct Verb Tense',guide_c3_d:'Present = experience NOW. Future delays, conditional questions.',guide_crit_lang:'Block B — Language',guide_c4_t:'C4: Graduality & Progression',guide_c4_d:'Change builds gradually: "more and more...", "with each breath...".',guide_c5_t:'C5: VAKOG Sensory Anchoring',guide_c5_d:'Min 2 sensory channels: Visual, Auditory, Kinesthetic, Olfactory, Gustatory.',guide_c6_t:'C6: Rhythm & Cadence',guide_c6_d:'Synchronized with breathing. Sentences of 5-15 words.',guide_c7_t:'C7: Linguistic Patterns',guide_c7_d:'Direct: commands, repetition. Indirect: presuppositions, embedded commands, truisms.',guide_crit_eff:'Block C — Efficacy',guide_c8_t:'C8: Clear Therapeutic Objective',guide_c8_d:'Single direction, every sentence contributes.',guide_c9_t:'C9: Emotional Activation',guide_c9_d:'CREATE the state, don\'t describe it.',guide_part3:'Interpretation Scales',guide_scale_desc:'90-100: Excellent · 75-89: Good · 60-74: Average · 40-59: Weak · Below 40: Inadequate.'},
 es:{brand_title:'Puterea Minții',nav_home:'Inicio',nav_evaluator:'Evaluador',nav_training:'Entrenamiento',nav_library:'Biblioteca',nav_guide:'Guía',nav_history:'Historial',badge_soon:'Próximamente',home_tag:'Tu plataforma de evaluación',home_title:'¿Qué tan bien te comunicas con el Subconsciente?',home_desc:'El primer instrumento del mundo que evalúa la calidad del texto de sugestiones hipnóticas con criterios objetivos.',hero_title:'Escribe. Evalúa. Mejora.',hero_desc:'Ingresa tu sugestión hipnótica y recibe evaluación con criterios validados, puntuación normalizada a 100 y una versión mejorada con explicaciones.',hero_cta:'Evaluar una sugestión →',hero_example:'Prueba un ejemplo',stat_criteria:'Criterios de evaluación',stat_max:'Puntuación máxima',stat_ai_label:'Evaluado por Claude',toolkit_title:'Tus herramientas',toolkit_desc:'Todo lo que necesitas para sugestiones hipnóticas profesionales.',tool_eval_title:'Evaluador',tool_eval_desc:'Evalúa sugestiones con criterios objetivos.',tool_train_title:'Entrenamiento',tool_train_desc:'Brief terapéutico, escribe, evalúa.',tool_guide_title:'Guía',tool_guide_desc:'Principios, criterios, cadena causal.',eval_tag:'Evaluación IA',eval_title:'Evaluador',eval_desc:'Ingresa la sugestión hipnótica y recibe evaluación con criterios objetivos.',tier_basic:'Básico · 3 criterios',tier_advanced:'Avanzado · 9 criterios',tier_expert:'Experto · 20 criterios 🔒',input_label:'Tu sugestión hipnótica',input_hint:'Escribe o pega la sugestión que quieres evaluar.',input_placeholder:'ej: Con cada respiración, sientes cómo un calor suave se extiende por todo tu cuerpo...',eval_btn_text:'Evaluar',loading_title:'Evaluando sugestión...',lstep1:'Analizando estructura...',lstep2:'Verificando lenguaje...',lstep3:'Evaluando eficacia...',lstep4:'Generando feedback...',train_tag:'Práctica guiada',train_title:'Modo Entrenamiento',train_desc:'Recibe un brief terapéutico, escribe, evalúa automáticamente.',train_placeholder:'El modo entrenamiento estará disponible próximamente.',lib_tag:'Referencia',lib_title:'Biblioteca de Sugestiones Modelo',lib_desc:'Sugestiones hipnóticas modelo por categorías terapéuticas.',lib_placeholder:'La biblioteca estará disponible próximamente.',guide_tag:'Referencia',guide_title:'Guía',guide_desc:'Principios fundamentales, criterios de evaluación y cadena causal.',hist_tag:'Historial',hist_title:'Historial',hist_desc:'Tus evaluaciones anteriores, guardadas localmente.',hist_placeholder:'El historial estará disponible próximamente.',placeholder_coming:'Próximamente',res_detected_type:'Tipo detectado',res_problems:'Problemas principales',res_improved:'Versión mejorada',res_changes:'Qué cambió y por qué',res_criteria:'Criterio',res_score_col:'Punt.',res_obs:'Observación',res_new_eval:'← Nueva evaluación',error_empty:'Escribe o pega una sugestión primero.',error_api:'Error de evaluación. Inténtalo de nuevo.',level_excellent:'Excelente',level_good:'Bueno',level_medium:'Medio',level_weak:'Débil',level_inadequate:'Inadecuado',level_desc_excellent:'Lista para uso profesional',level_desc_good:'Con ajustes menores será excelente',level_desc_medium:'Necesita mejoras en 2-3 criterios',level_desc_weak:'Problemas estructurales significativos',level_desc_inadequate:'Reescribir desde cero',guide_part1:'Principios Fundamentales',guide_chain_title:'La Cadena Causal',guide_chain_desc:'PALABRA → IMAGEN SENSORIAL → REPRESENTACIÓN INTERNA → EMOCIÓN → REACCIÓN BIOLÓGICA → NUEVA EXPERIENCIA → NUEVA CREENCIA → NUEVA IDENTIDAD.',guide_filters_title:'Los 3 Filtros de Verificación Rápida',guide_filter1:'1. CONTENIDO vs. ESTRUCTURA — Si puedes reemplazar el tema y funciona igual, es demasiado general.',guide_filter2:'2. ¿TIENE PELÍCULA? — ¿Aparece una imagen mental clara? Si no, reescribe.',guide_filter3:'3. ¿QUÉ PELÍCULA? — Si 10 personas ven 10 escenas diferentes, es demasiado vaga.',guide_3p_title:'Los 3P (sugestiones directas)',guide_3p_desc:'Personal, Positiva, Presente.',guide_part2:'Criterios de Evaluación',guide_crit_struct:'Bloque A — Estructurales',guide_c1_t:'C1: Formulación Positiva',guide_c1_d:'El subconsciente no procesa la negación.',guide_c2_t:'C2: Especificidad y Claridad',guide_c2_d:'Imágenes concretas, multi-sensoriales.',guide_c3_t:'C3: Tiempo Verbal Correcto',guide_c3_d:'Presente = experiencia AHORA.',guide_crit_lang:'Bloque B — Lenguaje',guide_c4_t:'C4: Gradualidad y Progresión',guide_c4_d:'El cambio se construye gradualmente.',guide_c5_t:'C5: Anclaje Sensorial VAKOG',guide_c5_d:'Mínimo 2 canales sensoriales.',guide_c6_t:'C6: Ritmo y Cadencia',guide_c6_d:'Sincronizado con la respiración. 5-15 palabras.',guide_c7_t:'C7: Patrones Lingüísticos',guide_c7_d:'Directos: comandos. Indirectos: presuposiciones, truismos.',guide_crit_eff:'Bloque C — Eficacia',guide_c8_t:'C8: Objetivo Terapéutico Claro',guide_c8_d:'Dirección única.',guide_c9_t:'C9: Activación Emocional',guide_c9_d:'CREA el estado, no lo describe.',guide_part3:'Escalas de Interpretación',guide_scale_desc:'90-100: Excelente · 75-89: Bueno · 60-74: Medio · 40-59: Débil · <40: Inadecuado.'},
 fr:{brand_title:'Puterea Minții',nav_home:'Accueil',nav_evaluator:'Évaluateur',nav_training:'Entraînement',nav_library:'Bibliothèque',nav_guide:'Guide',nav_history:'Historique',badge_soon:'Bientôt',home_tag:'Votre plateforme d\'évaluation',home_title:'Communiquez-vous bien avec le Subconscient ?',home_desc:'Le premier outil au monde qui évalue la qualité du texte des suggestions hypnotiques selon des critères objectifs.',hero_title:'Écrivez. Évaluez. Améliorez.',hero_desc:'Entrez votre suggestion hypnotique et recevez une évaluation selon des critères validés, un score normalisé à 100 et une version améliorée avec explications.',hero_cta:'Évaluer une suggestion →',hero_example:'Essayer un exemple',stat_criteria:'Critères d\'évaluation',stat_max:'Score maximum',stat_ai_label:'Évalué par Claude',toolkit_title:'Vos outils',toolkit_desc:'Tout pour des suggestions hypnotiques de qualité professionnelle.',tool_eval_title:'Évaluateur',tool_eval_desc:'Évaluez des suggestions selon des critères objectifs.',tool_train_title:'Entraînement',tool_train_desc:'Brief thérapeutique, écrivez, évaluez.',tool_guide_title:'Guide',tool_guide_desc:'Principes, critères, chaîne causale.',eval_tag:'Évaluation IA',eval_title:'Évaluateur',eval_desc:'Entrez la suggestion hypnotique et recevez une évaluation objective avec score normalisé à 100.',tier_basic:'Basique · 3 critères',tier_advanced:'Avancé · 9 critères',tier_expert:'Expert · 17 critères 🔒',input_label:'Votre suggestion hypnotique',input_hint:'Écrivez ou collez la suggestion à évaluer.',input_placeholder:'ex : À chaque respiration, vous sentez une douce chaleur se répandre dans tout votre corps...',eval_btn_text:'Évaluer',loading_title:'Évaluation en cours...',lstep1:'Analyse de la structure...',lstep2:'Vérification du langage...',lstep3:'Évaluation de l\'efficacité...',lstep4:'Génération du feedback...',train_tag:'Pratique guidée',train_title:'Mode Entraînement',train_desc:'Brief thérapeutique, écrivez, évaluez automatiquement.',train_placeholder:'Le mode entraînement sera bientôt disponible.',lib_tag:'Référence',lib_title:'Bibliothèque de Suggestions Modèles',lib_desc:'Suggestions hypnotiques modèles par catégories thérapeutiques.',lib_placeholder:'La bibliothèque sera bientôt disponible.',guide_tag:'Référence',guide_title:'Guide',guide_desc:'Principes fondamentaux, critères d\'évaluation et chaîne causale.',hist_tag:'Historique',hist_title:'Historique',hist_desc:'Vos évaluations précédentes, sauvegardées localement.',hist_placeholder:'L\'historique sera bientôt disponible.',placeholder_coming:'Bientôt',res_detected_type:'Type détecté',res_problems:'Problèmes principaux',res_improved:'Version améliorée',res_changes:'Ce qui a changé et pourquoi',res_criteria:'Critère',res_score_col:'Score',res_obs:'Observation',res_new_eval:'← Nouvelle évaluation',error_empty:'Veuillez écrire ou coller une suggestion d\'abord.',error_api:'Erreur d\'évaluation. Réessayez.',level_excellent:'Excellent',level_good:'Bon',level_medium:'Moyen',level_weak:'Faible',level_inadequate:'Inadéquat',level_desc_excellent:'Prêt pour usage professionnel',level_desc_good:'Avec petits ajustements, sera excellent',level_desc_medium:'Améliorations sur 2-3 critères nécessaires',level_desc_weak:'Problèmes structurels significatifs',level_desc_inadequate:'Réécrire à zéro',guide_part1:'Principes Fondamentaux',guide_chain_title:'La Chaîne Causale',guide_chain_desc:'MOT → IMAGE SENSORIELLE → REPRÉSENTATION INTERNE → ÉMOTION → RÉACTION BIOLOGIQUE → NOUVELLE EXPÉRIENCE → NOUVELLE CROYANCE → NOUVELLE IDENTITÉ.',guide_filters_title:'Les 3 Filtres de Vérification Rapide',guide_filter1:'1. CONTENU vs. STRUCTURE — Si on peut remplacer le sujet et ça fonctionne pareil, c\'est trop général.',guide_filter2:'2. A-T-ELLE UN FILM ? — Une image mentale claire apparaît-elle ? Sinon, réécrivez.',guide_filter3:'3. QUEL FILM ? — Si 10 personnes voient 10 scènes différentes, c\'est trop vague.',guide_3p_title:'Les 3P (suggestions directes)',guide_3p_desc:'Personnelle, Positive, Présent.',guide_part2:'Critères d\'Évaluation',guide_crit_struct:'Bloc A — Structurels',guide_c1_t:'C1 : Formulation Positive',guide_c1_d:'Le subconscient ne traite pas la négation.',guide_c2_t:'C2 : Spécificité et Clarté',guide_c2_d:'Images concrètes, multi-sensorielles.',guide_c3_t:'C3 : Temps Verbal Correct',guide_c3_d:'Présent = l\'expérience MAINTENANT.',guide_crit_lang:'Bloc B — Langage',guide_c4_t:'C4 : Gradualité et Progression',guide_c4_d:'Le changement se construit progressivement.',guide_c5_t:'C5 : Ancrage Sensoriel VAKOG',guide_c5_d:'Minimum 2 canaux sensoriels.',guide_c6_t:'C6 : Rythme et Cadence',guide_c6_d:'Synchronisé avec la respiration. 5-15 mots.',guide_c7_t:'C7 : Patterns Linguistiques',guide_c7_d:'Directs : commandes. Indirects : présuppositions, truismes.',guide_crit_eff:'Bloc C — Efficacité',guide_c8_t:'C8 : Objectif Thérapeutique Clair',guide_c8_d:'Direction unique.',guide_c9_t:'C9 : Activation Émotionnelle',guide_c9_d:'CRÉER l\'état, pas le décrire.',guide_part3:'Échelles d\'Interprétation',guide_scale_desc:'90-100 : Excellent · 75-89 : Bon · 60-74 : Moyen · 40-59 : Faible · <40 : Inadéquat.'},
 de:{brand_title:'Puterea Minții',nav_home:'Startseite',nav_evaluator:'Bewerter',nav_training:'Training',nav_library:'Bibliothek',nav_guide:'Leitfaden',nav_history:'Verlauf',badge_soon:'Demnächst',home_tag:'Ihre Bewertungsplattform',home_title:'Wie gut kommunizieren Sie mit dem Unterbewusstsein?',home_desc:'Das weltweit erste Tool, das die Qualität hypnotischer Suggestionstexte nach objektiven Kriterien bewertet.',hero_title:'Schreiben. Bewerten. Verbessern.',hero_desc:'Geben Sie Ihre hypnotische Suggestion ein und erhalten Sie eine Bewertung nach validierten Kriterien, Punktzahl bis 100 und eine verbesserte Version mit Erklärungen.',hero_cta:'Suggestion bewerten →',hero_example:'Beispiel ausprobieren',stat_criteria:'Bewertungskriterien',stat_max:'Maximale Punktzahl',stat_ai_label:'Bewertet von Claude',toolkit_title:'Ihre Werkzeuge',toolkit_desc:'Alles für professionelle hypnotische Suggestionen.',tool_eval_title:'Bewerter',tool_eval_desc:'Suggestionen nach objektiven Kriterien bewerten.',tool_train_title:'Training',tool_train_desc:'Therapeutisches Briefing, schreiben, bewerten.',tool_guide_title:'Leitfaden',tool_guide_desc:'Prinzipien, Kriterien, Kausalkette.',eval_tag:'KI-Bewertung',eval_title:'Bewerter',eval_desc:'Geben Sie die hypnotische Suggestion ein und erhalten Sie eine objektive Bewertung mit Punktzahl bis 100.',tier_basic:'Basis · 3 Kriterien',tier_advanced:'Erweitert · 9 Kriterien',tier_expert:'Experte · 20 Kriterien 🔒',input_label:'Ihre hypnotische Suggestion',input_hint:'Schreiben oder fügen Sie die Suggestion ein, die Sie bewerten möchten.',input_placeholder:'z.B.: Mit jedem Atemzug spüren Sie eine sanfte Wärme in Ihrem ganzen Körper...',eval_btn_text:'Bewerten',loading_title:'Suggestion wird bewertet...',lstep1:'Struktur analysieren...',lstep2:'Sprache überprüfen...',lstep3:'Wirksamkeit bewerten...',lstep4:'Feedback generieren...',train_tag:'Geführte Praxis',train_title:'Trainingsmodus',train_desc:'Therapeutisches Briefing, Suggestion schreiben, automatisch bewerten.',train_placeholder:'Der Trainingsmodus wird bald verfügbar sein.',lib_tag:'Referenz',lib_title:'Muster-Suggestionsbibliothek',lib_desc:'Muster-Suggestionen nach therapeutischen Kategorien.',lib_placeholder:'Die Bibliothek wird bald verfügbar sein.',guide_tag:'Referenz',guide_title:'Leitfaden',guide_desc:'Grundlegende Prinzipien, Bewertungskriterien und Kausalkette.',hist_tag:'Bewertungsverlauf',hist_title:'Verlauf',hist_desc:'Ihre vorherigen Bewertungen, lokal gespeichert.',hist_placeholder:'Der Verlauf wird bald verfügbar sein.',placeholder_coming:'Demnächst',res_detected_type:'Erkannter Typ',res_problems:'Hauptprobleme',res_improved:'Verbesserte Version',res_changes:'Was sich geändert hat und warum',res_criteria:'Kriterium',res_score_col:'Punkt.',res_obs:'Beobachtung',res_new_eval:'← Neue Bewertung',error_empty:'Bitte schreiben Sie zuerst eine Suggestion.',error_api:'Bewertungsfehler. Bitte erneut versuchen.',level_excellent:'Ausgezeichnet',level_good:'Gut',level_medium:'Mittel',level_weak:'Schwach',level_inadequate:'Unzureichend',level_desc_excellent:'Bereit für professionellen Einsatz',level_desc_good:'Mit kleinen Anpassungen ausgezeichnet',level_desc_medium:'Verbesserungen bei 2-3 Kriterien nötig',level_desc_weak:'Erhebliche strukturelle Probleme',level_desc_inadequate:'Von Grund auf neu schreiben',guide_part1:'Grundlegende Prinzipien',guide_chain_title:'Die Kausalkette',guide_chain_desc:'WORT → SINNESBILD → INNERE REPRÄSENTATION → EMOTION → BIOLOGISCHE REAKTION → NEUE ERFAHRUNG → NEUE ÜBERZEUGUNG → NEUE IDENTITÄT.',guide_filters_title:'Die 3 Schnellen Prüffilter',guide_filter1:'1. INHALT vs. STRUKTUR — Wenn das Thema austauschbar ist, ist sie zu allgemein.',guide_filter2:'2. HAT SIE EINEN FILM? — Erscheint ein klares mentales Bild? Wenn nicht, umschreiben.',guide_filter3:'3. WELCHER FILM? — Wenn 10 Personen 10 verschiedene Szenen sehen, ist sie zu vage.',guide_3p_title:'Die 3P-Regel (direkte Suggestionen)',guide_3p_desc:'Persönlich, Positiv, Präsens.',guide_part2:'Bewertungskriterien',guide_crit_struct:'Block A — Strukturelle',guide_c1_t:'C1: Positive Formulierung',guide_c1_d:'Das Unterbewusstsein verarbeitet keine Verneinung.',guide_c2_t:'C2: Spezifität und Klarheit',guide_c2_d:'Konkrete, multisensorische Bilder.',guide_c3_t:'C3: Korrektes Tempus',guide_c3_d:'Präsens = Erfahrung JETZT.',guide_crit_lang:'Block B — Sprache',guide_c4_t:'C4: Gradualität und Progression',guide_c4_d:'Veränderung baut sich schrittweise auf.',guide_c5_t:'C5: VAKOG Sensorische Verankerung',guide_c5_d:'Mindestens 2 Sinneskanäle.',guide_c6_t:'C6: Rhythmus und Kadenz',guide_c6_d:'Synchronisiert mit der Atmung. 5-15 Wörter.',guide_c7_t:'C7: Linguistische Muster',guide_c7_d:'Direkt: Befehle. Indirekt: Präsuppositionen, Truismen.',guide_crit_eff:'Block C — Wirksamkeit',guide_c8_t:'C8: Klares Therapeutisches Ziel',guide_c8_d:'Einheitliche Richtung.',guide_c9_t:'C9: Emotionale Aktivierung',guide_c9_d:'Den Zustand ERZEUGEN, nicht beschreiben.',guide_part3:'Interpretationsskalen',guide_scale_desc:'90-100: Ausgezeichnet · 75-89: Gut · 60-74: Mittel · 40-59: Schwach · <40: Unzureichend.'},
@@ -690,10 +805,341 @@ function renderRecommendations(recs,lang){if(!recs||!recs.length)return'';const 
 function renderHighTicketCTA(score,cats,lang){if(score>=70)return'';const isRo=(lang||'ro')==='ro';const hCats=['anxietate','trauma','dependente','sanatate'];const cCats=['procrastinare','bani','stima','burnout'];let hs=0,cs=0;for(const c of(cats||[])){if(hCats.includes(c))hs++;if(cCats.includes(c))cs++}const isH=hs>=cs;const url=isH?EZYCOURSE_URLS.training_hipnoza:EZYCOURSE_URLS.curs_coaching;const title=isH?(isRo?'Training Profesional de Hipnoză':'Professional Hypnosis Training'):(isRo?'Cursul de Coaching':'Coaching Course');const desc=isH?(isRo?'Învață să construiești sugestii hipnotice care produc schimbare reală. 4 module, practică supervizată, certificare.':'Learn to build hypnotic suggestions that create real change.'):(isRo?'Dezvoltă abilitățile de coaching care transformă. Metodologie structurată, practică reală, certificare.':'Develop coaching skills that transform.');return '<div class="card" style="margin-top:16px;border-color:rgba(192,57,43,0.3);background:linear-gradient(135deg,var(--bg-card) 0%,rgba(192,57,43,0.04) 100%)"><div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><div style="flex:1;min-width:220px"><div style="font-size:0.7rem;font-weight:600;color:var(--accent-red);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">'+(isRo?'Pasul următor':'Next step')+'</div><div style="font-size:1.05rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">'+title+'</div><div style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6">'+desc+'</div></div><a href="'+url+'" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap;text-decoration:none">'+(isRo?'Află mai multe':'Learn more')+' →</a></div></div>'}
 // ===== END COURSE RECOMMENDER =====
 
+
+// ===== GENERATOR DE SUGESTII =====
+let genState={problem:'',problemFree:'',goal:'',goalFree:'',intensity:5,motivation:7,level:'simplu',name:'',step:1};
+
+function selectGenCard(el,type){
+  const container=el.parentElement;
+  container.querySelectorAll('.gen-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  if(type==='problem')genState.problem=el.getAttribute('data-val');
+  if(type==='goal')genState.goal=el.getAttribute('data-val');
+}
+
+function selectGenLevel(el){
+  document.querySelectorAll('.gen-level-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  genState.level=el.getAttribute('data-level');
+  const nr=document.getElementById('genNameRow');
+  if(genState.level==='simplu')nr.classList.remove('visible');
+  else nr.classList.add('visible');
+}
+
+function genNextStep(n){
+  if(n===2){
+    genState.problemFree=document.getElementById('genProblemFree').value.trim();
+    genState.intensity=parseInt(document.getElementById('genIntensity').value);
+    genState.motivation=parseInt(document.getElementById('genMotivation').value);
+    if(!genState.problem&&!genState.problemFree){alert('Alege sau scrie ce vrei sa rezolvi.');return}
+  }
+  if(n===3){
+    genState.goalFree=document.getElementById('genGoalFree').value.trim();
+    if(!genState.goal&&!genState.goalFree){alert('Alege sau descrie cum vrei sa fii.');return}
+  }
+  genState.step=n;
+  document.querySelectorAll('#genWizard .gen-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('genStep'+n).classList.add('active');
+}
+
+function updateGenDailyCounter(){
+  const today=new Date().toISOString().slice(0,10);
+  const k='pm_gen_'+today;
+  const c=parseInt(localStorage.getItem(k)||'0');
+  const el=document.getElementById('genDailyCounter');
+  if(el)el.textContent=c+' / 5 generari azi';
+}
+
+function checkGenDailyLimit(){
+  const today=new Date().toISOString().slice(0,10);
+  const k='pm_gen_'+today;
+  const c=parseInt(localStorage.getItem(k)||'0');
+  return c<5;
+}
+
+function recordGenUsage(){
+  const today=new Date().toISOString().slice(0,10);
+  const k='pm_gen_'+today;
+  const c=parseInt(localStorage.getItem(k)||'0');
+  localStorage.setItem(k,String(c+1));
+  updateGenDailyCounter();
+}
+
+function buildGenPrompt(){
+  const problem=genState.problemFree||genState.problem;
+  const goal=genState.goalFree||genState.goal;
+  const intensity=genState.intensity;
+  const motivation=genState.motivation;
+  const level=genState.level;
+  const name=genState.name;
+
+  let tonGuidance='';
+  if(intensity>=8&&motivation>=8)tonGuidance='Ton direct, sugestii puternice, scenariu intens. Persoana e gata de schimbare.';
+  else if(intensity>=8&&motivation<=4)tonGuidance='Ton bland, mai mult pacing, gradualitate mare. Nu forta — persoana sufera dar nu e inca gata.';
+  else if(intensity<=4&&motivation>=8)tonGuidance='Sugestii de amplificare, ego-strengthening. Problema e mica, motivatia e mare.';
+  else tonGuidance='Afirmatii simple, fara presiune. Abordare usoara, permisiva.';
+
+  let levelInstructions='';
+  if(level==='simplu'){
+    levelInstructions=`NIVEL SIMPLU. Genereaza exact:
+- 5 afirmatii (persoana I, prezent, pozitive, max 50 caractere fiecare)
+- 5 sugestii (persoana II, prezent, min 2 canale VAKOG, max 200 caractere fiecare)
+- Instructiuni scurte de utilizare
+
+Raspunde DOAR cu JSON valid:
+{"afirmatii":["...","...","...","...","..."],"sugestii":["...","...","...","...","..."],"instructiuni_afirmatii":"...","instructiuni_sugestii":"..."}`;
+  }else if(level==='avansat'){
+    const nameInstr=name?`IMPORTANT: Foloseste prenumele "${name}" O SINGURA DATA, in cea mai puternica sugestie completa. Exemplu: "${name}, simti cum..." sau "...si tu, ${name}, esti..."`:
+      'Nu folosesti niciun nume propriu.';
+    levelInstructions=`NIVEL AVANSAT. Genereaza:
+- 5 afirmatii (persoana I, prezent, pozitive, max 50 caractere)
+- 5 sugestii (persoana II, prezent, min 2 canale VAKOG, max 200 caractere)
+- 3 sugestii COMPLETE (persoana II, 300-500 caractere, scenariu senzorial cu cele 5 elemente: Loc, Corp, Senzorial, Emotie, Identitate)
+- Pentru fiecare sugestie completa: explicatie scurta (1-2 propozitii, ce principiu aplica)
+- Instructiuni de utilizare
+${nameInstr}
+
+Criterii interne (9): Formulare pozitiva, Specificitate, Timp verbal, Gradualitate, VAKOG, Ritm, Pattern-uri, Obiectiv terapeutic, Activare emotionala.
+
+Raspunde DOAR cu JSON valid:
+{"afirmatii":["..."],"sugestii":["..."],"sugestii_complete":[{"text":"...","explicatie":"..."}],"instructiuni_afirmatii":"...","instructiuni_sugestii":"...","instructiuni_complete":"..."}`;
+  }else{
+    const nameInstr=name?`IMPORTANT: Foloseste prenumele "${name}" de 2-4 ori in script, DOAR in momentele cele mai puternice (la sugestiile de identitate, la ego-strengthening, la reorientare). Nu il folosi la fiecare propozitie.`:
+      'Nu folosesti niciun nume propriu.';
+    levelInstructions=`NIVEL EXPERT. Genereaza tot ce e la Avansat PLUS:
+- 5 afirmatii (persoana I, prezent, pozitive, max 50 caractere)
+- 5 sugestii (persoana II, prezent, VAKOG, max 200 caractere)
+- 3 sugestii complete (300-500 char, scenariu senzorial)
+- 1 script COMPLET de autohipnoza (5-7 minute de citit cu voce)
+  Structura script: Inductie scurta (relaxare progresiva) -> Deepening (numaratoare sau metafora) -> Sugestii terapeutice (2-3 sugestii din cele generate, cu scenariu extins) -> Ego-strengthening (identitate, resurse) -> Reorientare (revenire calma, 5 la 1)
+  Urmeaza intern cei 8 pasi Hammond + cele 5 elemente scenariul (Eugen Popa).
+${nameInstr}
+
+Criterii interne (9): Formulare pozitiva, Specificitate, Timp verbal, Gradualitate, VAKOG, Ritm, Pattern-uri, Obiectiv terapeutic, Activare emotionala.
+
+Raspunde DOAR cu JSON valid:
+{"afirmatii":["..."],"sugestii":["..."],"sugestii_complete":[{"text":"...","explicatie":"..."}],"script":"...textul complet al scriptului...","instructiuni_afirmatii":"...","instructiuni_sugestii":"...","instructiuni_complete":"...","instructiuni_script":"..."}`;
+  }
+
+  const system=`MODUL GENERATOR — Esti expert in hipnoza clinica (Hammond, Yapko, Erickson, Eugen Popa / Puterea Mintii).
+Generezi afirmatii si sugestii hipnotice personalizate de calitate profesionala.
+
+REGULI OBLIGATORII:
+- Limba romana cu diacritice corecte (a, a-circumflex, i-circumflex, s-virgula, t-virgula)
+- Zero negatii (subconshtientul nu proceseaza negatia)
+- Zero "daca", "incearca" (implica eshec)
+- Prezent, nu viitor/conditional
+- Fiecare afirmatie/sugestie produce IMAGINE SENZORIALA
+- Lantul cauzal: CUVANT -> IMAGINE -> EMOTIE -> EXPERIENTA
+- Fara promisiuni medicale
+- Cele 5 elemente ale scenariului (Eugen Popa): Loc, Corp, Senzorial, Emotie, Identitate
+- Cei 3P pentru afirmatii: Personala, Pozitiva, Prezent
+- Involuntaritate: "se intampla", nu "fa"
+- Condensare: fiecare cuvant isi justifica prezenta
+
+CALIBRARE TON: ${tonGuidance}
+
+${levelInstructions}`;
+
+  const userMsg=`PROBLEMA: ${problem}
+STAREA DORITA: ${goal}
+INTENSITATE PROBLEMA: ${intensity}/10
+MOTIVATIE SCHIMBARE: ${motivation}/10`;
+
+  return {system, userMsg};
+}
+
+async function runGenerator(){
+  if(!checkGenDailyLimit()){
+    alert('Ai atins limita de 5 generari pe zi. Revino maine!');
+    return;
+  }
+
+  genState.name=(document.getElementById('genNameInput').value||'').trim();
+
+  const {system,userMsg}=buildGenPrompt();
+  const maxTok=genState.level==='expert'?6000:genState.level==='avansat'?4096:2048;
+
+  // Show loading
+  document.querySelectorAll('#genWizard .gen-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('genStepLoading').classList.add('active');
+
+  // Animate loading steps
+  const lsteps=document.querySelectorAll('#genStepLoading .loading-step');
+  let si=0;
+  const iv=setInterval(()=>{
+    if(si>0&&si<=lsteps.length)lsteps[si-1].className='loading-step done';
+    if(si<lsteps.length)lsteps[si].className='loading-step active';
+    si++;
+    if(si>lsteps.length)clearInterval(iv);
+  },3000);
+
+  try{
+    const tier=genState.level==='expert'?'gen_expert':genState.level==='avansat'?'gen_avansat':'gen_simplu';
+    const fp=localStorage.getItem('pm_fp')||'';
+    const email=localStorage.getItem('pm_email')||'';
+
+    const r=await fetch('/api/evaluate',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({system,messages:[{role:'user',content:userMsg}],temperature:0.7,tier,fingerprint:fp,email,max_tokens:maxTok})
+    });
+
+    clearInterval(iv);
+    lsteps.forEach(s=>s.className='loading-step done');
+
+    if(!r.ok){
+      if(r.status===429){
+        const d=await r.json();
+        alert('Prea multe cereri. Incearca din nou in '+d.remaining+' '+(d.unit==='min'?'minute':'ore')+'.');
+      }else{
+        alert('Eroare la generare. Incearca din nou.');
+      }
+      genNextStep(3);
+      return;
+    }
+
+    const data=await r.json();
+    const tx=data.content?.[0]?.text||'';
+    let j;
+    try{
+      j=JSON.parse(tx.replace(/```json\s*/g,'').replace(/```/g,'').trim());
+    }catch(e){
+      const m=tx.match(/\{[\s\S]*\}/);
+      if(m)j=JSON.parse(m[0]);
+      else throw new Error('JSON parse failed');
+    }
+
+    recordGenUsage();
+    renderGenResult(j);
+
+  }catch(e){
+    clearInterval(iv);
+    console.error('Generator error:',e);
+    alert('Eroare la generare. Incearca din nou.');
+    genNextStep(3);
+  }
+}
+
+function renderGenResult(data){
+  let h='';
+
+  // Afirmatii
+  if(data.afirmatii&&data.afirmatii.length){
+    h+='<div class="gen-result-block"><h3 style="color:var(--accent-gold)">Afirmatiile tale ('+data.afirmatii.length+')</h3>';
+    if(data.instructiuni_afirmatii)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_afirmatii)+'</div>';
+    data.afirmatii.forEach(a=>{
+      h+='<div class="gen-item">'+escHtml(a)+'<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span></div>';
+    });
+    h+='</div>';
+  }
+
+  // Sugestii scurte
+  if(data.sugestii&&data.sugestii.length){
+    h+='<div class="gen-result-block"><h3 style="color:var(--accent-blue)">Sugestiile tale ('+data.sugestii.length+')</h3>';
+    if(data.instructiuni_sugestii)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_sugestii)+'</div>';
+    data.sugestii.forEach(s=>{
+      h+='<div class="gen-item">'+escHtml(s)+'<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span></div>';
+    });
+    h+='</div>';
+  }
+
+  // Sugestii complete (Avansat + Expert)
+  if(data.sugestii_complete&&data.sugestii_complete.length){
+    h+='<div class="gen-result-block"><h3 style="color:var(--accent-green)">Sugestii complete cu scenariu senzorial ('+data.sugestii_complete.length+')</h3>';
+    if(data.instructiuni_complete)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_complete)+'</div>';
+    data.sugestii_complete.forEach(sc=>{
+      h+='<div class="gen-item" style="border-left:3px solid var(--accent-green)">'+escHtml(sc.text||sc);
+      if(sc.explicatie)h+='<div style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);font-style:italic">'+escHtml(sc.explicatie)+'</div>';
+      h+='<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span></div>';
+    });
+    h+='</div>';
+  }
+
+  // Script (Expert)
+  if(data.script){
+    h+='<div class="gen-result-block"><h3 style="color:var(--accent-gold)">Script complet autohipnoza (5-7 min)</h3>';
+    if(data.instructiuni_script)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_script)+'</div>';
+    h+='<div class="gen-script-block">'+escHtml(data.script)+'</div>';
+    h+='<div style="margin-top:10px;text-align:right"><span class="gen-copy" style="position:static;display:inline-block" onclick="copyGenScript()">Copiaza scriptul</span></div>';
+    h+='</div>';
+  }
+
+  // CTA
+  h+=renderGenCTA();
+
+  document.getElementById('genResults').innerHTML=h;
+  document.querySelectorAll('#genWizard .gen-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('genStepResult').classList.add('active');
+  document.getElementById('genStepResult').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderGenCTA(){
+  const problem=(genState.problemFree||genState.problem).toLowerCase();
+  let url='https://putereamintii.ro/cursuri';
+  let title='Cursuri Puterea Mintii';
+  let desc='Aprofundeaza tehnicile de autohipnoza si NLP.';
+
+  if(/anxi|fric|panic/.test(problem)){
+    url='https://putereamintii.ro/metoda-pace';title='Metoda PACE';desc='Cum opresti un atac de panica in 4 pasi.';
+  }else if(/incred|stim/.test(problem)){
+    url='https://putereamintii.ro/training-hipnoza';title='Training Profesional de Hipnoza';desc='Transforma-ti viata prin puterea subconshtientului.';
+  }else if(/relat|partn|cert|cuplu/.test(problem)){
+    url='https://putereamintii.ro/curs-coaching';title='Cursul de Coaching';desc='Relatii mai bune prin claritate si comunicare.';
+  }else if(/somn|epui|burn|obos/.test(problem)){
+    url='https://app.ezycourse.com/putereamintii/autohipnoza';title='Secretele Autohipnozei';desc='Invata sa-ti creezi singur(a) sugestii de relaxare si somn.';
+  }else if(/mananc|beau|alcool|depend|compuls/.test(problem)){
+    url='https://putereamintii.ro/training-hipnoza';title='Training Profesional de Hipnoza';desc='Tehnici avansate pentru dependente si obiceiuri.';
+  }
+
+  return '<div class="card" style="margin-top:20px;border-color:rgba(246,212,76,0.3);background:linear-gradient(135deg,var(--bg-card) 0%,rgba(246,212,76,0.04) 100%)"><div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><div style="flex:1;min-width:220px"><div style="font-size:0.7rem;font-weight:600;color:var(--accent-gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Vrei mai mult?</div><div style="font-size:1.05rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">'+escHtml(title)+'</div><div style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6">'+escHtml(desc)+'</div></div><a href="'+url+'" target="_blank" rel="noopener" class="btn-primary" style="white-space:nowrap;text-decoration:none">Afla mai multe &#8594;</a></div></div>';
+}
+
+function copyGenItem(el){
+  const item=el.parentElement;
+  const text=item.childNodes[0].textContent;
+  navigator.clipboard.writeText(text).then(()=>{el.textContent='Copiat!';setTimeout(()=>{el.textContent='Copiaza'},1500)}).catch(()=>{});
+}
+
+function copyGenScript(){
+  const block=document.querySelector('.gen-script-block');
+  if(block)navigator.clipboard.writeText(block.textContent).then(()=>{}).catch(()=>{});
+}
+
+function resetGenerator(){
+  genState={problem:'',problemFree:'',goal:'',goalFree:'',intensity:5,motivation:7,level:'simplu',name:'',step:1};
+  document.querySelectorAll('.gen-card').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('genProblemFree').value='';
+  document.getElementById('genGoalFree').value='';
+  document.getElementById('genIntensity').value='5';
+  document.getElementById('genIntensityVal').textContent='5';
+  document.getElementById('genMotivation').value='7';
+  document.getElementById('genMotivationVal').textContent='7';
+  document.getElementById('genNameInput').value='';
+  document.querySelectorAll('.gen-level-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelector('.gen-level-card[data-level="simplu"]').classList.add('selected');
+  document.getElementById('genNameRow').classList.remove('visible');
+  genNextStep(1);
+  updateGenDailyCounter();
+}
+
+function genEvaluateFirst(){
+  const items=document.querySelectorAll('#genResults .gen-item');
+  if(items.length>0){
+    const text=items[items.length>5?5:0].childNodes[0].textContent;
+    navigateTo('evaluator');
+    setTimeout(()=>{
+      document.getElementById('suggestionInput').value=text;
+      updateCharCount();
+    },200);
+  }
+}
+// ===== END GENERATOR =====
+
 // ===== INIT =====
 document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();navigateTo(a.getAttribute('data-section'))})});
 window.addEventListener('hashchange',handleHash);
-(function(){checkStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500)})();
+(function(){checkStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter()})();
 </script>
 </body>
 </html>
