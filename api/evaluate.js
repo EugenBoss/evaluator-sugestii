@@ -167,25 +167,59 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': process.env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01'
-      },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4096,
-        temperature: typeof temperature === 'number' ? temperature : 0,
-        system: system || '',
-        messages: messages
-      })
-    });
+    // Retry logic for transient errors (529 overloaded, 500, 503)
+    const MAX_RETRIES = 3;
+    const RETRY_DELAYS = [2000, 4000, 8000]; // 2s, 4s, 8s
+    let response = null;
+    let lastError = null;
+
+    for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+      try {
+        response = await fetch('https://api.anthropic.com/v1/messages', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': process.env.ANTHROPIC_API_KEY,
+            'anthropic-version': '2023-06-01'
+          },
+          body: JSON.stringify({
+            model: 'claude-sonnet-4-20250514',
+            max_tokens: 4096,
+            temperature: typeof temperature === 'number' ? temperature : 0,
+            system: system || '',
+            messages: messages
+          })
+        });
+
+        // If success or non-retryable error, break
+        if (response.ok || ![429, 500, 502, 503, 529].includes(response.status)) {
+          break;
+        }
+
+        // Retryable error
+        lastError = `Anthropic ${response.status}`;
+        console.warn(`Attempt ${attempt + 1}/${MAX_RETRIES} failed: ${response.status}. Retrying in ${RETRY_DELAYS[attempt]}ms...`);
+        
+        if (attempt < MAX_RETRIES - 1) {
+          await new Promise(r => setTimeout(r, RETRY_DELAYS[attempt]));
+        }
+      } catch (fetchErr) {
+        lastError = fetchErr.message;
+        console.warn(`Attempt ${attempt + 1}/${MAX_RETRIES} fetch error: ${fetchErr.message}`);
+        if (attempt < MAX_RETRIES - 1) {
+          await new Promise(r => setTimeout(r, RETRY_DELAYS[attempt]));
+        }
+      }
+    }
+
+    if (!response) {
+      console.error('All retries failed:', lastError);
+      return res.status(503).json({ error: 'API temporarily unavailable', details: lastError });
+    }
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('Anthropic API error:', response.status, errorText);
+      console.error('Anthropic API error after retries:', response.status, errorText);
       return res.status(response.status).json({ error: 'API error', details: errorText });
     }
 
