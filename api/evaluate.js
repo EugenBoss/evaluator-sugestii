@@ -202,10 +202,29 @@ export default async function handler(req, res) {
         const nivel = (system || '').includes('17 criterii') ? 'Expert' :
                       (system || '').includes('9 criterii') ? 'Avansat' :
                       (system || '').includes('3 criterii') ? 'Basic' : 'Necunoscut';
-        const scorMatch = raspunsAI.match(/"scor_total"\s*:\s*(\d+)/);
-        const scorTotal = scorMatch ? scorMatch[1] : '';
-        const tipMatch = raspunsAI.match(/"tip_detectat"\s*:\s*"([^"]+)"/);
-        const tipSugestie = tipMatch ? tipMatch[1] : '';
+        
+        // Parse JSON response robustly
+        let scorTotal = '';
+        let tipSugestie = '';
+        let scoruriStr = '';
+        try {
+          const clean = raspunsAI.replace(/```json\s*/g, '').replace(/```/g, '').trim();
+          const jsonMatch = clean.match(/\{[\s\S]*\}/);
+          if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[0]);
+            scorTotal = parsed.scor_total || '';
+            tipSugestie = parsed.tip_detectat || '';
+            if (parsed.criterii && Array.isArray(parsed.criterii)) {
+              scoruriStr = parsed.criterii.map(c => c.id + ':' + c.scor).join(', ');
+            }
+          }
+        } catch (parseJsonErr) {
+          // Fallback to regex
+          const sm = raspunsAI.match(/"scor_total"\s*:\s*(\d+)/);
+          scorTotal = sm ? sm[1] : '';
+          const tm = raspunsAI.match(/"tip_detectat"\s*:\s*"([^"]+)"/);
+          tipSugestie = tm ? tm[1] : '';
+        }
 
         fetch(sheetUrl, {
           method: 'POST',
@@ -216,7 +235,7 @@ export default async function handler(req, res) {
             nivel: nivel,
             tip_sugestie: tipSugestie,
             scor_total: scorTotal,
-            scoruri_criterii: '',
+            scoruri_criterii: scoruriStr,
             nr_cuvinte: msgContent.split(/\s+/).filter(Boolean).length,
             raspuns_complet: raspunsAI.substring(0, 5000),
             ip: clientIP,
