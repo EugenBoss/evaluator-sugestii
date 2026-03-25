@@ -1,3 +1,136 @@
+// ============================================
+// evaluate.js — Vercel Serverless Function
+// Evaluator Sugestii Hipnotice — Puterea Minții
+// Rate limiting: IP + Fingerprint + Email
+// ============================================
+
+// --- IN-MEMORY RATE LIMIT STORE ---
+// Persists across warm invocations (5-15 min on Vercel)
+// Resets on cold start — acceptable tradeoff vs. external DB
+const rateLimitStore = new Map();
+
+function getRateLimitKey(ip, fingerprint, email) {
+  // Composite key: IP is primary, fingerprint and email add specificity
+  const parts = [ip || 'unknown'];
+  if (fingerprint) parts.push(fingerprint);
+  if (email) parts.push(email);
+  return parts.join('|');
+}
+
+function getHourKey() {
+  return new Date().toISOString().slice(0, 13); // "2026-03-25T14"
+}
+
+function getDayKey() {
+  return new Date().toISOString().slice(0, 10); // "2026-03-25"
+}
+
+function checkRateLimit(ip, fingerprint, email, tier, charCount) {
+  const hourKey = getHourKey();
+  const dayKey = getDayKey();
+  
+  // Build multiple keys to check (IP alone + IP+fingerprint + email if present)
+  const keys = [
+    `ip:${ip}:${hourKey}`,
+    `ip:${ip}:${dayKey}`
+  ];
+  if (fingerprint) {
+    keys.push(`fp:${fingerprint}:${hourKey}`);
+    keys.push(`fp:${fingerprint}:${dayKey}`);
+  }
+  if (email) {
+    keys.push(`em:${email}:${hourKey}`);
+    keys.push(`em:${email}:${dayKey}`);
+  }
+
+  // Get max counts across all keys (catches people switching browsers/incognito)
+  let maxHour = 0;
+  let maxDay = 0;
+  let maxCharsHour = 0;
+
+  for (const key of keys) {
+    const entry = rateLimitStore.get(key);
+    if (!entry) continue;
+    if (key.includes(hourKey)) {
+      maxHour = Math.max(maxHour, entry.count || 0);
+      maxCharsHour = Math.max(maxCharsHour, entry.chars || 0);
+    }
+    if (key.includes(dayKey)) {
+      maxDay = Math.max(maxDay, entry.count || 0);
+    }
+  }
+
+  // Limits per tier
+  const limits = {
+    basic:   { perHour: 5,  perDay: Infinity, charsPerHour: Infinity },
+    avansat: { perHour: 3,  perDay: 7,        charsPerHour: Infinity },
+    expert:  { perHour: 10, perDay: Infinity,  charsPerHour: 60000 }
+  };
+
+  const limit = limits[tier] || limits.basic;
+
+  if (maxHour >= limit.perHour) {
+    const remMin = 60 - new Date().getMinutes();
+    return { allowed: false, reason: `rate_limit_hour`, remaining: remMin, unit: 'min' };
+  }
+  if (maxDay >= limit.perDay) {
+    const remHours = 24 - new Date().getHours();
+    return { allowed: false, reason: `rate_limit_day`, remaining: remHours, unit: 'hours' };
+  }
+  if (tier === 'expert' && (maxCharsHour + charCount) > limit.charsPerHour) {
+    const remMin = 60 - new Date().getMinutes();
+    return { allowed: false, reason: `char_limit_hour`, remaining: remMin, unit: 'min' };
+  }
+
+  return { allowed: true };
+}
+
+function recordUsage(ip, fingerprint, email, charCount) {
+  const hourKey = getHourKey();
+  const dayKey = getDayKey();
+
+  const keysToUpdate = [
+    `ip:${ip}:${hourKey}`,
+    `ip:${ip}:${dayKey}`
+  ];
+  if (fingerprint) {
+    keysToUpdate.push(`fp:${fingerprint}:${hourKey}`);
+    keysToUpdate.push(`fp:${fingerprint}:${dayKey}`);
+  }
+  if (email) {
+    keysToUpdate.push(`em:${email}:${hourKey}`);
+    keysToUpdate.push(`em:${email}:${dayKey}`);
+  }
+
+  for (const key of keysToUpdate) {
+    const entry = rateLimitStore.get(key) || { count: 0, chars: 0 };
+    entry.count++;
+    entry.chars += charCount;
+    rateLimitStore.set(key, entry);
+  }
+
+  // Cleanup old entries (older than 25 hours)
+  if (rateLimitStore.size > 500) {
+    const cutoff = new Date(Date.now() - 25 * 60 * 60 * 1000).toISOString().slice(0, 13);
+    for (const [key] of rateLimitStore) {
+      // Extract date part from key (last segment after last colon that looks like a date)
+      const parts = key.split(':');
+      const datePart = parts[parts.length - 1];
+      if (datePart < cutoff) {
+        rateLimitStore.delete(key);
+      }
+    }
+  }
+}
+
+function getClientIP(req) {
+  // Vercel provides real IP in x-forwarded-for or x-real-ip
+  const forwarded = req.headers['x-forwarded-for'];
+  if (forwarded) return forwarded.split(',')[0].trim();
+  return req.headers['x-real-ip'] || req.socket?.remoteAddress || 'unknown';
+}
+
+// --- MAIN HANDLER ---
 export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -10,10 +143,27 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { system, messages, temperature } = req.body;
+  const { system, messages, temperature, tier, fingerprint, email } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ error: 'Invalid request body' });
+  }
+
+  // --- SERVER-SIDE RATE LIMITING ---
+  const clientIP = getClientIP(req);
+  const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
+  const msgContent = lastUserMsg ? (typeof lastUserMsg.content === 'string' ? lastUserMsg.content : JSON.stringify(lastUserMsg.content)) : '';
+  const charCount = msgContent.length;
+  const effectiveTier = tier || 'basic';
+
+  const rateCheck = checkRateLimit(clientIP, fingerprint, email, effectiveTier, charCount);
+  if (!rateCheck.allowed) {
+    return res.status(429).json({
+      error: 'rate_limited',
+      reason: rateCheck.reason,
+      remaining: rateCheck.remaining,
+      unit: rateCheck.unit
+    });
   }
 
   try {
@@ -41,57 +191,44 @@ export default async function handler(req, res) {
 
     const data = await response.json();
 
-    // --- LOGGING NON-BLOCKING (fire and forget) ---
+    // Record successful usage AFTER API call succeeds
+    recordUsage(clientIP, fingerprint, email, charCount);
+
+    // --- LOGGING NON-BLOCKING ---
     const sheetUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
     if (sheetUrl) {
       try {
-        // Extrage sugestia din ultimul mesaj user
-        const lastUserMsg = [...messages].reverse().find(m => m.role === 'user');
-        const sugestie = lastUserMsg ? (typeof lastUserMsg.content === 'string' ? lastUserMsg.content : JSON.stringify(lastUserMsg.content)) : '';
-
-        // Extrage răspunsul AI
         const raspunsAI = data.content ? data.content.map(c => c.text || '').join('') : '';
-
-        // Detectează nivel din system prompt
-        const nivel = (system || '').includes('14 criterii') ? 'Avansat' :
-                      (system || '').includes('criterii') ? 'Basic' : 'Necunoscut';
-
-        // Extrage scor total din răspuns (caută pattern "XX/100" sau "XX%")
-        const scorMatch = raspunsAI.match(/(\d{1,3})\s*[/%]\s*(?:100)?/);
+        const nivel = (system || '').includes('17 criterii') ? 'Expert' :
+                      (system || '').includes('9 criterii') ? 'Avansat' :
+                      (system || '').includes('3 criterii') ? 'Basic' : 'Necunoscut';
+        const scorMatch = raspunsAI.match(/"scor_total"\s*:\s*(\d+)/);
         const scorTotal = scorMatch ? scorMatch[1] : '';
-
-        // Extrage scoruri individuale (caută pattern "X/10" repetat)
-        const scoruri = [];
-        const scorRegex = /(\d{1,2})\s*\/\s*10/g;
-        let match;
-        while ((match = scorRegex.exec(raspunsAI)) !== null) {
-          scoruri.push(match[1]);
-        }
-
-        // Extrage tip sugestie detectat
-        const tipMatch = raspunsAI.match(/(?:Tip(?:ul)?\s*(?:sugestie|detectat)?)\s*[:：]\s*(Direct[ăa]|Indirect[ăa]|Mixt[ăa]|Post-hipnotic[ăa]|Metafor[ăa])/i);
+        const tipMatch = raspunsAI.match(/"tip_detectat"\s*:\s*"([^"]+)"/);
         const tipSugestie = tipMatch ? tipMatch[1] : '';
 
-        // Trimite la Sheet — nu așteaptă răspunsul
         fetch(sheetUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             timestamp: new Date().toISOString(),
-            sugestie: sugestie.substring(0, 2000),
+            sugestie: msgContent.substring(0, 2000),
             nivel: nivel,
             tip_sugestie: tipSugestie,
             scor_total: scorTotal,
-            scoruri_criterii: scoruri.join(','),
-            nr_cuvinte: sugestie.split(/\s+/).filter(Boolean).length,
-            raspuns_complet: raspunsAI.substring(0, 5000)
+            scoruri_criterii: '',
+            nr_cuvinte: msgContent.split(/\s+/).filter(Boolean).length,
+            raspuns_complet: raspunsAI.substring(0, 5000),
+            ip: clientIP,
+            fingerprint: (fingerprint || '').substring(0, 16),
+            email: email || ''
           })
         }).catch(logErr => {
-          console.error('Sheet logging failed (non-blocking):', logErr.message);
+          console.error('Sheet logging failed:', logErr.message);
         });
 
       } catch (parseErr) {
-        console.error('Log parse error (non-blocking):', parseErr.message);
+        console.error('Log parse error:', parseErr.message);
       }
     }
     // --- END LOGGING ---
