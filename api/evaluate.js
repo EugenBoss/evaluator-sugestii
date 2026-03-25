@@ -260,10 +260,8 @@ export default async function handler(req, res) {
           tipSugestie = tm ? tm[1] : '';
         }
 
-        fetch(sheetUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
+        // Await with 3s timeout so Vercel doesn't kill the function before logging completes
+        const sheetPayload = JSON.stringify({
             timestamp: new Date().toISOString(),
             sugestie: msgContent.substring(0, 2000),
             nivel: nivel,
@@ -275,10 +273,21 @@ export default async function handler(req, res) {
             ip: clientIP,
             fingerprint: (fingerprint || '').substring(0, 16),
             email: email || ''
-          })
-        }).catch(logErr => {
-          console.error('Sheet logging failed:', logErr.message);
         });
+
+        await Promise.race([
+          fetch(sheetUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            redirect: 'manual',
+            body: sheetPayload
+          }).then(sheetResp => {
+            console.log('Sheet webhook status:', sheetResp.status);
+          }).catch(logErr => {
+            console.error('Sheet logging failed:', logErr.message);
+          }),
+          new Promise(r => setTimeout(r, 3000)) // 3s timeout - don't block user
+        ]);
 
       } catch (parseErr) {
         console.error('Log parse error:', parseErr.message);
