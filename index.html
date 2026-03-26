@@ -874,12 +874,15 @@ function selectGenLevel(el){
   else nr.classList.add('visible');
 }
 
+function isGenInputMetaRequest(text){const t=(text||'').toLowerCase().trim();return/^(recomandă|recomanda-mi|dă-mi|da-mi|spune-mi|arată-mi|evaluează|evalueaz|cum (să|sa) (evaluez|scriu|fac)|ce sugestie|vreau o sugestie|vreau sa evaluez|give me|recommend|evaluate|help me write)/i.test(t)}
+function showGenMetaWarning(){const container=document.getElementById('genStep1');let w=document.getElementById('genInputWarning');if(w){w.remove()}w=document.createElement('div');w.id='genInputWarning';w.style.cssText='background:rgba(246,212,76,0.08);border:1px solid rgba(246,212,76,0.35);border-radius:8px;padding:14px 16px;margin-bottom:14px;animation:fadeIn 0.25s ease';const isRo=currentLang==='ro';w.innerHTML=`<div style="display:flex;align-items:flex-start;gap:12px"><span style="font-size:1.3rem;flex-shrink:0">⚠️</span><div style="flex:1"><div style="font-size:0.95rem;font-weight:700;color:var(--accent-gold);margin-bottom:6px">${isRo?'Generatorul creează sugestii — nu le evaluează':'The Generator creates suggestions — it doesn\'t evaluate them'}</div><div style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:12px">${isRo?'Aici descrii <strong>problema</strong> (ex: „anxietate înainte de examene") și <strong>starea dorită</strong>, iar Generatorul creează sugestia pentru tine. Dacă ai deja o sugestie scrisă și vrei să o evaluezi, mergi la <strong>Evaluator</strong>.':'Describe your <strong>problem</strong> here (e.g., "anxiety before exams") and the <strong>desired state</strong>, and the Generator creates the suggestion. If you already have a written suggestion to evaluate, go to the <strong>Evaluator</strong>.'}</div><div style="display:flex;gap:10px;flex-wrap:wrap"><button class="btn-primary" onclick="navigateTo('evaluator');document.getElementById('genInputWarning')?.remove()" style="background:var(--accent-blue);color:#0f1f28;font-size:0.84rem;padding:9px 16px">${isRo?'Mergi la Evaluator →':'Go to Evaluator →'}</button><button class="btn-secondary" onclick="document.getElementById('genInputWarning').remove();document.getElementById('genProblemFree').value='';document.getElementById('genProblemFree').focus()" style="font-size:0.84rem;padding:9px 16px">${isRo?'Am înțeles, rescriu':'Got it, I\'ll rewrite'}</button></div></div></div>`;const freeInput=document.getElementById('genProblemFree');freeInput.parentNode.insertBefore(w,freeInput.nextSibling);w.scrollIntoView({behavior:'smooth',block:'center'})}
 function genNextStep(n){
   if(n===2){
     genState.problemFree=document.getElementById('genProblemFree').value.trim();
     genState.intensity=parseInt(document.getElementById('genIntensity').value);
     genState.motivation=parseInt(document.getElementById('genMotivation').value);
     if(!genState.problem&&!genState.problemFree){alert('Alege sau scrie ce vrei sa rezolvi.');return}
+    if(!genState.problem&&isGenInputMetaRequest(genState.problemFree)){showGenMetaWarning();return}
   }
   if(n===3){
     genState.goalFree=document.getElementById('genGoalFree').value.trim();
