@@ -146,7 +146,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { system, messages, temperature, tier, fingerprint, email, max_tokens: reqMaxTokens } = req.body;
+  const { system, messages, temperature, tier, fingerprint, email, max_tokens: reqMaxTokens, user_name, user_phone, device, content_type, lang, gdpr_consent, email_verified } = req.body;
 
   if (!messages || !Array.isArray(messages)) {
     return res.status(400).json({ error: 'Invalid request body' });
@@ -267,16 +267,25 @@ export default async function handler(req, res) {
         // Await with 3s timeout so Vercel doesn't kill the function before logging completes
         const sheetPayload = JSON.stringify({
             timestamp: new Date().toISOString(),
+            name: (user_name || '').substring(0, 100),
+            email: email || '',
+            phone: (user_phone || '').substring(0, 20),
             sugestie: msgContent.substring(0, 2000),
-            nivel: nivel,
-            tip_sugestie: tipSugestie,
             scor_total: scorTotal,
-            scoruri_criterii: scoruriStr,
+            scor_maxim: 100,
+            nivel: nivel,
+            tip_detectat: tipSugestie,
+            tip_evaluare: content_type || '',
+            criterii_json: scoruriStr,
             nr_cuvinte: msgContent.split(/\s+/).filter(Boolean).length,
-            raspuns_complet: raspunsAI.substring(0, 5000),
+            device: device || '',
+            lang: lang || '',
+            email_verified: email_verified || '',
+            gdpr_consent: gdpr_consent || '',
             ip: clientIP,
             fingerprint: (fingerprint || '').substring(0, 16),
-            email: email || ''
+            raspuns_complet: raspunsAI.substring(0, 5000),
+            source: 'evaluator-sugestii'
         });
 
         await Promise.race([

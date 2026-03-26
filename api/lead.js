@@ -29,28 +29,19 @@ module.exports = async function handler(req, res) {
       lead_type: data.lead_type || ''
     };
 
-    const WEBHOOK_GSHEET = 'https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjcwNTZmMDYzMjA0M2Q1MjZjNTUzMTUxMzAi_pc';
     const WEBHOOK_GHL = 'https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjcwNTZmMDYzMjA0MzI1MjY0NTUzNDUxMzYi_pc';
 
-    const results = await Promise.allSettled([
-      fetch(WEBHOOK_GSHEET, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      }),
-      fetch(WEBHOOK_GHL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      })
-    ]);
+    // GSheet logging is now consolidated in api/evaluate.js
+    const result = await fetch(WEBHOOK_GHL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(() => null);
 
-    const gsheetOk = results[0].status === 'fulfilled' && results[0].value?.ok;
-    const ghlOk = results[1].status === 'fulfilled' && results[1].value?.ok;
+    const ghlOk = result?.ok || false;
 
     return res.status(200).json({
       success: true,
-      gsheet: gsheetOk ? 'ok' : 'failed',
       ghl: ghlOk ? 'ok' : 'failed'
     });
 
