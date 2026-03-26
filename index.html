@@ -289,6 +289,19 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .gen-daily-counter{font-size:0.78rem;color:var(--text-muted);font-family:var(--font-mono);text-align:right;margin-bottom:8px}
 @media(max-width:768px){.gen-level-cards{grid-template-columns:1fr}.gen-nav{flex-direction:column}.gen-nav button{width:100%;justify-content:center}}
 /* ===== END GENERATOR STYLES ===== */
+/* ===== GENERATOR GATE + PREVIEW STYLES ===== */
+.gen-blurred{position:relative;user-select:none;-webkit-user-select:none}
+.gen-blurred .gen-item,.gen-blurred .gen-script-block{filter:blur(6px);pointer-events:none;user-select:none;-webkit-user-select:none}
+.gen-blur-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(15,31,40,0.5);border-radius:var(--radius-sm);z-index:2}
+.gen-blur-msg{text-align:center;padding:20px}
+.gen-blur-msg .gbm-icon{font-size:1.5rem;margin-bottom:8px}
+.gen-blur-msg .gbm-text{font-size:0.9rem;font-weight:600;color:var(--text-heading);margin-bottom:4px}
+.gen-blur-msg .gbm-sub{font-size:0.78rem;color:var(--text-muted)}
+.gen-preview-tag{display:inline-block;font-size:0.65rem;font-weight:700;color:var(--accent-gold);background:rgba(246,212,76,0.1);border:1px solid rgba(246,212,76,0.2);border-radius:10px;padding:2px 8px;margin-left:8px;text-transform:uppercase;letter-spacing:0.06em}
+.gen-nocopy{user-select:none;-webkit-user-select:none}
+.gen-nocopy .gen-copy{display:none}
+/* ===== END GENERATOR GATE STYLES ===== */
+
 </style>
 </head>
 <body>
@@ -427,8 +440,8 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="gen-level-card" data-level="avansat" onclick="selectGenLevel(this)"><div class="gl-name">Avansat</div><div class="gl-desc">+ 3 sugestii cu scenariu senzorial</div></div>
 <div class="gen-level-card" data-level="expert" onclick="selectGenLevel(this)"><div class="gl-name">Expert</div><div class="gl-desc">+ script complet autohipnoza (5-7 min)</div></div>
 </div>
-<div class="gen-name-row" id="genNameRow">
-<label>Prenumele tau (optional — apare in sugestii)</label>
+<div class="gen-name-row" id="genNameRow" style="display:none">
+<label>Prenumele tau (optional)</label>
 <input type="text" id="genNameInput" placeholder="ex: Maria" maxlength="30">
 </div>
 <div class="gen-nav"><button class="gen-nav btn-back" onclick="genNextStep(2)">&#8592; Inapoi</button><button class="btn-primary" id="genSubmitBtn" onclick="runGenerator()">Genereaza sugestii <span style="margin-left:4px">&#8594;</span></button></div>
@@ -541,6 +554,33 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="gate-sending" id="expVerifSending"><div class="mini-spin"></div><span>Se verifică...</span></div>
 <div class="gate-btns" id="expBtns2"><button class="btn-secondary" onclick="closeExpertGate()">Anulează</button><button class="btn-primary" onclick="submitExpVerifCode()" style="background:var(--accent-gold);color:#0f1f28">Verifică →</button></div>
 <div class="resend-link" id="expResendLink" onclick="resendExpVerifCode()">Nu ai primit codul? Retrimite</div>
+</div>
+</div>
+</div>
+
+<div class="lead-overlay" id="genGate" onclick="if(event.target===this)closeGenGate()">
+<div class="gate-box">
+<div class="gate-step active" id="genGateStep1">
+<div class="gate-badge" style="background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.25);color:var(--accent-green)">Sugestii personalizate</div>
+<h3>Primesti sugestiile pe email</h3>
+<div class="gate-subtitle">Sugestiile complete, gata de folosit, iti vor fi trimise pe email. Completeaza datele tale.</div>
+<div class="gate-field"><label>Prenume *</label><input type="text" id="genGateNume" placeholder="Prenumele tau"><div class="field-err">Completeaza prenumele</div></div>
+<div class="gate-field"><label>Email *</label><input type="email" id="genGateEmail" placeholder="email@exemplu.ro"><div class="field-err">Completeaza un email valid</div></div>
+<div class="gate-field"><label>Telefon (optional)</label><div class="phone-row"><select id="genGateCountry"></select><input type="tel" id="genGateTelefon" placeholder="7xx xxx xxx"></div></div>
+<div class="gate-sending" id="genGateSending"><div class="mini-spin"></div><span>Se trimite codul...</span></div>
+<div class="gdpr-check" id="genGateGdpr"><input type="checkbox" id="genGateGdprCheck"><label for="genGateGdprCheck">Sunt de acord cu <a href="https://www.putereamintii.ro/termeni-si-conditii/" target="_blank">Termenii si Conditiile</a>. Accept ca datele furnizate sa fie utilizate pentru imbunatatirea aplicatiei si sunt de acord sa fiu contactat/a prin email/WhatsApp si adaugat/a la newsletter.</label></div>
+<div class="gate-btns" id="genGateBtns1"><button class="btn-secondary" onclick="closeGenGate()">Anuleaza</button><button class="btn-primary" onclick="sendGenVerifCode()" style="background:var(--accent-green);color:#0f1f28;font-weight:700">Trimite codul &rarr;</button></div>
+</div>
+<div class="gate-step" id="genGateStep2">
+<div class="gate-badge" style="background:rgba(46,204,113,0.1);border-color:rgba(46,204,113,0.25);color:var(--accent-green)">Verificare email</div>
+<h3>Introdu codul de verificare</h3>
+<div class="gate-subtitle">Am trimis un cod de 6 cifre la adresa de email:</div>
+<div class="email-display"><div class="email-addr" id="genGateEmailShow">&mdash;</div><div class="email-change" onclick="changeGenGateEmail()">Nu e corect? Schimba adresa &rarr;</div></div>
+<div class="code-input-wrap" id="genCodeWrap"><input type="text" maxlength="1" data-idx="0" inputmode="numeric"><input type="text" maxlength="1" data-idx="1" inputmode="numeric"><input type="text" maxlength="1" data-idx="2" inputmode="numeric"><input type="text" maxlength="1" data-idx="3" inputmode="numeric"><input type="text" maxlength="1" data-idx="4" inputmode="numeric"><input type="text" maxlength="1" data-idx="5" inputmode="numeric"></div>
+<div id="genCodeError" style="text-align:center;font-size:0.82rem;color:var(--accent-red);display:none"></div>
+<div class="gate-sending" id="genVerifSending"><div class="mini-spin"></div><span>Se verifica...</span></div>
+<div class="gate-btns" id="genGateBtns2"><button class="btn-secondary" onclick="closeGenGate()">Anuleaza</button><button class="btn-primary" onclick="submitGenVerifCode()" style="background:var(--accent-green);color:#0f1f28">Verifica &rarr;</button></div>
+<div class="resend-link" id="genResendLink" onclick="resendGenVerifCode()">Nu ai primit codul? Retrimite</div>
 </div>
 </div>
 </div>
@@ -959,7 +999,28 @@ async function runGenerator(){
     return;
   }
 
-  genState.name=(document.getElementById('genNameInput').value||'').trim();
+  // For Avansat/Expert: require verified email
+  if(genState.level!=='simplu'){
+    if(!isGenLeadVerified()){
+      openGenGate();
+      return; // Gate will call executeGeneration() after verification
+    }else{
+      // Use stored name
+      genState.name=getGenLeadData().name;
+    }
+  }else{
+    genState.name='';
+  }
+
+  executeGeneration();
+}
+
+async function executeGeneration(){
+  genState.name=genState.name||(document.getElementById('genNameInput').value||'').trim();
+  if(genState.level!=='simplu'&&!genState.name){
+    const ld=getGenLeadData();
+    if(ld.name)genState.name=ld.name;
+  }
 
   const {system,userMsg}=buildGenPrompt();
   const maxTok=genState.level==='expert'?6000:genState.level==='avansat'?4096:2048;
@@ -1015,6 +1076,7 @@ async function runGenerator(){
     }
 
     recordGenUsage();
+    if(genState.level!=='simplu'){sendGenLeadToGHL(j);sendGenSuggestionsEmail(j);}
     renderGenResult(j);
 
   }catch(e){
@@ -1027,46 +1089,67 @@ async function runGenerator(){
 
 function renderGenResult(data){
   let h='';
+  const isGated=genState.level!=='simplu';
+  const noCopyClass=isGated?' gen-nocopy':'';
 
-  // Afirmatii
+  // Email delivery notice for Avansat/Expert
+  if(isGated){
+    const em=getGenLeadData().email||'';
+    h+='<div style="padding:14px 16px;background:rgba(46,204,113,0.08);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm);margin-bottom:20px;font-size:0.88rem;color:var(--text-primary);line-height:1.5"><strong style="color:var(--accent-green)">Sugestiile complete au fost trimise pe email</strong>'+(em?' la <strong>'+escHtml(em)+'</strong>':'')+'.<br>Mai jos vezi un preview. Verifica inbox-ul (si folderul Spam).</div>';
+  }
+
+  // Afirmatii — show 2 for gated, all for simplu
   if(data.afirmatii&&data.afirmatii.length){
-    h+='<div class="gen-result-block"><h3 style="color:var(--accent-gold)">Afirmatiile tale ('+data.afirmatii.length+')</h3>';
+    const previewCount=isGated?2:data.afirmatii.length;
+    h+='<div class="gen-result-block'+noCopyClass+'"><h3 style="color:var(--accent-gold)">Afirmatiile tale ('+data.afirmatii.length+')'+(isGated?'<span class="gen-preview-tag">Preview</span>':'')+'</h3>';
     if(data.instructiuni_afirmatii)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_afirmatii)+'</div>';
-    data.afirmatii.forEach(a=>{
-      h+='<div class="gen-item">'+escHtml(a)+'<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span></div>';
+    data.afirmatii.slice(0,previewCount).forEach(a=>{
+      h+='<div class="gen-item">'+escHtml(a)+(isGated?'':'<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span>')+'</div>';
     });
+    if(isGated&&data.afirmatii.length>previewCount){
+      h+='<div class="gen-blurred" style="position:relative"><div class="gen-blur-overlay"><div class="gen-blur-msg"><div class="gbm-text">+'+(data.afirmatii.length-previewCount)+' afirmatii pe email</div></div></div>';
+      data.afirmatii.slice(previewCount).forEach(a=>{
+        h+='<div class="gen-item">'+escHtml(a)+'</div>';
+      });
+      h+='</div>';
+    }
     h+='</div>';
   }
 
-  // Sugestii scurte
+  // Sugestii scurte — show 1 for gated, all for simplu
   if(data.sugestii&&data.sugestii.length){
-    h+='<div class="gen-result-block"><h3 style="color:var(--accent-blue)">Sugestiile tale ('+data.sugestii.length+')</h3>';
+    const previewCount=isGated?1:data.sugestii.length;
+    h+='<div class="gen-result-block'+noCopyClass+'"><h3 style="color:var(--accent-blue)">Sugestiile tale ('+data.sugestii.length+')'+(isGated?'<span class="gen-preview-tag">Preview</span>':'')+'</h3>';
     if(data.instructiuni_sugestii)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_sugestii)+'</div>';
-    data.sugestii.forEach(s=>{
-      h+='<div class="gen-item">'+escHtml(s)+'<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span></div>';
+    data.sugestii.slice(0,previewCount).forEach(s=>{
+      h+='<div class="gen-item">'+escHtml(s)+(isGated?'':'<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span>')+'</div>';
     });
+    if(isGated&&data.sugestii.length>previewCount){
+      h+='<div class="gen-blurred" style="position:relative"><div class="gen-blur-overlay"><div class="gen-blur-msg"><div class="gbm-text">+'+(data.sugestii.length-previewCount)+' sugestii pe email</div></div></div>';
+      data.sugestii.slice(previewCount).forEach(s=>{
+        h+='<div class="gen-item">'+escHtml(s)+'</div>';
+      });
+      h+='</div>';
+    }
     h+='</div>';
   }
 
-  // Sugestii complete (Avansat + Expert)
+  // Sugestii complete (Avansat + Expert) — always blurred for gated
   if(data.sugestii_complete&&data.sugestii_complete.length){
-    h+='<div class="gen-result-block"><h3 style="color:var(--accent-green)">Sugestii complete cu scenariu senzorial ('+data.sugestii_complete.length+')</h3>';
-    if(data.instructiuni_complete)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_complete)+'</div>';
+    h+='<div class="gen-result-block gen-nocopy"><h3 style="color:var(--accent-green)">Sugestii complete cu scenariu senzorial ('+data.sugestii_complete.length+')<span class="gen-preview-tag">Pe email</span></h3>';
+    h+='<div class="gen-blurred" style="position:relative"><div class="gen-blur-overlay"><div class="gen-blur-msg"><div class="gbm-text">'+data.sugestii_complete.length+' sugestii complete pe email</div><div class="gbm-sub">Cu scenariu senzorial si explicatii</div></div></div>';
     data.sugestii_complete.forEach(sc=>{
-      h+='<div class="gen-item" style="border-left:3px solid var(--accent-green)">'+escHtml(sc.text||sc);
-      if(sc.explicatie)h+='<div style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);font-style:italic">'+escHtml(sc.explicatie)+'</div>';
-      h+='<span class="gen-copy" onclick="copyGenItem(this)">Copiaza</span></div>';
+      h+='<div class="gen-item" style="border-left:3px solid var(--accent-green)">'+escHtml(sc.text||sc)+'</div>';
     });
-    h+='</div>';
+    h+='</div></div>';
   }
 
-  // Script (Expert)
+  // Script (Expert) — always blurred
   if(data.script){
-    h+='<div class="gen-result-block"><h3 style="color:var(--accent-gold)">Script complet autohipnoza (5-7 min)</h3>';
-    if(data.instructiuni_script)h+='<div class="gen-usage-note">'+escHtml(data.instructiuni_script)+'</div>';
-    h+='<div class="gen-script-block">'+escHtml(data.script)+'</div>';
-    h+='<div style="margin-top:10px;text-align:right"><span class="gen-copy" style="position:static;display:inline-block" onclick="copyGenScript()">Copiaza scriptul</span></div>';
-    h+='</div>';
+    h+='<div class="gen-result-block gen-nocopy"><h3 style="color:var(--accent-gold)">Script complet autohipnoza (5-7 min)<span class="gen-preview-tag">Pe email</span></h3>';
+    h+='<div class="gen-blurred" style="position:relative"><div class="gen-blur-overlay"><div class="gen-blur-msg"><div class="gbm-text">Script complet pe email</div><div class="gbm-sub">Inductie + deepening + sugestii + reorientare</div></div></div>';
+    h+='<div class="gen-script-block">'+escHtml(data.script).substring(0,200)+'...</div>';
+    h+='</div></div>';
   }
 
   // CTA
@@ -1138,6 +1221,198 @@ function genEvaluateFirst(){
     },200);
   }
 }
+
+// ===== GENERATOR GATE (OTP + LEAD) =====
+let _genVerifEmail='',_genHmac='',_genHmacExp=0;
+
+function isGenLeadVerified(){
+  return !!(localStorage.getItem('eval_lead_email')||localStorage.getItem('gen_lead_email'));
+}
+
+function getGenLeadData(){
+  return {
+    name: localStorage.getItem('gen_lead_name')||localStorage.getItem('eval_lead_name')||'',
+    email: localStorage.getItem('gen_lead_email')||localStorage.getItem('eval_lead_email')||'',
+    phone: localStorage.getItem('gen_lead_phone')||localStorage.getItem('eval_lead_phone')||''
+  };
+}
+
+function openGenGate(){
+  const g=document.getElementById('genGate');
+  g.classList.add('visible');
+  document.getElementById('genGateStep1').classList.add('active');
+  document.getElementById('genGateStep2').classList.remove('active');
+  // Populate country dropdown
+  const sel=document.getElementById('genGateCountry');
+  if(sel.options.length===0){
+    const countries=[{c:'+40',l:'RO +40'},{c:'+44',l:'UK +44'},{c:'+1',l:'US +1'},{c:'+49',l:'DE +49'},{c:'+33',l:'FR +33'},{c:'+39',l:'IT +39'},{c:'+34',l:'ES +34'},{c:'+43',l:'AT +43'},{c:'+41',l:'CH +41'},{c:'+32',l:'BE +32'},{c:'+31',l:'NL +31'},{c:'+36',l:'HU +36'},{c:'+359',l:'BG +359'},{c:'+373',l:'MD +373'}];
+    countries.forEach(x=>{const o=document.createElement('option');o.value=x.c;o.textContent=x.l;sel.appendChild(o)});
+  }
+  // Pre-fill if we have data from evaluator
+  const stored=getGenLeadData();
+  if(stored.name)document.getElementById('genGateNume').value=stored.name;
+  if(stored.email)document.getElementById('genGateEmail').value=stored.email;
+}
+
+function closeGenGate(){
+  document.getElementById('genGate').classList.remove('visible');
+}
+
+function changeGenGateEmail(){
+  document.getElementById('genGateStep2').classList.remove('active');
+  document.getElementById('genGateStep1').classList.add('active');
+  document.getElementById('genGateEmail').focus();
+}
+
+async function sendGenVerifCode(){
+  const n=document.getElementById('genGateNume'),e=document.getElementById('genGateEmail'),gc=document.getElementById('genGateGdpr');
+  n.classList.remove('err');e.classList.remove('err');gc.classList.remove('err');
+  let ok=true;
+  if(!n.value.trim()){n.classList.add('err');ok=false}
+  if(!e.value.trim()||!e.value.includes('@')||!e.value.includes('.')){e.classList.add('err');ok=false}
+  if(!document.getElementById('genGateGdprCheck').checked){gc.classList.add('err');ok=false}
+  if(!ok)return;
+  _genVerifEmail=e.value.trim();
+  document.getElementById('genGateSending').classList.add('visible');
+  document.getElementById('genGateBtns1').style.display='none';
+  try{
+    const r=await fetch('/api/send-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_genVerifEmail,name:n.value.trim()})});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.detail||d.error||'send failed');
+    _genHmac=d.hmac;_genHmacExp=d.expires;
+    document.getElementById('genGateSending').classList.remove('visible');
+    document.getElementById('genGateStep1').classList.remove('active');
+    document.getElementById('genGateStep2').classList.add('active');
+    document.getElementById('genGateEmailShow').textContent=_genVerifEmail;
+    const inputs=document.querySelectorAll('#genCodeWrap input');
+    inputs.forEach(i=>{i.value='';i.classList.remove('err')});
+    inputs[0].focus();
+    setupGenCodeInputs();
+    startGenResendTimer();
+  }catch(err){
+    document.getElementById('genGateSending').classList.remove('visible');
+    document.getElementById('genGateBtns1').style.display='flex';
+    alert(err.message||'Eroare la trimiterea codului.');
+    console.error(err);
+  }
+}
+
+function setupGenCodeInputs(){
+  const inputs=document.querySelectorAll('#genCodeWrap input');
+  inputs.forEach((inp,i)=>{
+    inp.oninput=function(){if(this.value.length===1&&i<5)inputs[i+1].focus()};
+    inp.onkeydown=function(e){if(e.key==='Backspace'&&!this.value&&i>0){inputs[i-1].focus()}};
+    inp.onpaste=function(e){e.preventDefault();const txt=(e.clipboardData||window.clipboardData).getData('text').replace(/\D/g,'').slice(0,6);txt.split('').forEach((ch,ci)=>{if(inputs[ci])inputs[ci].value=ch});if(txt.length===6)submitGenVerifCode()};
+  });
+}
+
+let _genResendTimer=null;
+function startGenResendTimer(){
+  const el=document.getElementById('genResendLink');
+  el.classList.add('disabled');
+  let sec=60;
+  el.textContent='Retrimite in '+sec+'s';
+  clearInterval(_genResendTimer);
+  _genResendTimer=setInterval(()=>{sec--;el.textContent='Retrimite in '+sec+'s';if(sec<=0){clearInterval(_genResendTimer);el.classList.remove('disabled');el.textContent='Nu ai primit codul? Retrimite'}},1000);
+}
+
+async function resendGenVerifCode(){
+  const el=document.getElementById('genResendLink');
+  if(el.classList.contains('disabled'))return;
+  await sendGenVerifCode();
+}
+
+async function submitGenVerifCode(){
+  const inputs=document.querySelectorAll('#genCodeWrap input');
+  const code=Array.from(inputs).map(i=>i.value).join('');
+  if(code.length!==6)return;
+  document.getElementById('genVerifSending').classList.add('visible');
+  document.getElementById('genGateBtns2').style.display='none';
+  document.getElementById('genCodeError').style.display='none';
+  try{
+    const r=await fetch('/api/verify-code',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:_genVerifEmail,code:code,hmac:_genHmac,expires:_genHmacExp})});
+    const d=await r.json();
+    document.getElementById('genVerifSending').classList.remove('visible');
+    document.getElementById('genGateBtns2').style.display='flex';
+    if(d.verified){
+      const nm=document.getElementById('genGateNume').value.trim();
+      const cc=document.getElementById('genGateCountry').value;
+      const ph=document.getElementById('genGateTelefon').value.trim();
+      localStorage.setItem('gen_lead_ok','1');
+      localStorage.setItem('gen_lead_name',nm);
+      localStorage.setItem('gen_lead_email',_genVerifEmail);
+      localStorage.setItem('gen_lead_phone',ph?cc+' '+ph:'');
+      genState.name=nm;
+      closeGenGate();
+      // Proceed with generation
+      executeGeneration();
+    }else{
+      const err=d.error==='expired'?'Codul a expirat. Retrimite.':'Cod incorect. Verifica si incearca din nou.';
+      document.getElementById('genCodeError').textContent=err;
+      document.getElementById('genCodeError').style.display='block';
+      inputs.forEach(i=>i.classList.add('err'));
+    }
+  }catch(err){
+    document.getElementById('genVerifSending').classList.remove('visible');
+    document.getElementById('genGateBtns2').style.display='flex';
+    document.getElementById('genCodeError').textContent='Eroare la verificare. Incearca din nou.';
+    document.getElementById('genCodeError').style.display='block';
+    console.error(err);
+  }
+}
+// ===== END GENERATOR GATE =====
+
+// ===== SEND GENERATOR LEAD TO GHL =====
+function sendGenLeadToGHL(generatedData){
+  const lead=getGenLeadData();
+  const payload={
+    name:lead.name,
+    email:lead.email,
+    phone:lead.phone,
+    source:'generator-sugestii',
+    tier:genState.level,
+    content_type:'generator',
+    email_verified:'da',
+    gdpr_consent:'da',
+    gdpr_timestamp:new Date().toISOString(),
+    device:window.innerWidth<=768?'mobile':'desktop',
+    lang:typeof currentLang!=='undefined'?currentLang:'ro',
+    timestamp:new Date().toISOString(),
+    lead_type:'generator',
+    generator_problem:genState.problemFree||genState.problem,
+    generator_goal:genState.goalFree||genState.goal,
+    generator_intensity:genState.intensity,
+    generator_motivation:genState.motivation,
+    generator_level:genState.level,
+    generator_content:JSON.stringify(generatedData).substring(0,8000)
+  };
+  fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});
+}
+// ===== END GHL =====
+
+// ===== SEND SUGGESTIONS EMAIL VIA RESEND =====
+function sendGenSuggestionsEmail(generatedData){
+  const lead=getGenLeadData();
+  if(!lead.email)return;
+  fetch('/api/send-suggestions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      email:lead.email,
+      name:lead.name,
+      level:genState.level,
+      problem:genState.problemFree||genState.problem,
+      goal:genState.goalFree||genState.goal,
+      intensity:genState.intensity,
+      motivation:genState.motivation,
+      data:generatedData
+    })
+  }).then(r=>{
+    if(!r.ok)console.error('Email send failed:',r.status);
+  }).catch(e=>console.error('Email send error:',e));
+}
+// ===== END SEND EMAIL =====
+
 // ===== END GENERATOR =====
 
 // ===== INIT =====
