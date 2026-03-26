@@ -59,7 +59,7 @@ export default async function handler(req, res) {
         'Authorization': `Bearer ${RESEND_API_KEY}`
       },
       body: JSON.stringify({
-        from: process.env.RESEND_FROM_EMAIL || 'Puterea Minții <noreply@putereamintii.ro>',
+        from: 'Puterea Mintii <noreply@verificare.putereamintii.ro>',
         to: email,
         subject: subjectMap[level] || subjectMap.simplu,
         html: htmlEmail
