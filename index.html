@@ -390,26 +390,21 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 /* ===== END LABORATOR NLP STYLES ===== */
 
 /* ============================================================
-   DESIGN POLISH OVERHAUL — Premium Dark Glass Theme
-   REGULA: Nu suprascrie structura. Doar CSS upgrades.
+   DESIGN POLISH OVERHAUL v2 — Premium Dark Glass Theme
+   Vizibil la prima privire. Nu doar hover effects.
    ============================================================ */
 
-/* --- 0. Font heading variable --- */
+/* --- Variables extinse --- */
 :root {
-  --font-heading: 'Plus Jakarta Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --glass-bg: rgba(22, 42, 54, 0.65);
-  --glass-border: rgba(79, 193, 233, 0.12);
-  --glass-blur: 12px;
-  --shadow-card: 0 2px 8px rgba(0,0,0,0.18), 0 8px 32px rgba(0,0,0,0.12);
-  --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.22), 0 12px 48px rgba(0,0,0,0.16);
-  --shadow-elevated: 0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.12);
-  --glow-blue: 0 0 20px rgba(79,193,233,0.15), 0 0 60px rgba(79,193,233,0.06);
-  --glow-gold: 0 0 20px rgba(246,212,76,0.15), 0 0 60px rgba(246,212,76,0.06);
-  --glow-red: 0 0 20px rgba(192,57,43,0.2), 0 0 60px rgba(192,57,43,0.08);
-  --glow-green: 0 0 20px rgba(46,204,113,0.15), 0 0 60px rgba(46,204,113,0.06);
+  --font-heading: 'Plus Jakarta Sans', 'DM Sans', sans-serif;
+  --glass-border: rgba(79,193,233,0.18);
+  --card-bg-glass: linear-gradient(145deg, rgba(22,42,54,0.85) 0%, rgba(30,55,72,0.65) 100%);
+  --shadow-card: 0 4px 24px rgba(0,0,0,0.25), 0 1px 3px rgba(0,0,0,0.1);
+  --shadow-card-hover: 0 8px 40px rgba(0,0,0,0.35), 0 0 20px rgba(79,193,233,0.08);
+  --shadow-elevated: 0 12px 48px rgba(0,0,0,0.4), 0 0 1px rgba(255,255,255,0.05);
 }
 
-/* --- 1. Heading font upgrade --- */
+/* --- 1. FONT HEADINGS — Plus Jakarta Sans, vizibil diferit --- */
 .section-title,
 .home-hero h2,
 .toolkit-heading,
@@ -417,357 +412,377 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .onboard-box h3,
 .upgrade-box h3,
 .gen-question,
-.sidebar-brand h1,
-h1, h2, h3 {
-  font-family: var(--font-heading);
+.sidebar-brand h1 {
+  font-family: var(--font-heading) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.04em;
 }
 .section-title {
-  font-weight: 800;
-  letter-spacing: -0.035em;
-}
-.home-hero h2 {
-  font-weight: 800;
-  letter-spacing: -0.03em;
+  font-size: 2.3rem !important;
+  line-height: 1.15 !important;
 }
 
-/* --- 2. Cards: glass morphism --- */
+/* --- 2. CARDS — gradient background + visible glow border --- */
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-card);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--card-bg-glass) !important;
+  border: 1px solid rgba(79,193,233,0.15) !important;
+  box-shadow: var(--shadow-card) !important;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative;
 }
-.card:hover {
-  border-color: rgba(79,193,233,0.28);
-  box-shadow: var(--shadow-card-hover);
-}
-
-/* --- 3. Layered shadows for depth --- */
-.sidebar {
-  background: rgba(17, 29, 39, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 4px 0 24px rgba(0,0,0,0.3), 1px 0 8px rgba(0,0,0,0.15);
-  border-right: 1px solid rgba(79,193,233,0.08);
-}
-.gate-box,
-.onboard-box,
-.upgrade-box {
-  background: rgba(22, 42, 54, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  box-shadow: var(--shadow-elevated), 0 0 80px rgba(0,0,0,0.3);
-  border: 1px solid rgba(79,193,233,0.15);
-}
-
-/* --- 4. Homepage hero: gradient text, CTA glow --- */
-.home-hero {
-  background: linear-gradient(135deg, rgba(22,42,54,0.8) 0%, rgba(79,193,233,0.1) 50%, rgba(246,212,76,0.04) 100%);
-  border: 1px solid rgba(79,193,233,0.15);
-  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
-.home-hero h2 {
-  background: linear-gradient(135deg, #e8edf0 0%, #4FC1E9 45%, #F6D44C 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-.home-hero .btn-primary {
-  box-shadow: 0 0 24px rgba(192,57,43,0.3), 0 4px 12px rgba(0,0,0,0.2);
-}
-.home-hero .btn-primary:hover {
-  box-shadow: 0 0 36px rgba(192,57,43,0.45), 0 6px 20px rgba(0,0,0,0.25);
-  transform: translateY(-2px);
-}
-.home-hero .btn-secondary {
-  border-color: rgba(79,193,233,0.3);
-}
-.home-hero .btn-secondary:hover {
-  box-shadow: 0 0 20px rgba(79,193,233,0.15);
-  transform: translateY(-2px);
-}
-
-/* --- 5. Score circle: glow effect --- */
-.score-circle {
-  box-shadow: 0 0 30px rgba(79,193,233,0.2), 0 0 60px rgba(79,193,233,0.08);
-  background: radial-gradient(circle at center, rgba(79,193,233,0.06) 0%, transparent 70%);
-}
-/* dynamic glow based on score-color custom property */
-.score-circle::after {
+.card::before {
   content: '';
   position: absolute;
-  inset: -8px;
-  border-radius: 50%;
-  background: radial-gradient(circle, var(--score-color, var(--accent-blue)) 0%, transparent 70%);
-  opacity: 0.12;
-  z-index: -1;
-  filter: blur(12px);
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(145deg, rgba(79,193,233,0.2) 0%, rgba(79,193,233,0) 50%, rgba(246,212,76,0.1) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  border-radius: var(--radius);
 }
-
-/* --- 6. Sidebar: premium active state --- */
-.sidebar-nav a.active {
-  background: linear-gradient(135deg, rgba(79,193,233,0.12) 0%, rgba(30,54,69,0.9) 100%);
-  border-left: 3px solid var(--accent-blue);
-  box-shadow: inset 0 0 20px rgba(79,193,233,0.06), 0 2px 8px rgba(0,0,0,0.1);
-}
-.sidebar-nav a:hover {
-  background: rgba(79,193,233,0.06);
-}
-.sidebar-brand {
-  border-bottom: 1px solid rgba(79,193,233,0.1);
-}
-.sidebar-footer {
-  border-top: 1px solid rgba(79,193,233,0.1);
-}
-
-/* --- 7. Buttons: gradient, glow + lift on hover --- */
-.btn-primary {
-  background: linear-gradient(135deg, #c0392b 0%, #e74c5e 100%);
-  box-shadow: 0 2px 8px rgba(192,57,43,0.25);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.btn-primary:hover {
-  background: linear-gradient(135deg, #d44352 0%, #e74c5e 100%);
-  box-shadow: 0 0 28px rgba(192,57,43,0.4), 0 4px 16px rgba(0,0,0,0.2);
-  transform: translateY(-2px);
-}
-.btn-primary:active {
-  transform: translateY(0);
-  box-shadow: 0 0 16px rgba(192,57,43,0.3);
-}
-.btn-secondary {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.btn-secondary:hover {
-  border-color: var(--accent-blue);
-  color: var(--accent-blue);
-  box-shadow: 0 0 16px rgba(79,193,233,0.12);
-  transform: translateY(-2px);
-}
-
-/* --- 8. Micro-animations: entrance stagger on card-grid --- */
-@keyframes cardEntrance {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.card-grid > .card {
-  animation: cardEntrance 0.4s ease both;
-}
-.card-grid > .card:nth-child(1) { animation-delay: 0.05s; }
-.card-grid > .card:nth-child(2) { animation-delay: 0.12s; }
-.card-grid > .card:nth-child(3) { animation-delay: 0.19s; }
-.card-grid > .card:nth-child(4) { animation-delay: 0.26s; }
-.card-grid > .card:nth-child(5) { animation-delay: 0.33s; }
-.card-grid > .card:nth-child(6) { animation-delay: 0.40s; }
-
-/* hover lift for interactive cards */
-.toolkit-card:hover,
-.lab-card:hover,
-.lib-card:hover,
-.stat-card:hover {
+.card:hover {
+  box-shadow: var(--shadow-card-hover) !important;
+  border-color: rgba(79,193,233,0.3) !important;
   transform: translateY(-3px);
 }
 
-/* --- 9. Spacing: more generous --- */
-.page-section {
-  padding: 44px 48px 72px;
+/* --- 3. SIDEBAR — glass + gradient accent bar --- */
+.sidebar {
+  background: linear-gradient(180deg, rgba(14,24,32,0.97) 0%, rgba(17,29,39,0.95) 100%) !important;
+  box-shadow: 4px 0 32px rgba(0,0,0,0.4) !important;
+  border-right: 1px solid rgba(79,193,233,0.1) !important;
 }
-@media(min-width: 769px) {
-  .card {
-    padding: 26px;
-  }
-  .eval-input-card {
-    padding: 32px;
-  }
-  .home-hero {
-    padding: 48px 44px;
-  }
+.sidebar-nav a.active {
+  background: linear-gradient(135deg, rgba(79,193,233,0.15) 0%, rgba(30,54,69,0.8) 100%) !important;
+  border-left: 3px solid var(--accent-blue) !important;
+  box-shadow: inset 4px 0 12px rgba(79,193,233,0.08);
 }
+.sidebar-nav a:hover:not(.active) {
+  background: rgba(79,193,233,0.07) !important;
+}
+.sidebar-brand {
+  padding: 28px 20px 24px !important;
+}
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(79,193,233,0.2); border-radius: 4px; }
 
-/* --- 10. Section tag: gradient underline instead of dot --- */
-.section-tag::before {
+/* --- 4. HOME HERO — gradient text + vizibil pattern --- */
+.home-hero {
+  background: linear-gradient(135deg, rgba(22,42,54,0.9) 0%, rgba(79,193,233,0.12) 40%, rgba(246,212,76,0.06) 100%) !important;
+  border: 1px solid rgba(79,193,233,0.2) !important;
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+  padding: 48px 44px !important;
+  position: relative;
+  overflow: hidden;
+}
+.home-hero::before {
   content: '';
-  width: 28px;
-  height: 3px;
-  border-radius: 2px;
-  background: linear-gradient(90deg, var(--accent-red), rgba(231,76,94,0.3));
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(79,193,233,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.home-hero h2 {
+  font-size: 2rem !important;
+  background: linear-gradient(135deg, #f0f4f6 0%, #4FC1E9 50%, #F6D44C 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  line-height: 1.25 !important;
+  padding-bottom: 4px;
+}
+.home-hero p {
+  font-size: 1rem !important;
+  line-height: 1.7 !important;
 }
 
-/* --- 11. Toolkit cards: icon glow, scale on hover --- */
-.toolkit-card .toolkit-icon {
-  transition: all 0.3s ease;
-  box-shadow: none;
+/* --- 5. BUTOANE — gradient vizibil + glow --- */
+.btn-primary {
+  background: linear-gradient(135deg, #b8342b 0%, #e74c5e 100%) !important;
+  box-shadow: 0 4px 16px rgba(192,57,43,0.3), 0 1px 3px rgba(0,0,0,0.15) !important;
+  border-radius: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.01em;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
-.toolkit-card:hover .toolkit-icon {
-  box-shadow: 0 0 24px rgba(79,193,233,0.2);
-  transform: scale(1.08);
+.btn-primary:hover {
+  background: linear-gradient(135deg, #d44352 0%, #f05c6c 100%) !important;
+  box-shadow: 0 0 32px rgba(192,57,43,0.4), 0 6px 24px rgba(0,0,0,0.2) !important;
+  transform: translateY(-2px) !important;
+}
+.btn-primary:active {
+  transform: translateY(0) !important;
+}
+.btn-secondary {
+  border-radius: 10px !important;
+  border-color: rgba(79,193,233,0.3) !important;
+  transition: all 0.3s ease !important;
+}
+.btn-secondary:hover {
+  background: rgba(79,193,233,0.08) !important;
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 20px rgba(79,193,233,0.12) !important;
+  transform: translateY(-2px);
+}
+
+/* --- 6. SCORE CIRCLE — glow ring vizibil --- */
+.score-circle {
+  background: radial-gradient(circle at center, rgba(79,193,233,0.08) 0%, transparent 70%) !important;
+  box-shadow: 0 0 30px rgba(79,193,233,0.15), 0 0 60px rgba(79,193,233,0.06) !important;
+}
+.score-circle::after {
+  content: '';
+  position: absolute;
+  inset: -10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--score-color, var(--accent-blue)) 0%, transparent 70%);
+  opacity: 0.15;
+  z-index: -1;
+  filter: blur(14px);
+  pointer-events: none;
+}
+
+/* --- 7. SECTION TAG — gradient underline (nu dot) --- */
+.section-tag::before {
+  width: 32px !important;
+  height: 3px !important;
+  border-radius: 2px !important;
+  background: linear-gradient(90deg, var(--accent-red), rgba(231,76,94,0.2)) !important;
+}
+
+/* --- 8. TOOLKIT CARDS — icon glow always visible + hover scale --- */
+.toolkit-card {
+  padding: 26px !important;
+}
+.toolkit-card .toolkit-icon {
+  box-shadow: 0 0 16px rgba(79,193,233,0.1);
+  transition: all 0.35s ease;
 }
 .toolkit-card:hover {
-  transform: translateY(-3px) scale(1.01);
-  box-shadow: var(--shadow-card-hover), var(--glow-blue);
+  transform: translateY(-4px) !important;
+  box-shadow: var(--shadow-card-hover), 0 0 30px rgba(79,193,233,0.1) !important;
 }
-
-/* Lab cards similar treatment */
+.toolkit-card:hover .toolkit-icon {
+  transform: scale(1.12);
+  box-shadow: 0 0 28px rgba(79,193,233,0.2);
+}
+/* Lab cards same treatment */
+.lab-card {
+  padding: 26px !important;
+}
+.lab-card:hover {
+  transform: translateY(-4px) !important;
+}
 .lab-card:hover .lab-icon {
-  transform: scale(1.08);
+  transform: scale(1.12);
 }
 
-/* --- 12. Criteria table: hover rows, border-left colored by score --- */
-.criteria-table td {
-  transition: background 0.2s ease;
-  background: rgba(22, 42, 54, 0.65);
+/* --- 9. SPACING mai generos --- */
+.page-section {
+  padding: 44px 48px 72px !important;
 }
-.criteria-table tr:hover td {
-  background: rgba(79, 193, 233, 0.05);
+.section-title {
+  margin-bottom: 10px !important;
+}
+.section-desc {
+  margin-bottom: 36px !important;
+}
+
+/* --- 10. CRITERIA TABLE — border-left vizibil, hover rânduri --- */
+.criteria-table td {
+  background: rgba(22,42,54,0.7) !important;
+  transition: all 0.2s ease;
 }
 .criteria-table tr td:first-child {
-  border-left: 3px solid transparent;
-  transition: border-color 0.2s ease;
+  border-left: 3px solid rgba(79,193,233,0.15) !important;
+}
+.criteria-table tr:hover td {
+  background: rgba(79,193,233,0.07) !important;
 }
 .criteria-table tr:hover td:first-child {
-  border-left-color: var(--accent-blue);
+  border-left-color: var(--accent-blue) !important;
 }
 
-/* --- 13. Extra polish: inputs, textareas, modals --- */
-.eval-textarea:focus {
-  border-color: var(--accent-blue);
-  box-shadow: 0 0 0 3px rgba(79,193,233,0.08), 0 0 20px rgba(79,193,233,0.06);
+/* --- 11. STAT CARDS — visible number accent --- */
+.stat-card .stat-num {
+  background: linear-gradient(135deg, var(--text-heading) 0%, var(--accent-blue) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 1.8rem !important;
 }
-.gen-free-input:focus {
-  box-shadow: 0 0 0 3px rgba(79,193,233,0.08);
+.stat-card .stat-icon {
+  transition: all 0.3s ease;
 }
-.gate-field input:focus,
-.gate-field select:focus {
-  box-shadow: 0 0 0 3px rgba(79,193,233,0.08);
+.stat-card:hover .stat-icon {
+  box-shadow: 0 0 20px rgba(79,193,233,0.15);
+  transform: scale(1.06);
 }
 
-/* Lead/expert overlay backdrop */
+/* --- 12. MODALS/OVERLAYS — glass blur + premium shadow --- */
 .lead-overlay.visible,
 .expert-overlay.visible,
 .onboard-overlay.visible,
 .upgrade-overlay.visible {
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.gate-box, .onboard-box, .upgrade-box {
+  box-shadow: var(--shadow-elevated) !important;
+  border: 1px solid rgba(79,193,233,0.18) !important;
 }
 
-/* Improved card (green) subtle glow */
-.improved-text {
-  box-shadow: inset 0 0 30px rgba(46,204,113,0.04);
+/* --- 13. INPUTS — focus ring vizibil --- */
+.eval-textarea:focus,
+.gen-free-input:focus,
+.gate-field input:focus,
+.gate-field select:focus,
+.gen-name-row input:focus {
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px rgba(79,193,233,0.12), 0 0 24px rgba(79,193,233,0.06) !important;
 }
 
-/* Problems card accent */
-.problem-item {
-  transition: background 0.2s ease;
-}
-.problem-item:hover {
-  background: rgba(231,76,94,0.12);
-}
-
-/* Score bar fill glow */
-.score-bar-fill {
-  box-shadow: 0 0 8px rgba(79,193,233,0.2);
-}
-
-/* Generator cards: pill hover glow */
-.gen-card:hover {
-  box-shadow: 0 0 12px rgba(79,193,233,0.1);
-}
-.gen-card.selected {
-  box-shadow: 0 0 16px rgba(79,193,233,0.15);
-}
-
-/* Library cards: subtle glow on hover */
-.lib-card:hover {
-  box-shadow: var(--shadow-card-hover), 0 0 24px rgba(79,193,233,0.08);
-}
-
-/* History items */
-.hist-item:hover {
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-}
-
-/* Tier toggle: active state glow */
+/* --- 14. TIER TOGGLE — active glow --- */
 .tier-toggle button.active {
-  box-shadow: 0 0 16px rgba(79,193,233,0.2);
+  box-shadow: 0 0 18px rgba(79,193,233,0.25) !important;
+  background: linear-gradient(135deg, #3dadd4 0%, var(--accent-blue) 100%) !important;
 }
 .content-type-toggle button.active {
-  box-shadow: 0 0 12px rgba(59,89,106,0.3);
+  box-shadow: 0 0 14px rgba(59,89,106,0.35) !important;
 }
 
-/* Lang grid: active button glow */
+/* --- 15. LANG GRID active --- */
 .lang-grid button.active {
-  box-shadow: 0 0 12px rgba(79,193,233,0.25);
+  box-shadow: 0 0 14px rgba(79,193,233,0.3) !important;
+  background: linear-gradient(135deg, #3dadd4, var(--accent-blue)) !important;
 }
 
-/* Stat cards: subtle icon area glow */
-.stat-card .stat-icon {
-  transition: box-shadow 0.3s ease;
+/* --- 16. IMPROVED/PROBLEMS — premium feel --- */
+.improved-text {
+  border: 1px solid rgba(46,204,113,0.25) !important;
+  box-shadow: inset 0 0 40px rgba(46,204,113,0.04), 0 2px 12px rgba(0,0,0,0.1);
 }
-.stat-card:hover .stat-icon {
-  box-shadow: 0 0 20px rgba(79,193,233,0.12);
+.problem-item {
+  transition: all 0.2s ease;
+}
+.problem-item:hover {
+  background: rgba(231,76,94,0.12) !important;
 }
 
-/* Accordion items: premium feel */
+/* --- 17. GENERATOR wizard pills --- */
+.gen-card:hover {
+  box-shadow: 0 0 14px rgba(79,193,233,0.12);
+}
+.gen-card.selected {
+  box-shadow: 0 0 20px rgba(79,193,233,0.18) !important;
+}
+
+/* --- 18. LIBRARY cards --- */
+.lib-card:hover {
+  box-shadow: var(--shadow-card-hover), 0 0 24px rgba(79,193,233,0.06) !important;
+  transform: translateY(-3px) !important;
+}
+
+/* --- 19. HISTORY items --- */
+.hist-item:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.18) !important;
+  transform: translateY(-2px) !important;
+}
+
+/* --- 20. ACCORDION premium --- */
 .accordion-item {
-  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important;
 }
 .accordion-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15) !important;
+}
+
+/* --- 21. UPGRADE cards glow --- */
+.upgrade-card.card-av:hover {
+  box-shadow: 0 4px 24px rgba(79,193,233,0.15) !important;
+}
+.upgrade-card.card-ex:hover {
+  box-shadow: 0 4px 24px rgba(246,212,76,0.15) !important;
+}
+
+/* --- 22. Stagger entrance pe card-grid --- */
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-section.active .card-grid > .card,
+.page-section.active .card-grid > .toolkit-card {
+  animation: cardSlideUp 0.45s ease both;
+}
+.page-section.active .card-grid > :nth-child(1) { animation-delay: 0.04s; }
+.page-section.active .card-grid > :nth-child(2) { animation-delay: 0.1s; }
+.page-section.active .card-grid > :nth-child(3) { animation-delay: 0.16s; }
+.page-section.active .card-grid > :nth-child(4) { animation-delay: 0.22s; }
+.page-section.active .card-grid > :nth-child(5) { animation-delay: 0.28s; }
+.page-section.active .card-grid > :nth-child(6) { animation-delay: 0.34s; }
+
+/* --- 23. Score bar fill glow --- */
+.score-bar-fill {
+  box-shadow: 0 0 8px rgba(79,193,233,0.25);
+}
+
+/* --- 24. DIFF card premium --- */
+.diff-card {
   box-shadow: 0 2px 12px rgba(0,0,0,0.12);
 }
 
-/* Scrollbar styling for sidebar */
-.sidebar::-webkit-scrollbar {
-  width: 4px;
-}
-.sidebar::-webkit-scrollbar-track {
-  background: transparent;
-}
-.sidebar::-webkit-scrollbar-thumb {
-  background: rgba(79,193,233,0.15);
-  border-radius: 2px;
-}
-.sidebar::-webkit-scrollbar-thumb:hover {
-  background: rgba(79,193,233,0.25);
-}
-
-/* Upgrade cards hover glow */
-.upgrade-card.card-av:hover {
-  box-shadow: 0 0 24px rgba(79,193,233,0.12);
-}
-.upgrade-card.card-ex:hover {
-  box-shadow: 0 0 24px rgba(246,212,76,0.12);
-}
-
-/* --- 14. Mobile overrides for polish --- */
+/* --- 25. MOBILE — disable transforms, adjust spacing --- */
 @media(max-width: 768px) {
   .page-section {
-    padding: 24px 18px 48px;
+    padding: 24px 18px 48px !important;
   }
   .home-hero {
-    padding: 32px 22px;
+    padding: 32px 22px !important;
   }
   .home-hero h2 {
-    font-size: 1.45rem;
+    font-size: 1.5rem !important;
   }
-  .card-grid > .card {
-    animation-delay: 0s !important;
+  .section-title {
+    font-size: 1.55rem !important;
   }
-  .btn-primary:hover,
-  .btn-secondary:hover,
+  .card:hover,
   .toolkit-card:hover,
   .lab-card:hover,
-  .lib-card:hover {
-    transform: none;
+  .lib-card:hover,
+  .hist-item:hover,
+  .btn-primary:hover,
+  .btn-secondary:hover {
+    transform: none !important;
+  }
+  .page-section.active .card-grid > .card,
+  .page-section.active .card-grid > .toolkit-card {
+    animation: none !important;
+  }
+  .home-hero::before {
+    display: none;
+  }
+  .card::before {
+    display: none;
+  }
+}
+@media(max-width: 480px) {
+  .section-title {
+    font-size: 1.35rem !important;
+  }
+  .home-hero h2 {
+    font-size: 1.3rem !important;
   }
 }
 
 /* ============================================================
-   END DESIGN POLISH OVERHAUL
+   END DESIGN POLISH OVERHAUL v2
    ============================================================ */
 </style>
 </head>
