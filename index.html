@@ -339,7 +339,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .lab-mp-bar .mp-track{flex:1;height:8px;background:var(--bg-input);border-radius:4px;overflow:hidden;position:relative}
 .lab-mp-bar .mp-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
 .lab-mp-bar .mp-right{width:70px;font-size:0.72rem;font-weight:600;color:var(--text-muted);flex-shrink:0}
-@media(max-width:768px){.lab-grid{grid-template-columns:1fr}}
+@media(max-width:768px){.lab-grid{grid-template-columns:1fr}#sec-contact>div:nth-child(4){grid-template-columns:1fr!important}#sec-contact>div:nth-child(4) .gate-field div[style*="grid-template-columns"]{grid-template-columns:1fr!important}}
 /* ===== END LABORATOR NLP STYLES ===== */
 </style>
 </head>
@@ -582,26 +582,27 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="section-tag">Contact</div>
 <h1 class="section-title">Contact</h1>
 <p class="section-desc">Ai o întrebare, o sugestie sau vrei să afli mai multe despre programele noastre? Scrie-ne.</p>
-<div class="card" style="padding:28px;margin-bottom:24px">
-<h3 style="font-size:1.1rem;font-weight:700;color:var(--text-heading);margin-bottom:4px">Scrie-ne un mesaj</h3>
-<div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px">Completează formularul și te contactăm în cel mai scurt timp.</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
+<div class="card" style="padding:24px">
+<h3 style="font-size:1.05rem;font-weight:700;color:var(--text-heading);margin-bottom:4px">Scrie-ne un mesaj</h3>
+<div style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px">Completează formularul și te contactăm în cel mai scurt timp.</div>
 <div class="gate-field"><label>Nume *</label><input type="text" id="contactNume" placeholder="Numele tău"></div>
 <div class="gate-field"><label>Email *</label><input type="email" id="contactEmail" placeholder="email@exemplu.ro"></div>
-<div class="gate-field"><label>Telefon (opțional)</label><input type="tel" id="contactTelefon" placeholder="+40 7xx xxx xxx"></div>
-<div class="gate-field"><label>Subiect *</label><input type="text" id="contactSubiect" placeholder="Despre ce e vorba?"></div>
-<div class="gate-field"><label>Mesajul tău *</label><textarea id="contactMesaj" class="eval-textarea" style="min-height:120px" placeholder="Scrie mesajul aici..."></textarea></div>
-<div id="contactStatus" style="display:none;margin-bottom:14px;padding:12px;border-radius:var(--radius-sm);font-size:0.88rem;text-align:center"></div>
-<button class="btn-primary" id="contactSendBtn" onclick="sendContactForm()" style="width:100%;justify-content:center;padding:14px 24px">Trimite mesajul →</button>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="gate-field"><label>Telefon</label><input type="tel" id="contactTelefon" placeholder="+40 7xx xxx xxx"></div><div class="gate-field"><label>Subiect *</label><input type="text" id="contactSubiect" placeholder="Despre ce e vorba?"></div></div>
+<div class="gate-field"><label>Mesaj *</label><textarea id="contactMesaj" class="eval-textarea" style="min-height:100px" placeholder="Scrie mesajul aici..."></textarea></div>
+<div id="contactStatus" style="display:none;margin-bottom:10px;padding:10px;border-radius:var(--radius-sm);font-size:0.85rem;text-align:center"></div>
+<button class="btn-primary" id="contactSendBtn" onclick="sendContactForm()" style="width:100%;justify-content:center;padding:12px 20px">Trimite mesajul →</button>
 </div>
-<div class="card-grid" style="margin-bottom:24px">
-<div class="card" style="padding:24px">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><span style="font-size:1.5rem">📧</span><div><div style="font-size:1rem;font-weight:700;color:var(--text-heading)">Email</div><a href="mailto:contact@putereamintii.ro" style="font-size:0.9rem;color:var(--accent-blue);text-decoration:none">contact@putereamintii.ro</a></div></div>
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><span style="font-size:1.5rem">🌐</span><div><div style="font-size:1rem;font-weight:700;color:var(--text-heading)">Website</div><a href="https://www.putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.9rem;color:var(--accent-blue);text-decoration:none">www.putereamintii.ro</a></div></div>
-<div style="display:flex;align-items:center;gap:12px"><span style="font-size:1.5rem">📱</span><div><div style="font-size:1rem;font-weight:700;color:var(--text-heading)">Social Media</div><div style="display:flex;gap:12px;margin-top:4px"><a href="https://www.facebook.com/putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.88rem;color:var(--accent-blue);text-decoration:none">Facebook</a><a href="https://www.instagram.com/putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.88rem;color:var(--accent-blue);text-decoration:none">Instagram</a><a href="https://www.youtube.com/@putereamintii" target="_blank" rel="noopener" style="font-size:0.88rem;color:var(--accent-blue);text-decoration:none">YouTube</a></div></div></div>
+<div style="display:flex;flex-direction:column;gap:16px">
+<div class="card" style="padding:20px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.2rem">📧</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Email</div><a href="mailto:contact@putereamintii.ro" style="font-size:0.85rem;color:var(--accent-blue);text-decoration:none">contact@putereamintii.ro</a></div></div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.2rem">🌐</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Website</div><a href="https://www.putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.85rem;color:var(--accent-blue);text-decoration:none">www.putereamintii.ro</a></div></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.2rem">📱</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Social Media</div><div style="display:flex;gap:10px;margin-top:3px"><a href="https://www.facebook.com/putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--accent-blue);text-decoration:none">Facebook</a><a href="https://www.instagram.com/putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--accent-blue);text-decoration:none">Instagram</a><a href="https://www.youtube.com/@putereamintii" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--accent-blue);text-decoration:none">YouTube</a></div></div></div>
 </div>
-<div class="card" style="padding:24px">
-<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><span style="font-size:1.5rem">👤</span><div><div style="font-size:1rem;font-weight:700;color:var(--text-heading)">Eugen Popa</div><div style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5">Președinte Asociația Română de Hipnoză<br>Fondator Puterea Minții<br>Trainer acreditat Society of NLP</div></div></div>
-<div style="display:flex;align-items:center;gap:12px"><span style="font-size:1.5rem">👤</span><div><div style="font-size:1rem;font-weight:700;color:var(--text-heading)">Angela Nuțu</div><div style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5">Doctor în Neuroștiințe<br>Vicepreședinte Asociația Română de Hipnoză</div></div></div>
+<div class="card" style="padding:20px">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:14px"><span style="font-size:1.2rem">👤</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Eugen Popa</div><div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.5">Președinte Asociația Română de Hipnoză<br>Fondator Puterea Minții<br>Trainer acreditat Society of NLP</div></div></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.2rem">👤</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Angela Nuțu</div><div style="font-size:0.8rem;color:var(--text-secondary);line-height:1.5">Doctor în Neuroștiințe<br>Vicepreședinte Asociația Română de Hipnoză</div></div></div>
+</div>
 </div>
 </div>
 <div id="contactRecs"></div>
