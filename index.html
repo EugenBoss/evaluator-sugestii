@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Generator de Sugestii Hipnotice — Puterea Minții</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg-body:#0c1820;--bg-sidebar:#111d27;--bg-sidebar-hover:#1a2d3d;--bg-sidebar-active:#1e3645;--bg-main:#0f1f28;--bg-card:#162a36;--bg-card-hover:#1b3244;--bg-input:#0f1f28;--border-card:#1e3f52;--border-subtle:rgba(79,193,233,0.12);--border-input:#2a4a5a;--text-primary:#e8edf0;--text-secondary:#8fa3b0;--text-muted:#5a7585;--text-heading:#f0f4f6;--accent-blue:#4FC1E9;--accent-gold:#F6D44C;--accent-red:#e74c5e;--accent-teal:#3B596A;--accent-green:#2ecc71;--accent-orange:#f39c12;--brand-red:#c0392b;--brand-red-soft:rgba(192,57,43,0.15);--brand-red-glow:rgba(192,57,43,0.4);--brand-gold-glow:rgba(246,212,76,0.3);--sidebar-w:250px;--radius:12px;--radius-sm:8px;--transition:0.25s cubic-bezier(0.4,0,0.2,1);--font-main:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;--font-mono:'JetBrains Mono',monospace}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{font-size:16px;scroll-behavior:smooth;overflow-x:hidden;width:100%;zoom:1;-moz-transform:scale(1);-moz-transform-origin:0 0}
@@ -388,6 +388,387 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .hist-empty-icon{font-size:2.5rem;margin-bottom:12px}
 @media(max-width:768px){.hist-stats-grid{grid-template-columns:repeat(2,1fr)}.hist-toolbar{flex-direction:column;align-items:stretch}.hist-actions{justify-content:flex-end}.hist-item{flex-direction:column;align-items:flex-start;gap:10px}.hist-item-text{white-space:normal}}
 /* ===== END LABORATOR NLP STYLES ===== */
+
+/* ============================================================
+   DESIGN POLISH OVERHAUL — Premium Dark Glass Theme
+   REGULA: Nu suprascrie structura. Doar CSS upgrades.
+   ============================================================ */
+
+/* --- 0. Font heading variable --- */
+:root {
+  --font-heading: 'Plus Jakarta Sans', 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --glass-bg: rgba(22, 42, 54, 0.65);
+  --glass-border: rgba(79, 193, 233, 0.12);
+  --glass-blur: 12px;
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.18), 0 8px 32px rgba(0,0,0,0.12);
+  --shadow-card-hover: 0 4px 16px rgba(0,0,0,0.22), 0 12px 48px rgba(0,0,0,0.16);
+  --shadow-elevated: 0 8px 32px rgba(0,0,0,0.28), 0 2px 8px rgba(0,0,0,0.12);
+  --glow-blue: 0 0 20px rgba(79,193,233,0.15), 0 0 60px rgba(79,193,233,0.06);
+  --glow-gold: 0 0 20px rgba(246,212,76,0.15), 0 0 60px rgba(246,212,76,0.06);
+  --glow-red: 0 0 20px rgba(192,57,43,0.2), 0 0 60px rgba(192,57,43,0.08);
+  --glow-green: 0 0 20px rgba(46,204,113,0.15), 0 0 60px rgba(46,204,113,0.06);
+}
+
+/* --- 1. Heading font upgrade --- */
+.section-title,
+.home-hero h2,
+.toolkit-heading,
+.gate-box h3,
+.onboard-box h3,
+.upgrade-box h3,
+.gen-question,
+.sidebar-brand h1,
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+.section-title {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+.home-hero h2 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+/* --- 2. Cards: glass morphism --- */
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-card);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card:hover {
+  border-color: rgba(79,193,233,0.28);
+  box-shadow: var(--shadow-card-hover);
+}
+
+/* --- 3. Layered shadows for depth --- */
+.sidebar {
+  background: rgba(17, 29, 39, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 4px 0 24px rgba(0,0,0,0.3), 1px 0 8px rgba(0,0,0,0.15);
+  border-right: 1px solid rgba(79,193,233,0.08);
+}
+.gate-box,
+.onboard-box,
+.upgrade-box {
+  background: rgba(22, 42, 54, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-elevated), 0 0 80px rgba(0,0,0,0.3);
+  border: 1px solid rgba(79,193,233,0.15);
+}
+
+/* --- 4. Homepage hero: gradient text, CTA glow --- */
+.home-hero {
+  background: linear-gradient(135deg, rgba(22,42,54,0.8) 0%, rgba(79,193,233,0.1) 50%, rgba(246,212,76,0.04) 100%);
+  border: 1px solid rgba(79,193,233,0.15);
+  box-shadow: var(--shadow-card), inset 0 1px 0 rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.home-hero h2 {
+  background: linear-gradient(135deg, #e8edf0 0%, #4FC1E9 45%, #F6D44C 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.home-hero .btn-primary {
+  box-shadow: 0 0 24px rgba(192,57,43,0.3), 0 4px 12px rgba(0,0,0,0.2);
+}
+.home-hero .btn-primary:hover {
+  box-shadow: 0 0 36px rgba(192,57,43,0.45), 0 6px 20px rgba(0,0,0,0.25);
+  transform: translateY(-2px);
+}
+.home-hero .btn-secondary {
+  border-color: rgba(79,193,233,0.3);
+}
+.home-hero .btn-secondary:hover {
+  box-shadow: 0 0 20px rgba(79,193,233,0.15);
+  transform: translateY(-2px);
+}
+
+/* --- 5. Score circle: glow effect --- */
+.score-circle {
+  box-shadow: 0 0 30px rgba(79,193,233,0.2), 0 0 60px rgba(79,193,233,0.08);
+  background: radial-gradient(circle at center, rgba(79,193,233,0.06) 0%, transparent 70%);
+}
+/* dynamic glow based on score-color custom property */
+.score-circle::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--score-color, var(--accent-blue)) 0%, transparent 70%);
+  opacity: 0.12;
+  z-index: -1;
+  filter: blur(12px);
+}
+
+/* --- 6. Sidebar: premium active state --- */
+.sidebar-nav a.active {
+  background: linear-gradient(135deg, rgba(79,193,233,0.12) 0%, rgba(30,54,69,0.9) 100%);
+  border-left: 3px solid var(--accent-blue);
+  box-shadow: inset 0 0 20px rgba(79,193,233,0.06), 0 2px 8px rgba(0,0,0,0.1);
+}
+.sidebar-nav a:hover {
+  background: rgba(79,193,233,0.06);
+}
+.sidebar-brand {
+  border-bottom: 1px solid rgba(79,193,233,0.1);
+}
+.sidebar-footer {
+  border-top: 1px solid rgba(79,193,233,0.1);
+}
+
+/* --- 7. Buttons: gradient, glow + lift on hover --- */
+.btn-primary {
+  background: linear-gradient(135deg, #c0392b 0%, #e74c5e 100%);
+  box-shadow: 0 2px 8px rgba(192,57,43,0.25);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-primary:hover {
+  background: linear-gradient(135deg, #d44352 0%, #e74c5e 100%);
+  box-shadow: 0 0 28px rgba(192,57,43,0.4), 0 4px 16px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 0 16px rgba(192,57,43,0.3);
+}
+.btn-secondary {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.btn-secondary:hover {
+  border-color: var(--accent-blue);
+  color: var(--accent-blue);
+  box-shadow: 0 0 16px rgba(79,193,233,0.12);
+  transform: translateY(-2px);
+}
+
+/* --- 8. Micro-animations: entrance stagger on card-grid --- */
+@keyframes cardEntrance {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.card-grid > .card {
+  animation: cardEntrance 0.4s ease both;
+}
+.card-grid > .card:nth-child(1) { animation-delay: 0.05s; }
+.card-grid > .card:nth-child(2) { animation-delay: 0.12s; }
+.card-grid > .card:nth-child(3) { animation-delay: 0.19s; }
+.card-grid > .card:nth-child(4) { animation-delay: 0.26s; }
+.card-grid > .card:nth-child(5) { animation-delay: 0.33s; }
+.card-grid > .card:nth-child(6) { animation-delay: 0.40s; }
+
+/* hover lift for interactive cards */
+.toolkit-card:hover,
+.lab-card:hover,
+.lib-card:hover,
+.stat-card:hover {
+  transform: translateY(-3px);
+}
+
+/* --- 9. Spacing: more generous --- */
+.page-section {
+  padding: 44px 48px 72px;
+}
+@media(min-width: 769px) {
+  .card {
+    padding: 26px;
+  }
+  .eval-input-card {
+    padding: 32px;
+  }
+  .home-hero {
+    padding: 48px 44px;
+  }
+}
+
+/* --- 10. Section tag: gradient underline instead of dot --- */
+.section-tag::before {
+  content: '';
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent-red), rgba(231,76,94,0.3));
+}
+
+/* --- 11. Toolkit cards: icon glow, scale on hover --- */
+.toolkit-card .toolkit-icon {
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+.toolkit-card:hover .toolkit-icon {
+  box-shadow: 0 0 24px rgba(79,193,233,0.2);
+  transform: scale(1.08);
+}
+.toolkit-card:hover {
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: var(--shadow-card-hover), var(--glow-blue);
+}
+
+/* Lab cards similar treatment */
+.lab-card:hover .lab-icon {
+  transform: scale(1.08);
+}
+
+/* --- 12. Criteria table: hover rows, border-left colored by score --- */
+.criteria-table td {
+  transition: background 0.2s ease;
+  background: rgba(22, 42, 54, 0.65);
+}
+.criteria-table tr:hover td {
+  background: rgba(79, 193, 233, 0.05);
+}
+.criteria-table tr td:first-child {
+  border-left: 3px solid transparent;
+  transition: border-color 0.2s ease;
+}
+.criteria-table tr:hover td:first-child {
+  border-left-color: var(--accent-blue);
+}
+
+/* --- 13. Extra polish: inputs, textareas, modals --- */
+.eval-textarea:focus {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(79,193,233,0.08), 0 0 20px rgba(79,193,233,0.06);
+}
+.gen-free-input:focus {
+  box-shadow: 0 0 0 3px rgba(79,193,233,0.08);
+}
+.gate-field input:focus,
+.gate-field select:focus {
+  box-shadow: 0 0 0 3px rgba(79,193,233,0.08);
+}
+
+/* Lead/expert overlay backdrop */
+.lead-overlay.visible,
+.expert-overlay.visible,
+.onboard-overlay.visible,
+.upgrade-overlay.visible {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+/* Improved card (green) subtle glow */
+.improved-text {
+  box-shadow: inset 0 0 30px rgba(46,204,113,0.04);
+}
+
+/* Problems card accent */
+.problem-item {
+  transition: background 0.2s ease;
+}
+.problem-item:hover {
+  background: rgba(231,76,94,0.12);
+}
+
+/* Score bar fill glow */
+.score-bar-fill {
+  box-shadow: 0 0 8px rgba(79,193,233,0.2);
+}
+
+/* Generator cards: pill hover glow */
+.gen-card:hover {
+  box-shadow: 0 0 12px rgba(79,193,233,0.1);
+}
+.gen-card.selected {
+  box-shadow: 0 0 16px rgba(79,193,233,0.15);
+}
+
+/* Library cards: subtle glow on hover */
+.lib-card:hover {
+  box-shadow: var(--shadow-card-hover), 0 0 24px rgba(79,193,233,0.08);
+}
+
+/* History items */
+.hist-item:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+/* Tier toggle: active state glow */
+.tier-toggle button.active {
+  box-shadow: 0 0 16px rgba(79,193,233,0.2);
+}
+.content-type-toggle button.active {
+  box-shadow: 0 0 12px rgba(59,89,106,0.3);
+}
+
+/* Lang grid: active button glow */
+.lang-grid button.active {
+  box-shadow: 0 0 12px rgba(79,193,233,0.25);
+}
+
+/* Stat cards: subtle icon area glow */
+.stat-card .stat-icon {
+  transition: box-shadow 0.3s ease;
+}
+.stat-card:hover .stat-icon {
+  box-shadow: 0 0 20px rgba(79,193,233,0.12);
+}
+
+/* Accordion items: premium feel */
+.accordion-item {
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transition: box-shadow 0.3s ease;
+}
+.accordion-item:hover {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+}
+
+/* Scrollbar styling for sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(79,193,233,0.15);
+  border-radius: 2px;
+}
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: rgba(79,193,233,0.25);
+}
+
+/* Upgrade cards hover glow */
+.upgrade-card.card-av:hover {
+  box-shadow: 0 0 24px rgba(79,193,233,0.12);
+}
+.upgrade-card.card-ex:hover {
+  box-shadow: 0 0 24px rgba(246,212,76,0.12);
+}
+
+/* --- 14. Mobile overrides for polish --- */
+@media(max-width: 768px) {
+  .page-section {
+    padding: 24px 18px 48px;
+  }
+  .home-hero {
+    padding: 32px 22px;
+  }
+  .home-hero h2 {
+    font-size: 1.45rem;
+  }
+  .card-grid > .card {
+    animation-delay: 0s !important;
+  }
+  .btn-primary:hover,
+  .btn-secondary:hover,
+  .toolkit-card:hover,
+  .lab-card:hover,
+  .lib-card:hover {
+    transform: none;
+  }
+}
+
+/* ============================================================
+   END DESIGN POLISH OVERHAUL
+   ============================================================ */
 </style>
 </head>
 <body>
