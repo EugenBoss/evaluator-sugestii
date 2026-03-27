@@ -67,7 +67,8 @@ function checkRateLimit(ip, fingerprint, email, tier, charCount) {
     expert:      { perHour: 10, perDay: Infinity,  charsPerHour: 60000 },
     gen_simplu:  { perHour: 3,  perDay: 5,        charsPerHour: Infinity },
     gen_avansat: { perHour: 3,  perDay: 5,        charsPerHour: Infinity },
-    gen_expert:  { perHour: 2,  perDay: 3,        charsPerHour: Infinity }
+    gen_expert:  { perHour: 2,  perDay: 3,        charsPerHour: Infinity },
+    laborator:   { perHour: 3,  perDay: 10,       charsPerHour: Infinity }
   };
 
   const limit = limits[tier] || limits.basic;
@@ -237,6 +238,7 @@ export default async function handler(req, res) {
       try {
         const raspunsAI = data.content ? data.content.map(c => c.text || '').join('') : '';
         const nivel = (system || '').includes('MODUL GENERATOR') ? 'Generator' :
+                      (system || '').includes('analizor expert') ? 'Laborator' :
                       (system || '').includes('17 criterii') ? 'Expert' :
                       (system || '').includes('9 criterii') ? 'Avansat' :
                       (system || '').includes('3 criterii') ? 'Basic' : 'Necunoscut';
@@ -265,26 +267,49 @@ export default async function handler(req, res) {
         }
 
         // Await with 3s timeout so Vercel doesn't kill the function before logging completes
+        // Columns A-L = existing (same order as current GSheet)
+        // Columns M+ = new consolidated fields
         const sheetPayload = JSON.stringify({
+            // A: Timestamp
             timestamp: new Date().toISOString(),
-            name: (user_name || '').substring(0, 100),
-            email: email || '',
-            phone: (user_phone || '').substring(0, 20),
+            // B: Sugestie
             sugestie: msgContent.substring(0, 2000),
-            scor_total: scorTotal,
-            scor_maxim: 100,
+            // C: (blank in current sheet — now: Name)
+            name: (user_name || '').substring(0, 100),
+            // D: Nivel
             nivel: nivel,
-            tip_detectat: tipSugestie,
-            tip_evaluare: content_type || '',
-            criterii_json: scoruriStr,
+            // E: Tip Sugestie
+            tip_sugestie: tipSugestie,
+            // F: Scor Total
+            scor_total: scorTotal,
+            // G: Scoruri Criterii
+            scoruri_criterii: scoruriStr,
+            // H: Nr Cuvinte
             nr_cuvinte: msgContent.split(/\s+/).filter(Boolean).length,
-            device: device || '',
-            lang: lang || '',
-            email_verified: email_verified || '',
-            gdpr_consent: gdpr_consent || '',
-            ip: clientIP,
-            fingerprint: (fingerprint || '').substring(0, 16),
+            // I: Răspuns Complet
             raspuns_complet: raspunsAI.substring(0, 5000),
+            // J: IP
+            ip: clientIP,
+            // K: Fingerprint
+            fingerprint: (fingerprint || '').substring(0, 16),
+            // L: Email
+            email: email || '',
+            // === NEW COLUMNS (M+) ===
+            // M: Phone
+            phone: (user_phone || '').substring(0, 20),
+            // N: Device
+            device: device || '',
+            // O: Lang
+            lang: lang || '',
+            // P: Content Type (sugestie/afirmatie/generator)
+            tip_evaluare: content_type || '',
+            // Q: Scor Maxim
+            scor_maxim: 100,
+            // R: Email Verified
+            email_verified: email_verified || '',
+            // S: GDPR Consent
+            gdpr_consent: gdpr_consent || '',
+            // T: Source
             source: 'evaluator-sugestii'
         });
 
