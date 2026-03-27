@@ -368,6 +368,25 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .lib-gate-card{margin-top:20px;padding:24px;background:linear-gradient(135deg,var(--bg-card) 0%,rgba(246,212,76,0.06) 100%);border:1px solid rgba(246,212,76,0.3);border-radius:var(--radius);text-align:center}
 .lib-note{margin-top:16px;padding:16px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm);font-size:0.85rem;color:var(--text-secondary);line-height:1.6}
 .lib-usage-info{margin-bottom:16px;padding:10px 16px;background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px}
+.hist-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.hist-stat{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-sm);padding:16px;text-align:center}
+.hist-stat-num{font-size:1.5rem;font-weight:700;font-family:var(--font-mono);color:var(--text-heading)}
+.hist-stat-label{font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-top:2px}
+.hist-chart-card{padding:20px;margin-bottom:20px}
+.hist-toolbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.hist-filters{display:flex;flex-wrap:wrap;gap:6px}
+.hist-actions{display:flex;gap:8px}
+.hist-action-btn{font-size:0.78rem;padding:7px 12px;gap:5px}
+.hist-item{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:16px 20px;margin-bottom:10px;cursor:pointer;transition:all var(--transition);display:flex;align-items:center;gap:16px}
+.hist-item:hover{border-color:rgba(79,193,233,0.3);transform:translateY(-1px)}
+.hist-item-score{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.95rem;font-weight:700;font-family:var(--font-mono);flex-shrink:0}
+.hist-item-body{flex:1;min-width:0}
+.hist-item-text{font-size:0.88rem;color:var(--text-primary);line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hist-item-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap;align-items:center}
+.hist-item-meta span{font-size:0.72rem;color:var(--text-muted)}
+.hist-empty{text-align:center;padding:60px 20px;color:var(--text-muted)}
+.hist-empty-icon{font-size:2.5rem;margin-bottom:12px}
+@media(max-width:768px){.hist-stats-grid{grid-template-columns:repeat(2,1fr)}.hist-toolbar{flex-direction:column;align-items:stretch}.hist-actions{justify-content:flex-end}.hist-item{flex-direction:column;align-items:flex-start;gap:10px}.hist-item-text{white-space:normal}}
 /* ===== END LABORATOR NLP STYLES ===== */
 </style>
 </head>
@@ -385,7 +404,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <a href="#laborator" data-section="laborator"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 3H7.5A1.5 1.5 0 006 4.5V7H4.5A1.5 1.5 0 003 8.5v7A1.5 1.5 0 004.5 17H6v2.5A1.5 1.5 0 007.5 21H9m6 0h1.5a1.5 1.5 0 001.5-1.5V17h1.5a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0019.5 7H18V4.5A1.5 1.5 0 0016.5 3H15" stroke="currentColor" fill="none" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" fill="none" stroke-width="1.8"/></svg></span><span data-i18n="nav_lab">Laborator NLP</span><span class="nav-badge" style="background:rgba(79,193,233,0.15);color:var(--accent-blue)" data-i18n="badge_new">NOU</span></a>
 <a href="#biblioteca" data-section="biblioteca"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span><span data-i18n="nav_library">Bibliotecă</span></a>
 <a href="#ghid" data-section="ghid"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span data-i18n="nav_guide">Ghid</span></a>
-<a href="#istoric" data-section="istoric"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span data-i18n="nav_history">Istoric</span><span class="nav-badge" data-i18n="badge_soon">În curând</span></a>
+<a href="#istoric" data-section="istoric"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span data-i18n="nav_history">Istoric</span></a>
 <a href="#contact" data-section="contact"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span data-i18n="nav_contact">Contact</span></a>
 </nav>
 <div class="sidebar-footer"><div class="lang-label">🌐 Limbă</div><div class="lang-grid" id="langGrid">
@@ -614,7 +633,20 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div id="bibliotecaRecs"></div>
 </section>
 <section class="page-section" id="sec-ghid"><div class="section-tag" data-i18n="guide_tag">Referință</div><h1 class="section-title" data-i18n="guide_title">Ghid</h1><p class="section-desc" data-i18n="guide_desc">Principii fundamentale, criterii de evaluare și lanțul cauzal.</p><div id="guideContent"></div><div id="ghidRecs"></div></section>
-<section class="page-section" id="sec-istoric"><div class="section-tag" data-i18n="hist_tag">Istoric evaluări</div><h1 class="section-title" data-i18n="hist_title">Istoric</h1><p class="section-desc" data-i18n="hist_desc">Evaluările tale anterioare, salvate local.</p><div class="card"><div class="placeholder-box"><div class="ph-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 data-i18n="placeholder_coming">În curând</h3><p data-i18n="hist_placeholder">Istoricul evaluărilor va fi disponibil în curând.</p></div></div><div id="istoricRecs"></div></section>
+<section class="page-section" id="sec-istoric">
+<div class="section-tag" data-i18n="hist_tag">Istoric evaluări</div>
+<h1 class="section-title" data-i18n="hist_title">Istoric</h1>
+<p class="section-desc" data-i18n="hist_desc">Evaluările tale anterioare, salvate local.</p>
+<div id="histStats"></div>
+<div id="histChart" class="card hist-chart-card" style="display:none"><canvas id="histCanvas" width="700" height="200"></canvas></div>
+<div class="hist-toolbar" id="histToolbar" style="display:none">
+<div class="hist-filters" id="histFilters"></div>
+<div class="hist-actions"><button class="btn-secondary hist-action-btn" onclick="exportHistory()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> <span data-i18n="hist_export">Export</span></button><button class="btn-secondary hist-action-btn" onclick="confirmClearHistory()" style="color:var(--accent-red);border-color:rgba(231,76,94,0.3)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg> <span data-i18n="hist_clear">Șterge tot</span></button></div>
+</div>
+<div id="histList"></div>
+<div id="histDetail" style="display:none"></div>
+<div id="istoricRecs"></div>
+</section>
 <section class="page-section" id="sec-contact">
 <div class="section-tag" data-i18n="contact_tag">Contact</div>
 <h1 class="section-title" data-i18n="contact_title">Contact</h1>
@@ -820,6 +852,8 @@ const T3={ro:{nav_lab:'Laborator NLP',nav_contact:'Contact',badge_new:'NOU',lab_
 for(const l in T3){if(T[l])Object.assign(T[l],T3[l])}
 const T4={ro:{lib_locked:'Deblochează pentru acces complet',lib_no_results:'Nicio sugestie în această categorie.',lib_score:'Scor',lib_back_grid:'← Înapoi la bibliotecă',lib_didactic_note:'Notă didactică',lib_evaluate:'Evaluează această sugestie →',lib_copy:'Copiază textul',lib_copied:'Copiat!',lib_gate_title:'Deblochează Biblioteca Completă',lib_gate_desc:'Accesează toate sugestiile model cu text complet, note didactice și posibilitate de copiere. 29 RON pentru 30 de zile acces nelimitat.',lib_gate_buy:'Deblochează — 29 RON →',lib_gate_info:'Plată unică prin Stripe. Acces 30 de zile.',lib_free_remaining:'Ai {n} din {max} vizualizări gratuite azi',lib_paid_active:'Acces complet activ — mai ai {days} zile',lib_activated:'Biblioteca a fost deblocată pentru 30 de zile!'},en:{lib_locked:'Unlock for full access',lib_no_results:'No suggestions in this category.',lib_score:'Score',lib_back_grid:'← Back to library',lib_didactic_note:'Didactic note',lib_evaluate:'Evaluate this suggestion →',lib_copy:'Copy text',lib_copied:'Copied!',lib_gate_title:'Unlock Full Library',lib_gate_desc:'Access all model suggestions with full text, didactic notes and copy. 29 RON for 30 days unlimited access.',lib_gate_buy:'Unlock — 29 RON →',lib_gate_info:'One-time Stripe payment. 30 days access.',lib_free_remaining:'{n} of {max} free views left today',lib_paid_active:'Full access active — {days} days left',lib_activated:'Library unlocked for 30 days!'},es:{lib_locked:'Desbloquear para acceso completo',lib_no_results:'Sin sugestiones en esta categoría.',lib_score:'Puntuación',lib_back_grid:'← Volver a la biblioteca',lib_didactic_note:'Nota didáctica',lib_evaluate:'Evaluar esta sugestión →',lib_copy:'Copiar texto',lib_copied:'¡Copiado!',lib_gate_title:'Desbloquear Biblioteca Completa',lib_gate_desc:'Accede a todas las sugestiones modelo. 29 RON por 30 días de acceso ilimitado.',lib_gate_buy:'Desbloquear — 29 RON →',lib_gate_info:'Pago único por Stripe. 30 días.',lib_free_remaining:'{n} de {max} vistas gratuitas hoy',lib_paid_active:'Acceso completo — {days} días restantes',lib_activated:'¡Biblioteca desbloqueada por 30 días!'},fr:{lib_locked:'Débloquer pour accès complet',lib_no_results:'Aucune suggestion dans cette catégorie.',lib_score:'Score',lib_back_grid:'← Retour à la bibliothèque',lib_didactic_note:'Note didactique',lib_evaluate:'Évaluer cette suggestion →',lib_copy:'Copier le texte',lib_copied:'Copié !',lib_gate_title:'Débloquer la Bibliothèque Complète',lib_gate_desc:'Accédez à toutes les suggestions modèles. 29 RON pour 30 jours d\'accès illimité.',lib_gate_buy:'Débloquer — 29 RON →',lib_gate_info:'Paiement unique via Stripe. 30 jours.',lib_free_remaining:'{n} sur {max} vues gratuites aujourd\'hui',lib_paid_active:'Accès complet — {days} jours restants',lib_activated:'Bibliothèque débloquée pour 30 jours !'},de:{lib_locked:'Freischalten für vollen Zugang',lib_no_results:'Keine Suggestionen in dieser Kategorie.',lib_score:'Bewertung',lib_back_grid:'← Zurück zur Bibliothek',lib_didactic_note:'Didaktische Anmerkung',lib_evaluate:'Diese Suggestion bewerten →',lib_copy:'Text kopieren',lib_copied:'Kopiert!',lib_gate_title:'Vollständige Bibliothek freischalten',lib_gate_desc:'Zugriff auf alle Modellsuggestionen. 29 RON für 30 Tage unbegrenzten Zugang.',lib_gate_buy:'Freischalten — 29 RON →',lib_gate_info:'Einmalzahlung über Stripe. 30 Tage.',lib_free_remaining:'{n} von {max} kostenlosen Ansichten heute',lib_paid_active:'Voller Zugang — noch {days} Tage',lib_activated:'Bibliothek für 30 Tage freigeschaltet!'},pt:{lib_locked:'Desbloquear para acesso completo',lib_no_results:'Nenhuma sugestão nesta categoria.',lib_score:'Pontuação',lib_back_grid:'← Voltar à biblioteca',lib_didactic_note:'Nota didática',lib_evaluate:'Avaliar esta sugestão →',lib_copy:'Copiar texto',lib_copied:'Copiado!',lib_gate_title:'Desbloquear Biblioteca Completa',lib_gate_desc:'Acesse todas as sugestões modelo. 29 RON por 30 dias de acesso ilimitado.',lib_gate_buy:'Desbloquear — 29 RON →',lib_gate_info:'Pagamento único via Stripe. 30 dias.',lib_free_remaining:'{n} de {max} visualizações gratuitas hoje',lib_paid_active:'Acesso completo — {days} dias restantes',lib_activated:'Biblioteca desbloqueada por 30 dias!'}};
 for(const l in T4){if(T[l])Object.assign(T[l],T4[l])}
+const T5={ro:{hist_total:'Evaluări',hist_avg:'Scor mediu',hist_best:'Cel mai bun',hist_good_count:'Scoruri 75+',hist_filter_all:'Toate',hist_empty_title:'Nicio evaluare încă',hist_empty_desc:'Evaluările tale vor apărea aici automat. Fiecare evaluare din Evaluator sau Antrenament se salvează local.',hist_go_eval:'Evaluează prima sugestie →',hist_back_list:'← Înapoi la istoric',hist_original:'Textul original',hist_re_eval:'Re-evaluează →',hist_delete_one:'Șterge',hist_confirm_delete_one:'Sigur vrei să ștergi această evaluare?',hist_confirm_clear:'Sigur vrei să ștergi tot istoricul? Acțiunea e ireversibilă.',hist_no_match:'Nicio evaluare cu acest filtru.',hist_export:'Export',hist_clear:'Șterge tot'},en:{hist_total:'Evaluations',hist_avg:'Average score',hist_best:'Best score',hist_good_count:'Scores 75+',hist_filter_all:'All',hist_empty_title:'No evaluations yet',hist_empty_desc:'Your evaluations will appear here automatically. Every evaluation from the Evaluator or Training is saved locally.',hist_go_eval:'Evaluate your first suggestion →',hist_back_list:'← Back to history',hist_original:'Original text',hist_re_eval:'Re-evaluate →',hist_delete_one:'Delete',hist_confirm_delete_one:'Are you sure you want to delete this evaluation?',hist_confirm_clear:'Are you sure you want to clear all history? This cannot be undone.',hist_no_match:'No evaluations match this filter.',hist_export:'Export',hist_clear:'Clear all'},es:{hist_total:'Evaluaciones',hist_avg:'Puntuación media',hist_best:'Mejor puntuación',hist_good_count:'Puntuaciones 75+',hist_filter_all:'Todas',hist_empty_title:'Sin evaluaciones aún',hist_empty_desc:'Tus evaluaciones aparecerán aquí automáticamente.',hist_go_eval:'Evalúa tu primera sugestión →',hist_back_list:'← Volver al historial',hist_original:'Texto original',hist_re_eval:'Re-evaluar →',hist_delete_one:'Eliminar',hist_confirm_delete_one:'¿Seguro que quieres eliminar esta evaluación?',hist_confirm_clear:'¿Seguro que quieres borrar todo el historial?',hist_no_match:'Sin resultados para este filtro.',hist_export:'Exportar',hist_clear:'Borrar todo'},fr:{hist_total:'Évaluations',hist_avg:'Score moyen',hist_best:'Meilleur score',hist_good_count:'Scores 75+',hist_filter_all:'Toutes',hist_empty_title:'Aucune évaluation',hist_empty_desc:'Vos évaluations apparaîtront ici automatiquement.',hist_go_eval:'Évaluez votre première suggestion →',hist_back_list:'← Retour à l\'historique',hist_original:'Texte original',hist_re_eval:'Réévaluer →',hist_delete_one:'Supprimer',hist_confirm_delete_one:'Voulez-vous vraiment supprimer cette évaluation ?',hist_confirm_clear:'Voulez-vous vraiment effacer tout l\'historique ?',hist_no_match:'Aucun résultat pour ce filtre.',hist_export:'Exporter',hist_clear:'Tout effacer'},de:{hist_total:'Bewertungen',hist_avg:'Durchschnitt',hist_best:'Beste Bewertung',hist_good_count:'Bewertungen 75+',hist_filter_all:'Alle',hist_empty_title:'Noch keine Bewertungen',hist_empty_desc:'Ihre Bewertungen erscheinen hier automatisch.',hist_go_eval:'Erste Suggestion bewerten →',hist_back_list:'← Zurück zur Übersicht',hist_original:'Originaltext',hist_re_eval:'Erneut bewerten →',hist_delete_one:'Löschen',hist_confirm_delete_one:'Diese Bewertung wirklich löschen?',hist_confirm_clear:'Gesamten Verlauf wirklich löschen?',hist_no_match:'Keine Ergebnisse für diesen Filter.',hist_export:'Exportieren',hist_clear:'Alles löschen'},pt:{hist_total:'Avaliações',hist_avg:'Pontuação média',hist_best:'Melhor pontuação',hist_good_count:'Pontuações 75+',hist_filter_all:'Todas',hist_empty_title:'Nenhuma avaliação ainda',hist_empty_desc:'Suas avaliações aparecerão aqui automaticamente.',hist_go_eval:'Avalie sua primeira sugestão →',hist_back_list:'← Voltar ao histórico',hist_original:'Texto original',hist_re_eval:'Reavaliar →',hist_delete_one:'Excluir',hist_confirm_delete_one:'Tem certeza que deseja excluir esta avaliação?',hist_confirm_clear:'Tem certeza que deseja limpar todo o histórico?',hist_no_match:'Nenhum resultado para este filtro.',hist_export:'Exportar',hist_clear:'Limpar tudo'}};
+for(const l in T5){if(T[l])Object.assign(T[l],T5[l])}
 
 // ===== COUNTRY CODES =====
 const CC=[{c:'+40',n:'Romania',f:'🇷🇴'},{c:'+373',n:'Moldova',f:'🇲🇩'},{c:'+44',n:'UK',f:'🇬🇧'},{c:'+1',n:'US/CA',f:'🇺🇸'},{c:'+49',n:'Germany',f:'🇩🇪'},{c:'+33',n:'France',f:'🇫🇷'},{c:'+34',n:'Spain',f:'🇪🇸'},{c:'+39',n:'Italy',f:'🇮🇹'},{c:'+351',n:'Portugal',f:'🇵🇹'},{c:'+31',n:'Netherlands',f:'🇳🇱'},{c:'+32',n:'Belgium',f:'🇧🇪'},{c:'+43',n:'Austria',f:'🇦🇹'},{c:'+41',n:'Switzerland',f:'🇨🇭'},{c:'+36',n:'Hungary',f:'🇭🇺'},{c:'+359',n:'Bulgaria',f:'🇧🇬'},{c:'+380',n:'Ukraine',f:'🇺🇦'},{c:'+48',n:'Poland',f:'🇵🇱'},{c:'+420',n:'Czechia',f:'🇨🇿'},{c:'+46',n:'Sweden',f:'🇸🇪'},{c:'+45',n:'Denmark',f:'🇩🇰'},{c:'+47',n:'Norway',f:'🇳🇴'},{c:'+358',n:'Finland',f:'🇫🇮'},{c:'+30',n:'Greece',f:'🇬🇷'},{c:'+90',n:'Turkey',f:'🇹🇷'},{c:'+972',n:'Israel',f:'🇮🇱'},{c:'+971',n:'UAE',f:'🇦🇪'},{c:'+61',n:'Australia',f:'🇦🇺'},{c:'+55',n:'Brazil',f:'🇧🇷'}];
@@ -837,7 +871,7 @@ function detectLang(){const s=localStorage.getItem('eval_lang');if(s&&T[s])retur
 function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.documentElement.lang=l;document.querySelectorAll('.lang-grid button').forEach(b=>{b.classList.toggle('active',b.getAttribute('data-lang')===l)});applyTranslations();renderGuide();initCountryDropdown()}
 function t(k){return(T[currentLang]&&T[currentLang][k])||T.en[k]||T.ro[k]||k}
 function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.getAttribute('data-i18n'));if(v)el.textContent=v});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.getAttribute('data-i18n-placeholder'));if(v)el.placeholder=v})}
-function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();loadPageRecommendations(s)}
+function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s)}
 function handleHash(){navigateTo(window.location.hash.replace('#','')||'generator')}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function initCountryDropdown(){const sel=document.getElementById('leadCountry');if(!sel||sel.options.length>1)return;sel.innerHTML='';const defCode=currentLang==='ro'?'+40':currentLang==='pt'?'+351':currentLang==='es'?'+34':currentLang==='fr'?'+33':currentLang==='de'?'+49':'+44';CC.forEach(c=>{const o=document.createElement('option');o.value=c.c;o.textContent=c.f+' '+c.c;if(c.c===defCode)o.selected=true;sel.appendChild(o)})}
@@ -898,7 +932,7 @@ function storePendingLead(data){_pendingLead=data;try{sessionStorage.setItem('_p
 function clearPendingLead(){_pendingLead=null;try{sessionStorage.removeItem('_pendingLead')}catch(e){}}
 function getPendingLead(){if(_pendingLead)return _pendingLead;try{const s=sessionStorage.getItem('_pendingLead');if(s)return JSON.parse(s)}catch(e){}return null}
 function buildLeadPayload(lead,evalData,leadType){return{name:lead?.name||'',email:lead?.email||'',phone:lead?.phone||'',source:lead?.source||'evaluator-sugestii',tier:lead?.tier||currentTier,content_type:lead?.content_type||currentContentType,email_verified:lead?.email_verified||'',gdpr_consent:lead?.gdpr_consent||'',gdpr_timestamp:lead?.gdpr_timestamp||'',device:lead?.device||(window.innerWidth<=768?'mobile':'desktop'),lang:lead?.lang||currentLang,timestamp:new Date().toISOString(),suggestion_text:evalData?.suggestion_text||'',score:evalData?.score||'',detected_type:evalData?.detected_type||'',level:evalData?.level||'',lead_type:leadType||''}}
-function trackEvaluation(inputText,result,source){const pending=getPendingLead();const lead=pending||{name:localStorage.getItem('eval_lead_name')||'',email:localStorage.getItem('eval_lead_email')||'',phone:localStorage.getItem('eval_lead_phone')||'',source:source||'evaluator-sugestii',tier:currentTier,content_type:currentContentType,email_verified:localStorage.getItem('eval_lead_email')?'da':'',gdpr_consent:localStorage.getItem('eval_lead_email')?'da':'',gdpr_timestamp:'',device:window.innerWidth<=768?'mobile':'desktop',lang:currentLang};const evalData={suggestion_text:(inputText||'').substring(0,500),score:result?.scor_total||0,detected_type:result?.tip_detectat||'',level:getScoreLevel(result?.scor_total||0).level};const lt=lead.email?'complet':'anonim';const payload=buildLeadPayload(lead,evalData,lt);fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});if(pending)clearPendingLead()}
+function trackEvaluation(inputText,result,source){const pending=getPendingLead();const lead=pending||{name:localStorage.getItem('eval_lead_name')||'',email:localStorage.getItem('eval_lead_email')||'',phone:localStorage.getItem('eval_lead_phone')||'',source:source||'evaluator-sugestii',tier:currentTier,content_type:currentContentType,email_verified:localStorage.getItem('eval_lead_email')?'da':'',gdpr_consent:localStorage.getItem('eval_lead_email')?'da':'',gdpr_timestamp:'',device:window.innerWidth<=768?'mobile':'desktop',lang:currentLang};const evalData={suggestion_text:(inputText||'').substring(0,500),score:result?.scor_total||0,detected_type:result?.tip_detectat||'',level:getScoreLevel(result?.scor_total||0).level};const lt=lead.email?'complet':'anonim';const payload=buildLeadPayload(lead,evalData,lt);fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});if(pending)clearPendingLead();saveToHistory(inputText,result,source)}
 function flushPartialLead(){const pending=getPendingLead();if(!pending)return;const payload=buildLeadPayload(pending,null,'partial');try{navigator.sendBeacon('/api/lead',new Blob([JSON.stringify(payload)],{type:'application/json'}))}catch(e){fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{})}clearPendingLead()}
 window.addEventListener('beforeunload',flushPartialLead);
 window.addEventListener('pagehide',flushPartialLead);
@@ -2036,6 +2070,263 @@ function sendToEvaluator(id){
   });
 }
 // ===== END BIBLIOTECA =====
+
+// ===== ISTORIC EVALUĂRI =====
+const HIST_MAX=50;
+const HIST_KEY='eval_history';
+let _histFilter='all';
+
+function getHistory(){try{return JSON.parse(localStorage.getItem(HIST_KEY)||'[]')}catch(e){return[]}}
+function setHistory(arr){localStorage.setItem(HIST_KEY,JSON.stringify(arr.slice(0,HIST_MAX)))}
+
+function saveToHistory(inputText,result,source){
+  if(!result||!result.scor_total)return;
+  const entry={
+    id:'h_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
+    date:new Date().toISOString(),
+    text:(inputText||'').substring(0,800),
+    scor:result.scor_total||0,
+    tier:currentTier||'basic',
+    tip:result.tip_detectat||'—',
+    source:source||'evaluator',
+    content_type:currentContentType||'sugestie',
+    lang:currentLang||'ro',
+    criterii:result.criterii||[],
+    top_probleme:result.top_probleme||[],
+    versiune_imbunatatita:result.versiune_imbunatatita||'',
+    explicatii:result.explicatii_schimbari||'',
+    sumar:result.sumar||''
+  };
+  const hist=getHistory();
+  hist.unshift(entry);
+  setHistory(hist);
+}
+
+function renderHistory(){
+  const hist=getHistory();
+  const stats=document.getElementById('histStats');
+  const chart=document.getElementById('histChart');
+  const toolbar=document.getElementById('histToolbar');
+  const list=document.getElementById('histList');
+  const detail=document.getElementById('histDetail');
+  if(!stats||!list)return;
+  detail.style.display='none';
+  list.style.display='block';
+
+  if(!hist.length){
+    stats.innerHTML='';
+    chart.style.display='none';
+    toolbar.style.display='none';
+    list.innerHTML='<div class="hist-empty"><div class="hist-empty-icon">📋</div><h3 style="color:var(--text-heading);margin-bottom:8px">'+t('hist_empty_title')+'</h3><p style="font-size:0.88rem;line-height:1.6">'+t('hist_empty_desc')+'</p><button class="btn-primary" onclick="navigateTo(\'evaluator\')" style="margin-top:16px">'+t('hist_go_eval')+'</button></div>';
+    return;
+  }
+
+  // Stats
+  const avg=Math.round(hist.reduce((s,h)=>s+h.scor,0)/hist.length);
+  const best=Math.max(...hist.map(h=>h.scor));
+  const avgColor=avg>=90?'var(--accent-green)':avg>=75?'var(--accent-blue)':avg>=60?'var(--accent-gold)':'var(--accent-orange)';
+  stats.innerHTML='<div class="hist-stats-grid"><div class="hist-stat"><div class="hist-stat-num">'+hist.length+'</div><div class="hist-stat-label">'+t('hist_total')+'</div></div><div class="hist-stat"><div class="hist-stat-num" style="color:'+avgColor+'">'+avg+'</div><div class="hist-stat-label">'+t('hist_avg')+'</div></div><div class="hist-stat"><div class="hist-stat-num" style="color:var(--accent-green)">'+best+'</div><div class="hist-stat-label">'+t('hist_best')+'</div></div><div class="hist-stat"><div class="hist-stat-num">'+hist.filter(h=>h.scor>=75).length+'</div><div class="hist-stat-label">'+t('hist_good_count')+'</div></div></div>';
+
+  // Chart (last 20, oldest to newest)
+  if(hist.length>=2){
+    chart.style.display='block';
+    setTimeout(()=>drawHistChart(hist.slice(0,20).reverse()),100);
+  }else{chart.style.display='none'}
+
+  // Toolbar + filters
+  toolbar.style.display='flex';
+  const sources=new Set(hist.map(h=>h.source));
+  const tiers=new Set(hist.map(h=>h.tier));
+  let fh='<button class="lib-filter-chip'+(_histFilter==='all'?' active':'')+'" onclick="setHistFilter(\'all\')">'+t('hist_filter_all')+'</button>';
+  sources.forEach(s=>{fh+='<button class="lib-filter-chip'+(_histFilter===s?' active':'')+'" onclick="setHistFilter(\''+s+'\')">'+escHtml(s)+'</button>'});
+  tiers.forEach(ti=>{if(ti){fh+='<button class="lib-filter-chip'+(_histFilter===ti?' active':'')+'" onclick="setHistFilter(\''+ti+'\')">'+escHtml(ti)+'</button>'}});
+  document.getElementById('histFilters').innerHTML=fh;
+
+  // List
+  const filtered=_histFilter==='all'?hist:hist.filter(h=>h.source===_histFilter||h.tier===_histFilter);
+  let lh='';
+  filtered.forEach(h=>{
+    const sc=h.scor||0;
+    const cl=sc>=90?'var(--accent-green)':sc>=75?'var(--accent-blue)':sc>=60?'var(--accent-gold)':sc>=40?'var(--accent-orange)':'var(--accent-red)';
+    const d=new Date(h.date);
+    const dateStr=d.toLocaleDateString(currentLang==='ro'?'ro-RO':'en-US',{day:'numeric',month:'short',year:'numeric'});
+    const timeStr=d.toLocaleTimeString(currentLang==='ro'?'ro-RO':'en-US',{hour:'2-digit',minute:'2-digit'});
+    const preview=(h.text||'').substring(0,100)+(h.text&&h.text.length>100?'…':'');
+    lh+='<div class="hist-item" onclick="showHistDetail(\''+h.id+'\')">';
+    lh+='<div class="hist-item-score" style="color:'+cl+';border:2px solid '+cl+'">'+sc+'</div>';
+    lh+='<div class="hist-item-body"><div class="hist-item-text">'+escHtml(preview)+'</div>';
+    lh+='<div class="hist-item-meta"><span>'+dateStr+' '+timeStr+'</span><span>·</span><span style="color:var(--accent-blue)">'+escHtml(h.tier||'')+'</span><span>·</span><span>'+escHtml(h.tip||'')+'</span><span>·</span><span>'+escHtml(h.source||'')+'</span></div>';
+    lh+='</div></div>';
+  });
+  if(!filtered.length)lh='<div class="card" style="text-align:center;padding:30px;color:var(--text-muted)">'+t('hist_no_match')+'</div>';
+  list.innerHTML=lh;
+}
+
+function setHistFilter(f){_histFilter=f;renderHistory()}
+
+function showHistDetail(id){
+  const hist=getHistory();
+  const h=hist.find(x=>x.id===id);
+  if(!h)return;
+  const list=document.getElementById('histList');
+  const detail=document.getElementById('histDetail');
+  const toolbar=document.getElementById('histToolbar');
+  const chart=document.getElementById('histChart');
+  list.style.display='none';
+  toolbar.style.display='none';
+  chart.style.display='none';
+  detail.style.display='block';
+
+  const sc=h.scor||0;
+  const {level,color,desc}=getScoreLevel(sc);
+  const d=new Date(h.date);
+  const dateStr=d.toLocaleDateString(currentLang==='ro'?'ro-RO':'en-US',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  let html='<button class="lib-exp-back" onclick="renderHistory()">'+t('hist_back_list')+'</button>';
+  html+='<div class="card" style="padding:24px;margin-bottom:16px"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px"><div class="result-header" style="margin-bottom:0"><div class="score-circle" style="--score-color:'+color+';--score-pct:'+sc+'%;background:var(--bg-input);width:70px;height:70px"><span class="score-num" style="font-size:1.3rem">'+sc+'</span><span class="score-max">/100</span></div><div class="result-meta"><div class="result-level" style="color:'+color+'">'+level+' — '+desc+'</div><div style="font-size:0.82rem;color:var(--text-muted)">'+dateStr+' · '+escHtml(h.tier)+' · '+escHtml(h.source)+'</div></div></div><div style="display:flex;gap:8px"><button class="btn-secondary" onclick="reEvalFromHistory(\''+id+'\')" style="font-size:0.82rem">'+t('hist_re_eval')+'</button><button class="btn-secondary" onclick="deleteHistEntry(\''+id+'\')" style="font-size:0.82rem;color:var(--accent-red);border-color:rgba(231,76,94,0.3)">'+t('hist_delete_one')+'</button></div></div>';
+
+  // Original text
+  html+='<div style="margin-bottom:16px"><div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">'+t('hist_original')+'</div><div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-sm);font-size:0.9rem;color:var(--text-primary);line-height:1.7;white-space:pre-wrap">'+escHtml(h.text)+'</div></div>';
+
+  // Criteria table
+  if(h.criterii&&h.criterii.length){
+    const _isAff=h.content_type==='afirmatie';
+    html+='<table class="criteria-table"><thead><tr><th>'+t('res_criteria')+'</th><th>'+t('res_score_col')+'</th><th class="score-bar-cell"></th><th class="crit-obs">'+t('res_obs')+'</th></tr></thead><tbody>';
+    h.criterii.forEach(c=>{
+      const _cnSrc=(_isAff&&typeof AFCN!=='undefined'&&AFCN[c.id])?AFCN:CN;
+      const nm=(_cnSrc[c.id]&&_cnSrc[c.id][currentLang])||_cnSrc[c.id]?.en||CN[c.id]?.[currentLang]||'#'+c.id;
+      const ccl=c.scor>=8?'var(--accent-green)':c.scor>=6?'var(--accent-gold)':c.scor>=4?'var(--accent-orange)':'var(--accent-red)';
+      const ob=c.observatie||c.feedback||c.observation||'';
+      html+='<tr><td class="crit-name">'+nm+'</td><td class="crit-score" style="color:'+ccl+'">'+c.scor+'/10</td><td class="score-bar-cell"><div class="score-bar-bg"><div class="score-bar-fill" style="width:'+c.scor*10+'%;background:'+ccl+'"></div></div></td><td class="crit-obs">'+ob+'</td></tr>';
+    });
+    html+='</tbody></table>';
+  }
+
+  // Top problems
+  if(h.top_probleme&&h.top_probleme.length){
+    const _cats3=['stima','anxietate','relatii','trauma','depresie','burnout','procrastinare','singuratate','dependente','bani','sanatate','trauma_morala'];
+    const _rp3=h.top_probleme.filter(p=>!_cats3.includes(p.toLowerCase().trim()));
+    if(_rp3.length){html+='<div class="card problems-card" style="margin-top:16px"><h3>⚠ '+t('res_problems')+'</h3>';_rp3.forEach(p=>{html+='<div class="problem-item">'+escHtml(p)+'</div>'});html+='</div>'}
+  }
+
+  // Improved version
+  if(h.versiune_imbunatatita){
+    html+='<div class="card improved-card" style="margin-top:16px"><h3>✦ '+t('res_improved')+'</h3><div class="improved-text">'+escHtml(h.versiune_imbunatatita)+'</div>';
+    if(h.explicatii)html+='<h3 style="margin-top:16px;color:var(--accent-blue)">💡 '+t('res_changes')+'</h3><div class="changes-text">'+escHtml(h.explicatii)+'</div>';
+    html+='</div>';
+  }
+  if(h.sumar)html+='<div class="card" style="margin-top:16px"><div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.7">'+escHtml(h.sumar)+'</div></div>';
+  html+='</div>';
+
+  detail.innerHTML=html;
+  detail.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function reEvalFromHistory(id){
+  const hist=getHistory();
+  const h=hist.find(x=>x.id===id);
+  if(!h)return;
+  navigateTo('evaluator');
+  setTimeout(()=>{
+    document.getElementById('suggestionInput').value=h.text;
+    updateCharCount();
+  },150);
+}
+
+function deleteHistEntry(id){
+  if(!confirm(t('hist_confirm_delete_one')))return;
+  const hist=getHistory().filter(x=>x.id!==id);
+  setHistory(hist);
+  renderHistory();
+}
+
+function confirmClearHistory(){
+  if(!confirm(t('hist_confirm_clear')))return;
+  localStorage.removeItem(HIST_KEY);
+  renderHistory();
+}
+
+function exportHistory(){
+  const hist=getHistory();
+  if(!hist.length)return;
+  const lines=hist.map(h=>{
+    const d=new Date(h.date).toLocaleString();
+    return d+' | '+h.scor+'/100 | '+h.tier+' | '+h.tip+' | '+h.source+'\n'+(h.text||'')+'\n---';
+  });
+  const blob=new Blob([lines.join('\n\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;a.download='istoric_evaluari_'+new Date().toISOString().slice(0,10)+'.txt';
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function drawHistChart(entries){
+  const canvas=document.getElementById('histCanvas');
+  if(!canvas||!entries.length)return;
+  const ctx=canvas.getContext('2d');
+  const dpr=window.devicePixelRatio||1;
+  const w=canvas.parentElement.clientWidth-40;
+  const h=180;
+  canvas.width=w*dpr;canvas.height=h*dpr;
+  canvas.style.width=w+'px';canvas.style.height=h+'px';
+  ctx.scale(dpr,dpr);
+  ctx.clearRect(0,0,w,h);
+
+  const pad={t:20,r:20,b:30,l:40};
+  const cw=w-pad.l-pad.r;
+  const ch=h-pad.t-pad.b;
+  const n=entries.length;
+  const scores=entries.map(e=>e.scor);
+  const minS=Math.max(0,Math.min(...scores)-10);
+  const maxS=Math.min(100,Math.max(...scores)+10);
+  const range=maxS-minS||1;
+
+  // Grid lines
+  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y=pad.t+ch-(ch*i/4);
+    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(w-pad.r,y);ctx.stroke();
+    ctx.fillStyle='rgba(255,255,255,0.25)';ctx.font='10px var(--font-mono)';ctx.textAlign='right';
+    ctx.fillText(Math.round(minS+range*i/4),pad.l-6,y+4);
+  }
+
+  // Line
+  ctx.strokeStyle='#4FC1E9';ctx.lineWidth=2;ctx.lineJoin='round';ctx.lineCap='round';
+  ctx.beginPath();
+  const pts=[];
+  for(let i=0;i<n;i++){
+    const x=pad.l+(cw*i/Math.max(n-1,1));
+    const y=pad.t+ch-(ch*(scores[i]-minS)/range);
+    pts.push({x,y,scor:scores[i]});
+    if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);
+  }
+  ctx.stroke();
+
+  // Gradient fill
+  const grad=ctx.createLinearGradient(0,pad.t,0,h-pad.b);
+  grad.addColorStop(0,'rgba(79,193,233,0.15)');grad.addColorStop(1,'rgba(79,193,233,0)');
+  ctx.fillStyle=grad;ctx.beginPath();
+  ctx.moveTo(pts[0].x,pts[0].y);
+  pts.forEach(p=>ctx.lineTo(p.x,p.y));
+  ctx.lineTo(pts[pts.length-1].x,pad.t+ch);ctx.lineTo(pts[0].x,pad.t+ch);ctx.closePath();ctx.fill();
+
+  // Dots
+  pts.forEach(p=>{
+    const cl=p.scor>=90?'#2ecc71':p.scor>=75?'#4FC1E9':p.scor>=60?'#F6D44C':'#e74c5e';
+    ctx.fillStyle=cl;ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#0f1f28';ctx.beginPath();ctx.arc(p.x,p.y,2,0,Math.PI*2);ctx.fill();
+  });
+
+  // X labels (dates)
+  ctx.fillStyle='rgba(255,255,255,0.25)';ctx.font='9px var(--font-mono)';ctx.textAlign='center';
+  const step=Math.max(1,Math.floor(n/6));
+  for(let i=0;i<n;i+=step){
+    const d=new Date(entries[i].date);
+    ctx.fillText(d.getDate()+'/'+(d.getMonth()+1),pts[i].x,h-pad.b+16);
+  }
+}
+// ===== END ISTORIC =====
 
 // ===== INIT =====
 document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();navigateTo(a.getAttribute('data-section'))})});
