@@ -269,32 +269,37 @@ export default async function handler(req, res) {
         // Await with 3s timeout so Vercel doesn't kill the function before logging completes
         // Columns A-L = existing (same order as current GSheet)
         // Columns M+ = new consolidated fields
+        // IMPORTANT: Column order MUST match Google Sheet headers exactly.
+        // Columns A-L are LEGACY (do NOT insert new fields here — it shifts all columns right).
+        // New fields go in M+ section ONLY.
+        // BUG FIX 27-mar-2026: 'name' was inserted at position C, shifting D-L right by 1.
+        // Moved 'name' to M+ section to restore correct column alignment.
         const sheetPayload = JSON.stringify({
             // A: Timestamp
             timestamp: new Date().toISOString(),
             // B: Sugestie
             sugestie: msgContent.substring(0, 2000),
-            // C: (blank in current sheet — now: Name)
-            name: (user_name || '').substring(0, 100),
-            // D: Nivel
+            // C: Nivel (was broken: had 'name' here, pushing nivel to D)
             nivel: nivel,
-            // E: Tip Sugestie
+            // D: Tip Sugestie
             tip_sugestie: tipSugestie,
-            // F: Scor Total
+            // E: Scor Total
             scor_total: scorTotal,
-            // G: Scoruri Criterii
+            // F: Scoruri Criterii
             scoruri_criterii: scoruriStr,
-            // H: Nr Cuvinte
+            // G: Nr Cuvinte
             nr_cuvinte: msgContent.split(/\s+/).filter(Boolean).length,
-            // I: Răspuns Complet
+            // H: Răspuns Complet
             raspuns_complet: raspunsAI.substring(0, 5000),
-            // J: IP
+            // I: IP
             ip: clientIP,
-            // K: Fingerprint
+            // J: Fingerprint
             fingerprint: (fingerprint || '').substring(0, 16),
-            // L: Email
+            // K: Email
             email: email || '',
-            // === NEW COLUMNS (M+) ===
+            // === NEW COLUMNS (L+) — append only, never insert ===
+            // L: Name (moved here from C to fix column shift bug)
+            name: (user_name || '').substring(0, 100),
             // M: Phone
             phone: (user_phone || '').substring(0, 20),
             // N: Device
