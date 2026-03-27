@@ -598,6 +598,17 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <p style="font-size:0.9rem;color:var(--text-secondary);line-height:1.7;margin-bottom:16px">Echipa noastră de 18+ specialiști (psihoterapeuți, consilieri, coachi) oferă sesiuni online de hipnoză, psihoterapie, coaching și consiliere. Programează o sesiune cu un specialist potrivit pentru tine.</p>
 <a href="https://www.putereamintii.ro/terapeuti" target="_blank" rel="noopener" class="btn-primary" style="text-decoration:none">Vezi toți specialiștii →</a>
 </div>
+<div class="card" style="padding:28px;margin-top:24px">
+<h3 style="font-size:1.1rem;font-weight:700;color:var(--text-heading);margin-bottom:4px">Scrie-ne un mesaj</h3>
+<div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px">Completează formularul și te contactăm în cel mai scurt timp.</div>
+<div class="gate-field"><label>Nume *</label><input type="text" id="contactNume" placeholder="Numele tău"></div>
+<div class="gate-field"><label>Email *</label><input type="email" id="contactEmail" placeholder="email@exemplu.ro"></div>
+<div class="gate-field"><label>Telefon (opțional)</label><input type="tel" id="contactTelefon" placeholder="+40 7xx xxx xxx"></div>
+<div class="gate-field"><label>Subiect *</label><input type="text" id="contactSubiect" placeholder="Despre ce e vorba?"></div>
+<div class="gate-field"><label>Mesajul tău *</label><textarea id="contactMesaj" class="eval-textarea" style="min-height:120px" placeholder="Scrie mesajul aici..."></textarea></div>
+<div id="contactStatus" style="display:none;margin-bottom:14px;padding:12px;border-radius:var(--radius-sm);font-size:0.88rem;text-align:center"></div>
+<button class="btn-primary" id="contactSendBtn" onclick="sendContactForm()" style="width:100%;justify-content:center;padding:14px 24px">Trimite mesajul →</button>
+</div>
 <div id="contactRecs"></div>
 </section>
 
@@ -1586,6 +1597,32 @@ function loadPageRecommendations(section){
     container.innerHTML=renderRecommendations(recs,currentLang);
   }).catch(function(){});
 }
+
+// ===== CONTACT FORM =====
+async function sendContactForm(){
+  const n=document.getElementById('contactNume'),e=document.getElementById('contactEmail'),s=document.getElementById('contactSubiect'),m=document.getElementById('contactMesaj'),tel=document.getElementById('contactTelefon');
+  const st=document.getElementById('contactStatus');const btn=document.getElementById('contactSendBtn');
+  [n,e,s,m].forEach(x=>x.classList.remove('err'));st.style.display='none';
+  let ok=true;
+  if(!n.value.trim()){n.classList.add('err');ok=false}
+  if(!e.value.trim()||!e.value.includes('@')||!e.value.includes('.')){e.classList.add('err');ok=false}
+  if(!s.value.trim()){s.classList.add('err');ok=false}
+  if(!m.value.trim()){m.classList.add('err');ok=false}
+  if(!ok){st.style.display='block';st.style.background='rgba(231,76,94,0.1)';st.style.color='var(--accent-red)';st.style.border='1px solid rgba(231,76,94,0.3)';st.textContent='Completează câmpurile obligatorii (*).';return}
+  btn.disabled=true;btn.innerHTML='<div class="mini-spin" style="width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite"></div> Se trimite...';
+  try{
+    const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n.value.trim(),email:e.value.trim(),phone:tel.value.trim(),subject:s.value.trim(),message:m.value.trim()})});
+    if(!r.ok)throw new Error('Send failed');
+    st.style.display='block';st.style.background='rgba(46,204,113,0.1)';st.style.color='var(--accent-green)';st.style.border='1px solid rgba(46,204,113,0.3)';st.textContent='Mesajul a fost trimis! Te vom contacta în curând.';
+    n.value='';e.value='';tel.value='';s.value='';m.value='';
+    btn.disabled=false;btn.innerHTML='Trimite mesajul →';
+  }catch(err){
+    st.style.display='block';st.style.background='rgba(231,76,94,0.1)';st.style.color='var(--accent-red)';st.style.border='1px solid rgba(231,76,94,0.3)';st.textContent='Eroare la trimitere. Încearcă din nou sau scrie-ne la contact@putereamintii.ro.';
+    btn.disabled=false;btn.innerHTML='Trimite mesajul →';
+    console.error(err);
+  }
+}
+// ===== END CONTACT FORM =====
 
 // ===== LABORATOR NLP =====
 const LAB_PROMPTS={
