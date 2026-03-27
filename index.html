@@ -339,7 +339,35 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .lab-mp-bar .mp-track{flex:1;height:8px;background:var(--bg-input);border-radius:4px;overflow:hidden;position:relative}
 .lab-mp-bar .mp-fill{height:100%;border-radius:4px;transition:width 0.6s ease}
 .lab-mp-bar .mp-right{width:70px;font-size:0.72rem;font-weight:600;color:var(--text-muted);flex-shrink:0}
-@media(max-width:768px){.lab-grid{grid-template-columns:1fr}#sec-contact>div:nth-child(4){grid-template-columns:1fr!important}#sec-contact>div:nth-child(4) .gate-field div[style*="grid-template-columns"]{grid-template-columns:1fr!important}}
+@media(max-width:768px){.lab-grid{grid-template-columns:1fr}#sec-contact>div:nth-child(4){grid-template-columns:1fr!important}#sec-contact>div:nth-child(4) .gate-field div[style*="grid-template-columns"]{grid-template-columns:1fr!important}.lib-grid{grid-template-columns:1fr!important}.lib-expanded .lib-exp-meta{flex-direction:column}.lib-filters{gap:6px}}
+.lib-filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.lib-filter-chip{padding:7px 14px;border:1px solid var(--border-card);border-radius:20px;background:transparent;color:var(--text-secondary);font-family:var(--font-main);font-size:0.78rem;font-weight:600;cursor:pointer;transition:all var(--transition);white-space:nowrap}
+.lib-filter-chip:hover{border-color:var(--accent-blue);color:var(--text-primary)}
+.lib-filter-chip.active{background:var(--accent-blue);color:#0f1f28;border-color:var(--accent-blue)}
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.lib-card{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:20px;cursor:pointer;transition:all var(--transition)}
+.lib-card:hover{border-color:rgba(79,193,233,0.3);transform:translateY(-2px)}
+.lib-card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+.lib-card-title{font-size:0.95rem;font-weight:700;color:var(--text-heading);line-height:1.3}
+.lib-card-score{flex-shrink:0;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.82rem;font-weight:700;font-family:var(--font-mono)}
+.lib-card-badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.lib-badge{padding:3px 8px;border-radius:10px;font-size:0.65rem;font-weight:600;letter-spacing:0.03em}
+.lib-badge-cat{background:rgba(79,193,233,0.1);color:var(--accent-blue);border:1px solid rgba(79,193,233,0.2)}
+.lib-badge-tip{background:rgba(246,212,76,0.1);color:var(--accent-gold);border:1px solid rgba(246,212,76,0.2)}
+.lib-badge-dif{background:rgba(46,204,113,0.1);color:var(--accent-green);border:1px solid rgba(46,204,113,0.2)}
+.lib-card-preview{font-size:0.85rem;color:var(--text-secondary);line-height:1.6;font-style:italic}
+.lib-expanded{margin-bottom:20px}
+.lib-exp-back{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--border-card);border-radius:var(--radius-sm);background:transparent;color:var(--text-secondary);font-family:var(--font-main);font-size:0.82rem;font-weight:500;cursor:pointer;transition:all var(--transition);margin-bottom:16px}
+.lib-exp-back:hover{border-color:var(--accent-blue);color:var(--accent-blue)}
+.lib-exp-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px;align-items:center}
+.lib-exp-text{font-size:0.95rem;color:var(--text-primary);line-height:1.8;white-space:pre-wrap;padding:24px;background:var(--bg-input);border-radius:var(--radius-sm);border:1px solid var(--border-subtle);position:relative;user-select:none;-webkit-user-select:none}
+.lib-exp-text.lib-unlocked{user-select:text;-webkit-user-select:text}
+.lib-blur-overlay{position:relative}
+.lib-blur-overlay .lib-exp-text{max-height:200px;overflow:hidden}
+.lib-blur-overlay::after{content:'';position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(transparent,var(--bg-card) 90%);border-radius:0 0 var(--radius-sm) var(--radius-sm);pointer-events:none}
+.lib-gate-card{margin-top:20px;padding:24px;background:linear-gradient(135deg,var(--bg-card) 0%,rgba(246,212,76,0.06) 100%);border:1px solid rgba(246,212,76,0.3);border-radius:var(--radius);text-align:center}
+.lib-note{margin-top:16px;padding:16px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm);font-size:0.85rem;color:var(--text-secondary);line-height:1.6}
+.lib-usage-info{margin-bottom:16px;padding:10px 16px;background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px}
 /* ===== END LABORATOR NLP STYLES ===== */
 </style>
 </head>
@@ -354,11 +382,11 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <a href="#generator" data-section="generator"><span class="nav-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span><span data-i18n="nav_generator">Generator</span><span class="nav-badge" style="background:rgba(46,204,113,0.15);color:var(--accent-green)">NOU</span></a>
 <a href="#evaluator" data-section="evaluator"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></span><span data-i18n="nav_evaluator">Evaluator</span></a>
 <a href="#antrenament" data-section="antrenament"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></span><span data-i18n="nav_training">Antrenament</span><span class="nav-badge" style="background:rgba(46,204,113,0.15);color:var(--accent-green)">NOU</span></a>
-<a href="#laborator" data-section="laborator"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 3H7.5A1.5 1.5 0 006 4.5V7H4.5A1.5 1.5 0 003 8.5v7A1.5 1.5 0 004.5 17H6v2.5A1.5 1.5 0 007.5 21H9m6 0h1.5a1.5 1.5 0 001.5-1.5V17h1.5a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0019.5 7H18V4.5A1.5 1.5 0 0016.5 3H15" stroke="currentColor" fill="none" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" fill="none" stroke-width="1.8"/></svg></span><span>Laborator NLP</span><span class="nav-badge" style="background:rgba(79,193,233,0.15);color:var(--accent-blue)">NOU</span></a>
-<a href="#biblioteca" data-section="biblioteca"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span><span data-i18n="nav_library">Bibliotecă</span><span class="nav-badge" data-i18n="badge_soon">În curând</span></a>
+<a href="#laborator" data-section="laborator"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M9 3H7.5A1.5 1.5 0 006 4.5V7H4.5A1.5 1.5 0 003 8.5v7A1.5 1.5 0 004.5 17H6v2.5A1.5 1.5 0 007.5 21H9m6 0h1.5a1.5 1.5 0 001.5-1.5V17h1.5a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0019.5 7H18V4.5A1.5 1.5 0 0016.5 3H15" stroke="currentColor" fill="none" stroke-width="1.8"/><circle cx="12" cy="12" r="3" stroke="currentColor" fill="none" stroke-width="1.8"/></svg></span><span data-i18n="nav_lab">Laborator NLP</span><span class="nav-badge" style="background:rgba(79,193,233,0.15);color:var(--accent-blue)" data-i18n="badge_new">NOU</span></a>
+<a href="#biblioteca" data-section="biblioteca"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span><span data-i18n="nav_library">Bibliotecă</span></a>
 <a href="#ghid" data-section="ghid"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span data-i18n="nav_guide">Ghid</span></a>
 <a href="#istoric" data-section="istoric"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span data-i18n="nav_history">Istoric</span><span class="nav-badge" data-i18n="badge_soon">În curând</span></a>
-<a href="#contact" data-section="contact"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span>Contact</span></a>
+<a href="#contact" data-section="contact"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span data-i18n="nav_contact">Contact</span></a>
 </nav>
 <div class="sidebar-footer"><div class="lang-label">🌐 Limbă</div><div class="lang-grid" id="langGrid">
 <button onclick="setLang('ro')" data-lang="ro" class="active"><span class="lang-flag">🇷🇴</span>RO</button>
@@ -531,71 +559,80 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div id="trainResults"></div>
 </section>
 <section class="page-section" id="sec-laborator">
-<div class="section-tag">Laborator AI</div>
-<h1 class="section-title">Laborator NLP</h1>
-<p class="section-desc">Instrumente profesionale de analiză lingvistică. Introdu un text și descoperă structura lui NLP.</p>
+<div class="section-tag" data-i18n="lab_tag">Laborator AI</div>
+<h1 class="section-title" data-i18n="lab_title">Laborator NLP</h1>
+<p class="section-desc" data-i18n="lab_desc">Instrumente profesionale de analiză lingvistică. Introdu un text și descoperă structura lui NLP.</p>
 <div id="labHome">
 <div class="lab-grid">
-<div class="card lab-card" onclick="openLabInstrument('vakog')"><div class="lab-icon" style="background:rgba(79,193,233,0.12)">🎨</div><h4>Scanner VAKOG</h4><p>Text colorat per canal senzorial. Vezi instant ce canale activează sugestia.</p></div>
-<div class="card lab-card" onclick="openLabInstrument('milton')"><div class="lab-icon" style="background:rgba(246,212,76,0.12)">🔤</div><h4>Analizor Milton Model</h4><p>Detectează cele 27 pattern-uri. Evaluează diversitatea și corectitudinea.</p></div>
-<div class="card lab-card" onclick="openLabInstrument('metamodel')"><div class="lab-icon" style="background:rgba(231,76,94,0.12)">🔍</div><h4>Detector Meta Model</h4><p>Violări intenționate vs accidentale. 4 clasificări cu fix-uri recomandate.</p></div>
-<div class="card lab-card" onclick="openLabInstrument('metaprograms')"><div class="lab-icon" style="background:rgba(46,204,113,0.12)">🧭</div><h4>Verificator Meta Programs</h4><p>Profil text pe 10 dimensiuni. Compatibilitate client ideal vs dificil.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('vakog')"><div class="lab-icon" style="background:rgba(79,193,233,0.12)">🎨</div><h4 data-i18n="lab_vakog_title">Scanner VAKOG</h4><p data-i18n="lab_vakog_desc">Text colorat per canal senzorial. Vezi instant ce canale activează sugestia.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('milton')"><div class="lab-icon" style="background:rgba(246,212,76,0.12)">🔤</div><h4 data-i18n="lab_milton_title">Analizor Milton Model</h4><p data-i18n="lab_milton_desc">Detectează cele 27 pattern-uri. Evaluează diversitatea și corectitudinea.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('metamodel')"><div class="lab-icon" style="background:rgba(231,76,94,0.12)">🔍</div><h4 data-i18n="lab_meta_title">Detector Meta Model</h4><p data-i18n="lab_meta_desc">Violări intenționate vs accidentale. 4 clasificări cu fix-uri recomandate.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('metaprograms')"><div class="lab-icon" style="background:rgba(46,204,113,0.12)">🧭</div><h4 data-i18n="lab_mp_title">Verificator Meta Programs</h4><p data-i18n="lab_mp_desc">Profil text pe 10 dimensiuni. Compatibilitate client ideal vs dificil.</p></div>
 </div>
 </div>
 <div class="lab-instrument" id="labVakog">
-<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
-<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🎨 Scanner VAKOG</h2>
-<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Introdu o sugestie hipnotică și vezi fiecare predicat senzorial colorat pe canal.</p>
-<div class="card eval-input-card"><label>Textul de analizat</label><textarea id="labVakogInput" class="eval-textarea" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('vakog')"></textarea><div class="eval-footer"><span class="char-count" id="labVakogCount">0 / 3000</span><button class="btn-primary" id="labVakogBtn" onclick="runLabInstrument('vakog')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Analizează</button></div></div>
-<div class="loading-overlay" id="labVakogLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Analizez predicatele senzoriale...</div></div>
+<button class="lab-back" onclick="closeLabInstrument()" data-i18n="lab_back">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🎨 <span data-i18n="lab_vakog_title">Scanner VAKOG</span></h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px" data-i18n="lab_vakog_inst_desc">Introdu o sugestie hipnotică și vezi fiecare predicat senzorial colorat pe canal.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labVakogInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('vakog')"></textarea><div class="eval-footer"><span class="char-count" id="labVakogCount">0 / 3000</span><button class="btn-primary" id="labVakogBtn" onclick="runLabInstrument('vakog')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labVakogLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)" data-i18n="lab_vakog_loading">Analizez predicatele senzoriale...</div></div>
 <div id="labVakogResult"></div>
 </div>
 <div class="lab-instrument" id="labMilton">
-<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
-<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🔤 Analizor Milton Model</h2>
-<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Detectează cele 27 pattern-uri Milton Model din textul tău.</p>
-<div class="card eval-input-card"><label>Textul de analizat</label><textarea id="labMiltonInput" class="eval-textarea" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('milton')"></textarea><div class="eval-footer"><span class="char-count" id="labMiltonCount">0 / 3000</span><button class="btn-primary" id="labMiltonBtn" onclick="runLabInstrument('milton')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Analizează</button></div></div>
-<div class="loading-overlay" id="labMiltonLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Detectez pattern-urile Milton Model...</div></div>
+<button class="lab-back" onclick="closeLabInstrument()" data-i18n="lab_back">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🔤 <span data-i18n="lab_milton_title">Analizor Milton Model</span></h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px" data-i18n="lab_milton_inst_desc">Detectează cele 27 pattern-uri Milton Model din textul tău.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labMiltonInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('milton')"></textarea><div class="eval-footer"><span class="char-count" id="labMiltonCount">0 / 3000</span><button class="btn-primary" id="labMiltonBtn" onclick="runLabInstrument('milton')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labMiltonLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)" data-i18n="lab_milton_loading">Detectez pattern-urile Milton Model...</div></div>
 <div id="labMiltonResult"></div>
 </div>
 <div class="lab-instrument" id="labMetamodel">
-<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
-<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🔍 Detector Meta Model</h2>
-<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Identifică violările Meta Model și le clasifică: intenționate vs accidentale.</p>
-<div class="card eval-input-card"><label>Textul de analizat</label><textarea id="labMetamodelInput" class="eval-textarea" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('metamodel')"></textarea><div class="eval-footer"><span class="char-count" id="labMetamodelCount">0 / 3000</span><button class="btn-primary" id="labMetamodelBtn" onclick="runLabInstrument('metamodel')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Analizează</button></div></div>
-<div class="loading-overlay" id="labMetamodelLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Detectez violările Meta Model...</div></div>
+<button class="lab-back" onclick="closeLabInstrument()" data-i18n="lab_back">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🔍 <span data-i18n="lab_meta_title">Detector Meta Model</span></h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px" data-i18n="lab_meta_inst_desc">Identifică violările Meta Model și le clasifică: intenționate vs accidentale.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labMetamodelInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('metamodel')"></textarea><div class="eval-footer"><span class="char-count" id="labMetamodelCount">0 / 3000</span><button class="btn-primary" id="labMetamodelBtn" onclick="runLabInstrument('metamodel')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labMetamodelLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)" data-i18n="lab_meta_loading">Detectez violările Meta Model...</div></div>
 <div id="labMetamodelResult"></div>
 </div>
 <div class="lab-instrument" id="labMetaprograms">
-<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
-<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🧭 Verificator Meta Programs</h2>
-<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Detectează ce Meta Programs sunt active și profilul de compatibilitate client.</p>
-<div class="card eval-input-card"><label>Textul de analizat</label><textarea id="labMetaprogramsInput" class="eval-textarea" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('metaprograms')"></textarea><div class="eval-footer"><span class="char-count" id="labMetaprogramsCount">0 / 3000</span><button class="btn-primary" id="labMetaprogramsBtn" onclick="runLabInstrument('metaprograms')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>Analizează</button></div></div>
-<div class="loading-overlay" id="labMetaprogramsLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Analizez Meta Programs...</div></div>
+<button class="lab-back" onclick="closeLabInstrument()" data-i18n="lab_back">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🧭 <span data-i18n="lab_mp_title">Verificator Meta Programs</span></h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px" data-i18n="lab_mp_inst_desc">Detectează ce Meta Programs sunt active și profilul de compatibilitate client.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labMetaprogramsInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('metaprograms')"></textarea><div class="eval-footer"><span class="char-count" id="labMetaprogramsCount">0 / 3000</span><button class="btn-primary" id="labMetaprogramsBtn" onclick="runLabInstrument('metaprograms')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labMetaprogramsLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)" data-i18n="lab_mp_loading">Analizez Meta Programs...</div></div>
 <div id="labMetaprogramsResult"></div>
 </div>
 </section>
-<section class="page-section" id="sec-biblioteca"><div class="section-tag" data-i18n="lib_tag">Referință</div><h1 class="section-title" data-i18n="lib_title">Biblioteca de Sugestii Model</h1><p class="section-desc" data-i18n="lib_desc">Sugestii hipnotice model, clasificate pe categorii terapeutice.</p><div class="card"><div class="placeholder-box"><div class="ph-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div><h3 data-i18n="placeholder_coming">În curând</h3><p data-i18n="lib_placeholder">Biblioteca va fi disponibilă în curând.</p></div></div><div id="bibliotecaRecs"></div></section>
+<section class="page-section" id="sec-biblioteca">
+<div class="section-tag" data-i18n="lib_tag">Referință</div>
+<h1 class="section-title" data-i18n="lib_title">Biblioteca de Sugestii Model</h1>
+<p class="section-desc" data-i18n="lib_desc">Sugestii hipnotice model, clasificate pe categorii terapeutice.</p>
+<div class="lib-usage-info" id="libUsageInfo"></div>
+<div class="lib-filters" id="libFilters"></div>
+<div id="libGrid" class="lib-grid"></div>
+<div id="libExpanded" class="lib-expanded" style="display:none"></div>
+<div id="bibliotecaRecs"></div>
+</section>
 <section class="page-section" id="sec-ghid"><div class="section-tag" data-i18n="guide_tag">Referință</div><h1 class="section-title" data-i18n="guide_title">Ghid</h1><p class="section-desc" data-i18n="guide_desc">Principii fundamentale, criterii de evaluare și lanțul cauzal.</p><div id="guideContent"></div><div id="ghidRecs"></div></section>
 <section class="page-section" id="sec-istoric"><div class="section-tag" data-i18n="hist_tag">Istoric evaluări</div><h1 class="section-title" data-i18n="hist_title">Istoric</h1><p class="section-desc" data-i18n="hist_desc">Evaluările tale anterioare, salvate local.</p><div class="card"><div class="placeholder-box"><div class="ph-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><h3 data-i18n="placeholder_coming">În curând</h3><p data-i18n="hist_placeholder">Istoricul evaluărilor va fi disponibil în curând.</p></div></div><div id="istoricRecs"></div></section>
 <section class="page-section" id="sec-contact">
-<div class="section-tag">Contact</div>
-<h1 class="section-title">Contact</h1>
-<p class="section-desc">Ai o întrebare, o sugestie sau vrei să afli mai multe despre programele noastre? Scrie-ne.</p>
+<div class="section-tag" data-i18n="contact_tag">Contact</div>
+<h1 class="section-title" data-i18n="contact_title">Contact</h1>
+<p class="section-desc" data-i18n="contact_desc">Ai o întrebare, o sugestie sau vrei să afli mai multe despre programele noastre? Scrie-ne.</p>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
 <div class="card" style="padding:24px">
-<h3 style="font-size:1.05rem;font-weight:700;color:var(--text-heading);margin-bottom:4px">Scrie-ne un mesaj</h3>
-<div style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px">Completează formularul și te contactăm în cel mai scurt timp.</div>
-<div class="gate-field"><label>Nume *</label><input type="text" id="contactNume" placeholder="Numele tău"></div>
-<div class="gate-field"><label>Email *</label><input type="email" id="contactEmail" placeholder="email@exemplu.ro"></div>
-<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="gate-field"><label>Telefon</label><input type="tel" id="contactTelefon" placeholder="+40 7xx xxx xxx"></div><div class="gate-field"><label>Subiect *</label><input type="text" id="contactSubiect" placeholder="Despre ce e vorba?"></div></div>
-<div class="gate-field"><label>Mesaj *</label><textarea id="contactMesaj" class="eval-textarea" style="min-height:100px" placeholder="Scrie mesajul aici..."></textarea></div>
+<h3 style="font-size:1.05rem;font-weight:700;color:var(--text-heading);margin-bottom:4px" data-i18n="contact_form_title">Scrie-ne un mesaj</h3>
+<div style="font-size:0.82rem;color:var(--text-secondary);margin-bottom:16px" data-i18n="contact_form_desc">Completează formularul și te contactăm în cel mai scurt timp.</div>
+<div class="gate-field"><label data-i18n="contact_name">Nume *</label><input type="text" id="contactNume" data-i18n-placeholder="contact_name_ph" placeholder="Numele tău"></div>
+<div class="gate-field"><label data-i18n="contact_email">Email *</label><input type="email" id="contactEmail" data-i18n-placeholder="contact_email_ph" placeholder="email@exemplu.ro"></div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div class="gate-field"><label data-i18n="contact_phone">Telefon</label><input type="tel" id="contactTelefon" data-i18n-placeholder="contact_phone_ph" placeholder="+40 7xx xxx xxx"></div><div class="gate-field"><label data-i18n="contact_subject">Subiect *</label><input type="text" id="contactSubiect" data-i18n-placeholder="contact_subject_ph" placeholder="Despre ce e vorba?"></div></div>
+<div class="gate-field"><label data-i18n="contact_message">Mesaj *</label><textarea id="contactMesaj" class="eval-textarea" style="min-height:100px" data-i18n-placeholder="contact_message_ph" placeholder="Scrie mesajul aici..."></textarea></div>
 <div id="contactStatus" style="display:none;margin-bottom:10px;padding:10px;border-radius:var(--radius-sm);font-size:0.85rem;text-align:center"></div>
-<button class="btn-primary" id="contactSendBtn" onclick="sendContactForm()" style="width:100%;justify-content:center;padding:12px 20px">Trimite mesajul →</button>
+<button class="btn-primary" id="contactSendBtn" onclick="sendContactForm()" style="width:100%;justify-content:center;padding:12px 20px" data-i18n="contact_send">Trimite mesajul →</button>
 </div>
 <div style="display:flex;flex-direction:column;gap:16px">
 <div class="card" style="padding:20px">
-<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.2rem">📧</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Email</div><a href="mailto:contact@putereamintii.ro" style="font-size:0.85rem;color:var(--accent-blue);text-decoration:none">contact@putereamintii.ro</a></div></div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.2rem">📧</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Email</div><a href="/cdn-cgi/l/email-protection#f3909c9d87929087b3838687968196929e9a9d879a9add819c" style="font-size:0.85rem;color:var(--accent-blue);text-decoration:none"><span class="__cf_email__" data-cfemail="b8dbd7d6ccd9dbccf8c8cdccddcaddd9d5d1d6ccd1d196cad7">[email&#160;protected]</span></a></div></div>
 <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px"><span style="font-size:1.2rem">🌐</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Website</div><a href="https://www.putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.85rem;color:var(--accent-blue);text-decoration:none">www.putereamintii.ro</a></div></div>
 <div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.2rem">📱</span><div><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading)">Social Media</div><div style="display:flex;gap:10px;margin-top:3px"><a href="https://www.facebook.com/putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--accent-blue);text-decoration:none">Facebook</a><a href="https://www.instagram.com/putereamintii.ro" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--accent-blue);text-decoration:none">Instagram</a><a href="https://www.youtube.com/@putereamintii" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--accent-blue);text-decoration:none">YouTube</a></div></div></div>
 </div>
@@ -734,7 +771,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 </div>
 </div>
 </div><!-- app-wrap -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ===== ZOOM FIX =====
 (function(){if(typeof document.body?.style!=='undefined'){document.body.style.zoom='100%';document.documentElement.style.zoom='100%'}})();
 // ===== PRESERVED TRANSLATIONS & CONSTANTS =====
@@ -779,6 +816,10 @@ const EX={ro:'Cu fiecare respirație, simți cum o căldură blândă se răspâ
 // ===== NEW TRANSLATIONS (merged) =====
 const T2={ro:{lead_badge:'Acces gratuit',lead_title:'Deblochează Evaluarea Avansată',lead_step2_title:'Introdu codul de verificare',lead_sent_to:'Am trimis un cod de 6 cifre la:',lead_change_email:'Nu e corect? Schimbă adresa →',lead_resend:'Nu ai primit codul? Retrimite',lead_resend_wait:'Retrimite în',lead_sending:'Se trimite codul...',lead_verifying:'Se verifică...',lead_code_expired:'Codul a expirat. Retrimite.',lead_code_invalid:'Cod incorect. Încearcă din nou.',lead_code_error:'Eroare la verificare. Încearcă din nou.',lead_send_error:'Eroare la trimitere. Verifică adresa de email.',lead_name_err:'Completează numele',lead_email_err:'Completează un email valid',expert_title:'Acces Nivel Expert',expert_pw_option:'Am parolă de acces',expert_pw_desc:'Primită în Training Profesional de Hipnoză',expert_buy_option:'Cumpără acces 30 zile',expert_buy_desc:'Acces Expert nelimitat, plată unică prin Stripe',expert_pw_err:'Parolă incorectă',expert_activated:'Acces Expert activat pentru 30 de zile!',cooldown_msg:'Poți evalua din nou în',basic_limit:'Ai folosit cele 5 evaluări gratuite din această oră. Fă upgrade la Avansat sau Expert pentru acces extins.',usage_label:'UTILIZARE',usage_inputs:'evaluări',usage_chars:'caractere',usage_reset:'Se resetează în',usage_limit_reached:'Limită atinsă. Așteaptă resetarea.'},en:{lead_badge:'Free access',lead_title:'Unlock Advanced Evaluation',lead_step2_title:'Enter verification code',lead_sent_to:'We sent a 6-digit code to:',lead_change_email:'Not correct? Change address →',lead_resend:'Didn\'t receive the code? Resend',lead_resend_wait:'Resend in',lead_sending:'Sending code...',lead_verifying:'Verifying...',lead_code_expired:'Code expired. Resend.',lead_code_invalid:'Invalid code. Try again.',lead_code_error:'Verification error. Try again.',lead_send_error:'Send error. Check email address.',lead_name_err:'Enter your name',lead_email_err:'Enter a valid email',expert_title:'Expert Level Access',expert_pw_option:'I have an access password',expert_pw_desc:'Received in Professional Hypnosis Training',expert_buy_option:'Buy 30-day access',expert_buy_desc:'Unlimited Expert access, one-time Stripe payment',expert_pw_err:'Incorrect password',expert_activated:'Expert access activated for 30 days!',cooldown_msg:'You can evaluate again in',basic_limit:'You\'ve used all 5 free evaluations this hour. Upgrade to Advanced or Expert for extended access and advanced features.',usage_label:'USAGE',usage_inputs:'evaluations',usage_chars:'characters',usage_reset:'Resets in',usage_limit_reached:'Limit reached. Wait for reset.'},es:{lead_badge:'Acceso gratuito',lead_title:'Desbloquear Evaluación Avanzada',lead_step2_title:'Introduce el código',lead_sent_to:'Enviamos un código de 6 dígitos a:',lead_change_email:'¿No es correcto? Cambiar →',lead_resend:'¿No lo recibiste? Reenviar',lead_resend_wait:'Reenviar en',lead_sending:'Enviando código...',lead_verifying:'Verificando...',lead_code_expired:'Código expirado. Reenviar.',lead_code_invalid:'Código incorrecto.',lead_code_error:'Error de verificación.',lead_send_error:'Error al enviar.',lead_name_err:'Introduce tu nombre',lead_email_err:'Introduce un email válido',expert_title:'Acceso Nivel Experto',expert_pw_option:'Tengo contraseña',expert_pw_desc:'Recibida en el Training Profesional',expert_buy_option:'Comprar acceso 30 días',expert_buy_desc:'Acceso ilimitado por Stripe',expert_pw_err:'Contraseña incorrecta',expert_activated:'¡Acceso Experto activado por 30 días!',cooldown_msg:'Puedes evaluar de nuevo en',basic_limit:'Has usado las 5 evaluaciones gratuitas de hoy.',usage_label:'USO',usage_inputs:'evaluaciones',usage_chars:'caracteres',usage_reset:'Se resetea en',usage_limit_reached:'Límite alcanzado.'},fr:{lead_badge:'Accès gratuit',lead_title:'Débloquer l\'Évaluation Avancée',lead_step2_title:'Entrez le code',lead_sent_to:'Nous avons envoyé un code à :',lead_change_email:'Pas correct ? Changer →',lead_resend:'Pas reçu ? Renvoyer',lead_resend_wait:'Renvoyer dans',lead_sending:'Envoi du code...',lead_verifying:'Vérification...',lead_code_expired:'Code expiré. Renvoyer.',lead_code_invalid:'Code incorrect.',lead_code_error:'Erreur de vérification.',lead_send_error:'Erreur d\'envoi.',lead_name_err:'Entrez votre nom',lead_email_err:'Entrez un email valide',expert_title:'Accès Niveau Expert',expert_pw_option:'J\'ai un mot de passe',expert_pw_desc:'Reçu en Formation Professionnelle',expert_buy_option:'Acheter 30 jours',expert_buy_desc:'Accès illimité via Stripe',expert_pw_err:'Mot de passe incorrect',expert_activated:'Accès Expert activé pour 30 jours !',cooldown_msg:'Prochaine évaluation dans',basic_limit:'Vous avez utilisé vos 5 évaluations gratuites.',usage_label:'UTILISATION',usage_inputs:'évaluations',usage_chars:'caractères',usage_reset:'Réinitialisation dans',usage_limit_reached:'Limite atteinte.'},de:{lead_badge:'Kostenloser Zugang',lead_title:'Erweiterte Bewertung freischalten',lead_step2_title:'Code eingeben',lead_sent_to:'Wir haben einen Code gesendet an:',lead_change_email:'Nicht korrekt? Ändern →',lead_resend:'Nicht erhalten? Erneut senden',lead_resend_wait:'Erneut senden in',lead_sending:'Code wird gesendet...',lead_verifying:'Überprüfung...',lead_code_expired:'Code abgelaufen.',lead_code_invalid:'Falscher Code.',lead_code_error:'Überprüfungsfehler.',lead_send_error:'Sendefehler.',lead_name_err:'Namen eingeben',lead_email_err:'Gültige E-Mail eingeben',expert_title:'Expert-Zugang',expert_pw_option:'Ich habe ein Passwort',expert_pw_desc:'Aus dem professionellen Training',expert_buy_option:'30 Tage kaufen',expert_buy_desc:'Unbegrenzter Zugang über Stripe',expert_pw_err:'Falsches Passwort',expert_activated:'Expert-Zugang für 30 Tage aktiviert!',cooldown_msg:'Nächste Bewertung in',basic_limit:'5 kostenlose Bewertungen heute aufgebraucht.',usage_label:'NUTZUNG',usage_inputs:'Bewertungen',usage_chars:'Zeichen',usage_reset:'Reset in',usage_limit_reached:'Limit erreicht.'},pt:{lead_badge:'Acesso gratuito',lead_title:'Desbloquear Avaliação Avançada',lead_step2_title:'Insira o código',lead_sent_to:'Enviamos um código para:',lead_change_email:'Não está correto? Alterar →',lead_resend:'Não recebeu? Reenviar',lead_resend_wait:'Reenviar em',lead_sending:'Enviando código...',lead_verifying:'Verificando...',lead_code_expired:'Código expirado.',lead_code_invalid:'Código incorreto.',lead_code_error:'Erro de verificação.',lead_send_error:'Erro ao enviar.',lead_name_err:'Insira seu nome',lead_email_err:'Insira um email válido',expert_title:'Acesso Nível Expert',expert_pw_option:'Tenho senha',expert_pw_desc:'Recebida no Treinamento Profissional',expert_buy_option:'Comprar 30 dias',expert_buy_desc:'Acesso ilimitado via Stripe',expert_pw_err:'Senha incorreta',expert_activated:'Acesso Expert ativado por 30 dias!',cooldown_msg:'Próxima avaliação em',basic_limit:'Você usou as 5 avaliações gratuitas de hoje.',usage_label:'USO',usage_inputs:'avaliações',usage_chars:'caracteres',usage_reset:'Reseta em',usage_limit_reached:'Limite atingido.'}};
 for(const l in T2){if(T[l])Object.assign(T[l],T2[l])}
+const T3={ro:{nav_lab:'Laborator NLP',nav_contact:'Contact',badge_new:'NOU',lab_tag:'Laborator AI',lab_title:'Laborator NLP',lab_desc:'Instrumente profesionale de analiză lingvistică. Introdu un text și descoperă structura lui NLP.',lab_vakog_title:'Scanner VAKOG',lab_vakog_desc:'Text colorat per canal senzorial. Vezi instant ce canale activează sugestia.',lab_vakog_inst_desc:'Introdu o sugestie hipnotică și vezi fiecare predicat senzorial colorat pe canal.',lab_milton_title:'Analizor Milton Model',lab_milton_desc:'Detectează cele 27 pattern-uri. Evaluează diversitatea și corectitudinea.',lab_milton_inst_desc:'Detectează cele 27 pattern-uri Milton Model din textul tău.',lab_meta_title:'Detector Meta Model',lab_meta_desc:'Violări intenționate vs accidentale. 4 clasificări cu fix-uri recomandate.',lab_meta_inst_desc:'Identifică violările Meta Model și le clasifică: intenționate vs accidentale.',lab_mp_title:'Verificator Meta Programs',lab_mp_desc:'Profil text pe 10 dimensiuni. Compatibilitate client ideal vs dificil.',lab_mp_inst_desc:'Detectează ce Meta Programs sunt active și profilul de compatibilitate client.',lab_back:'← Înapoi la Laborator',lab_input_label:'Textul de analizat',lab_input_placeholder:'Lipește sugestia sau scriptul aici...',lab_analyze:'Analizează',lab_vakog_loading:'Analizez predicatele senzoriale...',lab_milton_loading:'Detectez pattern-urile Milton Model...',lab_meta_loading:'Detectez violările Meta Model...',lab_mp_loading:'Analizez Meta Programs...',lab_error:'Eroare la analiză. Încearcă din nou.',lab_empty:'Introdu un text de analizat.',lab_limit:'Ai atins limita de 3 analize/oră pentru acest instrument. Revino în curând.',lab_dominant:'Canal dominant',lab_sensory:'Senzorial',lab_conceptual:'Conceptual',lab_congruence:'Congruență C17',lab_recommendations:'RECOMANDĂRI',lab_patterns_found:'pattern-uri distincte din 27',lab_distinct:'pattern-uri distincte',lab_instances:'instanțe totale',lab_correct:'corecte',lab_forced:'forțate',lab_intentionality:'Scor intentionalitate',lab_total_violations:'Total violări',lab_fixes:'FIX-URI RECOMANDATE',lab_client_ideal:'CLIENT IDEAL',lab_client_difficult:'CLIENT DIFICIL',lab_profile:'Profil sugestie',lab_logical_level:'Nivel logic dominant',lab_temporality:'Temporalitate',lab_result_vakog:'Rezultat Scanner VAKOG',lab_result_milton:'Rezultat Analizor Milton Model',lab_result_meta:'Rezultat Detector Meta Model',lab_result_mp:'Rezultat Verificator Meta Programs',lab_type:'Tip',lab_inten_correct:'Intenționat corect',lab_inten_forced:'Intenționat forțat',lab_acc_weak:'Accidental slab',lab_acc_toxic:'Accidental toxic',lab_patterns_detected:'PATTERN-URI DETECTATE',lab_violations:'VIOLĂRI DETECTATE',contact_tag:'Contact',contact_title:'Contact',contact_desc:'Ai o întrebare, o sugestie sau vrei să afli mai multe despre programele noastre? Scrie-ne.',contact_form_title:'Scrie-ne un mesaj',contact_form_desc:'Completează formularul și te contactăm în cel mai scurt timp.',contact_name:'Nume *',contact_name_ph:'Numele tău',contact_email:'Email *',contact_email_ph:'email@exemplu.ro',contact_phone:'Telefon',contact_phone_ph:'+40 7xx xxx xxx',contact_subject:'Subiect *',contact_subject_ph:'Despre ce e vorba?',contact_message:'Mesaj *',contact_message_ph:'Scrie mesajul aici...',contact_send:'Trimite mesajul →',contact_success:'Mesajul a fost trimis! Te vom contacta în curând.',contact_error:'Eroare la trimitere. Încearcă din nou sau scrie-ne la contact@putereamintii.ro.',contact_required:'Completează câmpurile obligatorii (*).',contact_sending:'Se trimite...'},en:{nav_lab:'NLP Laboratory',nav_contact:'Contact',badge_new:'NEW',lab_tag:'AI Laboratory',lab_title:'NLP Laboratory',lab_desc:'Professional linguistic analysis tools. Enter a text and discover its NLP structure.',lab_vakog_title:'VAKOG Scanner',lab_vakog_desc:'Color-coded text per sensory channel. Instantly see which channels your suggestion activates.',lab_vakog_inst_desc:'Enter a hypnotic suggestion and see each sensory predicate colored by channel.',lab_milton_title:'Milton Model Analyzer',lab_milton_desc:'Detects all 27 patterns. Evaluates diversity and correctness.',lab_milton_inst_desc:'Detects all 27 Milton Model patterns in your text.',lab_meta_title:'Meta Model Detector',lab_meta_desc:'Intentional vs accidental violations. 4 classifications with recommended fixes.',lab_meta_inst_desc:'Identifies Meta Model violations and classifies them: intentional vs accidental.',lab_mp_title:'Meta Programs Verifier',lab_mp_desc:'Text profile on 10 dimensions. Ideal vs difficult client compatibility.',lab_mp_inst_desc:'Detects which Meta Programs are active and client compatibility profile.',lab_back:'← Back to Laboratory',lab_input_label:'Text to analyze',lab_input_placeholder:'Paste the suggestion or script here...',lab_analyze:'Analyze',lab_vakog_loading:'Analyzing sensory predicates...',lab_milton_loading:'Detecting Milton Model patterns...',lab_meta_loading:'Detecting Meta Model violations...',lab_mp_loading:'Analyzing Meta Programs...',lab_error:'Analysis error. Try again.',lab_empty:'Enter a text to analyze.',lab_limit:'You reached the limit of 3 analyses/hour for this instrument. Come back soon.',lab_dominant:'Dominant channel',lab_sensory:'Sensory',lab_conceptual:'Conceptual',lab_congruence:'Congruence C17',lab_recommendations:'RECOMMENDATIONS',lab_patterns_found:'distinct patterns out of 27',lab_distinct:'distinct patterns',lab_instances:'total instances',lab_correct:'correct',lab_forced:'forced',lab_intentionality:'Intentionality score',lab_total_violations:'Total violations',lab_fixes:'RECOMMENDED FIXES',lab_client_ideal:'IDEAL CLIENT',lab_client_difficult:'DIFFICULT CLIENT',lab_profile:'Suggestion profile',lab_logical_level:'Dominant logical level',lab_temporality:'Temporality',lab_result_vakog:'VAKOG Scanner Result',lab_result_milton:'Milton Model Analyzer Result',lab_result_meta:'Meta Model Detector Result',lab_result_mp:'Meta Programs Verifier Result',lab_type:'Type',lab_inten_correct:'Intentionally correct',lab_inten_forced:'Intentionally forced',lab_acc_weak:'Accidentally weak',lab_acc_toxic:'Accidentally toxic',lab_patterns_detected:'DETECTED PATTERNS',lab_violations:'DETECTED VIOLATIONS',contact_tag:'Contact',contact_title:'Contact',contact_desc:'Have a question, suggestion or want to learn more about our programs? Write to us.',contact_form_title:'Send us a message',contact_form_desc:'Fill in the form and we will contact you as soon as possible.',contact_name:'Name *',contact_name_ph:'Your name',contact_email:'Email *',contact_email_ph:'email@example.com',contact_phone:'Phone',contact_phone_ph:'+1 xxx xxx xxxx',contact_subject:'Subject *',contact_subject_ph:'What is it about?',contact_message:'Message *',contact_message_ph:'Write your message here...',contact_send:'Send message →',contact_success:'Message sent! We will contact you soon.',contact_error:'Send error. Try again or write to contact@putereamintii.ro.',contact_required:'Please fill in all required fields (*).',contact_sending:'Sending...'},es:{nav_lab:'Laboratorio NLP',nav_contact:'Contacto',badge_new:'NUEVO',lab_tag:'Laboratorio AI',lab_title:'Laboratorio NLP',lab_desc:'Herramientas profesionales de análisis lingüístico. Introduce un texto y descubre su estructura NLP.',lab_vakog_title:'Escáner VAKOG',lab_vakog_desc:'Texto coloreado por canal sensorial.',lab_vakog_inst_desc:'Introduce una sugestión hipnótica y ve cada predicado sensorial coloreado por canal.',lab_milton_title:'Analizador Milton Model',lab_milton_desc:'Detecta los 27 patrones. Evalúa diversidad y corrección.',lab_milton_inst_desc:'Detecta los 27 patrones del Milton Model en tu texto.',lab_meta_title:'Detector Meta Model',lab_meta_desc:'Violaciones intencionales vs accidentales. 4 clasificaciones con correcciones.',lab_meta_inst_desc:'Identifica violaciones del Meta Model: intencionales vs accidentales.',lab_mp_title:'Verificador Meta Programs',lab_mp_desc:'Perfil de texto en 10 dimensiones. Compatibilidad cliente ideal vs difícil.',lab_mp_inst_desc:'Detecta qué Meta Programs están activos y el perfil de compatibilidad.',lab_back:'← Volver al Laboratorio',lab_input_label:'Texto a analizar',lab_input_placeholder:'Pega la sugestión o el guión aquí...',lab_analyze:'Analizar',lab_vakog_loading:'Analizando predicados sensoriales...',lab_milton_loading:'Detectando patrones Milton Model...',lab_meta_loading:'Detectando violaciones Meta Model...',lab_mp_loading:'Analizando Meta Programs...',lab_error:'Error de análisis. Inténtalo de nuevo.',lab_empty:'Introduce un texto para analizar.',lab_limit:'Has alcanzado el límite de 3 análisis/hora. Vuelve pronto.',lab_dominant:'Canal dominante',lab_sensory:'Sensorial',lab_conceptual:'Conceptual',lab_congruence:'Congruencia C17',lab_recommendations:'RECOMENDACIONES',lab_patterns_found:'patrones distintos de 27',lab_distinct:'patrones distintos',lab_instances:'instancias totales',lab_correct:'correctos',lab_forced:'forzados',lab_intentionality:'Puntuación intencionalidad',lab_total_violations:'Total violaciones',lab_fixes:'CORRECCIONES RECOMENDADAS',lab_client_ideal:'CLIENTE IDEAL',lab_client_difficult:'CLIENTE DIFÍCIL',lab_profile:'Perfil sugestión',lab_logical_level:'Nivel lógico dominante',lab_temporality:'Temporalidad',lab_result_vakog:'Resultado Escáner VAKOG',lab_result_milton:'Resultado Analizador Milton Model',lab_result_meta:'Resultado Detector Meta Model',lab_result_mp:'Resultado Verificador Meta Programs',lab_type:'Tipo',lab_inten_correct:'Intencionalmente correcto',lab_inten_forced:'Intencionalmente forzado',lab_acc_weak:'Accidentalmente débil',lab_acc_toxic:'Accidentalmente tóxico',lab_patterns_detected:'PATRONES DETECTADOS',lab_violations:'VIOLACIONES DETECTADAS',contact_tag:'Contacto',contact_title:'Contacto',contact_desc:'¿Tienes una pregunta o quieres saber más sobre nuestros programas? Escríbenos.',contact_form_title:'Envíanos un mensaje',contact_form_desc:'Completa el formulario y te contactaremos lo antes posible.',contact_name:'Nombre *',contact_name_ph:'Tu nombre',contact_email:'Email *',contact_email_ph:'email@ejemplo.com',contact_phone:'Teléfono',contact_phone_ph:'+34 xxx xxx xxx',contact_subject:'Asunto *',contact_subject_ph:'¿De qué se trata?',contact_message:'Mensaje *',contact_message_ph:'Escribe tu mensaje aquí...',contact_send:'Enviar mensaje →',contact_success:'¡Mensaje enviado! Te contactaremos pronto.',contact_error:'Error al enviar. Inténtalo de nuevo.',contact_required:'Completa los campos obligatorios (*).',contact_sending:'Enviando...'},fr:{nav_lab:'Laboratoire NLP',nav_contact:'Contact',badge_new:'NOUVEAU',lab_tag:'Laboratoire IA',lab_title:'Laboratoire NLP',lab_desc:'Outils professionnels d\'analyse linguistique. Entrez un texte et découvrez sa structure NLP.',lab_vakog_title:'Scanner VAKOG',lab_vakog_desc:'Texte coloré par canal sensoriel.',lab_vakog_inst_desc:'Entrez une suggestion hypnotique et voyez chaque prédicat sensoriel coloré par canal.',lab_milton_title:'Analyseur Milton Model',lab_milton_desc:'Détecte les 27 patterns. Évalue diversité et correction.',lab_milton_inst_desc:'Détecte les 27 patterns du Milton Model dans votre texte.',lab_meta_title:'Détecteur Meta Model',lab_meta_desc:'Violations intentionnelles vs accidentelles. 4 classifications avec corrections.',lab_meta_inst_desc:'Identifie les violations du Meta Model : intentionnelles vs accidentelles.',lab_mp_title:'Vérificateur Meta Programs',lab_mp_desc:'Profil texte sur 10 dimensions. Compatibilité client idéal vs difficile.',lab_mp_inst_desc:'Détecte quels Meta Programs sont actifs et le profil de compatibilité.',lab_back:'← Retour au Laboratoire',lab_input_label:'Texte à analyser',lab_input_placeholder:'Collez la suggestion ou le script ici...',lab_analyze:'Analyser',lab_vakog_loading:'Analyse des prédicats sensoriels...',lab_milton_loading:'Détection des patterns Milton Model...',lab_meta_loading:'Détection des violations Meta Model...',lab_mp_loading:'Analyse des Meta Programs...',lab_error:'Erreur d\'analyse. Réessayez.',lab_empty:'Entrez un texte à analyser.',lab_limit:'Vous avez atteint la limite de 3 analyses/heure. Revenez bientôt.',lab_dominant:'Canal dominant',lab_sensory:'Sensoriel',lab_conceptual:'Conceptuel',lab_congruence:'Congruence C17',lab_recommendations:'RECOMMANDATIONS',lab_patterns_found:'patterns distincts sur 27',lab_distinct:'patterns distincts',lab_instances:'instances totales',lab_correct:'corrects',lab_forced:'forcés',lab_intentionality:'Score d\'intentionnalité',lab_total_violations:'Total violations',lab_fixes:'CORRECTIONS RECOMMANDÉES',lab_client_ideal:'CLIENT IDÉAL',lab_client_difficult:'CLIENT DIFFICILE',lab_profile:'Profil suggestion',lab_logical_level:'Niveau logique dominant',lab_temporality:'Temporalité',lab_result_vakog:'Résultat Scanner VAKOG',lab_result_milton:'Résultat Analyseur Milton Model',lab_result_meta:'Résultat Détecteur Meta Model',lab_result_mp:'Résultat Vérificateur Meta Programs',lab_type:'Type',lab_inten_correct:'Intentionnellement correct',lab_inten_forced:'Intentionnellement forcé',lab_acc_weak:'Accidentellement faible',lab_acc_toxic:'Accidentellement toxique',lab_patterns_detected:'PATTERNS DÉTECTÉS',lab_violations:'VIOLATIONS DÉTECTÉES',contact_tag:'Contact',contact_title:'Contact',contact_desc:'Une question ou envie d\'en savoir plus sur nos programmes ? Écrivez-nous.',contact_form_title:'Envoyez-nous un message',contact_form_desc:'Remplissez le formulaire et nous vous contacterons rapidement.',contact_name:'Nom *',contact_name_ph:'Votre nom',contact_email:'Email *',contact_email_ph:'email@exemple.com',contact_phone:'Téléphone',contact_phone_ph:'+33 x xx xx xx xx',contact_subject:'Sujet *',contact_subject_ph:'De quoi s\'agit-il ?',contact_message:'Message *',contact_message_ph:'Écrivez votre message ici...',contact_send:'Envoyer le message →',contact_success:'Message envoyé ! Nous vous contacterons bientôt.',contact_error:'Erreur d\'envoi. Réessayez.',contact_required:'Remplissez les champs obligatoires (*).',contact_sending:'Envoi en cours...'},de:{nav_lab:'NLP-Labor',nav_contact:'Kontakt',badge_new:'NEU',lab_tag:'KI-Labor',lab_title:'NLP-Labor',lab_desc:'Professionelle linguistische Analysewerkzeuge. Geben Sie einen Text ein und entdecken Sie seine NLP-Struktur.',lab_vakog_title:'VAKOG-Scanner',lab_vakog_desc:'Farbcodierter Text pro sensorischem Kanal.',lab_vakog_inst_desc:'Geben Sie eine hypnotische Suggestion ein und sehen Sie jedes sensorische Prädikat farbig markiert.',lab_milton_title:'Milton Model Analyzer',lab_milton_desc:'Erkennt alle 27 Muster. Bewertet Vielfalt und Korrektheit.',lab_milton_inst_desc:'Erkennt alle 27 Milton Model Muster in Ihrem Text.',lab_meta_title:'Meta Model Detektor',lab_meta_desc:'Absichtliche vs. zufällige Verletzungen. 4 Klassifikationen mit Korrekturen.',lab_meta_inst_desc:'Identifiziert Meta Model Verletzungen: absichtlich vs. zufällig.',lab_mp_title:'Meta Programs Verifier',lab_mp_desc:'Textprofil auf 10 Dimensionen. Idealer vs. schwieriger Klient.',lab_mp_inst_desc:'Erkennt welche Meta Programs aktiv sind und das Kompatibilitätsprofil.',lab_back:'← Zurück zum Labor',lab_input_label:'Text zur Analyse',lab_input_placeholder:'Suggestion oder Skript hier einfügen...',lab_analyze:'Analysieren',lab_vakog_loading:'Analysiere sensorische Prädikate...',lab_milton_loading:'Erkenne Milton Model Muster...',lab_meta_loading:'Erkenne Meta Model Verletzungen...',lab_mp_loading:'Analysiere Meta Programs...',lab_error:'Analysefehler. Versuchen Sie es erneut.',lab_empty:'Geben Sie einen Text zur Analyse ein.',lab_limit:'Limit von 3 Analysen/Stunde erreicht. Kommen Sie bald wieder.',lab_dominant:'Dominanter Kanal',lab_sensory:'Sensorisch',lab_conceptual:'Konzeptionell',lab_congruence:'Kongruenz C17',lab_recommendations:'EMPFEHLUNGEN',lab_patterns_found:'unterschiedliche Muster von 27',lab_distinct:'unterschiedliche Muster',lab_instances:'Gesamtinstanzen',lab_correct:'korrekt',lab_forced:'erzwungen',lab_intentionality:'Intentionalitätswert',lab_total_violations:'Gesamtverletzungen',lab_fixes:'EMPFOHLENE KORREKTUREN',lab_client_ideal:'IDEALER KLIENT',lab_client_difficult:'SCHWIERIGER KLIENT',lab_profile:'Suggestionsprofil',lab_logical_level:'Dominante logische Ebene',lab_temporality:'Temporalität',lab_result_vakog:'Ergebnis VAKOG-Scanner',lab_result_milton:'Ergebnis Milton Model Analyzer',lab_result_meta:'Ergebnis Meta Model Detektor',lab_result_mp:'Ergebnis Meta Programs Verifier',lab_type:'Typ',lab_inten_correct:'Absichtlich korrekt',lab_inten_forced:'Absichtlich erzwungen',lab_acc_weak:'Zufällig schwach',lab_acc_toxic:'Zufällig toxisch',lab_patterns_detected:'ERKANNTE MUSTER',lab_violations:'ERKANNTE VERLETZUNGEN',contact_tag:'Kontakt',contact_title:'Kontakt',contact_desc:'Haben Sie eine Frage oder möchten Sie mehr über unsere Programme erfahren? Schreiben Sie uns.',contact_form_title:'Senden Sie uns eine Nachricht',contact_form_desc:'Füllen Sie das Formular aus und wir melden uns schnellstmöglich.',contact_name:'Name *',contact_name_ph:'Ihr Name',contact_email:'E-Mail *',contact_email_ph:'email@beispiel.de',contact_phone:'Telefon',contact_phone_ph:'+49 xxx xxxxxxx',contact_subject:'Betreff *',contact_subject_ph:'Worum geht es?',contact_message:'Nachricht *',contact_message_ph:'Schreiben Sie Ihre Nachricht hier...',contact_send:'Nachricht senden →',contact_success:'Nachricht gesendet! Wir melden uns bald.',contact_error:'Sendefehler. Versuchen Sie es erneut.',contact_required:'Bitte füllen Sie alle Pflichtfelder aus (*).',contact_sending:'Wird gesendet...'},pt:{nav_lab:'Laboratório NLP',nav_contact:'Contato',badge_new:'NOVO',lab_tag:'Laboratório IA',lab_title:'Laboratório NLP',lab_desc:'Ferramentas profissionais de análise linguística. Insira um texto e descubra sua estrutura NLP.',lab_vakog_title:'Scanner VAKOG',lab_vakog_desc:'Texto colorido por canal sensorial.',lab_vakog_inst_desc:'Insira uma sugestão hipnótica e veja cada predicado sensorial colorido por canal.',lab_milton_title:'Analisador Milton Model',lab_milton_desc:'Detecta os 27 padrões. Avalia diversidade e correção.',lab_milton_inst_desc:'Detecta os 27 padrões do Milton Model no seu texto.',lab_meta_title:'Detector Meta Model',lab_meta_desc:'Violações intencionais vs acidentais. 4 classificações com correções.',lab_meta_inst_desc:'Identifica violações do Meta Model: intencionais vs acidentais.',lab_mp_title:'Verificador Meta Programs',lab_mp_desc:'Perfil de texto em 10 dimensões. Compatibilidade cliente ideal vs difícil.',lab_mp_inst_desc:'Detecta quais Meta Programs estão ativos e o perfil de compatibilidade.',lab_back:'← Voltar ao Laboratório',lab_input_label:'Texto para analisar',lab_input_placeholder:'Cole a sugestão ou roteiro aqui...',lab_analyze:'Analisar',lab_vakog_loading:'Analisando predicados sensoriais...',lab_milton_loading:'Detectando padrões Milton Model...',lab_meta_loading:'Detectando violações Meta Model...',lab_mp_loading:'Analisando Meta Programs...',lab_error:'Erro de análise. Tente novamente.',lab_empty:'Insira um texto para analisar.',lab_limit:'Limite de 3 análises/hora atingido. Volte em breve.',lab_dominant:'Canal dominante',lab_sensory:'Sensorial',lab_conceptual:'Conceitual',lab_congruence:'Congruência C17',lab_recommendations:'RECOMENDAÇÕES',lab_patterns_found:'padrões distintos de 27',lab_distinct:'padrões distintos',lab_instances:'instâncias totais',lab_correct:'corretos',lab_forced:'forçados',lab_intentionality:'Pontuação intencionalidade',lab_total_violations:'Total violações',lab_fixes:'CORREÇÕES RECOMENDADAS',lab_client_ideal:'CLIENTE IDEAL',lab_client_difficult:'CLIENTE DIFÍCIL',lab_profile:'Perfil sugestão',lab_logical_level:'Nível lógico dominante',lab_temporality:'Temporalidade',lab_result_vakog:'Resultado Scanner VAKOG',lab_result_milton:'Resultado Analisador Milton Model',lab_result_meta:'Resultado Detector Meta Model',lab_result_mp:'Resultado Verificador Meta Programs',lab_type:'Tipo',lab_inten_correct:'Intencionalmente correto',lab_inten_forced:'Intencionalmente forçado',lab_acc_weak:'Acidentalmente fraco',lab_acc_toxic:'Acidentalmente tóxico',lab_patterns_detected:'PADRÕES DETECTADOS',lab_violations:'VIOLAÇÕES DETECTADAS',contact_tag:'Contato',contact_title:'Contato',contact_desc:'Tem uma pergunta ou quer saber mais sobre nossos programas? Escreva-nos.',contact_form_title:'Envie-nos uma mensagem',contact_form_desc:'Preencha o formulário e entraremos em contato em breve.',contact_name:'Nome *',contact_name_ph:'Seu nome',contact_email:'Email *',contact_email_ph:'email@exemplo.com',contact_phone:'Telefone',contact_phone_ph:'+55 xx xxxxx-xxxx',contact_subject:'Assunto *',contact_subject_ph:'Sobre o que é?',contact_message:'Mensagem *',contact_message_ph:'Escreva sua mensagem aqui...',contact_send:'Enviar mensagem →',contact_success:'Mensagem enviada! Entraremos em contato em breve.',contact_error:'Erro ao enviar. Tente novamente.',contact_required:'Preencha os campos obrigatórios (*).',contact_sending:'Enviando...'}};
+for(const l in T3){if(T[l])Object.assign(T[l],T3[l])}
+const T4={ro:{lib_locked:'Deblochează pentru acces complet',lib_no_results:'Nicio sugestie în această categorie.',lib_score:'Scor',lib_back_grid:'← Înapoi la bibliotecă',lib_didactic_note:'Notă didactică',lib_evaluate:'Evaluează această sugestie →',lib_copy:'Copiază textul',lib_copied:'Copiat!',lib_gate_title:'Deblochează Biblioteca Completă',lib_gate_desc:'Accesează toate sugestiile model cu text complet, note didactice și posibilitate de copiere. 29 RON pentru 30 de zile acces nelimitat.',lib_gate_buy:'Deblochează — 29 RON →',lib_gate_info:'Plată unică prin Stripe. Acces 30 de zile.',lib_free_remaining:'Ai {n} din {max} vizualizări gratuite azi',lib_paid_active:'Acces complet activ — mai ai {days} zile',lib_activated:'Biblioteca a fost deblocată pentru 30 de zile!'},en:{lib_locked:'Unlock for full access',lib_no_results:'No suggestions in this category.',lib_score:'Score',lib_back_grid:'← Back to library',lib_didactic_note:'Didactic note',lib_evaluate:'Evaluate this suggestion →',lib_copy:'Copy text',lib_copied:'Copied!',lib_gate_title:'Unlock Full Library',lib_gate_desc:'Access all model suggestions with full text, didactic notes and copy. 29 RON for 30 days unlimited access.',lib_gate_buy:'Unlock — 29 RON →',lib_gate_info:'One-time Stripe payment. 30 days access.',lib_free_remaining:'{n} of {max} free views left today',lib_paid_active:'Full access active — {days} days left',lib_activated:'Library unlocked for 30 days!'},es:{lib_locked:'Desbloquear para acceso completo',lib_no_results:'Sin sugestiones en esta categoría.',lib_score:'Puntuación',lib_back_grid:'← Volver a la biblioteca',lib_didactic_note:'Nota didáctica',lib_evaluate:'Evaluar esta sugestión →',lib_copy:'Copiar texto',lib_copied:'¡Copiado!',lib_gate_title:'Desbloquear Biblioteca Completa',lib_gate_desc:'Accede a todas las sugestiones modelo. 29 RON por 30 días de acceso ilimitado.',lib_gate_buy:'Desbloquear — 29 RON →',lib_gate_info:'Pago único por Stripe. 30 días.',lib_free_remaining:'{n} de {max} vistas gratuitas hoy',lib_paid_active:'Acceso completo — {days} días restantes',lib_activated:'¡Biblioteca desbloqueada por 30 días!'},fr:{lib_locked:'Débloquer pour accès complet',lib_no_results:'Aucune suggestion dans cette catégorie.',lib_score:'Score',lib_back_grid:'← Retour à la bibliothèque',lib_didactic_note:'Note didactique',lib_evaluate:'Évaluer cette suggestion →',lib_copy:'Copier le texte',lib_copied:'Copié !',lib_gate_title:'Débloquer la Bibliothèque Complète',lib_gate_desc:'Accédez à toutes les suggestions modèles. 29 RON pour 30 jours d\'accès illimité.',lib_gate_buy:'Débloquer — 29 RON →',lib_gate_info:'Paiement unique via Stripe. 30 jours.',lib_free_remaining:'{n} sur {max} vues gratuites aujourd\'hui',lib_paid_active:'Accès complet — {days} jours restants',lib_activated:'Bibliothèque débloquée pour 30 jours !'},de:{lib_locked:'Freischalten für vollen Zugang',lib_no_results:'Keine Suggestionen in dieser Kategorie.',lib_score:'Bewertung',lib_back_grid:'← Zurück zur Bibliothek',lib_didactic_note:'Didaktische Anmerkung',lib_evaluate:'Diese Suggestion bewerten →',lib_copy:'Text kopieren',lib_copied:'Kopiert!',lib_gate_title:'Vollständige Bibliothek freischalten',lib_gate_desc:'Zugriff auf alle Modellsuggestionen. 29 RON für 30 Tage unbegrenzten Zugang.',lib_gate_buy:'Freischalten — 29 RON →',lib_gate_info:'Einmalzahlung über Stripe. 30 Tage.',lib_free_remaining:'{n} von {max} kostenlosen Ansichten heute',lib_paid_active:'Voller Zugang — noch {days} Tage',lib_activated:'Bibliothek für 30 Tage freigeschaltet!'},pt:{lib_locked:'Desbloquear para acesso completo',lib_no_results:'Nenhuma sugestão nesta categoria.',lib_score:'Pontuação',lib_back_grid:'← Voltar à biblioteca',lib_didactic_note:'Nota didática',lib_evaluate:'Avaliar esta sugestão →',lib_copy:'Copiar texto',lib_copied:'Copiado!',lib_gate_title:'Desbloquear Biblioteca Completa',lib_gate_desc:'Acesse todas as sugestões modelo. 29 RON por 30 dias de acesso ilimitado.',lib_gate_buy:'Desbloquear — 29 RON →',lib_gate_info:'Pagamento único via Stripe. 30 dias.',lib_free_remaining:'{n} de {max} visualizações gratuitas hoje',lib_paid_active:'Acesso completo — {days} dias restantes',lib_activated:'Biblioteca desbloqueada por 30 dias!'}};
+for(const l in T4){if(T[l])Object.assign(T[l],T4[l])}
 
 // ===== COUNTRY CODES =====
 const CC=[{c:'+40',n:'Romania',f:'🇷🇴'},{c:'+373',n:'Moldova',f:'🇲🇩'},{c:'+44',n:'UK',f:'🇬🇧'},{c:'+1',n:'US/CA',f:'🇺🇸'},{c:'+49',n:'Germany',f:'🇩🇪'},{c:'+33',n:'France',f:'🇫🇷'},{c:'+34',n:'Spain',f:'🇪🇸'},{c:'+39',n:'Italy',f:'🇮🇹'},{c:'+351',n:'Portugal',f:'🇵🇹'},{c:'+31',n:'Netherlands',f:'🇳🇱'},{c:'+32',n:'Belgium',f:'🇧🇪'},{c:'+43',n:'Austria',f:'🇦🇹'},{c:'+41',n:'Switzerland',f:'🇨🇭'},{c:'+36',n:'Hungary',f:'🇭🇺'},{c:'+359',n:'Bulgaria',f:'🇧🇬'},{c:'+380',n:'Ukraine',f:'🇺🇦'},{c:'+48',n:'Poland',f:'🇵🇱'},{c:'+420',n:'Czechia',f:'🇨🇿'},{c:'+46',n:'Sweden',f:'🇸🇪'},{c:'+45',n:'Denmark',f:'🇩🇰'},{c:'+47',n:'Norway',f:'🇳🇴'},{c:'+358',n:'Finland',f:'🇫🇮'},{c:'+30',n:'Greece',f:'🇬🇷'},{c:'+90',n:'Turkey',f:'🇹🇷'},{c:'+972',n:'Israel',f:'🇮🇱'},{c:'+971',n:'UAE',f:'🇦🇪'},{c:'+61',n:'Australia',f:'🇦🇺'},{c:'+55',n:'Brazil',f:'🇧🇷'}];
@@ -796,7 +837,7 @@ function detectLang(){const s=localStorage.getItem('eval_lang');if(s&&T[s])retur
 function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.documentElement.lang=l;document.querySelectorAll('.lang-grid button').forEach(b=>{b.classList.toggle('active',b.getAttribute('data-lang')===l)});applyTranslations();renderGuide();initCountryDropdown()}
 function t(k){return(T[currentLang]&&T[currentLang][k])||T.en[k]||T.ro[k]||k}
 function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.getAttribute('data-i18n'));if(v)el.textContent=v});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.getAttribute('data-i18n-placeholder'));if(v)el.placeholder=v})}
-function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();loadPageRecommendations(s)}
+function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();loadPageRecommendations(s)}
 function handleHash(){navigateTo(window.location.hash.replace('#','')||'generator')}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function initCountryDropdown(){const sel=document.getElementById('leadCountry');if(!sel||sel.options.length>1)return;sel.innerHTML='';const defCode=currentLang==='ro'?'+40':currentLang==='pt'?'+351':currentLang==='es'?'+34':currentLang==='fr'?'+33':currentLang==='de'?'+49':'+44';CC.forEach(c=>{const o=document.createElement('option');o.value=c.c;o.textContent=c.f+' '+c.c;if(c.c===defCode)o.selected=true;sel.appendChild(o)})}
@@ -1604,17 +1645,17 @@ async function sendContactForm(){
   if(!e.value.trim()||!e.value.includes('@')||!e.value.includes('.')){e.classList.add('err');ok=false}
   if(!s.value.trim()){s.classList.add('err');ok=false}
   if(!m.value.trim()){m.classList.add('err');ok=false}
-  if(!ok){st.style.display='block';st.style.background='rgba(231,76,94,0.1)';st.style.color='var(--accent-red)';st.style.border='1px solid rgba(231,76,94,0.3)';st.textContent='Completează câmpurile obligatorii (*).';return}
-  btn.disabled=true;btn.innerHTML='<div class="mini-spin" style="width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite"></div> Se trimite...';
+  if(!ok){st.style.display='block';st.style.background='rgba(231,76,94,0.1)';st.style.color='var(--accent-red)';st.style.border='1px solid rgba(231,76,94,0.3)';st.textContent=t('contact_required');return}
+  btn.disabled=true;btn.innerHTML='<div class="mini-spin" style="width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:#fff;border-radius:50%;animation:spin 0.8s linear infinite"></div> '+t('contact_sending');
   try{
     const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:n.value.trim(),email:e.value.trim(),phone:tel.value.trim(),subject:s.value.trim(),message:m.value.trim()})});
     if(!r.ok)throw new Error('Send failed');
-    st.style.display='block';st.style.background='rgba(46,204,113,0.1)';st.style.color='var(--accent-green)';st.style.border='1px solid rgba(46,204,113,0.3)';st.textContent='Mesajul a fost trimis! Te vom contacta în curând.';
+    st.style.display='block';st.style.background='rgba(46,204,113,0.1)';st.style.color='var(--accent-green)';st.style.border='1px solid rgba(46,204,113,0.3)';st.textContent=t('contact_success');
     n.value='';e.value='';tel.value='';s.value='';m.value='';
-    btn.disabled=false;btn.innerHTML='Trimite mesajul →';
+    btn.disabled=false;btn.innerHTML=t('contact_send');
   }catch(err){
-    st.style.display='block';st.style.background='rgba(231,76,94,0.1)';st.style.color='var(--accent-red)';st.style.border='1px solid rgba(231,76,94,0.3)';st.textContent='Eroare la trimitere. Încearcă din nou sau scrie-ne la contact@putereamintii.ro.';
-    btn.disabled=false;btn.innerHTML='Trimite mesajul →';
+    st.style.display='block';st.style.background='rgba(231,76,94,0.1)';st.style.color='var(--accent-red)';st.style.border='1px solid rgba(231,76,94,0.3)';st.textContent=t('contact_error');
+    btn.disabled=false;btn.innerHTML=t('contact_send');
     console.error(err);
   }
 }
@@ -1708,8 +1749,8 @@ function incrLabUsage(id){
 async function runLabInstrument(id){
   const capId=id.charAt(0).toUpperCase()+id.slice(1);
   const input=document.getElementById('lab'+capId+'Input').value.trim();
-  if(!input){alert('Introdu un text de analizat.');return}
-  if(getLabHourUsage(id)>=3){alert('Ai atins limita de 3 analize/oră pentru acest instrument. Revino în curând.');return}
+  if(!input){alert(t('lab_empty'));return}
+  if(getLabHourUsage(id)>=3){alert(t('lab_limit'));return}
   const btn=document.getElementById('lab'+capId+'Btn');
   const lo=document.getElementById('lab'+capId+'Loading');
   const res=document.getElementById('lab'+capId+'Result');
@@ -1728,12 +1769,12 @@ async function runLabInstrument(id){
     else if(id==='milton')renderLabMilton(j,res);
     else if(id==='metamodel')renderLabMetamodel(j,res);
     else if(id==='metaprograms')renderLabMetaprograms(j,res);
-  }catch(e){lo.classList.remove('visible');btn.disabled=false;res.innerHTML='<div class="card" style="padding:20px;color:var(--accent-red);text-align:center">Eroare la analiză. Încearcă din nou.</div>';console.error(e)}
+  }catch(e){lo.classList.remove('visible');btn.disabled=false;res.innerHTML='<div class="card" style="padding:20px;color:var(--accent-red);text-align:center">'+t('lab_error')+'</div>';console.error(e)}
 }
 
 function renderLabVakog(data,container,originalText){
   const s=data.statistici||{};const colors={V:'#4FC1E9',A:'#2ecc71',K:'#e74c5e',O:'#9b59b6',G:'#f39c12',Ad:'#7f8c8d'};
-  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-blue);margin-bottom:16px">🎨 Rezultat Scanner VAKOG</h3>';
+  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-blue);margin-bottom:16px">🎨 '+t('lab_result_vakog')+'</h3>';
   // Highlighted text
   if(data.predicate&&data.predicate.length){
     let marked=escHtml(originalText);
@@ -1748,54 +1789,54 @@ function renderLabVakog(data,container,originalText){
   // Stats bars
   const total=Math.max((s.V||0)+(s.A||0)+(s.K||0)+(s.O||0)+(s.G||0)+(s.Ad||0),1);
   ['V','A','K','O','G','Ad'].forEach(c=>{const v=s[c]||0;const pct=Math.round(v/total*100);h+='<div class="lab-stat-bar"><span class="lab-sb-label" style="color:'+(colors[c]||'#fff')+'">'+c+'</span><div class="lab-sb-track"><div class="lab-sb-fill" style="width:'+pct+'%;background:'+(colors[c]||'#fff')+'"></div></div><span class="lab-sb-val">'+pct+'%</span></div>'});
-  h+='<div style="margin-top:12px;font-size:0.85rem;color:var(--text-secondary)"><strong>Canal dominant:</strong> '+(s.canal_dominant||'—')+' · <strong>Senzorial:</strong> '+(s.pct_senzorial||0)+'% · <strong>Conceptual:</strong> '+(s.pct_conceptual||0)+'%</div>';
+  h+='<div style="margin-top:12px;font-size:0.85rem;color:var(--text-secondary)"><strong>'+t('lab_dominant')+':</strong> '+(s.canal_dominant||'—')+' · <strong>'+t('lab_sensory')+':</strong> '+(s.pct_senzorial||0)+'% · <strong>'+t('lab_conceptual')+':</strong> '+(s.pct_conceptual||0)+'%</div>';
   // Congruence
-  if(data.scor_congruenta){h+='<div style="margin-top:14px;padding:12px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm)"><strong style="color:var(--accent-blue)">Congruență C17: '+data.scor_congruenta.scor+'/10</strong><div style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px">'+escHtml(data.scor_congruenta.explicatie||'')+'</div></div>'}
+  if(data.scor_congruenta){h+='<div style="margin-top:14px;padding:12px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm)"><strong style="color:var(--accent-blue)">'+t('lab_congruence')+': '+data.scor_congruenta.scor+'/10</strong><div style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px">'+escHtml(data.scor_congruenta.explicatie||'')+'</div></div>'}
   // Recommendations
-  if(data.recomandari&&data.recomandari.length){h+='<div style="margin-top:14px"><strong style="font-size:0.82rem;color:var(--text-muted)">RECOMANDĂRI:</strong>';data.recomandari.forEach(r=>{h+='<div style="margin-top:6px;font-size:0.85rem;color:var(--text-secondary);padding-left:12px;border-left:2px solid var(--accent-blue)">'+escHtml(r)+'</div>'});h+='</div>'}
+  if(data.recomandari&&data.recomandari.length){h+='<div style="margin-top:14px"><strong style="font-size:0.82rem;color:var(--text-muted)">'+t('lab_recommendations')+':</strong>';data.recomandari.forEach(r=>{h+='<div style="margin-top:6px;font-size:0.85rem;color:var(--text-secondary);padding-left:12px;border-left:2px solid var(--accent-blue)">'+escHtml(r)+'</div>'});h+='</div>'}
   h+='</div>';container.innerHTML=h;container.scrollIntoView({behavior:'smooth',block:'start'});
   getRecommendations('stima incredere anxietate',['stima','anxietate']).then(function(r){if(r&&r.length)container.innerHTML+=renderRecommendations(r,currentLang)}).catch(function(){});
 }
 
 function renderLabMilton(data,container){
-  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-gold);margin-bottom:16px">🔤 Rezultat Analizor Milton Model</h3>';
+  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-gold);margin-bottom:16px">🔤 '+t('lab_result_milton')+'</h3>';
   const st=data.statistici||{};
   // Score
-  h+='<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap"><div class="score-circle" style="width:80px;height:80px;--score-color:var(--accent-gold);--score-pct:'+(data.scor_c15||0)*10+'%;background:var(--bg-input)"><span class="score-num" style="font-size:1.4rem">'+(data.scor_c15||0)+'</span><span class="score-max">/10</span></div><div><div style="font-size:0.95rem;font-weight:700;color:var(--text-heading)">'+(st.pattern_uri_distincte||0)+' pattern-uri distincte din 27</div><div style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px">'+(st.total_instante||0)+' instanțe totale · '+(st.corecte||0)+' corecte · '+(st.fortate||0)+' forțate</div><div style="font-size:0.82rem;color:var(--text-muted);margin-top:2px">Tip: '+(data.tip_sugestie||'—')+'</div></div></div>';
+  h+='<div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;flex-wrap:wrap"><div class="score-circle" style="width:80px;height:80px;--score-color:var(--accent-gold);--score-pct:'+(data.scor_c15||0)*10+'%;background:var(--bg-input)"><span class="score-num" style="font-size:1.4rem">'+(data.scor_c15||0)+'</span><span class="score-max">/10</span></div><div><div style="font-size:0.95rem;font-weight:700;color:var(--text-heading)">'+(st.pattern_uri_distincte||0)+' '+t('lab_patterns_found')+'</div><div style="font-size:0.82rem;color:var(--text-secondary);margin-top:4px">'+(st.total_instante||0)+' '+t('lab_instances')+' · '+(st.corecte||0)+' '+t('lab_correct')+' · '+(st.fortate||0)+' '+t('lab_forced')+'</div><div style="font-size:0.82rem;color:var(--text-muted);margin-top:2px">'+t('lab_type')+': '+(data.tip_sugestie||'—')+'</div></div></div>';
   // Category bars
   const cats=st.categorii||{};
   const catColors={deletii:'#e74c5e',distorsiuni:'#F6D44C',generalizari:'#4FC1E9',presupozitii:'#2ecc71',aditionale:'#9b59b6',ambiguitate:'#f39c12'};
   const catMax=Math.max(...Object.values(cats),1);
   Object.entries(cats).forEach(([k,v])=>{h+='<div class="lab-stat-bar"><span class="lab-sb-label" style="color:'+(catColors[k]||'#fff')+'">'+k.charAt(0).toUpperCase()+k.slice(1)+'</span><div class="lab-sb-track"><div class="lab-sb-fill" style="width:'+Math.round(v/catMax*100)+'%;background:'+(catColors[k]||'#fff')+'"></div></div><span class="lab-sb-val">'+v+'</span></div>'});
   // Pattern list
-  if(data.pattern_uri&&data.pattern_uri.length){h+='<div style="margin-top:20px"><strong style="font-size:0.82rem;color:var(--text-muted)">PATTERN-URI DETECTATE:</strong><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">';data.pattern_uri.forEach(p=>{const catClass=p.id<='P5'?'lab-tag-del':p.id<='P9'?'lab-tag-dist':p.id<='P11'?'lab-tag-gen':p.id<='P23'?'lab-tag-pres':'lab-tag-adit';h+='<span class="lab-tag '+catClass+'" title="'+escHtml(p.nota||'')+'">'+(p.id||'')+' '+escHtml(p.nume||'')+(p.corect?'':' ⚠')+'</span>'});h+='</div></div>'}
+  if(data.pattern_uri&&data.pattern_uri.length){h+='<div style="margin-top:20px"><strong style="font-size:0.82rem;color:var(--text-muted)">'+t('lab_patterns_detected')+':</strong><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px">';data.pattern_uri.forEach(p=>{const catClass=p.id<='P5'?'lab-tag-del':p.id<='P9'?'lab-tag-dist':p.id<='P11'?'lab-tag-gen':p.id<='P23'?'lab-tag-pres':'lab-tag-adit';h+='<span class="lab-tag '+catClass+'" title="'+escHtml(p.nota||'')+'">'+(p.id||'')+' '+escHtml(p.nume||'')+(p.corect?'':' ⚠')+'</span>'});h+='</div></div>'}
   // Evaluare + Recomandari
   if(data.evaluare)h+='<div style="margin-top:16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.7">'+escHtml(data.evaluare)+'</div>';
-  if(data.recomandari&&data.recomandari.length){h+='<div style="margin-top:14px"><strong style="font-size:0.82rem;color:var(--text-muted)">RECOMANDĂRI:</strong>';data.recomandari.forEach(r=>{h+='<div style="margin-top:6px;font-size:0.85rem;color:var(--text-secondary);padding-left:12px;border-left:2px solid var(--accent-gold)">'+escHtml(r)+'</div>'});h+='</div>'}
+  if(data.recomandari&&data.recomandari.length){h+='<div style="margin-top:14px"><strong style="font-size:0.82rem;color:var(--text-muted)">'+t('lab_recommendations')+':</strong>';data.recomandari.forEach(r=>{h+='<div style="margin-top:6px;font-size:0.85rem;color:var(--text-secondary);padding-left:12px;border-left:2px solid var(--accent-gold)">'+escHtml(r)+'</div>'});h+='</div>'}
   h+='</div>';container.innerHTML=h;container.scrollIntoView({behavior:'smooth',block:'start'});
   getRecommendations('stima incredere anxietate',['stima','anxietate']).then(function(r){if(r&&r.length)container.innerHTML+=renderRecommendations(r,currentLang)}).catch(function(){});
 }
 
 function renderLabMetamodel(data,container){
-  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-red);margin-bottom:16px">🔍 Rezultat Detector Meta Model</h3>';
+  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-red);margin-bottom:16px">🔍 '+t('lab_result_meta')+'</h3>';
   const sm=data.sumar||{};
   const classColors={intentionat_corect:'var(--accent-green)',intentionat_fortat:'var(--accent-gold)',accidental_slab:'var(--accent-orange)',accidental_toxic:'var(--accent-red)'};
-  const classLabels={intentionat_corect:'Intenționat corect',intentionat_fortat:'Intenționat forțat',accidental_slab:'Accidental slab',accidental_toxic:'Accidental toxic'};
+  const classLabelsMap={intentionat_corect:t('lab_inten_correct'),intentionat_fortat:t('lab_inten_forced'),accidental_slab:t('lab_acc_weak'),accidental_toxic:t('lab_acc_toxic')};
   // Score bar
-  h+='<div style="margin-bottom:20px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:0.88rem;font-weight:600;color:var(--text-heading)">Scor intentionalitate</span><span style="font-family:var(--font-mono);font-weight:700;color:var(--accent-blue)">'+(sm.scor_intentionalitate||0)+'/100</span></div><div style="height:10px;background:var(--bg-input);border-radius:5px;overflow:hidden"><div style="height:100%;width:'+(sm.scor_intentionalitate||0)+'%;background:linear-gradient(90deg,var(--accent-red),var(--accent-gold),var(--accent-green));border-radius:5px"></div></div><div style="font-size:0.82rem;color:var(--text-muted);margin-top:4px">Tip sugestie: '+(data.tip_sugestie||'—')+' · Total violări: '+(sm.total||0)+'</div></div>';
+  h+='<div style="margin-bottom:20px"><div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:0.88rem;font-weight:600;color:var(--text-heading)">'+t('lab_intentionality')+'</span><span style="font-family:var(--font-mono);font-weight:700;color:var(--accent-blue)">'+(sm.scor_intentionalitate||0)+'/100</span></div><div style="height:10px;background:var(--bg-input);border-radius:5px;overflow:hidden"><div style="height:100%;width:'+(sm.scor_intentionalitate||0)+'%;background:linear-gradient(90deg,var(--accent-red),var(--accent-gold),var(--accent-green));border-radius:5px"></div></div><div style="font-size:0.82rem;color:var(--text-muted);margin-top:4px">'+t('lab_type')+': '+(data.tip_sugestie||'—')+' · '+t('lab_total_violations')+': '+(sm.total||0)+'</div></div>';
   // Classification bars
-  ['intentionat_corect','intentionat_fortat','accidental_slab','accidental_toxic'].forEach(k=>{const v=sm[k]||0;const tot=Math.max(sm.total||1,1);h+='<div class="lab-stat-bar"><span class="lab-sb-label" style="color:'+classColors[k]+';font-size:0.72rem">'+classLabels[k]+'</span><div class="lab-sb-track"><div class="lab-sb-fill" style="width:'+Math.round(v/tot*100)+'%;background:'+classColors[k]+'"></div></div><span class="lab-sb-val">'+v+'</span></div>'});
+  ['intentionat_corect','intentionat_fortat','accidental_slab','accidental_toxic'].forEach(k=>{const v=sm[k]||0;const tot=Math.max(sm.total||1,1);h+='<div class="lab-stat-bar"><span class="lab-sb-label" style="color:'+classColors[k]+';font-size:0.72rem">'+classLabelsMap[k]+'</span><div class="lab-sb-track"><div class="lab-sb-fill" style="width:'+Math.round(v/tot*100)+'%;background:'+classColors[k]+'"></div></div><span class="lab-sb-val">'+v+'</span></div>'});
   // Violations list
   if(data.violari&&data.violari.length){h+='<div style="margin-top:16px">';data.violari.forEach(v=>{const tagClass=v.clasificare==='intentionat_corect'?'lab-tag-ok':v.clasificare==='intentionat_fortat'?'lab-tag-forced':v.clasificare==='accidental_slab'?'lab-tag-weak':'lab-tag-toxic';h+='<div style="padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-sm);margin-bottom:8px"><div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap"><span class="lab-tag '+tagClass+'">'+(v.clasificare||'').replace(/_/g,' ')+'</span><span style="font-size:0.82rem;font-weight:600;color:var(--text-heading)">„'+escHtml(v.text||'')+'\"</span><span style="font-size:0.75rem;color:var(--text-muted)">'+(v.pattern||'')+'</span></div><div style="font-size:0.82rem;color:var(--text-secondary);margin-top:6px">'+escHtml(v.explicatie||'')+'</div></div>'});h+='</div>'}
   // Fixes
-  if(data.fix_uri&&data.fix_uri.length){h+='<div style="margin-top:16px"><strong style="font-size:0.82rem;color:var(--accent-green)">FIX-URI RECOMANDATE:</strong>';data.fix_uri.forEach(f=>{h+='<div style="margin-top:8px;padding:10px 14px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm)"><div style="font-size:0.82rem;color:var(--accent-red);text-decoration:line-through">'+escHtml(f.original||'')+'</div><div style="font-size:0.82rem;color:var(--accent-green);font-weight:600;margin-top:4px">→ '+escHtml(f.fix||'')+'</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px">'+escHtml(f.motiv||'')+'</div></div>'});h+='</div>'}
+  if(data.fix_uri&&data.fix_uri.length){h+='<div style="margin-top:16px"><strong style="font-size:0.82rem;color:var(--accent-green)">'+t('lab_fixes')+':</strong>';data.fix_uri.forEach(f=>{h+='<div style="margin-top:8px;padding:10px 14px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm)"><div style="font-size:0.82rem;color:var(--accent-red);text-decoration:line-through">'+escHtml(f.original||'')+'</div><div style="font-size:0.82rem;color:var(--accent-green);font-weight:600;margin-top:4px">→ '+escHtml(f.fix||'')+'</div><div style="font-size:0.78rem;color:var(--text-muted);margin-top:4px">'+escHtml(f.motiv||'')+'</div></div>'});h+='</div>'}
   if(data.evaluare)h+='<div style="margin-top:16px;font-size:0.88rem;color:var(--text-secondary);line-height:1.7">'+escHtml(data.evaluare)+'</div>';
   h+='</div>';container.innerHTML=h;container.scrollIntoView({behavior:'smooth',block:'start'});
   getRecommendations('stima incredere anxietate',['stima','anxietate']).then(function(r){if(r&&r.length)container.innerHTML+=renderRecommendations(r,currentLang)}).catch(function(){});
 }
 
 function renderLabMetaprograms(data,container){
-  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-green);margin-bottom:16px">🧭 Rezultat Verificator Meta Programs</h3>';
+  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-green);margin-bottom:16px">🧭 '+t('lab_result_mp')+'</h3>';
   const mp=data.meta_programs||{};
   // Direction bar
   const dims=[
@@ -1810,23 +1851,196 @@ function renderLabMetaprograms(data,container){
   ];
   dims.forEach(d=>{h+='<div class="lab-mp-bar"><span class="mp-left">'+d.left+'</span><div class="mp-track"><div class="mp-fill" style="width:'+d.pct+'%;background:'+d.color+'"></div></div><span class="mp-right">'+d.right+'</span></div>'});
   // Nivel logic + temporalitate
-  if(mp.nivel_logic)h+='<div style="margin-top:12px;font-size:0.85rem;color:var(--text-secondary)"><strong>Nivel logic dominant:</strong> '+(mp.nivel_logic.dominant||'—')+(mp.nivel_logic.secundar?' · Secundar: '+mp.nivel_logic.secundar:'')+'</div>';
-  if(mp.temporalitate)h+='<div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px"><strong>Temporalitate:</strong> '+(mp.temporalitate.dominant||'—')+' ('+(mp.temporalitate.pct||0)+'%)</div>';
+  if(mp.nivel_logic)h+='<div style="margin-top:12px;font-size:0.85rem;color:var(--text-secondary)"><strong>'+t('lab_logical_level')+':</strong> '+(mp.nivel_logic.dominant||'—')+(mp.nivel_logic.secundar?' · Secundar: '+mp.nivel_logic.secundar:'')+'</div>';
+  if(mp.temporalitate)h+='<div style="font-size:0.85rem;color:var(--text-secondary);margin-top:4px"><strong>'+t('lab_temporality')+':</strong> '+(mp.temporalitate.dominant||'—')+' ('+(mp.temporalitate.pct||0)+'%)</div>';
   // Profile
-  if(data.profil_sugestie)h+='<div style="margin-top:16px;padding:14px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm);font-size:0.88rem;color:var(--text-primary);line-height:1.6"><strong style="color:var(--accent-blue)">Profil sugestie:</strong> '+escHtml(data.profil_sugestie)+'</div>';
+  if(data.profil_sugestie)h+='<div style="margin-top:16px;padding:14px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm);font-size:0.88rem;color:var(--text-primary);line-height:1.6"><strong style="color:var(--accent-blue)">'+t('lab_profile')+':</strong> '+escHtml(data.profil_sugestie)+'</div>';
   // Compatibility
-  if(data.compatibilitate){h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px"><div style="padding:14px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm)"><div style="font-size:0.75rem;font-weight:600;color:var(--accent-green);margin-bottom:6px">✓ CLIENT IDEAL</div><div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5">'+escHtml(data.compatibilitate.tip_client_ideal||'')+'</div></div><div style="padding:14px;background:rgba(231,76,94,0.06);border:1px solid rgba(231,76,94,0.2);border-radius:var(--radius-sm)"><div style="font-size:0.75rem;font-weight:600;color:var(--accent-red);margin-bottom:6px">⚠ CLIENT DIFICIL</div><div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5">'+escHtml(data.compatibilitate.tip_client_dificil||'')+'</div></div></div>'}
+  if(data.compatibilitate){h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px"><div style="padding:14px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm)"><div style="font-size:0.75rem;font-weight:600;color:var(--accent-green);margin-bottom:6px">✓ '+t('lab_client_ideal')+'</div><div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5">'+escHtml(data.compatibilitate.tip_client_ideal||'')+'</div></div><div style="padding:14px;background:rgba(231,76,94,0.06);border:1px solid rgba(231,76,94,0.2);border-radius:var(--radius-sm)"><div style="font-size:0.75rem;font-weight:600;color:var(--accent-red);margin-bottom:6px">⚠ '+t('lab_client_difficult')+'</div><div style="font-size:0.82rem;color:var(--text-secondary);line-height:1.5">'+escHtml(data.compatibilitate.tip_client_dificil||'')+'</div></div></div>'}
   // Recommendations
-  if(data.recomandari&&data.recomandari.length){h+='<div style="margin-top:14px"><strong style="font-size:0.82rem;color:var(--text-muted)">RECOMANDĂRI:</strong>';data.recomandari.forEach(r=>{h+='<div style="margin-top:6px;font-size:0.85rem;color:var(--text-secondary);padding-left:12px;border-left:2px solid var(--accent-green)">'+escHtml(r)+'</div>'});h+='</div>'}
+  if(data.recomandari&&data.recomandari.length){h+='<div style="margin-top:14px"><strong style="font-size:0.82rem;color:var(--text-muted)">'+t('lab_recommendations')+':</strong>';data.recomandari.forEach(r=>{h+='<div style="margin-top:6px;font-size:0.85rem;color:var(--text-secondary);padding-left:12px;border-left:2px solid var(--accent-green)">'+escHtml(r)+'</div>'});h+='</div>'}
   h+='</div>';container.innerHTML=h;container.scrollIntoView({behavior:'smooth',block:'start'});
   getRecommendations('stima incredere anxietate',['stima','anxietate']).then(function(r){if(r&&r.length)container.innerHTML+=renderRecommendations(r,currentLang)}).catch(function(){});
 }
 // ===== END LABORATOR NLP =====
 
+// ===== BIBLIOTECA SUGESTII MODEL =====
+let _libData=null;
+let _libFilter='all';
+let _libLoading=false;
+const LIB_FREE_PER_DAY=2;
+const LIB_STRIPE_URL='https://buy.stripe.com/test_PLACEHOLDER'; // TODO: Eugen pune link-ul real
+
+async function loadLibrary(){
+  if(_libData)return _libData;
+  if(_libLoading)return new Promise(r=>{const c=setInterval(()=>{if(_libData){clearInterval(c);r(_libData)}},100)});
+  _libLoading=true;
+  try{
+    const resp=await fetch('/data/library_suggestions.json');
+    if(!resp.ok)throw new Error('Library load failed');
+    _libData=await resp.json();
+    return _libData;
+  }catch(e){console.error('Library error:',e);_libData={suggestions:[]};return _libData}
+  finally{_libLoading=false}
+}
+
+function hasLibPaid(){
+  const until=parseInt(localStorage.getItem('lib_paid_until')||'0');
+  return Date.now()<until;
+}
+function getLibViewsToday(){
+  const k='lib_views_'+new Date().toISOString().slice(0,10);
+  try{return JSON.parse(localStorage.getItem(k)||'[]')}catch(e){return[]}
+}
+function addLibView(id){
+  const k='lib_views_'+new Date().toISOString().slice(0,10);
+  const views=getLibViewsToday();
+  if(!views.includes(id)){views.push(id);localStorage.setItem(k,JSON.stringify(views))}
+}
+function canViewFull(id){
+  if(hasLibPaid())return true;
+  const views=getLibViewsToday();
+  if(views.includes(id))return true;
+  return views.length<LIB_FREE_PER_DAY;
+}
+function getLibRemaining(){
+  if(hasLibPaid())return Infinity;
+  return Math.max(0,LIB_FREE_PER_DAY-getLibViewsToday().length);
+}
+
+function checkLibStripeSuccess(){
+  const params=new URLSearchParams(window.location.search);
+  if(params.get('lib_access')==='success'){
+    localStorage.setItem('lib_paid_until',(Date.now()+30*24*60*60*1000).toString());
+    window.history.replaceState({},'',window.location.pathname+(window.location.hash||''));
+    setTimeout(()=>{alert(t('lib_activated'));navigateTo('biblioteca')},300);
+  }
+}
+
+const LIB_CAT_KEYS=['anxietate','relatii','stima','trauma','depresie','burnout','procrastinare','singuratate','dependente','bani','sanatate','trauma_morala'];
+const LIB_CAT_LABELS={
+  ro:{all:'Toate',anxietate:'Anxietate',relatii:'Relații',stima:'Stimă de sine',trauma:'Traumă',depresie:'Depresie',burnout:'Burnout',procrastinare:'Procrastinare',singuratate:'Singurătate',dependente:'Dependențe',bani:'Bani',sanatate:'Sănătate',trauma_morala:'Traumă morală'},
+  en:{all:'All',anxietate:'Anxiety',relatii:'Relationships',stima:'Self-esteem',trauma:'Trauma',depresie:'Depression',burnout:'Burnout',procrastinare:'Procrastination',singuratate:'Loneliness',dependente:'Addictions',bani:'Money',sanatate:'Health',trauma_morala:'Moral injury'},
+  es:{all:'Todas',anxietate:'Ansiedad',relatii:'Relaciones',stima:'Autoestima',trauma:'Trauma',depresie:'Depresión',burnout:'Burnout',procrastinare:'Procrastinación',singuratate:'Soledad',dependente:'Adicciones',bani:'Dinero',sanatate:'Salud',trauma_morala:'Trauma moral'},
+  fr:{all:'Toutes',anxietate:'Anxiété',relatii:'Relations',stima:'Estime de soi',trauma:'Trauma',depresie:'Dépression',burnout:'Burnout',procrastinare:'Procrastination',singuratate:'Solitude',dependente:'Addictions',bani:'Argent',sanatate:'Santé',trauma_morala:'Trauma moral'},
+  de:{all:'Alle',anxietate:'Angst',relatii:'Beziehungen',stima:'Selbstwert',trauma:'Trauma',depresie:'Depression',burnout:'Burnout',procrastinare:'Prokrastination',singuratate:'Einsamkeit',dependente:'Sucht',bani:'Geld',sanatate:'Gesundheit',trauma_morala:'Moralisches Trauma'},
+  pt:{all:'Todas',anxietate:'Ansiedade',relatii:'Relacionamentos',stima:'Autoestima',trauma:'Trauma',depresie:'Depressão',burnout:'Burnout',procrastinare:'Procrastinação',singuratate:'Solidão',dependente:'Dependências',bani:'Dinheiro',sanatate:'Saúde',trauma_morala:'Trauma moral'}
+};
+
+function getCatLabel(key){
+  const labels=LIB_CAT_LABELS[currentLang]||LIB_CAT_LABELS.ro;
+  return labels[key]||key;
+}
+
+async function renderLibrary(){
+  const data=await loadLibrary();
+  const grid=document.getElementById('libGrid');
+  const filters=document.getElementById('libFilters');
+  const expanded=document.getElementById('libExpanded');
+  if(!grid||!filters)return;
+  expanded.style.display='none';
+  grid.style.display='grid';
+  // Filters
+  let fh='<button class="lib-filter-chip'+ (_libFilter==='all'?' active':'') +'" onclick="setLibFilter(\'all\')">'+getCatLabel('all')+' ('+data.suggestions.length+')</button>';
+  const catCounts={};
+  data.suggestions.forEach(s=>{catCounts[s.categorie_key]=(catCounts[s.categorie_key]||0)+1});
+  LIB_CAT_KEYS.forEach(k=>{if(catCounts[k]){fh+='<button class="lib-filter-chip'+(_libFilter===k?' active':'')+'" onclick="setLibFilter(\''+k+'\')">'+getCatLabel(k)+' ('+catCounts[k]+')</button>'}});
+  filters.innerHTML=fh;
+  // Usage info
+  updateLibUsageInfo();
+  // Grid
+  const filtered=_libFilter==='all'?data.suggestions:data.suggestions.filter(s=>s.categorie_key===_libFilter);
+  let gh='';
+  filtered.forEach(s=>{
+    const scoreColor=s.scor>=90?'var(--accent-green)':s.scor>=75?'var(--accent-blue)':s.scor>=60?'var(--accent-gold)':'var(--accent-orange)';
+    const canView=canViewFull(s.id);
+    gh+='<div class="lib-card" onclick="expandSuggestion(\''+s.id+'\')">';
+    gh+='<div class="lib-card-head"><div class="lib-card-title">'+escHtml(s.titlu)+'</div><div class="lib-card-score" style="color:'+scoreColor+';border:2px solid '+scoreColor+'">'+s.scor+'</div></div>';
+    gh+='<div class="lib-card-badges"><span class="lib-badge lib-badge-cat">'+getCatLabel(s.categorie_key)+'</span><span class="lib-badge lib-badge-tip">'+escHtml(s.tip)+'</span><span class="lib-badge lib-badge-dif">'+escHtml(s.dificultate)+'</span></div>';
+    gh+='<div class="lib-card-preview">„'+escHtml(s.preview)+'"</div>';
+    if(!canView)gh+='<div style="margin-top:8px;font-size:0.72rem;color:var(--accent-gold)">🔒 '+t('lib_locked')+'</div>';
+    gh+='</div>';
+  });
+  if(!filtered.length)gh='<div class="card" style="text-align:center;padding:40px;color:var(--text-muted)">'+t('lib_no_results')+'</div>';
+  grid.innerHTML=gh;
+}
+
+function setLibFilter(cat){
+  _libFilter=cat;
+  renderLibrary();
+}
+
+function updateLibUsageInfo(){
+  const el=document.getElementById('libUsageInfo');
+  if(!el)return;
+  if(hasLibPaid()){
+    const until=new Date(parseInt(localStorage.getItem('lib_paid_until')||'0'));
+    const days=Math.ceil((until-Date.now())/(1000*60*60*24));
+    el.innerHTML='<span style="color:var(--accent-green)">✓</span> '+t('lib_paid_active').replace('{days}',days);
+    el.style.borderColor='rgba(46,204,113,0.3)';
+  }else{
+    const rem=getLibRemaining();
+    el.innerHTML='<span style="font-size:1rem">'+(rem>0?'📖':'🔒')+'</span> '+t('lib_free_remaining').replace('{n}',rem).replace('{max}',LIB_FREE_PER_DAY);
+    el.style.borderColor=rem>0?'var(--border-card)':'rgba(246,212,76,0.3)';
+  }
+}
+
+async function expandSuggestion(id){
+  const data=await loadLibrary();
+  const s=data.suggestions.find(x=>x.id===id);
+  if(!s)return;
+  const grid=document.getElementById('libGrid');
+  const expanded=document.getElementById('libExpanded');
+  const canView=canViewFull(id);
+  grid.style.display='none';
+  expanded.style.display='block';
+  const scoreColor=s.scor>=90?'var(--accent-green)':s.scor>=75?'var(--accent-blue)':s.scor>=60?'var(--accent-gold)':'var(--accent-orange)';
+  let h='<button class="lib-exp-back" onclick="renderLibrary()">'+t('lib_back_grid')+'</button>';
+  h+='<div class="card" style="padding:24px">';
+  h+='<h2 style="font-size:1.2rem;font-weight:700;color:var(--text-heading);margin-bottom:12px">'+escHtml(s.titlu)+'</h2>';
+  h+='<div class="lib-exp-meta"><span class="lib-badge lib-badge-cat">'+getCatLabel(s.categorie_key)+'</span><span class="lib-badge lib-badge-tip">'+escHtml(s.tip)+'</span><span class="lib-badge lib-badge-dif">'+escHtml(s.dificultate)+'</span><span style="font-family:var(--font-mono);font-size:0.85rem;font-weight:700;color:'+scoreColor+'">'+t('lib_score')+': '+s.scor+'/100</span><span style="font-size:0.78rem;color:var(--text-muted)">'+escHtml(s.sursa)+'</span></div>';
+  if(canView){
+    addLibView(id);
+    updateLibUsageInfo();
+    h+='<div class="lib-exp-text'+(hasLibPaid()?' lib-unlocked':'')+'">'+escHtml(s.text_complet)+'</div>';
+    if(hasLibPaid()){
+      h+='<button class="btn-secondary" style="margin-top:12px" onclick="navigator.clipboard.writeText(document.querySelector(\'.lib-exp-text\').textContent);this.textContent=\'✓ '+t('lib_copied')+'\'">'+t('lib_copy')+'</button>';
+    }
+    h+='<div class="lib-note"><strong style="color:var(--accent-blue)">'+t('lib_didactic_note')+':</strong> '+escHtml(s.nota)+'</div>';
+    // Evaluate CTA
+    h+='<button class="btn-primary" style="margin-top:16px;background:var(--accent-blue);color:#0f1f28;width:100%;justify-content:center" onclick="sendToEvaluator(\''+id+'\')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> '+t('lib_evaluate')+'</button>';
+  }else{
+    // Blurred preview + gate
+    h+='<div class="lib-blur-overlay"><div class="lib-exp-text">'+escHtml(s.text_complet)+'</div></div>';
+    h+='<div class="lib-gate-card"><div style="font-size:1.5rem;margin-bottom:10px">🔒</div>';
+    h+='<div style="font-size:1.05rem;font-weight:700;color:var(--accent-gold);margin-bottom:8px">'+t('lib_gate_title')+'</div>';
+    h+='<div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:16px;line-height:1.6">'+t('lib_gate_desc')+'</div>';
+    h+='<a href="'+LIB_STRIPE_URL+'" class="btn-primary" style="text-decoration:none;background:var(--accent-gold);color:#0f1f28;display:inline-flex;padding:12px 28px">'+t('lib_gate_buy')+'</a>';
+    h+='<div style="font-size:0.75rem;color:var(--text-muted);margin-top:10px">'+t('lib_gate_info')+'</div>';
+    h+='</div>';
+  }
+  h+='</div>';
+  expanded.innerHTML=h;
+  expanded.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function sendToEvaluator(id){
+  loadLibrary().then(data=>{
+    const s=data.suggestions.find(x=>x.id===id);
+    if(!s)return;
+    navigateTo('evaluator');
+    setTimeout(()=>{
+      document.getElementById('suggestionInput').value=s.text_complet;
+      updateCharCount();
+    },150);
+  });
+}
+// ===== END BIBLIOTECA =====
+
 // ===== INIT =====
 document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();navigateTo(a.getAttribute('data-section'))})});
 window.addEventListener('hashchange',handleHash);
-(function(){checkStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter()})();
+(function(){checkStripeSuccess();checkLibStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter()})();
 </script>
 </body>
 </html>
