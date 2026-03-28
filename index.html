@@ -26,11 +26,10 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .sidebar-nav .nav-badge{margin-left:auto;font-size:0.65rem;font-weight:600;padding:2px 7px;border-radius:10px;background:var(--brand-red-soft);color:var(--accent-red);letter-spacing:0.04em;text-transform:uppercase}
 .sidebar-footer{padding:14px;border-top:1px solid var(--border-subtle)}
 .lang-label{font-size:0.68rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px;font-family:var(--font-mono)}
-.lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:4px}
-.lang-grid button{padding:7px 4px;border:none;border-radius:6px;background:transparent;color:var(--text-muted);font-family:var(--font-main);font-size:0.72rem;font-weight:600;cursor:pointer;transition:all var(--transition);display:flex;flex-direction:column;align-items:center;gap:1px}
-.lang-grid button .lang-flag{font-size:0.95rem;line-height:1}
-.lang-grid button:hover:not(.active){color:var(--text-primary);background:var(--bg-sidebar-hover)}
-.lang-grid button.active{background:var(--accent-blue);color:#fff}
+.lang-dropdown{position:relative;width:100%}
+.lang-dropdown select{width:100%;padding:10px 14px;border:1px solid var(--border-subtle);border-radius:var(--radius-sm);background:var(--bg-card);color:var(--text-primary);font-family:var(--font-main);font-size:0.82rem;font-weight:600;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.lang-dropdown select:hover{border-color:var(--accent-blue)}
+.lang-dropdown select:focus{outline:none;border-color:var(--accent-blue)}
 .hamburger{display:none;position:fixed;top:14px;left:14px;z-index:200;width:44px;height:44px;background:var(--bg-sidebar);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px}
 .hamburger span{display:block;width:20px;height:2px;background:var(--text-secondary);border-radius:2px;transition:all var(--transition)}
 .hamburger.open span:nth-child(1){transform:rotate(45deg) translate(5px,5px)}.hamburger.open span:nth-child(2){opacity:0}.hamburger.open span:nth-child(3){transform:rotate(-45deg) translate(5px,-5px)}
@@ -658,11 +657,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
   box-shadow: 0 0 14px rgba(59,89,106,0.35) !important;
 }
 
-/* --- 15. LANG GRID active --- */
-.lang-grid button.active {
-  box-shadow: 0 0 14px rgba(79,193,233,0.3) !important;
-  background: linear-gradient(135deg, #3dadd4, var(--accent-blue)) !important;
-}
+/* --- 15. LANG DROPDOWN --- */
 
 /* --- 16. IMPROVED/PROBLEMS — premium feel --- */
 .improved-text {
@@ -803,13 +798,15 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <a href="#istoric" data-section="istoric"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span data-i18n="nav_history">Istoric</span></a>
 <a href="#contact" data-section="contact"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span data-i18n="nav_contact">Contact</span></a>
 </nav>
-<div class="sidebar-footer"><div class="lang-label">🌐 Limbă</div><div class="lang-grid" id="langGrid">
-<button onclick="setLang('ro')" data-lang="ro" class="active"><span class="lang-flag">🇷🇴</span>RO</button>
-<button onclick="setLang('en')" data-lang="en"><span class="lang-flag">🇬🇧</span>EN</button>
-<button onclick="setLang('es')" data-lang="es"><span class="lang-flag">🇪🇸</span>ES</button>
-<button onclick="setLang('fr')" data-lang="fr"><span class="lang-flag">🇫🇷</span>FR</button>
-<button onclick="setLang('de')" data-lang="de"><span class="lang-flag">🇩🇪</span>DE</button>
-<button onclick="setLang('pt')" data-lang="pt"><span class="lang-flag">🇧🇷</span>PT</button>
+<div class="sidebar-footer"><div class="lang-label">🌐 Limbă</div><div class="lang-dropdown">
+<select id="langSelect" onchange="setLang(this.value)">
+<option value="ro">🇷🇴 Română</option>
+<option value="en">🇬🇧 English</option>
+<option value="es">🇪🇸 Español</option>
+<option value="fr">🇫🇷 Français</option>
+<option value="de">🇩🇪 Deutsch</option>
+<option value="pt">🇧🇷 Português</option>
+</select></div>
 </div></div>
 </aside>
 <main class="main">
@@ -1265,7 +1262,7 @@ let _pendingLead=null;
 // ===== UTILITY =====
 const EXAF={ro:'Sunt din ce în ce mai încrezătoare în fiecare zi. Mă simt în siguranță când vorbesc în fața oamenilor.',en:'I am more and more confident every day. I feel safe when I speak in front of others.',es:'Soy cada vez más segura cada día. Me siento a salvo al hablar en público.',fr:'Je suis de plus en plus confiante chaque jour. Je me sens en sécurité quand je parle en public.',de:'Ich bin jeden Tag selbstbewusster. Ich fühle mich sicher, wenn ich vor Menschen spreche.',pt:'Estou cada vez mais confiante a cada dia. Me sinto segura ao falar em público.'};
 function detectLang(){const s=localStorage.getItem('eval_lang');if(s&&T[s])return s;if(location.hostname.includes('putereamintii'))return'ro';const n=(navigator.language||'ro').toLowerCase();if(n.startsWith('pt'))return'pt';if(n.startsWith('es'))return'es';if(n.startsWith('fr'))return'fr';if(n.startsWith('de'))return'de';if(n.startsWith('en'))return'en';if(n.startsWith('ro'))return'ro';return'ro'}
-function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.documentElement.lang=l;document.querySelectorAll('.lang-grid button').forEach(b=>{b.classList.toggle('active',b.getAttribute('data-lang')===l)});applyTranslations();renderGuide();initCountryDropdown()}
+function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.documentElement.lang=l;const sel=document.getElementById('langSelect');if(sel)sel.value=l;applyTranslations();renderGuide();initCountryDropdown()}
 function t(k){return(T[currentLang]&&T[currentLang][k])||T.en[k]||T.ro[k]||k}
 function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.getAttribute('data-i18n'));if(v)el.textContent=v});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.getAttribute('data-i18n-placeholder'));if(v)el.placeholder=v})}
 function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s)}

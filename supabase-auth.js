@@ -72,6 +72,46 @@
       history.replaceState(null, '', window.location.pathname);
       setTimeout(() => _showNotification('✅ Premium activat! Bine ai venit.', 'success'), 1000);
     }
+    // Capture UTM params on first visit
+    _captureUtm();
+  }
+
+  // --- UTM / REFERRER / DEVICE CAPTURE ---
+  let _capturedUtm = null;
+  function _captureUtm() {
+    const params = new URLSearchParams(window.location.search);
+    const utm = {
+      utm_source: params.get('utm_source') || sessionStorage.getItem('_utm_source') || '',
+      utm_medium: params.get('utm_medium') || sessionStorage.getItem('_utm_medium') || '',
+      utm_campaign: params.get('utm_campaign') || sessionStorage.getItem('_utm_campaign') || '',
+      referrer: document.referrer || sessionStorage.getItem('_referrer') || '',
+      device_type: window.innerWidth <= 768 ? 'mobile' : 'desktop',
+      preferred_language: window.currentLang || navigator.language?.slice(0, 2) || 'ro',
+    };
+    // Persist in sessionStorage so they survive page reloads
+    if (utm.utm_source) sessionStorage.setItem('_utm_source', utm.utm_source);
+    if (utm.utm_medium) sessionStorage.setItem('_utm_medium', utm.utm_medium);
+    if (utm.utm_campaign) sessionStorage.setItem('_utm_campaign', utm.utm_campaign);
+    if (utm.referrer) sessionStorage.setItem('_referrer', utm.referrer);
+    _capturedUtm = utm;
+  }
+
+  async function _saveUtmToProfile() {
+    if (!_sb || !_sbUser || !_capturedUtm) return;
+    const updates = {};
+    if (_capturedUtm.utm_source) updates.utm_source = _capturedUtm.utm_source;
+    if (_capturedUtm.utm_medium) updates.utm_medium = _capturedUtm.utm_medium;
+    if (_capturedUtm.utm_campaign) updates.utm_campaign = _capturedUtm.utm_campaign;
+    if (_capturedUtm.referrer) updates.referrer = _capturedUtm.referrer;
+    if (_capturedUtm.device_type) updates.device_type = _capturedUtm.device_type;
+    if (_capturedUtm.preferred_language) updates.preferred_language = _capturedUtm.preferred_language;
+    if (Object.keys(updates).length === 0) return;
+    updates.updated_at = new Date().toISOString();
+    try {
+      await _sb.from('profiles').update(updates).eq('id', _sbUser.id);
+    } catch (err) {
+      console.error('UTM save error:', err);
+    }
   }
 
   async function _loadProfile() {
@@ -239,14 +279,31 @@
           <div style="margin-top:12px"><a href="#" id="sbResendCode" style="color:var(--text-muted);font-size:0.78rem;text-decoration:none">${isRo ? 'Nu ai primit? Retrimite codul' : 'Didn\'t receive? Resend code'}</a></div>
         </div>
 
-        <!-- STEP: Forgot password -->
-        <div id="sbStepForgot" style="display:none;text-align:center">
-          <h3 style="font-size:1rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Resetează parola' : 'Reset password'}</h3>
-          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0 0 16px">${isRo ? 'Introdu emailul și îți trimitem instrucțiuni.' : 'Enter your email.'}</p>
-          <input type="email" id="sbForgotEmail" placeholder="${isRo ? 'adresa@email.com' : 'your@email.com'}" style="width:100%;padding:12px 14px;border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-size:0.92rem;font-family:var(--font-main);box-sizing:border-box;margin-bottom:12px">
-          <div id="sbForgotMsg" style="display:none;font-size:0.82rem;margin-bottom:8px"></div>
-          <button onclick="window._sbAuth.doForgotPassword()" id="sbForgotBtn" style="width:100%;padding:12px;border:none;border-radius:var(--radius-sm);background:var(--accent-blue);color:#0f1f28;font-size:0.92rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Trimite →' : 'Send →'}</button>
-          <div style="margin-top:12px"><a href="#" id="sbBackToLogin" style="color:var(--text-muted);font-size:0.78rem;text-decoration:none">${isRo ? '← Înapoi la login' : '← Back to login'}</a></div>
+        <!-- STEP: Forgot password — 3 sub-steps -->
+        <div id="sbStepForgot" style="display:none">
+          <!-- Sub-step A: enter email -->
+          <div id="sbForgotA" style="text-align:center">
+            <h3 style="font-size:1rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Resetează parola' : 'Reset password'}</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0 0 16px">${isRo ? 'Introdu emailul și îți trimitem un cod de verificare.' : 'Enter your email and we\'ll send a verification code.'}</p>
+            <input type="email" id="sbForgotEmail" placeholder="${isRo ? 'adresa@email.com' : 'your@email.com'}" style="width:100%;padding:12px 14px;border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-size:0.92rem;font-family:var(--font-main);box-sizing:border-box;margin-bottom:12px">
+            <div id="sbForgotMsg" style="display:none;font-size:0.82rem;margin-bottom:8px"></div>
+            <button onclick="window._sbAuth.doForgotSendCode()" id="sbForgotBtn" style="width:100%;padding:12px;border:none;border-radius:var(--radius-sm);background:var(--accent-blue);color:#0f1f28;font-size:0.92rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Trimite cod →' : 'Send code →'}</button>
+            <div style="margin-top:12px"><a href="#" id="sbBackToLogin" style="color:var(--text-muted);font-size:0.78rem;text-decoration:none">${isRo ? '← Înapoi la login' : '← Back to login'}</a></div>
+          </div>
+          <!-- Sub-step B: enter code + new password -->
+          <div id="sbForgotB" style="display:none;text-align:center">
+            <div style="font-size:2.5rem;margin-bottom:12px">🔑</div>
+            <h3 style="font-size:1rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Introdu codul și noua parolă' : 'Enter code and new password'}</h3>
+            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0 0 16px" id="sbForgotBDesc"></p>
+            <div id="sbForgotOtpWrap" style="display:flex;justify-content:center;gap:8px;margin-bottom:16px">
+              ${[0,1,2,3,4,5].map(i => '<input type="text" inputmode="numeric" maxlength="1" class="sbForgotOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="' + i + '">').join('')}
+            </div>
+            <label style="display:block;font-size:0.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:6px;text-align:left">${isRo ? 'Parolă nouă' : 'New password'} <span style="font-weight:400;color:var(--text-muted)">(min. 6 caractere)</span></label>
+            <input type="password" id="sbForgotNewPw" placeholder="${isRo ? 'Noua parolă' : 'New password'}" style="width:100%;padding:12px 14px;border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-size:0.92rem;font-family:var(--font-main);box-sizing:border-box;margin-bottom:12px">
+            <div id="sbForgotBError" style="display:none;color:var(--accent-red);font-size:0.82rem;margin-bottom:8px"></div>
+            <div id="sbForgotBSuccess" style="display:none;color:var(--accent-green);font-size:0.82rem;margin-bottom:8px"></div>
+            <button onclick="window._sbAuth.doForgotResetPassword()" id="sbForgotBBtn" style="width:100%;padding:12px;border:none;border-radius:var(--radius-sm);background:var(--accent-blue);color:#0f1f28;font-size:0.92rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Resetează parola →' : 'Reset password →'}</button>
+          </div>
         </div>
       </div>
     `;
@@ -277,6 +334,8 @@
         rs.textContent = isRo ? '✓ Cod retrimis!' : '✓ Code resent!';
         setTimeout(() => { rs.textContent = isRo ? 'Nu ai primit? Retrimite codul' : 'Didn\'t receive? Resend code'; }, 3000);
       });
+      // Wire forgot password OTP inputs
+      _wireForgotOtpInputs();
     }, 50);
 
     window._authSuccessCallback = onSuccess || null;
@@ -300,6 +359,26 @@
         paste.split('').forEach((ch, j) => { if (inputs[j]) inputs[j].value = ch; });
         if (paste.length === 6) window._sbAuth.doVerifyOtp();
         else if (paste.length > 0) inputs[Math.min(paste.length, 5)].focus();
+      });
+    });
+  }
+
+  function _wireForgotOtpInputs() {
+    const inputs = document.querySelectorAll('.sbForgotOtpInput');
+    inputs.forEach((inp, i) => {
+      inp.addEventListener('input', (e) => {
+        const v = e.target.value.replace(/\D/g, '');
+        e.target.value = v;
+        if (v && i < 5) inputs[i + 1].focus();
+      });
+      inp.addEventListener('keydown', (e) => {
+        if (e.key === 'Backspace' && !e.target.value && i > 0) inputs[i - 1].focus();
+      });
+      inp.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const paste = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+        paste.split('').forEach((ch, j) => { if (inputs[j]) inputs[j].value = ch; });
+        if (paste.length > 0) inputs[Math.min(paste.length, 5)].focus();
       });
     });
   }
@@ -455,6 +534,7 @@
       _otpToken = null; _otpHmac = null; _otpEmail = null; _otpPassword = null;
 
       successDiv.textContent = isRo ? '✅ Cont creat! Bine ai venit.' : '✅ Account created! Welcome.';
+      _saveUtmToProfile();
       setTimeout(() => { const m = document.getElementById('sbAuthModal'); if (m) m.remove(); }, 1000);
 
     } catch (err) {
@@ -465,8 +545,12 @@
     }
   }
 
-  // --- FORGOT PASSWORD ---
-  async function doForgotPassword() {
+  // --- FORGOT PASSWORD (via Resend code) ---
+  let _resetToken = null;
+  let _resetHmac = null;
+  let _resetEmail = null;
+
+  async function doForgotSendCode() {
     const email = document.getElementById('sbForgotEmail').value.trim();
     const msgDiv = document.getElementById('sbForgotMsg');
     const btn = document.getElementById('sbForgotBtn');
@@ -481,23 +565,106 @@
 
     btn.disabled = true;
     btn.textContent = isRo ? 'Se trimite...' : 'Sending...';
+    _resetEmail = email;
 
-    if (!_sb) { btn.disabled = false; return; }
-    const { error } = await _sb.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
-      redirectTo: window.location.origin + '/',
-    });
+    try {
+      const res = await fetch('/api/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'send-reset', email }),
+      });
+      const data = await res.json();
+      btn.disabled = false;
+      btn.textContent = isRo ? 'Trimite cod →' : 'Send code →';
 
-    btn.disabled = false;
-    btn.textContent = isRo ? 'Trimite →' : 'Send →';
-
-    if (error) {
-      msgDiv.textContent = error.message;
+      if (data.ok) {
+        _resetToken = data.token;
+        _resetHmac = data.hmac;
+        document.getElementById('sbForgotA').style.display = 'none';
+        document.getElementById('sbForgotB').style.display = 'block';
+        document.getElementById('sbForgotBDesc').innerHTML = isRo
+          ? 'Am trimis un cod de 6 cifre pe <strong>' + email + '</strong>.'
+          : 'We sent a 6-digit code to <strong>' + email + '</strong>.';
+        const fi = document.querySelector('.sbForgotOtpInput');
+        if (fi) fi.focus();
+      } else {
+        msgDiv.textContent = data.error || (isRo ? 'Eroare la trimitere.' : 'Send error.');
+        msgDiv.style.color = 'var(--accent-red)';
+        msgDiv.style.display = 'block';
+      }
+    } catch (err) {
+      btn.disabled = false;
+      btn.textContent = isRo ? 'Trimite cod →' : 'Send code →';
+      msgDiv.textContent = isRo ? 'Eroare de conexiune.' : 'Connection error.';
       msgDiv.style.color = 'var(--accent-red)';
-    } else {
-      msgDiv.textContent = isRo ? '✅ Dacă acest email există, vei primi instrucțiuni.' : '✅ If this email exists, you\'ll receive instructions.';
-      msgDiv.style.color = 'var(--accent-green)';
+      msgDiv.style.display = 'block';
     }
-    msgDiv.style.display = 'block';
+  }
+
+  async function doForgotResetPassword() {
+    const inputs = document.querySelectorAll('.sbForgotOtpInput');
+    const code = Array.from(inputs).map(i => i.value).join('');
+    const newPassword = document.getElementById('sbForgotNewPw').value;
+    const errorDiv = document.getElementById('sbForgotBError');
+    const successDiv = document.getElementById('sbForgotBSuccess');
+    const btn = document.getElementById('sbForgotBBtn');
+    const isRo = !window.currentLang || window.currentLang === 'ro';
+
+    errorDiv.style.display = 'none';
+    successDiv.style.display = 'none';
+
+    if (code.length !== 6) {
+      errorDiv.textContent = isRo ? 'Introdu toate cele 6 cifre.' : 'Enter all 6 digits.';
+      errorDiv.style.display = 'block'; return;
+    }
+    if (!newPassword || newPassword.length < 6) {
+      errorDiv.textContent = isRo ? 'Parola trebuie să aibă minim 6 caractere.' : 'Min 6 characters.';
+      errorDiv.style.display = 'block'; return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = isRo ? 'Se resetează...' : 'Resetting...';
+
+    try {
+      const res = await fetch('/api/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'reset-password',
+          token: _resetToken,
+          hmac: _resetHmac,
+          code,
+          newPassword,
+        }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        successDiv.textContent = isRo ? '✅ Parolă resetată! Te poți loga acum.' : '✅ Password reset! You can log in now.';
+        successDiv.style.display = 'block';
+        _resetToken = null; _resetHmac = null; _resetEmail = null;
+        setTimeout(() => {
+          const modal = document.getElementById('sbAuthModal');
+          if (modal) modal.remove();
+          showAuthModal('login');
+        }, 1500);
+      } else {
+        let msg = data.error || 'Eroare.';
+        if (isRo) {
+          if (msg === 'expired') msg = 'Codul a expirat. Retrimite un cod nou.';
+          if (msg === 'wrong_code') msg = 'Cod incorect. Verifică și încearcă din nou.';
+        }
+        errorDiv.textContent = msg;
+        errorDiv.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = isRo ? 'Resetează parola →' : 'Reset password →';
+      }
+    } catch (err) {
+      errorDiv.textContent = isRo ? 'Eroare de conexiune.' : 'Connection error.';
+      errorDiv.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = isRo ? 'Resetează parola →' : 'Reset password →';
+    }
   }
 
   // --- PREMIUM MODAL ---
@@ -562,7 +729,8 @@
   window.getEvalEmail = function () { if (_sbUser) return _sbUser.email; if (_orig) return _orig(); return localStorage.getItem('eval_lead_email') || ''; };
 
   window._sbAuth = {
-    init: initSupabaseAuth, showAuthModal, showPremiumModal, doAuth, doVerifyOtp, doForgotPassword,
+    init: initSupabaseAuth, showAuthModal, showPremiumModal, doAuth, doVerifyOtp,
+    doForgotSendCode, doForgotResetPassword,
     signIn, signOut, startCheckout,
     getUser: () => _sbUser, getProfile: () => _sbProfile, getEffectiveTier: () => _effectiveTier, isReady: () => _authReady, refreshProfile: _loadProfile,
   };
