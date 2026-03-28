@@ -27,7 +27,7 @@ module.exports = async (req, res) => {
 
     if (resp.ok) {
       checks.connection = 'conectat';
-      const tables = ['profiles', 'evaluations', 'generations', 'payments', 'activity_log'];
+      const tables = ['profiles', 'evaluations', 'daily_affirmations', 'weekly_scripts', 'progress_reports'];
       const tableChecks = {};
 
       for (const t of tables) {
