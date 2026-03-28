@@ -26,10 +26,36 @@
 
   async function _doInit() {
     try {
-      const cfgRes = await fetch('/api/config');
-      const cfg = await cfgRes.json();
-      if (!cfg.supabaseUrl || !cfg.supabaseAnonKey) { _authReady = true; return; }
-      if (!window.supabase || !window.supabase.createClient) { _authReady = true; return; }
+      // Load config - bypass cache explicitly
+      let cfg;
+      try {
+        const cfgRes = await fetch('/api/config', { cache: 'no-store' });
+        cfg = await cfgRes.json();
+      } catch (fetchErr) {
+        console.warn('Config fetch failed, retrying...', fetchErr);
+        // Retry once after 1s
+        await new Promise(r => setTimeout(r, 1000));
+        try {
+          const cfgRes2 = await fetch('/api/config?t=' + Date.now(), { cache: 'no-store' });
+          cfg = await cfgRes2.json();
+        } catch (e) {
+          console.error('Config fetch failed twice, auth disabled');
+          _authReady = true;
+          return;
+        }
+      }
+
+      if (!cfg || !cfg.supabaseUrl || !cfg.supabaseAnonKey) {
+        console.warn('Supabase config missing');
+        _authReady = true;
+        return;
+      }
+
+      if (!window.supabase || !window.supabase.createClient) {
+        console.warn('Supabase SDK not loaded');
+        _authReady = true;
+        return;
+      }
 
       _sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey);
       _handleUrlParams();
