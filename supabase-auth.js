@@ -154,7 +154,7 @@
     if (!p) return 'anonymous';
     if (p.training_access) return 'premium';
     if (p.pm_subscription_tier === 'inner_circle') return 'premium';
-    if (p.stripe_subscription_status === 'active') return 'premium';
+    if (p.stripe_subscription_status === 'active' || p.stripe_subscription_status === 'trialing') return 'premium';
     if (p.trial_active && new Date(p.trial_expires_at) > new Date()) return 'premium';
     return 'free';
   }
@@ -720,12 +720,25 @@
             <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:4px">${isRo ? 'Lunar' : 'Monthly'}</div>
             <div style="font-size:1.3rem;font-weight:700;color:var(--accent-gold)">49 RON</div>
             <div style="font-size:0.78rem;color:var(--text-muted)">/ ${isRo ? 'lună' : 'month'}</div>
+            <div style="font-size:0.72rem;color:var(--accent-blue);margin-top:6px;font-weight:600">${isRo ? '7 zile gratuit' : '7 days free'}</div>
           </div>
           <div onclick="window._sbAuth.startCheckout('annual')" style="padding:20px 16px;border:2px solid var(--accent-gold);border-radius:var(--radius-sm);cursor:pointer;text-align:center;background:rgba(246,212,76,0.04);position:relative" onmouseover="this.style.background='rgba(246,212,76,0.1)'" onmouseout="this.style.background='rgba(246,212,76,0.04)'">
             <div style="position:absolute;top:-10px;right:12px;background:var(--accent-gold);color:#0f1f28;font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:10px">-32%</div>
             <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:4px">${isRo ? 'Anual' : 'Annual'}</div>
             <div style="font-size:1.3rem;font-weight:700;color:var(--accent-gold)">399 RON</div>
             <div style="font-size:0.78rem;color:var(--text-muted)">/ ${isRo ? 'an' : 'year'} (~33 RON/${isRo ? 'lună' : 'mo'})</div>
+            <div style="font-size:0.72rem;color:var(--accent-blue);margin-top:6px;font-weight:600">${isRo ? '7 zile gratuit' : '7 days free'}</div>
+          </div>
+        </div>
+        <div style="text-align:center;margin-bottom:12px;padding-top:4px;border-top:1px solid var(--border-card)">
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px">${isRo ? 'Participant la Training Profesional de Hipnoză?' : 'Professional Hypnosis Training participant?'}</div>
+          <button onclick="window._sbAuth.showTrainingCodeInput()" id="sbTrainingCodeToggle" style="padding:6px 16px;border:1px solid var(--border-card);border-radius:6px;background:transparent;color:var(--text-secondary);font-size:0.8rem;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Am cod de acces →' : 'I have an access code →'}</button>
+          <div id="sbTrainingCodeWrap" style="display:none;margin-top:10px">
+            <div style="display:flex;gap:8px;max-width:300px;margin:0 auto">
+              <input type="text" id="sbTrainingCodeInput" placeholder="${isRo ? 'Cod acces training' : 'Training access code'}" style="flex:1;padding:10px 12px;border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-size:0.88rem;font-family:var(--font-main)">
+              <button onclick="window._sbAuth.activateTrainingCode()" id="sbTrainingCodeBtn" style="padding:10px 16px;border:none;border-radius:var(--radius-sm);background:var(--accent-blue);color:#0f1f28;font-size:0.85rem;font-weight:700;cursor:pointer;font-family:var(--font-main);white-space:nowrap">${isRo ? 'Activează' : 'Activate'}</button>
+            </div>
+            <div id="sbTrainingCodeMsg" style="display:none;font-size:0.8rem;margin-top:6px"></div>
           </div>
         </div>
         <div style="text-align:center"><button onclick="document.getElementById('sbPremiumModal').remove()" style="padding:8px 16px;border:none;background:transparent;color:var(--text-muted);font-size:0.82rem;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Poate mai târziu' : 'Maybe later'}</button></div>
@@ -740,6 +753,75 @@
     n.textContent = text;
     document.body.appendChild(n);
     setTimeout(() => n.remove(), 4000);
+  }
+
+  // --- TRAINING CODE ---
+  function showTrainingCodeInput() {
+    const wrap = document.getElementById('sbTrainingCodeWrap');
+    const toggle = document.getElementById('sbTrainingCodeToggle');
+    if (wrap && toggle) {
+      wrap.style.display = wrap.style.display === 'none' ? 'block' : 'none';
+      toggle.style.display = wrap.style.display === 'none' ? '' : 'none';
+    }
+  }
+
+  async function activateTrainingCode() {
+    const input = document.getElementById('sbTrainingCodeInput');
+    const msgDiv = document.getElementById('sbTrainingCodeMsg');
+    const btn = document.getElementById('sbTrainingCodeBtn');
+    const isRo = !window.currentLang || window.currentLang === 'ro';
+    if (!input || !msgDiv || !btn) return;
+
+    const code = input.value.trim();
+    if (!code) {
+      msgDiv.textContent = isRo ? 'Introdu codul de acces.' : 'Enter the access code.';
+      msgDiv.style.color = 'var(--accent-red)';
+      msgDiv.style.display = 'block'; return;
+    }
+    if (!_sbUser) {
+      msgDiv.textContent = isRo ? 'Trebuie să fii logat.' : 'You must be logged in.';
+      msgDiv.style.color = 'var(--accent-red)';
+      msgDiv.style.display = 'block'; return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = isRo ? 'Se verifică...' : 'Verifying...';
+    msgDiv.style.display = 'none';
+
+    try {
+      const res = await fetch('/api/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'training-code', code, user_id: _sbUser.id }),
+      });
+      const data = await res.json();
+
+      if (data.ok) {
+        msgDiv.textContent = isRo ? '✅ Acces Premium activat permanent!' : '✅ Permanent Premium access activated!';
+        msgDiv.style.color = 'var(--accent-green, #4CAF50)';
+        msgDiv.style.display = 'block';
+        // Refresh profile
+        await _loadProfile();
+        _updateUI();
+        setTimeout(() => {
+          const modal = document.getElementById('sbPremiumModal');
+          if (modal) modal.remove();
+          _showNotification(isRo ? '✅ Premium activat! Acces permanent la Expert.' : '✅ Premium activated! Permanent Expert access.', 'success');
+        }, 1200);
+      } else {
+        msgDiv.textContent = data.error || (isRo ? 'Cod invalid.' : 'Invalid code.');
+        msgDiv.style.color = 'var(--accent-red)';
+        msgDiv.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = isRo ? 'Activează' : 'Activate';
+      }
+    } catch (err) {
+      msgDiv.textContent = isRo ? 'Eroare de conexiune.' : 'Connection error.';
+      msgDiv.style.color = 'var(--accent-red)';
+      msgDiv.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = isRo ? 'Activează' : 'Activate';
+    }
   }
 
   // --- OVERRIDES ---
@@ -758,6 +840,7 @@
     init: initSupabaseAuth, showAuthModal, showPremiumModal, doAuth, doVerifyOtp,
     doForgotSendCode, doForgotResetPassword,
     signIn, signOut, startCheckout,
+    showTrainingCodeInput, activateTrainingCode,
     getUser: () => _sbUser, getProfile: () => _sbProfile, getEffectiveTier: () => _effectiveTier, isReady: () => _authReady, refreshProfile: _loadProfile,
   };
 
