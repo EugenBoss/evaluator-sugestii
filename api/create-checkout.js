@@ -38,6 +38,7 @@ export default async function handler(req, res) {
     params.append('success_url', `${baseUrl}?upgraded=1`);
     params.append('cancel_url', `${baseUrl}?upgrade_cancelled=1`);
     params.append('allow_promotion_codes', 'true');
+    params.append('subscription_data[trial_period_days]', '7');
     if (user_id) {
       params.append('metadata[supabase_user_id]', user_id);
     }
