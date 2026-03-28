@@ -71,6 +71,7 @@
           _sbUser = session.user;
           await _loadProfile();
           _updateUI();
+          _syncHistory(); // merge Supabase history into localStorage
           if (window._pendingTierAfterAuth) {
             const tier = window._pendingTierAfterAuth;
             window._pendingTierAfterAuth = null;
@@ -755,6 +756,117 @@
     setTimeout(() => n.remove(), 4000);
   }
 
+  // --- SUPABASE EVALUATION LOGGING ---
+  async function _saveEvalToSupabase(entry) {
+    if (!_sb || !_sbUser) return;
+    try {
+      await _sb.from('evaluations').insert({
+        user_id: _sbUser.id,
+        suggestion_text: entry.text || '',
+        content_type: entry.content_type || 'sugestie',
+        tier: entry.tier || 'basic',
+        score: entry.scor || 0,
+        level: entry.level || '',
+        criteria: entry.criterii || [],
+        problems: entry.top_probleme || [],
+        improved_text: entry.versiune_imbunatatita || '',
+        changes_text: entry.explicatii || '',
+        suggestion_type: entry.tip || '',
+        module: entry.source || 'evaluator',
+        language: entry.lang || 'ro',
+        device: window.innerWidth <= 768 ? 'mobile' : 'desktop',
+        local_id: entry.id || null,
+        created_at: entry.date || new Date().toISOString(),
+      });
+    } catch (err) {
+      console.warn('Supabase eval save error:', err);
+    }
+  }
+
+  async function _syncHistory() {
+    if (!_sb || !_sbUser) return;
+    try {
+      // 1. Fetch from Supabase (last 50)
+      const { data: remoteEvals, error } = await _sb
+        .from('evaluations')
+        .select('*')
+        .eq('user_id', _sbUser.id)
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (error || !remoteEvals) return;
+      if (remoteEvals.length === 0) {
+        // No remote data — migrate localStorage to Supabase
+        _migrateLocalHistory();
+        return;
+      }
+
+      // 2. Convert remote to localStorage format
+      const remoteEntries = remoteEvals.map(r => ({
+        id: r.local_id || ('sb_' + r.id.slice(0, 8)),
+        date: r.created_at,
+        text: r.suggestion_text || '',
+        scor: r.score || 0,
+        tier: r.tier || 'basic',
+        tip: r.suggestion_type || '—',
+        source: r.module || 'evaluator',
+        content_type: r.content_type || 'sugestie',
+        lang: r.language || 'ro',
+        criterii: r.criteria || [],
+        top_probleme: r.problems || [],
+        versiune_imbunatatita: r.improved_text || '',
+        explicatii: r.changes_text || '',
+        sumar: '',
+        _fromSupabase: true,
+      }));
+
+      // 3. Merge: Supabase entries + localStorage-only entries (deduplicate by id)
+      const localHist = JSON.parse(localStorage.getItem('eval_history') || '[]');
+      const remoteIds = new Set(remoteEntries.map(e => e.id));
+      const localOnly = localHist.filter(e => !remoteIds.has(e.id) && !e._fromSupabase);
+
+      // Upload local-only entries to Supabase (they haven't been saved yet)
+      for (const entry of localOnly) {
+        await _saveEvalToSupabase(entry);
+      }
+
+      // 4. Merged list: remote + local-only, sorted by date desc, max 50
+      const merged = [...remoteEntries, ...localOnly]
+        .sort((a, b) => new Date(b.date) - new Date(a.date))
+        .slice(0, 50);
+
+      localStorage.setItem('eval_history', JSON.stringify(merged));
+      localStorage.setItem('eval_history_synced', Date.now().toString());
+
+      // Re-render history if visible
+      if (typeof renderHistory === 'function' && document.querySelector('.page.active #histList')) {
+        renderHistory();
+      }
+    } catch (err) {
+      console.warn('History sync error:', err);
+    }
+  }
+
+  async function _migrateLocalHistory() {
+    if (!_sb || !_sbUser) return;
+    const migrated = localStorage.getItem('eval_history_migrated_' + _sbUser.id);
+    if (migrated) return;
+
+    const hist = JSON.parse(localStorage.getItem('eval_history') || '[]');
+    if (hist.length === 0) {
+      localStorage.setItem('eval_history_migrated_' + _sbUser.id, '1');
+      return;
+    }
+
+    let count = 0;
+    for (const entry of hist) {
+      await _saveEvalToSupabase(entry);
+      count++;
+    }
+    localStorage.setItem('eval_history_migrated_' + _sbUser.id, '1');
+    console.log(`Migrated ${count} evaluations to Supabase`);
+  }
+
   // --- TRAINING CODE ---
   function showTrainingCodeInput() {
     const wrap = document.getElementById('sbTrainingCodeWrap');
@@ -841,6 +953,7 @@
     doForgotSendCode, doForgotResetPassword,
     signIn, signOut, startCheckout,
     showTrainingCodeInput, activateTrainingCode,
+    saveEval: _saveEvalToSupabase, syncHistory: _syncHistory,
     getUser: () => _sbUser, getProfile: () => _sbProfile, getEffectiveTier: () => _effectiveTier, isReady: () => _authReady, refreshProfile: _loadProfile,
   };
 

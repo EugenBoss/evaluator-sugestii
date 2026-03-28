@@ -2494,6 +2494,7 @@ function saveToHistory(inputText,result,source){
   const hist=getHistory();
   hist.unshift(entry);
   setHistory(hist);
+  if(window._sbAuth&&window._sbAuth.saveEval)window._sbAuth.saveEval(entry);
 }
 
 function renderHistory(){
