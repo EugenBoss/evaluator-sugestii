@@ -13,7 +13,7 @@ export default async function handler(req, res) {
   const stripeKey = process.env.STRIPE_SECRET_KEY;
   if (!stripeKey) return res.status(500).json({ error: 'Stripe not configured' });
 
-  const { plan, email, user_id } = req.body || {};
+  const { plan, email, user_id, lang } = req.body || {};
 
   if (!email) return res.status(400).json({ error: 'Email required' });
   if (!plan || !['monthly', 'annual'].includes(plan)) {
@@ -42,6 +42,8 @@ export default async function handler(req, res) {
     if (user_id) {
       params.append('metadata[supabase_user_id]', user_id);
     }
+    const stripeLocale = { ro: 'ro', en: 'en', es: 'es', fr: 'fr', de: 'de', pt: 'pt-BR' }[lang] || 'ro';
+    params.append('locale', stripeLocale);
 
     const stripeRes = await fetch('https://api.stripe.com/v1/checkout/sessions', {
       method: 'POST',
