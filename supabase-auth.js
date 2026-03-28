@@ -1,6 +1,6 @@
 // ============================================
 // SUPABASE AUTH MODULE — supabase-auth.js
-// Email + Password + OTP confirmation
+// Email + Password + OTP via Resend API
 // ============================================
 
 (function () {
@@ -12,7 +12,11 @@
   let _effectiveTier = 'anonymous';
   let _authReady = false;
   let _initPromise = null;
-  let _pendingEmail = null;
+  // OTP state
+  let _otpToken = null;
+  let _otpHmac = null;
+  let _otpEmail = null;
+  let _otpPassword = null;
 
   async function initSupabaseAuth() {
     if (_initPromise) return _initPromise;
@@ -89,35 +93,11 @@
     return 'free';
   }
 
-  // --- AUTH ACTIONS ---
-  async function signUp(email, password) {
-    if (!_sb) return { error: 'Nu s-a inițializat.' };
-    const { data, error } = await _sb.auth.signUp({ email: email.trim().toLowerCase(), password });
-    if (error) return { error: error.message };
-    return { ok: true, user: data.user };
-  }
-
   async function signIn(email, password) {
     if (!_sb) return { error: 'Nu s-a inițializat.' };
     const { data, error } = await _sb.auth.signInWithPassword({ email: email.trim().toLowerCase(), password });
     if (error) return { error: error.message };
     return { ok: true, user: data.user };
-  }
-
-  async function verifyOtp(email, token) {
-    if (!_sb) return { error: 'Nu s-a inițializat.' };
-    const { data, error } = await _sb.auth.verifyOtp({ email: email.trim().toLowerCase(), token, type: 'signup' });
-    if (error) return { error: error.message };
-    return { ok: true, user: data.user };
-  }
-
-  async function resetPassword(email) {
-    if (!_sb) return { error: 'Nu s-a inițializat.' };
-    const { error } = await _sb.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
-      redirectTo: window.location.origin + '/',
-    });
-    if (error) return { error: error.message };
-    return { ok: true };
   }
 
   async function signOut() {
@@ -139,7 +119,7 @@
     } catch (err) { alert('Eroare la checkout. Încearcă din nou.'); }
   }
 
-  // --- UI UPDATES ---
+  // --- UI ---
   function _updateUI() {
     _updateAccountBadge();
     if (_sbUser) {
@@ -245,33 +225,27 @@
           <div style="text-align:center;margin-top:14px;font-size:0.82rem;color:var(--text-muted)">${switchText}</div>
         </div>
 
-        <!-- STEP 2: OTP Code (signup only) -->
+        <!-- STEP 2: OTP Code -->
         <div id="sbStep2" style="display:none;text-align:center">
           <div style="font-size:2.5rem;margin-bottom:12px">📧</div>
           <h3 style="font-size:1rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Verifică email-ul' : 'Check your email'}</h3>
           <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0 0 20px" id="sbOtpDesc"></p>
           <div id="sbOtpWrap" style="display:flex;justify-content:center;gap:8px;margin-bottom:16px">
-            <input type="text" maxlength="1" class="sbOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="0">
-            <input type="text" maxlength="1" class="sbOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="1">
-            <input type="text" maxlength="1" class="sbOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="2">
-            <input type="text" maxlength="1" class="sbOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="3">
-            <input type="text" maxlength="1" class="sbOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="4">
-            <input type="text" maxlength="1" class="sbOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="5">
+            ${[0,1,2,3,4,5].map(i => `<input type="text" inputmode="numeric" maxlength="1" class="sbOtpInput" style="width:46px;height:54px;text-align:center;font-size:1.4rem;font-weight:700;font-family:var(--font-mono);border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);outline:none" data-idx="${i}">`).join('')}
           </div>
           <div id="sbOtpError" style="display:none;color:var(--accent-red);font-size:0.82rem;margin-bottom:12px"></div>
           <div id="sbOtpSuccess" style="display:none;color:var(--accent-green);font-size:0.82rem;margin-bottom:12px"></div>
           <button onclick="window._sbAuth.doVerifyOtp()" id="sbOtpBtn" style="width:100%;padding:12px;border:none;border-radius:var(--radius-sm);background:var(--accent-blue);color:#0f1f28;font-size:0.92rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Confirmă codul →' : 'Confirm code →'}</button>
-          <div style="margin-top:12px"><a href="#" id="sbResendCode" style="color:var(--text-muted);font-size:0.78rem;text-decoration:none">${isRo ? 'Nu ai primit? Retrimite codul' : 'Didn\'t receive it? Resend code'}</a></div>
+          <div style="margin-top:12px"><a href="#" id="sbResendCode" style="color:var(--text-muted);font-size:0.78rem;text-decoration:none">${isRo ? 'Nu ai primit? Retrimite codul' : 'Didn\'t receive? Resend code'}</a></div>
         </div>
 
         <!-- STEP: Forgot password -->
         <div id="sbStepForgot" style="display:none;text-align:center">
           <h3 style="font-size:1rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Resetează parola' : 'Reset password'}</h3>
-          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0 0 16px">${isRo ? 'Introdu emailul și îți trimitem un link de resetare.' : 'Enter your email and we\'ll send a reset link.'}</p>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0 0 16px">${isRo ? 'Introdu emailul și îți trimitem instrucțiuni.' : 'Enter your email.'}</p>
           <input type="email" id="sbForgotEmail" placeholder="${isRo ? 'adresa@email.com' : 'your@email.com'}" style="width:100%;padding:12px 14px;border:1px solid var(--border-card);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-size:0.92rem;font-family:var(--font-main);box-sizing:border-box;margin-bottom:12px">
-          <div id="sbForgotError" style="display:none;color:var(--accent-red);font-size:0.82rem;margin-bottom:8px"></div>
-          <div id="sbForgotSuccess" style="display:none;color:var(--accent-green);font-size:0.82rem;margin-bottom:8px"></div>
-          <button onclick="window._sbAuth.doForgotPassword()" id="sbForgotBtn" style="width:100%;padding:12px;border:none;border-radius:var(--radius-sm);background:var(--accent-blue);color:#0f1f28;font-size:0.92rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Trimite link →' : 'Send link →'}</button>
+          <div id="sbForgotMsg" style="display:none;font-size:0.82rem;margin-bottom:8px"></div>
+          <button onclick="window._sbAuth.doForgotPassword()" id="sbForgotBtn" style="width:100%;padding:12px;border:none;border-radius:var(--radius-sm);background:var(--accent-blue);color:#0f1f28;font-size:0.92rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Trimite →' : 'Send →'}</button>
           <div style="margin-top:12px"><a href="#" id="sbBackToLogin" style="color:var(--text-muted);font-size:0.78rem;text-decoration:none">${isRo ? '← Înapoi la login' : '← Back to login'}</a></div>
         </div>
       </div>
@@ -280,7 +254,6 @@
     document.body.appendChild(modal);
     document.getElementById('sbAuthEmail').focus();
 
-    // Wire up OTP inputs
     setTimeout(() => {
       _wireOtpInputs();
       const sw = document.getElementById('sbSwitchMode');
@@ -298,12 +271,11 @@
       const rs = document.getElementById('sbResendCode');
       if (rs) rs.addEventListener('click', async (e) => {
         e.preventDefault();
-        if (!_pendingEmail) return;
+        if (!_otpEmail) return;
         rs.textContent = isRo ? 'Se retrimite...' : 'Resending...';
-        const pw = sessionStorage.getItem('_sbPendingPw') || '';
-        await signUp(_pendingEmail, pw);
+        await _sendVerificationCode(_otpEmail);
         rs.textContent = isRo ? '✓ Cod retrimis!' : '✓ Code resent!';
-        setTimeout(() => { rs.textContent = isRo ? 'Nu ai primit? Retrimite codul' : 'Didn\'t receive it? Resend code'; }, 3000);
+        setTimeout(() => { rs.textContent = isRo ? 'Nu ai primit? Retrimite codul' : 'Didn\'t receive? Resend code'; }, 3000);
       });
     }, 50);
 
@@ -332,7 +304,27 @@
     });
   }
 
-  // --- DO AUTH (step 1) ---
+  // --- SEND CODE VIA RESEND ---
+  async function _sendVerificationCode(email) {
+    try {
+      const res = await fetch('/api/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      const data = await res.json();
+      if (data.ok) {
+        _otpToken = data.token;
+        _otpHmac = data.hmac;
+        return { ok: true };
+      }
+      return { error: data.error || 'Eroare la trimitere.' };
+    } catch (err) {
+      return { error: 'Eroare de conexiune.' };
+    }
+  }
+
+  // --- STEP 1: AUTH ---
   async function doAuth(mode) {
     const email = document.getElementById('sbAuthEmail').value.trim();
     const password = document.getElementById('sbAuthPassword').value;
@@ -346,7 +338,7 @@
       errorDiv.style.display = 'block'; return;
     }
     if (!password || password.length < 6) {
-      errorDiv.textContent = isRo ? 'Parola trebuie să aibă minim 6 caractere.' : 'Password must be at least 6 characters.';
+      errorDiv.textContent = isRo ? 'Parola trebuie să aibă minim 6 caractere.' : 'Min 6 characters.';
       errorDiv.style.display = 'block'; return;
     }
 
@@ -354,22 +346,18 @@
     btn.textContent = isRo ? 'Se procesează...' : 'Processing...';
 
     if (mode === 'signup') {
-      const result = await signUp(email, password);
-      if (result.error) {
-        let msg = result.error;
-        if (isRo) {
-          if (msg.includes('already registered') || msg.includes('already been registered')) msg = 'Acest email are deja cont. Intră în cont.';
-          else if (msg.includes('rate limit')) msg = 'Prea multe încercări. Așteaptă un minut.';
-        }
-        errorDiv.textContent = msg;
+      // Step 1: Send verification code first
+      _otpEmail = email;
+      _otpPassword = password;
+      const sendResult = await _sendVerificationCode(email);
+      if (sendResult.error) {
+        errorDiv.textContent = sendResult.error;
         errorDiv.style.display = 'block';
         btn.disabled = false;
         btn.textContent = isRo ? 'Creează cont →' : 'Create account →';
         return;
       }
       // Show OTP step
-      _pendingEmail = email;
-      sessionStorage.setItem('_sbPendingPw', password);
       document.getElementById('sbStep1').style.display = 'none';
       document.getElementById('sbStep2').style.display = 'block';
       document.getElementById('sbOtpDesc').innerHTML = isRo
@@ -378,13 +366,13 @@
       const firstInput = document.querySelector('.sbOtpInput');
       if (firstInput) firstInput.focus();
     } else {
-      // Login
+      // Login: direct sign in
       const result = await signIn(email, password);
       if (result.error) {
         let msg = result.error;
         if (isRo) {
           if (msg.includes('Invalid login')) msg = 'Email sau parolă incorecte.';
-          else if (msg.includes('Email not confirmed')) msg = 'Contul nu a fost confirmat. Verifică email-ul pentru codul de confirmare.';
+          else if (msg.includes('Email not confirmed')) msg = 'Contul nu a fost confirmat încă.';
           else if (msg.includes('rate limit')) msg = 'Prea multe încercări. Așteaptă un minut.';
         }
         errorDiv.textContent = msg;
@@ -393,14 +381,13 @@
         btn.textContent = isRo ? 'Intră în cont →' : 'Log in →';
         return;
       }
-      // Login success — close modal
       localStorage.setItem('eval_lead_email', email);
       localStorage.setItem('eval_lead_ok', '1');
       setTimeout(() => { const m = document.getElementById('sbAuthModal'); if (m) m.remove(); }, 300);
     }
   }
 
-  // --- VERIFY OTP (step 2) ---
+  // --- STEP 2: VERIFY OTP ---
   async function doVerifyOtp() {
     const inputs = document.querySelectorAll('.sbOtpInput');
     const code = Array.from(inputs).map(i => i.value).join('');
@@ -414,70 +401,103 @@
 
     if (code.length !== 6) {
       errorDiv.textContent = isRo ? 'Introdu toate cele 6 cifre.' : 'Enter all 6 digits.';
-      errorDiv.style.display = 'block';
-      return;
+      errorDiv.style.display = 'block'; return;
     }
 
     btn.disabled = true;
     btn.textContent = isRo ? 'Se verifică...' : 'Verifying...';
 
-    const result = await verifyOtp(_pendingEmail, code);
+    // Verify code on server
+    try {
+      const res = await fetch('/api/send-verification', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'verify', token: _otpToken, hmac: _otpHmac, code }),
+      });
+      const data = await res.json();
 
-    if (result.error) {
-      let msg = result.error;
-      if (isRo) {
-        if (msg.includes('expired') || msg.includes('invalid')) msg = 'Cod invalid sau expirat. Încearcă din nou sau retrimite codul.';
+      if (!data.ok) {
+        let msg = data.message || 'Cod invalid.';
+        if (isRo && data.error === 'expired') msg = 'Codul a expirat. Retrimite un cod nou.';
+        if (isRo && data.error === 'wrong_code') msg = 'Cod incorect. Verifică și încearcă din nou.';
+        errorDiv.textContent = msg;
+        errorDiv.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = isRo ? 'Confirmă codul →' : 'Confirm code →';
+        inputs.forEach(i => { i.value = ''; i.style.borderColor = 'var(--accent-red)'; });
+        inputs[0].focus();
+        return;
       }
-      errorDiv.textContent = msg;
+
+      // Code verified — now create Supabase account
+      successDiv.textContent = isRo ? '✅ Email verificat! Se creează contul...' : '✅ Verified! Creating account...';
+      successDiv.style.display = 'block';
+
+      const { data: signUpData, error: signUpError } = await _sb.auth.signUp({
+        email: _otpEmail.trim().toLowerCase(),
+        password: _otpPassword,
+      });
+
+      if (signUpError) {
+        let msg = signUpError.message;
+        if (isRo && msg.includes('already registered')) msg = 'Acest email are deja cont. Intră în cont.';
+        errorDiv.textContent = msg;
+        errorDiv.style.display = 'block';
+        successDiv.style.display = 'none';
+        btn.disabled = false;
+        btn.textContent = isRo ? 'Confirmă codul →' : 'Confirm code →';
+        return;
+      }
+
+      // Success — user is created and logged in
+      localStorage.setItem('eval_lead_email', _otpEmail);
+      localStorage.setItem('eval_lead_ok', '1');
+      _otpToken = null; _otpHmac = null; _otpEmail = null; _otpPassword = null;
+
+      successDiv.textContent = isRo ? '✅ Cont creat! Bine ai venit.' : '✅ Account created! Welcome.';
+      setTimeout(() => { const m = document.getElementById('sbAuthModal'); if (m) m.remove(); }, 1000);
+
+    } catch (err) {
+      errorDiv.textContent = isRo ? 'Eroare de conexiune. Încearcă din nou.' : 'Connection error.';
       errorDiv.style.display = 'block';
       btn.disabled = false;
       btn.textContent = isRo ? 'Confirmă codul →' : 'Confirm code →';
-      inputs.forEach(i => { i.value = ''; i.style.borderColor = 'var(--accent-red)'; });
-      inputs[0].focus();
-      return;
     }
-
-    // Success — user is now confirmed and logged in
-    successDiv.textContent = isRo ? '✅ Cont confirmat! Se încarcă...' : '✅ Account confirmed!';
-    successDiv.style.display = 'block';
-    localStorage.setItem('eval_lead_email', _pendingEmail);
-    localStorage.setItem('eval_lead_ok', '1');
-    sessionStorage.removeItem('_sbPendingPw');
-    setTimeout(() => { const m = document.getElementById('sbAuthModal'); if (m) m.remove(); }, 800);
   }
 
   // --- FORGOT PASSWORD ---
   async function doForgotPassword() {
     const email = document.getElementById('sbForgotEmail').value.trim();
-    const errorDiv = document.getElementById('sbForgotError');
-    const successDiv = document.getElementById('sbForgotSuccess');
+    const msgDiv = document.getElementById('sbForgotMsg');
     const btn = document.getElementById('sbForgotBtn');
     const isRo = !window.currentLang || window.currentLang === 'ro';
-
-    errorDiv.style.display = 'none';
-    successDiv.style.display = 'none';
+    msgDiv.style.display = 'none';
 
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      errorDiv.textContent = isRo ? 'Introdu o adresă de email validă.' : 'Enter a valid email.';
-      errorDiv.style.display = 'block';
-      return;
+      msgDiv.textContent = isRo ? 'Introdu o adresă de email validă.' : 'Enter a valid email.';
+      msgDiv.style.color = 'var(--accent-red)';
+      msgDiv.style.display = 'block'; return;
     }
 
     btn.disabled = true;
     btn.textContent = isRo ? 'Se trimite...' : 'Sending...';
 
-    const result = await resetPassword(email);
+    if (!_sb) { btn.disabled = false; return; }
+    const { error } = await _sb.auth.resetPasswordForEmail(email.trim().toLowerCase(), {
+      redirectTo: window.location.origin + '/',
+    });
+
     btn.disabled = false;
-    btn.textContent = isRo ? 'Trimite link →' : 'Send link →';
+    btn.textContent = isRo ? 'Trimite →' : 'Send →';
 
-    if (result.error) {
-      errorDiv.textContent = result.error;
-      errorDiv.style.display = 'block';
-      return;
+    if (error) {
+      msgDiv.textContent = error.message;
+      msgDiv.style.color = 'var(--accent-red)';
+    } else {
+      msgDiv.textContent = isRo ? '✅ Dacă acest email există, vei primi instrucțiuni.' : '✅ If this email exists, you\'ll receive instructions.';
+      msgDiv.style.color = 'var(--accent-green)';
     }
-
-    successDiv.textContent = isRo ? '✅ Link trimis! Verifică email-ul.' : '✅ Link sent! Check your email.';
-    successDiv.style.display = 'block';
+    msgDiv.style.display = 'block';
   }
 
   // --- PREMIUM MODAL ---
@@ -488,7 +508,7 @@
     let trialText = '';
     if (_sbProfile && _sbProfile.trial_active && _effectiveTier === 'premium' && _sbProfile.stripe_subscription_status !== 'active' && !_sbProfile.training_access) {
       const d = Math.max(0, Math.ceil((new Date(_sbProfile.trial_expires_at) - new Date()) / 86400000));
-      trialText = isRo ? `Ai încă ${d} zile de trial Premium gratuit.` : `You have ${d} days of free Premium trial left.`;
+      trialText = isRo ? `Ai încă ${d} zile de trial Premium gratuit.` : `${d} days free trial left.`;
     }
     const modal = document.createElement('div');
     modal.id = 'sbPremiumModal';
@@ -500,15 +520,15 @@
           <div style="font-size:0.72rem;font-weight:600;color:var(--accent-gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">PREMIUM</div>
           <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Deblochează evaluarea Expert' : 'Unlock Expert evaluation'}</h3>
           ${trialText ? `<p style="font-size:0.82rem;color:var(--accent-orange);margin:0 0 8px">${trialText}</p>` : ''}
-          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0">${isRo ? '17 criterii ponderate · Analiză NLP · Radar chart · Script autohipnoză săptămânal · Afirmație zilnică personalizată' : '17 weighted criteria · NLP Analysis · Radar chart · Weekly script · Daily affirmation'}</p>
+          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0">${isRo ? '17 criterii ponderate · Analiză NLP · Radar chart · Script autohipnoză săptămânal · Afirmație zilnică personalizată' : '17 weighted criteria · NLP Analysis · Radar chart'}</p>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-          <div onclick="window._sbAuth.startCheckout('monthly')" style="padding:20px 16px;border:1px solid rgba(246,212,76,0.3);border-radius:var(--radius-sm);cursor:pointer;text-align:center;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent-gold)'" onmouseout="this.style.borderColor='rgba(246,212,76,0.3)'">
+          <div onclick="window._sbAuth.startCheckout('monthly')" style="padding:20px 16px;border:1px solid rgba(246,212,76,0.3);border-radius:var(--radius-sm);cursor:pointer;text-align:center" onmouseover="this.style.borderColor='var(--accent-gold)'" onmouseout="this.style.borderColor='rgba(246,212,76,0.3)'">
             <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:4px">${isRo ? 'Lunar' : 'Monthly'}</div>
             <div style="font-size:1.3rem;font-weight:700;color:var(--accent-gold)">49 RON</div>
             <div style="font-size:0.78rem;color:var(--text-muted)">/ ${isRo ? 'lună' : 'month'}</div>
           </div>
-          <div onclick="window._sbAuth.startCheckout('annual')" style="padding:20px 16px;border:2px solid var(--accent-gold);border-radius:var(--radius-sm);cursor:pointer;text-align:center;transition:all 0.2s;background:rgba(246,212,76,0.04);position:relative" onmouseover="this.style.background='rgba(246,212,76,0.1)'" onmouseout="this.style.background='rgba(246,212,76,0.04)'">
+          <div onclick="window._sbAuth.startCheckout('annual')" style="padding:20px 16px;border:2px solid var(--accent-gold);border-radius:var(--radius-sm);cursor:pointer;text-align:center;background:rgba(246,212,76,0.04);position:relative" onmouseover="this.style.background='rgba(246,212,76,0.1)'" onmouseout="this.style.background='rgba(246,212,76,0.04)'">
             <div style="position:absolute;top:-10px;right:12px;background:var(--accent-gold);color:#0f1f28;font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:10px">-32%</div>
             <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:4px">${isRo ? 'Anual' : 'Annual'}</div>
             <div style="font-size:1.3rem;font-weight:700;color:var(--accent-gold)">399 RON</div>
@@ -543,7 +563,7 @@
 
   window._sbAuth = {
     init: initSupabaseAuth, showAuthModal, showPremiumModal, doAuth, doVerifyOtp, doForgotPassword,
-    signUp, signIn, signOut, startCheckout, verifyOtp, resetPassword,
+    signIn, signOut, startCheckout,
     getUser: () => _sbUser, getProfile: () => _sbProfile, getEffectiveTier: () => _effectiveTier, isReady: () => _authReady, refreshProfile: _loadProfile,
   };
 
