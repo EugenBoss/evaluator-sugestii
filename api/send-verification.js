@@ -24,6 +24,7 @@ export default async function handler(req, res) {
   if (action === 'verify') return handleVerify(req, res);
   if (action === 'send-reset') return handleSendReset(req, res);
   if (action === 'reset-password') return handleResetPassword(req, res);
+  if (action === 'training-code') return handleTrainingCode(req, res);
   return handleSend(req, res);
 }
 
@@ -259,6 +260,62 @@ async function handleResetPassword(req, res) {
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Reset password error:', err);
+    return res.status(500).json({ error: 'Eroare server.' });
+  }
+}
+
+// --- TRAINING ACCESS CODE ---
+async function handleTrainingCode(req, res) {
+  const { code, user_id } = req.body || {};
+
+  if (!code || !user_id) {
+    return res.status(400).json({ error: 'Cod și user ID necesare.' });
+  }
+
+  const validCode = process.env.TRAINING_ACCESS_CODE;
+  if (!validCode) {
+    return res.status(500).json({ error: 'Cod de acces nesetat pe server.' });
+  }
+
+  // Compare case-insensitive, trimmed
+  if (code.trim().toLowerCase() !== validCode.trim().toLowerCase()) {
+    return res.status(400).json({ error: 'Cod de acces invalid.' });
+  }
+
+  // Update profile in Supabase
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceKey = process.env.SUPABASE_SERVICE_KEY;
+
+  if (!supabaseUrl || !serviceKey) {
+    return res.status(500).json({ error: 'Server config error.' });
+  }
+
+  try {
+    const updateRes = await fetch(`${supabaseUrl}/rest/v1/profiles?id=eq.${user_id}`, {
+      method: 'PATCH',
+      headers: {
+        'apikey': serviceKey,
+        'Authorization': `Bearer ${serviceKey}`,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal',
+      },
+      body: JSON.stringify({
+        training_access: true,
+        tier: 'premium',
+        updated_at: new Date().toISOString(),
+      }),
+    });
+
+    if (!updateRes.ok) {
+      const err = await updateRes.text();
+      console.error('Training access update error:', err);
+      return res.status(500).json({ error: 'Nu am putut activa accesul.' });
+    }
+
+    console.log(`✅ Training access activated for user ${user_id}`);
+    return res.status(200).json({ ok: true });
+  } catch (err) {
+    console.error('Training code error:', err);
     return res.status(500).json({ error: 'Eroare server.' });
   }
 }
