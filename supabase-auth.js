@@ -177,7 +177,7 @@
     try {
       const res = await fetch('/api/create-checkout', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ plan, email: _sbUser.email, user_id: _sbUser.id }),
+        body: JSON.stringify({ plan, email: _sbUser.email, user_id: _sbUser.id, lang: window.currentLang || 'ro' }),
       });
       const data = await res.json();
       if (data.url) window.location.href = data.url;
