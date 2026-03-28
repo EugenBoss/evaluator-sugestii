@@ -1199,6 +1199,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 </div>
 </div>
 </div><!-- app-wrap -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ===== ZOOM FIX =====
 (function(){if(typeof document.body?.style!=='undefined'){document.body.style.zoom='100%';document.documentElement.style.zoom='100%'}})();
@@ -2729,5 +2730,6 @@ document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.addEventListener('clic
 window.addEventListener('hashchange',handleHash);
 (function(){checkStripeSuccess();checkLibStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter()})();
 </script>
+<script src="/supabase-auth.js"></script>
 </body>
 </html>
