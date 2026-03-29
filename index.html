@@ -135,6 +135,8 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .improved-card{margin-top:20px}.improved-card h3{font-size:1rem;font-weight:700;color:var(--accent-green);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .improved-text{padding:16px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm);font-size:0.92rem;line-height:1.7;color:var(--text-primary);font-style:italic}
 .changes-text{margin-top:12px;padding:16px;background:var(--bg-card);border-radius:var(--radius-sm);font-size:0.88rem;line-height:1.6;color:var(--text-secondary)}
+.dash-stat{display:flex;align-items:center;gap:14px;padding:20px}.dash-stat-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}.dash-stat-val{font-size:1.8rem;font-weight:700;color:var(--text-heading);line-height:1.2}.dash-stat-label{font-size:0.78rem;color:var(--text-muted)}.dash-bar{display:flex;align-items:center;gap:8px;margin-bottom:10px}.dash-bar-label{font-size:0.8rem;color:var(--text-secondary);width:120px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dash-bar-track{flex:1;height:10px;background:rgba(255,255,255,0.06);border-radius:5px;overflow:hidden}.dash-bar-fill{height:100%;border-radius:5px;transition:width 0.6s ease}.dash-bar-val{font-size:0.78rem;color:var(--text-muted);width:40px;text-align:right;flex-shrink:0}.dash-insight{padding:12px 14px;background:var(--bg-input);border-radius:var(--radius-sm);margin-bottom:8px;font-size:0.85rem;color:var(--text-secondary);line-height:1.5;border-left:3px solid var(--accent-blue)}.dash-insight strong{color:var(--text-heading)}
+@media(max-width:768px){#dashGridTwo{grid-template-columns:1fr}}
 .lp-hero{background:linear-gradient(160deg,rgba(15,31,40,0.95) 0%,rgba(79,193,233,0.12) 50%,rgba(246,212,76,0.06) 100%);border:1px solid var(--border-card);border-radius:var(--radius);padding:48px 36px 40px;margin-bottom:28px;position:relative;overflow:hidden;text-align:center}
 .lp-hero::before{content:'';position:absolute;top:-60%;right:-20%;width:400px;height:400px;background:radial-gradient(circle,rgba(79,193,233,0.08) 0%,transparent 70%);pointer-events:none}
 .lp-hero-tag{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent-blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;opacity:0.8}
@@ -829,6 +831,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <a href="#biblioteca" data-section="biblioteca"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></span><span data-i18n="nav_library">Bibliotecă</span></a>
 <a href="#ghid" data-section="ghid"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span><span data-i18n="nav_guide">Ghid</span></a>
 <a href="#istoric" data-section="istoric"><span class="nav-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><span data-i18n="nav_history">Istoric</span></a>
+<a href="#dashboard" data-section="dashboard"><span class="nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></span><span>Dashboard</span></a>
 <a href="#contact" data-section="contact"><span class="nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></span><span data-i18n="nav_contact">Contact</span></a>
 </nav>
 <div id="sidebarStreak" class="sidebar-streak" style="display:none;padding:10px 14px;margin:0 10px 8px;background:rgba(246,212,76,0.06);border:1px solid rgba(246,212,76,0.15);border-radius:var(--radius-sm)">
@@ -1241,6 +1244,38 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div id="histDetail" style="display:none"></div>
 <div id="istoricRecs"></div>
 </section>
+<section class="page-section" id="sec-dashboard">
+<div class="section-tag">Progresul tău</div>
+<h1 class="section-title">Dashboard Personal</h1>
+<p class="section-desc">Vizualizează progresul tău și identifică punctele de îmbunătățit.</p>
+<div id="dashEmpty" style="display:none" class="card" style="padding:32px;text-align:center">
+<div style="font-size:2rem;margin-bottom:12px">📊</div>
+<div style="font-size:1rem;font-weight:600;color:var(--text-heading);margin-bottom:8px">Încă nu ai evaluări</div>
+<div style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:16px">Dashboard-ul se populează automat pe măsură ce evaluezi sugestii.</div>
+<button class="btn-primary" onclick="navigateTo('evaluator')" style="margin:0 auto">Evaluează prima sugestie →</button>
+</div>
+<div id="dashContent" style="display:none">
+<div class="card-grid" style="margin-bottom:20px" id="dashStats"></div>
+<div class="card" style="margin-bottom:20px;padding:20px" id="dashChartWrap">
+<div style="font-size:0.85rem;font-weight:700;color:var(--text-heading);margin-bottom:12px">📈 Evoluția scorului</div>
+<canvas id="dashCanvas" width="700" height="220"></canvas>
+</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px" id="dashGridTwo">
+<div class="card" style="padding:20px" id="dashCriterii">
+<div style="font-size:0.85rem;font-weight:700;color:var(--text-heading);margin-bottom:12px">🎯 Criterii — puncte slabe</div>
+<div id="dashCriteriiList"></div>
+</div>
+<div class="card" style="padding:20px" id="dashModules">
+<div style="font-size:0.85rem;font-weight:700;color:var(--text-heading);margin-bottom:12px">🔬 Utilizare module</div>
+<div id="dashModulesList"></div>
+</div>
+</div>
+<div class="card" style="padding:20px;margin-bottom:20px" id="dashInsights">
+<div style="font-size:0.85rem;font-weight:700;color:var(--text-heading);margin-bottom:12px">💡 Insight-uri personalizate</div>
+<div id="dashInsightsList"></div>
+</div>
+</div>
+</section>
 <section class="page-section" id="sec-contact">
 <div class="section-tag" data-i18n="contact_tag">Contact</div>
 <h1 class="section-title" data-i18n="contact_title">Contact</h1>
@@ -1486,7 +1521,7 @@ function detectLang(){const s=localStorage.getItem('eval_lang');if(s&&T[s])retur
 function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.documentElement.lang=l;const sel=document.getElementById('langSelect');if(sel)sel.value=l;applyTranslations();renderGuide();initCountryDropdown()}
 function t(k){return(T[currentLang]&&T[currentLang][k])||T.en[k]||T.ro[k]||k}
 function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.getAttribute('data-i18n'));if(v)el.textContent=v});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.getAttribute('data-i18n-placeholder'));if(v)el.placeholder=v})}
-function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s);if(s==='generator'||s==='evaluator'||s==='antrenament')showInlineHint(s)}
+function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='dashboard')renderDashboard();if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s);if(s==='generator'||s==='evaluator'||s==='antrenament')showInlineHint(s)}
 function handleHash(){navigateTo(window.location.hash.replace('#','')||'generator')}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function initCountryDropdown(){const sel=document.getElementById('leadCountry');if(!sel||sel.options.length>1)return;sel.innerHTML='';const defCode=currentLang==='ro'?'+40':currentLang==='pt'?'+351':currentLang==='es'?'+34':currentLang==='fr'?'+33':currentLang==='de'?'+49':'+44';CC.forEach(c=>{const o=document.createElement('option');o.value=c.c;o.textContent=c.f+' '+c.c;if(c.c===defCode)o.selected=true;sel.appendChild(o)})}
@@ -3306,6 +3341,86 @@ function drawHistChart(entries){
 }
 // ===== END ISTORIC =====
 
+// ===== DASHBOARD =====
+function renderDashboard(){
+  var hist=getHistory();
+  var evals=hist.filter(function(h){return h.source==='evaluator'||h.source==='antrenament'});
+  var gens=hist.filter(function(h){return h.source==='generator'});
+  var labs=hist.filter(function(h){return (h.source||'').indexOf('laborator')>=0||h.content_type==='laborator'});
+  var scored=evals.filter(function(h){return h.scor>0});
+  if(hist.length===0){document.getElementById('dashEmpty').style.display='block';document.getElementById('dashContent').style.display='none';return}
+  document.getElementById('dashEmpty').style.display='none';document.getElementById('dashContent').style.display='block';
+  var isRo=!currentLang||currentLang==='ro';
+  // Stats
+  var total=hist.length;
+  var avgScore=scored.length?Math.round(scored.reduce(function(s,h){return s+h.scor},0)/scored.length):0;
+  var bestScore=scored.length?Math.max.apply(null,scored.map(function(h){return h.scor})):0;
+  var streak=getStreak();
+  var statsEl=document.getElementById('dashStats');
+  statsEl.innerHTML='<div class="card dash-stat"><div class="dash-stat-icon" style="background:rgba(79,193,233,0.12)">📊</div><div><div class="dash-stat-val">'+total+'</div><div class="dash-stat-label">'+(isRo?'Total interacțiuni':'Total interactions')+'</div></div></div>'
+    +'<div class="card dash-stat"><div class="dash-stat-icon" style="background:rgba(46,204,113,0.12)">🎯</div><div><div class="dash-stat-val">'+avgScore+'</div><div class="dash-stat-label">'+(isRo?'Scor mediu':'Average score')+'</div></div></div>'
+    +'<div class="card dash-stat"><div class="dash-stat-icon" style="background:rgba(246,212,76,0.12)">⭐</div><div><div class="dash-stat-val">'+bestScore+'</div><div class="dash-stat-label">'+(isRo?'Cel mai bun scor':'Best score')+'</div></div></div>'
+    +'<div class="card dash-stat"><div class="dash-stat-icon" style="background:rgba(246,212,76,0.12)">\uD83D\uDD25</div><div><div class="dash-stat-val">'+streak.count+'</div><div class="dash-stat-label">'+(isRo?'Zile consecutive':'Day streak')+'</div></div></div>';
+  // Score chart
+  if(scored.length>=2){document.getElementById('dashChartWrap').style.display='block';setTimeout(function(){drawDashChart(scored.slice(0,30).reverse())},100)}
+  else{document.getElementById('dashChartWrap').style.display='none'}
+  // Criteria weakness
+  var critMap={};var critCount={};
+  scored.forEach(function(h){(h.criterii||[]).forEach(function(c){if(!c.id||!c.scor)return;if(!critMap[c.id])critMap[c.id]=0;if(!critCount[c.id])critCount[c.id]=0;critMap[c.id]+=c.scor;critCount[c.id]++})});
+  var critAvg=[];for(var k in critMap){critAvg.push({id:parseInt(k),avg:Math.round(critMap[k]/critCount[k]*10)/10,count:critCount[k]})}
+  critAvg.sort(function(a,b){return a.avg-b.avg});
+  var critEl=document.getElementById('dashCriteriiList');
+  if(critAvg.length===0){critEl.innerHTML='<div style="font-size:0.82rem;color:var(--text-muted)">'+(isRo?'Evaluează pe nivel Avansat sau Expert pentru a vedea criteriile.':'Evaluate at Advanced or Expert level to see criteria.')+'</div>'}
+  else{var ch='';critAvg.slice(0,6).forEach(function(c){var cn=CN[c.id]&&CN[c.id][currentLang]?CN[c.id][currentLang]:(CN[c.id]&&CN[c.id].en?CN[c.id].en:'C'+c.id);var cl=c.avg>=7?'var(--accent-green)':c.avg>=5?'var(--accent-gold)':'var(--accent-red)';ch+='<div class="dash-bar"><span class="dash-bar-label">'+cn+'</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:'+c.avg*10+'%;background:'+cl+'"></div></div><span class="dash-bar-val" style="color:'+cl+'">'+c.avg+'</span></div>'});critEl.innerHTML=ch}
+  // Module usage
+  var modEl=document.getElementById('dashModulesList');
+  var mods=[{name:isRo?'Evaluator':'Evaluator',count:evals.filter(function(h){return h.source==='evaluator'}).length,color:'var(--accent-blue)',icon:'📊'},{name:isRo?'Generator':'Generator',count:gens.length,color:'var(--accent-green)',icon:'🔮'},{name:isRo?'Antrenament':'Training',count:evals.filter(function(h){return h.source==='antrenament'}).length,color:'var(--accent-gold)',icon:'🎯'},{name:'Lab NLP',count:labs.length,color:'#9b59b6',icon:'🔬'}];
+  var modMax=Math.max.apply(null,mods.map(function(m){return m.count}))||1;
+  var mh='';mods.forEach(function(m){mh+='<div class="dash-bar"><span class="dash-bar-label">'+m.icon+' '+m.name+'</span><div class="dash-bar-track"><div class="dash-bar-fill" style="width:'+Math.round(m.count/modMax*100)+'%;background:'+m.color+'"></div></div><span class="dash-bar-val">'+m.count+'</span></div>'});
+  modEl.innerHTML=mh;
+  // Insights
+  var insEl=document.getElementById('dashInsightsList');
+  var ins=[];
+  if(scored.length>=3){var last3=scored.slice(0,3);var first3=scored.slice(-3);var lastAvg=Math.round(last3.reduce(function(s,h){return s+h.scor},0)/last3.length);var firstAvg=Math.round(first3.reduce(function(s,h){return s+h.scor},0)/first3.length);if(lastAvg>firstAvg+5)ins.push((isRo?'<strong>Progres vizibil!</strong> Scorurile tale recente (media '+lastAvg+') sunt mai bune decât cele inițiale (media '+firstAvg+'). Continuă!':'<strong>Visible progress!</strong> Your recent scores (avg '+lastAvg+') are better than initial ones (avg '+firstAvg+'). Keep going!'));if(lastAvg<firstAvg-5)ins.push((isRo?'<strong>Atenție:</strong> Scorurile recente (media '+lastAvg+') au scăzut față de cele inițiale (media '+firstAvg+'). Verifică feedback-ul pe criterii.':'<strong>Attention:</strong> Recent scores (avg '+lastAvg+') have decreased from initial (avg '+firstAvg+'). Check criteria feedback.'))}
+  if(critAvg.length&&critAvg[0].avg<5){var weakCn=CN[critAvg[0].id]&&CN[critAvg[0].id][currentLang]?CN[critAvg[0].id][currentLang]:'C'+critAvg[0].id;ins.push((isRo?'<strong>Criteriul cel mai slab:</strong> '+weakCn+' (media '+critAvg[0].avg+'/10). Concentrează-te pe acest aspect la următoarea sugestie.':'<strong>Weakest criterion:</strong> '+weakCn+' (avg '+critAvg[0].avg+'/10). Focus on this aspect next.'))}
+  if(gens.length>0&&evals.filter(function(h){return h.source==='evaluator'}).length===0)ins.push((isRo?'<strong>Sugestie:</strong> Ai generat sugestii dar nu ai evaluat niciuna. Încearcă Evaluatorul pentru a înțelege criteriile.':'<strong>Suggestion:</strong> You generated suggestions but evaluated none. Try the Evaluator to understand the criteria.'));
+  if(labs.length===0&&scored.length>=3)ins.push((isRo?'<strong>Explorează Laboratorul NLP:</strong> 11 instrumente de analiză te ajută să înțelegi structura sugestiilor tale.':'<strong>Explore the NLP Lab:</strong> 11 analysis tools help you understand your suggestion structure.'));
+  if(streak.count>=3)ins.push((isRo?'<strong>Streak activ: '+streak.count+' zile!</strong> Consistența bate talentul. Continuă ritmul!':'<strong>Active streak: '+streak.count+' days!</strong> Consistency beats talent. Keep it up!'));
+  if(scored.length>=5&&bestScore>=85)ins.push((isRo?'<strong>Nivel avansat!</strong> Cel mai bun scor al tău ('+bestScore+') indică o înțelegere solidă a principiilor. Training-ul Profesional de Hipnoză te poate duce la nivelul următor.':'<strong>Advanced level!</strong> Your best score ('+bestScore+') shows solid understanding. Professional Hypnosis Training can take you further.'));
+  if(ins.length===0)ins.push((isRo?'Continuă să evaluezi pentru a primi insight-uri personalizate.':'Keep evaluating to receive personalized insights.'));
+  insEl.innerHTML=ins.map(function(i){return '<div class="dash-insight">'+i+'</div>'}).join('');
+}
+function drawDashChart(entries){
+  var canvas=document.getElementById('dashCanvas');if(!canvas)return;
+  var ctx=canvas.getContext('2d');
+  var w=canvas.width,h=canvas.height;
+  var pad={t:20,r:20,b:30,l:40};
+  var cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
+  ctx.clearRect(0,0,w,h);
+  var n=entries.length;if(n<2)return;
+  var scores=entries.map(function(e){return e.scor});
+  var minS=Math.max(0,Math.min.apply(null,scores)-10);
+  var maxS=Math.min(100,Math.max.apply(null,scores)+10);
+  var range=maxS-minS||1;
+  // Grid
+  ctx.strokeStyle='rgba(255,255,255,0.06)';ctx.lineWidth=1;
+  for(var g=0;g<=4;g++){var gy=pad.t+ch*(1-g/4);ctx.beginPath();ctx.moveTo(pad.l,gy);ctx.lineTo(w-pad.r,gy);ctx.stroke();ctx.fillStyle='rgba(255,255,255,0.25)';ctx.font='10px var(--font-mono)';ctx.textAlign='right';ctx.fillText(Math.round(minS+range*g/4),pad.l-6,gy+4)}
+  // Points
+  var pts=entries.map(function(e,i){return{x:pad.l+i/(n-1)*cw,y:pad.t+ch*(1-(e.scor-minS)/range)}});
+  // Area
+  ctx.beginPath();ctx.moveTo(pts[0].x,h-pad.b);
+  pts.forEach(function(p){ctx.lineTo(p.x,p.y)});
+  ctx.lineTo(pts[pts.length-1].x,h-pad.b);ctx.closePath();
+  var grd=ctx.createLinearGradient(0,pad.t,0,h-pad.b);grd.addColorStop(0,'rgba(79,193,233,0.15)');grd.addColorStop(1,'rgba(79,193,233,0)');ctx.fillStyle=grd;ctx.fill();
+  // Line
+  ctx.beginPath();pts.forEach(function(p,i){if(i===0)ctx.moveTo(p.x,p.y);else ctx.lineTo(p.x,p.y)});ctx.strokeStyle='#4FC1E9';ctx.lineWidth=2.5;ctx.stroke();
+  // Dots
+  pts.forEach(function(p,i){var cl=scores[i]>=75?'#2ecc71':scores[i]>=50?'#F6D44C':'#e74c5e';ctx.beginPath();ctx.arc(p.x,p.y,4,0,Math.PI*2);ctx.fillStyle=cl;ctx.fill();ctx.strokeStyle='rgba(0,0,0,0.3)';ctx.lineWidth=1;ctx.stroke()});
+  // X labels
+  ctx.fillStyle='rgba(255,255,255,0.25)';ctx.font='9px var(--font-mono)';ctx.textAlign='center';
+  var step=Math.max(1,Math.floor(n/6));
+  for(var i=0;i<n;i+=step){var d=new Date(entries[i].date);ctx.fillText(d.getDate()+'/'+(d.getMonth()+1),pts[i].x,h-pad.b+16)}
+}
 // ===== LANDING PAGE HELPERS =====
 function lpGoGen(problem){
   navigateTo('generator');
