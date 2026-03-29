@@ -783,26 +783,62 @@
     }
   }
 
+  async function _saveGenToSupabase(entry) {
+    if (!_sb || !_sbUser) return;
+    try {
+      await _sb.from('generations').insert({
+        user_id: _sbUser.id,
+        problem_text: entry.problem_text || '',
+        category: entry.category || '',
+        intensity: entry.intensity || 0,
+        level: entry.level || 'simplu',
+        recipient_name: entry.recipient_name || '',
+        afirmatii: entry.afirmatii || null,
+        sugestii: entry.sugestii || null,
+        sugestii_complete: entry.sugestii_complete || null,
+        script_text: entry.script_text || '',
+        device: window.innerWidth <= 768 ? 'mobile' : 'desktop',
+        language: entry.lang || 'ro',
+        local_id: entry.local_id || null,
+        created_at: entry.created_at || new Date().toISOString(),
+      });
+    } catch (err) {
+      console.warn('Supabase gen save error:', err);
+    }
+  }
+
   async function _syncHistory() {
     if (!_sb || !_sbUser) return;
     try {
-      // 1. Fetch from Supabase (last 50)
-      const { data: remoteEvals, error } = await _sb
+      // 1. Fetch evaluations from Supabase (last 40)
+      const { data: remoteEvals, error: evErr } = await _sb
         .from('evaluations')
         .select('*')
         .eq('user_id', _sbUser.id)
         .order('created_at', { ascending: false })
-        .limit(50);
+        .limit(40);
 
-      if (error || !remoteEvals) return;
-      if (remoteEvals.length === 0) {
-        // No remote data — migrate localStorage to Supabase
+      // 2. Fetch generations from Supabase (last 20)
+      let remoteGens = [];
+      try {
+        const { data: gd, error: gErr } = await _sb
+          .from('generations')
+          .select('*')
+          .eq('user_id', _sbUser.id)
+          .order('created_at', { ascending: false })
+          .limit(20);
+        if (!gErr && gd) remoteGens = gd;
+      } catch (e) { /* generations table may not exist yet */ }
+
+      const hasRemoteData = (remoteEvals && remoteEvals.length > 0) || remoteGens.length > 0;
+
+      if (!hasRemoteData) {
         _migrateLocalHistory();
         return;
       }
 
-      // 2. Convert remote to localStorage format
-      const remoteEntries = remoteEvals.map(r => ({
+      // 3. Convert evaluations to localStorage format
+      const evalEntries = (remoteEvals || []).map(r => ({
         id: r.local_id || ('sb_' + r.id.slice(0, 8)),
         date: r.created_at,
         text: r.suggestion_text || '',
@@ -820,20 +856,62 @@
         _fromSupabase: true,
       }));
 
-      // 3. Merge: Supabase entries + localStorage-only entries (deduplicate by id)
+      // 4. Convert generations to localStorage format
+      const genEntries = remoteGens.map(r => {
+        const sug = r.sugestii || [];
+        const aff = r.afirmatii || [];
+        return {
+          id: r.local_id || ('sbg_' + r.id.slice(0, 8)),
+          date: r.created_at,
+          text: r.problem_text || '',
+          scor: 0,
+          tier: r.level || 'simplu',
+          tip: r.category || '—',
+          source: 'generator',
+          content_type: 'generator',
+          lang: r.language || 'ro',
+          criterii: [],
+          top_probleme: [],
+          versiune_imbunatatita: sug.map(s => typeof s === 'string' ? s : (s.text || s.sugestie || '')).join('\n\n---\n\n'),
+          explicatii: '',
+          sumar: '',
+          gen_count: sug.length + aff.length,
+          gen_category: r.category || '',
+          _fromSupabase: true,
+        };
+      });
+
+      // 5. Merge: remote entries + localStorage-only entries (deduplicate by id)
+      const remoteAll = [...evalEntries, ...genEntries];
       const localHist = JSON.parse(localStorage.getItem('eval_history') || '[]');
-      const remoteIds = new Set(remoteEntries.map(e => e.id));
+      const remoteIds = new Set(remoteAll.map(e => e.id));
       const localOnly = localHist.filter(e => !remoteIds.has(e.id) && !e._fromSupabase);
 
-      // Upload local-only entries to Supabase (they haven't been saved yet)
+      // Upload local-only entries to appropriate Supabase table
       for (const entry of localOnly) {
-        await _saveEvalToSupabase(entry);
+        if (entry.source === 'generator') {
+          await _saveGenToSupabase({
+            problem_text: entry.text || '',
+            category: entry.gen_category || entry.tip || '',
+            intensity: entry.gen_intensity || 0,
+            level: entry.tier || 'simplu',
+            recipient_name: '',
+            afirmatii: null,
+            sugestii: null,
+            script_text: '',
+            lang: entry.lang || 'ro',
+            local_id: entry.id,
+            created_at: entry.date,
+          });
+        } else {
+          await _saveEvalToSupabase(entry);
+        }
       }
 
-      // 4. Merged list: remote + local-only, sorted by date desc, max 50
-      const merged = [...remoteEntries, ...localOnly]
+      // 6. Merged list: all remote + local-only, sorted by date desc, max 60
+      const merged = [...remoteAll, ...localOnly]
         .sort((a, b) => new Date(b.date) - new Date(a.date))
-        .slice(0, 50);
+        .slice(0, 60);
 
       localStorage.setItem('eval_history', JSON.stringify(merged));
       localStorage.setItem('eval_history_synced', Date.now().toString());
@@ -860,11 +938,27 @@
 
     let count = 0;
     for (const entry of hist) {
-      await _saveEvalToSupabase(entry);
+      if (entry.source === 'generator') {
+        await _saveGenToSupabase({
+          problem_text: entry.text || '',
+          category: entry.gen_category || entry.tip || '',
+          intensity: entry.gen_intensity || 0,
+          level: entry.tier || 'simplu',
+          recipient_name: '',
+          afirmatii: null,
+          sugestii: null,
+          script_text: '',
+          lang: entry.lang || 'ro',
+          local_id: entry.id,
+          created_at: entry.date,
+        });
+      } else {
+        await _saveEvalToSupabase(entry);
+      }
       count++;
     }
     localStorage.setItem('eval_history_migrated_' + _sbUser.id, '1');
-    console.log(`Migrated ${count} evaluations to Supabase`);
+    console.log(`Migrated ${count} entries to Supabase (evals + gens)`);
   }
 
   // --- TRAINING CODE ---
@@ -953,7 +1047,7 @@
     doForgotSendCode, doForgotResetPassword,
     signIn, signOut, startCheckout,
     showTrainingCodeInput, activateTrainingCode,
-    saveEval: _saveEvalToSupabase, syncHistory: _syncHistory,
+    saveEval: _saveEvalToSupabase, saveGen: _saveGenToSupabase, syncHistory: _syncHistory,
     getUser: () => _sbUser, getProfile: () => _sbProfile, getEffectiveTier: () => _effectiveTier, isReady: () => _authReady, refreshProfile: _loadProfile,
   };
 

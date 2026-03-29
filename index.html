@@ -1702,6 +1702,7 @@ async function executeGeneration(){
     recordGenUsage();
     if(genState.level!=='simplu'){sendGenLeadToGHL(j);sendGenSuggestionsEmail(j);}
     renderGenResult(j);
+    saveGenToHistory(genState,j);
 
   }catch(e){
     clearInterval(iv);
@@ -2197,6 +2198,7 @@ async function runLabInstrument(id){
     else if(id==='milton')renderLabMilton(j,res);
     else if(id==='metamodel')renderLabMetamodel(j,res);
     else if(id==='metaprograms')renderLabMetaprograms(j,res);
+    saveLabToHistory(id,input,j);
   }catch(e){lo.classList.remove('visible');btn.disabled=false;res.innerHTML='<div class="card" style="padding:20px;color:var(--accent-red);text-align:center">'+t('lab_error')+'</div>';console.error(e)}
 }
 
@@ -2497,6 +2499,79 @@ function saveToHistory(inputText,result,source){
   if(window._sbAuth&&window._sbAuth.saveEval)window._sbAuth.saveEval(entry);
 }
 
+function saveGenToHistory(gs,result){
+  const sug=result.sugestii||result.suggestions||[];
+  const aff=result.afirmatii||result.affirmations||[];
+  const sugTexts=sug.map(function(s){return typeof s==='string'?s:(s.text||s.sugestie||s.titlu||'')});
+  const entry={
+    id:'g_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
+    date:new Date().toISOString(),
+    text:(gs.problemFree||gs.category||'').substring(0,800),
+    scor:0,
+    tier:gs.level||'simplu',
+    tip:gs.category||'—',
+    source:'generator',
+    content_type:'generator',
+    lang:currentLang||'ro',
+    criterii:[],
+    top_probleme:[],
+    versiune_imbunatatita:sugTexts.join('\n\n---\n\n'),
+    explicatii:'',
+    sumar:'',
+    gen_count:sug.length+aff.length,
+    gen_category:gs.category||''
+  };
+  const hist=getHistory();
+  hist.unshift(entry);
+  setHistory(hist);
+  if(window._sbAuth&&window._sbAuth.saveGen){
+    window._sbAuth.saveGen({
+      problem_text:gs.problemFree||'',
+      category:gs.category||'',
+      intensity:gs.intensity||0,
+      level:gs.level||'simplu',
+      recipient_name:gs.name||'',
+      afirmatii:aff.length?aff:null,
+      sugestii:sug.length?sug:null,
+      sugestii_complete:result.sugestii_complete||null,
+      script_text:result.script||result.script_text||'',
+      lang:currentLang||'ro',
+      local_id:entry.id,
+      created_at:entry.date
+    });
+  }
+}
+
+function saveLabToHistory(instrId,input,result){
+  var score=0,summary='';
+  if(instrId==='vakog'){score=(result.scor_congruenta&&result.scor_congruenta.scor||0)*10;var sv=result.statistici||{};summary='Dominant: '+(sv.canal_dominant||'—')+' | Senz: '+(sv.pct_senzorial||0)+'%'}
+  else if(instrId==='milton'){score=(result.scor_c15||0)*10;var sm=result.statistici||{};summary=(sm.pattern_uri_distincte||0)+' patterns | '+(sm.total_instante||0)+' inst.'}
+  else if(instrId==='metamodel'){score=result.sumar&&result.sumar.scor_intentionalitate||0;summary='Intent: '+score+'/100 | '+(result.sumar&&result.sumar.total||0)+' violări'}
+  else if(instrId==='metaprograms'){score=0;var mp=result.meta_programs||{};summary='Spre: '+(mp.directie&&mp.directie.pct_spre||50)+'% | '+(mp.referinta&&mp.referinta.dominant||'—')}
+  var labNames={vakog:'VAKOG',milton:'Milton Model',metamodel:'Meta Model',metaprograms:'Meta Programs'};
+  var entry={
+    id:'l_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
+    date:new Date().toISOString(),
+    text:(input||'').substring(0,800),
+    scor:score,
+    tier:'laborator',
+    tip:labNames[instrId]||instrId,
+    source:'laborator',
+    content_type:'laborator_'+instrId,
+    lang:currentLang||'ro',
+    criterii:[],
+    top_probleme:[],
+    versiune_imbunatatita:'',
+    explicatii:(result.recomandari||[]).join(' | ')||(result.evaluare||''),
+    sumar:summary,
+    lab_instrument:instrId
+  };
+  var hist=getHistory();
+  hist.unshift(entry);
+  setHistory(hist);
+  if(window._sbAuth&&window._sbAuth.saveEval)window._sbAuth.saveEval(entry);
+}
+
 function renderHistory(){
   const hist=getHistory();
   const stats=document.getElementById('histStats');
@@ -2516,16 +2591,17 @@ function renderHistory(){
     return;
   }
 
-  // Stats
-  const avg=Math.round(hist.reduce((s,h)=>s+h.scor,0)/hist.length);
-  const best=Math.max(...hist.map(h=>h.scor));
+  // Stats (exclude generator + zero-score entries)
+  const scored=hist.filter(function(h){return h.scor>0});
+  const avg=scored.length?Math.round(scored.reduce(function(s,h){return s+h.scor},0)/scored.length):0;
+  const best=scored.length?Math.max.apply(null,scored.map(function(h){return h.scor})):0;
   const avgColor=avg>=90?'var(--accent-green)':avg>=75?'var(--accent-blue)':avg>=60?'var(--accent-gold)':'var(--accent-orange)';
-  stats.innerHTML='<div class="hist-stats-grid"><div class="hist-stat"><div class="hist-stat-num">'+hist.length+'</div><div class="hist-stat-label">'+t('hist_total')+'</div></div><div class="hist-stat"><div class="hist-stat-num" style="color:'+avgColor+'">'+avg+'</div><div class="hist-stat-label">'+t('hist_avg')+'</div></div><div class="hist-stat"><div class="hist-stat-num" style="color:var(--accent-green)">'+best+'</div><div class="hist-stat-label">'+t('hist_best')+'</div></div><div class="hist-stat"><div class="hist-stat-num">'+hist.filter(h=>h.scor>=75).length+'</div><div class="hist-stat-label">'+t('hist_good_count')+'</div></div></div>';
+  stats.innerHTML='<div class="hist-stats-grid"><div class="hist-stat"><div class="hist-stat-num">'+hist.length+'</div><div class="hist-stat-label">'+t('hist_total')+'</div></div><div class="hist-stat"><div class="hist-stat-num" style="color:'+avgColor+'">'+avg+'</div><div class="hist-stat-label">'+t('hist_avg')+'</div></div><div class="hist-stat"><div class="hist-stat-num" style="color:var(--accent-green)">'+best+'</div><div class="hist-stat-label">'+t('hist_best')+'</div></div><div class="hist-stat"><div class="hist-stat-num">'+scored.filter(function(h){return h.scor>=75}).length+'</div><div class="hist-stat-label">'+t('hist_good_count')+'</div></div></div>';
 
   // Chart (last 20, oldest to newest)
-  if(hist.length>=2){
+  if(scored.length>=2){
     chart.style.display='block';
-    setTimeout(()=>drawHistChart(hist.slice(0,20).reverse()),100);
+    setTimeout(()=>drawHistChart(hist.filter(function(h){return h.scor>0}).slice(0,20).reverse()),100);
   }else{chart.style.display='none'}
 
   // Toolbar + filters
@@ -2548,7 +2624,13 @@ function renderHistory(){
     const timeStr=d.toLocaleTimeString(currentLang==='ro'?'ro-RO':'en-US',{hour:'2-digit',minute:'2-digit'});
     const preview=(h.text||'').substring(0,100)+(h.text&&h.text.length>100?'…':'');
     lh+='<div class="hist-item" onclick="showHistDetail(\''+h.id+'\')">';
-    lh+='<div class="hist-item-score" style="color:'+cl+';border:2px solid '+cl+'">'+sc+'</div>';
+    if(h.source==='generator'){
+      lh+='<div class="hist-item-score" style="color:var(--accent-gold);border:2px solid var(--accent-gold);font-size:1.3rem">🔮</div>';
+    }else if(h.source==='laborator'&&sc===0){
+      lh+='<div class="hist-item-score" style="color:var(--accent-blue);border:2px solid var(--accent-blue);font-size:1.3rem">🔬</div>';
+    }else{
+      lh+='<div class="hist-item-score" style="color:'+cl+';border:2px solid '+cl+'">'+sc+'</div>';
+    }
     lh+='<div class="hist-item-body"><div class="hist-item-text">'+escHtml(preview)+'</div>';
     lh+='<div class="hist-item-meta"><span>'+dateStr+' '+timeStr+'</span><span>·</span><span style="color:var(--accent-blue)">'+escHtml(h.tier||'')+'</span><span>·</span><span>'+escHtml(h.tip||'')+'</span><span>·</span><span>'+escHtml(h.source||'')+'</span></div>';
     lh+='</div></div>';
@@ -2576,15 +2658,36 @@ function showHistDetail(id){
   const {level,color,desc}=getScoreLevel(sc);
   const d=new Date(h.date);
   const dateStr=d.toLocaleDateString(currentLang==='ro'?'ro-RO':'en-US',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+  const isGen=h.source==='generator';
+  const isLab=h.source==='laborator';
 
   let html='<button class="lib-exp-back" onclick="renderHistory()">'+t('hist_back_list')+'</button>';
-  html+='<div class="card" style="padding:24px;margin-bottom:16px"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px"><div class="result-header" style="margin-bottom:0"><div class="score-circle" style="--score-color:'+color+';--score-pct:'+sc+'%;background:var(--bg-input);width:70px;height:70px"><span class="score-num" style="font-size:1.3rem">'+sc+'</span><span class="score-max">/100</span></div><div class="result-meta"><div class="result-level" style="color:'+color+'">'+level+' — '+desc+'</div><div style="font-size:0.82rem;color:var(--text-muted)">'+dateStr+' · '+escHtml(h.tier)+' · '+escHtml(h.source)+'</div></div></div><div style="display:flex;gap:8px"><button class="btn-secondary" onclick="reEvalFromHistory(\''+id+'\')" style="font-size:0.82rem">'+t('hist_re_eval')+'</button><button class="btn-secondary" onclick="deleteHistEntry(\''+id+'\')" style="font-size:0.82rem;color:var(--accent-red);border-color:rgba(231,76,94,0.3)">'+t('hist_delete_one')+'</button></div></div>';
+  html+='<div class="card" style="padding:24px;margin-bottom:16px"><div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:16px"><div class="result-header" style="margin-bottom:0">';
+  if(isGen){
+    html+='<div style="width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;border-radius:50%;border:2px solid var(--accent-gold);flex-shrink:0">🔮</div>';
+    html+='<div class="result-meta"><div class="result-level" style="color:var(--accent-gold)">'+(currentLang==='ro'?'Generator':'Generator')+' — '+escHtml(h.tier||'')+'</div><div style="font-size:0.82rem;color:var(--text-muted)">'+dateStr+' · '+escHtml(h.gen_category||h.tip||'')+'</div></div>';
+  }else if(isLab&&sc===0){
+    html+='<div style="width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:2.2rem;border-radius:50%;border:2px solid var(--accent-blue);flex-shrink:0">🔬</div>';
+    html+='<div class="result-meta"><div class="result-level" style="color:var(--accent-blue)">'+(currentLang==='ro'?'Laborator NLP':'NLP Lab')+' — '+escHtml(h.tip||'')+'</div><div style="font-size:0.82rem;color:var(--text-muted)">'+dateStr+'</div></div>';
+  }else{
+    html+='<div class="score-circle" style="--score-color:'+color+';--score-pct:'+sc+'%;background:var(--bg-input);width:70px;height:70px"><span class="score-num" style="font-size:1.3rem">'+sc+'</span><span class="score-max">/100</span></div>';
+    html+='<div class="result-meta"><div class="result-level" style="color:'+color+'">'+level+' — '+desc+'</div><div style="font-size:0.82rem;color:var(--text-muted)">'+dateStr+' · '+escHtml(h.tier)+' · '+escHtml(isLab?(h.tip||'laborator'):h.source)+'</div></div>';
+  }
+  html+='</div><div style="display:flex;gap:8px">';
+  if(!isGen)html+='<button class="btn-secondary" onclick="reEvalFromHistory(\''+id+'\')" style="font-size:0.82rem">'+t('hist_re_eval')+'</button>';
+  html+='<button class="btn-secondary" onclick="deleteHistEntry(\''+id+'\')" style="font-size:0.82rem;color:var(--accent-red);border-color:rgba(231,76,94,0.3)">'+t('hist_delete_one')+'</button></div></div>';
 
-  // Original text
-  html+='<div style="margin-bottom:16px"><div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">'+t('hist_original')+'</div><div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-sm);font-size:0.9rem;color:var(--text-primary);line-height:1.7;white-space:pre-wrap">'+escHtml(h.text)+'</div></div>';
+  // Original text / problem
+  var origLabel=isGen?(currentLang==='ro'?'PROBLEMA DESCRISĂ':'DESCRIBED PROBLEM'):isLab?(currentLang==='ro'?'TEXT ANALIZAT':'ANALYZED TEXT'):t('hist_original');
+  html+='<div style="margin-bottom:16px"><div style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px">'+origLabel+'</div><div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-sm);font-size:0.9rem;color:var(--text-primary);line-height:1.7;white-space:pre-wrap">'+escHtml(h.text)+'</div></div>';
 
-  // Criteria table
-  if(h.criterii&&h.criterii.length){
+  // Lab summary
+  if(isLab&&h.sumar){
+    html+='<div style="margin-bottom:16px;padding:14px;background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.15);border-radius:var(--radius-sm)"><div style="font-size:0.75rem;font-weight:600;color:var(--accent-blue);margin-bottom:6px">'+(currentLang==='ro'?'SUMAR ANALIZĂ':'ANALYSIS SUMMARY')+'</div><div style="font-size:0.9rem;color:var(--text-primary)">'+escHtml(h.sumar)+'</div></div>';
+  }
+
+  // Criteria table (evaluator/antrenament only)
+  if(!isGen&&!isLab&&h.criterii&&h.criterii.length){
     const _isAff=h.content_type==='afirmatie';
     html+='<table class="criteria-table"><thead><tr><th>'+t('res_criteria')+'</th><th>'+t('res_score_col')+'</th><th class="score-bar-cell"></th><th class="crit-obs">'+t('res_obs')+'</th></tr></thead><tbody>';
     h.criterii.forEach(c=>{
@@ -2597,20 +2700,27 @@ function showHistDetail(id){
     html+='</tbody></table>';
   }
 
-  // Top problems
-  if(h.top_probleme&&h.top_probleme.length){
+  // Top problems (evaluator/antrenament only)
+  if(!isGen&&!isLab&&h.top_probleme&&h.top_probleme.length){
     const _cats3=['stima','anxietate','relatii','trauma','depresie','burnout','procrastinare','singuratate','dependente','bani','sanatate','trauma_morala'];
     const _rp3=h.top_probleme.filter(p=>!_cats3.includes(p.toLowerCase().trim()));
     if(_rp3.length){html+='<div class="card problems-card" style="margin-top:16px"><h3>⚠ '+t('res_problems')+'</h3>';_rp3.forEach(p=>{html+='<div class="problem-item">'+escHtml(p)+'</div>'});html+='</div>'}
   }
 
-  // Improved version
+  // Generated suggestions (generator) or Improved version (evaluator)
   if(h.versiune_imbunatatita){
-    html+='<div class="card improved-card" style="margin-top:16px"><h3>✦ '+t('res_improved')+'</h3><div class="improved-text">'+escHtml(h.versiune_imbunatatita)+'</div>';
-    if(h.explicatii)html+='<h3 style="margin-top:16px;color:var(--accent-blue)">💡 '+t('res_changes')+'</h3><div class="changes-text">'+escHtml(h.explicatii)+'</div>';
+    var sectTitle=isGen?(currentLang==='ro'?'🔮 Sugestii generate':'🔮 Generated suggestions'):('✦ '+t('res_improved'));
+    html+='<div class="card improved-card" style="margin-top:16px"><h3>'+sectTitle+'</h3><div class="improved-text" style="white-space:pre-wrap">'+escHtml(h.versiune_imbunatatita)+'</div>';
+    if(!isGen&&h.explicatii)html+='<h3 style="margin-top:16px;color:var(--accent-blue)">💡 '+t('res_changes')+'</h3><div class="changes-text">'+escHtml(h.explicatii)+'</div>';
     html+='</div>';
   }
-  if(h.sumar)html+='<div class="card" style="margin-top:16px"><div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.7">'+escHtml(h.sumar)+'</div></div>';
+
+  // Lab recommendations
+  if(isLab&&h.explicatii&&!h.versiune_imbunatatita){
+    html+='<div class="card" style="margin-top:16px;padding:20px"><h3 style="color:var(--accent-blue);margin-bottom:12px">'+(currentLang==='ro'?'💡 Recomandări':'💡 Recommendations')+'</h3><div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.7">'+escHtml(h.explicatii)+'</div></div>';
+  }
+
+  if(h.sumar&&!isLab)html+='<div class="card" style="margin-top:16px"><div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.7">'+escHtml(h.sumar)+'</div></div>';
   html+='</div>';
 
   detail.innerHTML=html;
