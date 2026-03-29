@@ -21,6 +21,8 @@ export default async function handler(req, res) {
 
   const { action } = req.body || {};
 
+  console.log('[API] send-verification called. action:', action || '(none/send)', 'keys:', Object.keys(req.body || {}));
+
   if (action === 'verify') return handleVerify(req, res);
   if (action === 'send-reset') return handleSendReset(req, res);
   if (action === 'reset-password') return handleResetPassword(req, res);
@@ -46,6 +48,8 @@ async function handleSend(req, res) {
   const data = JSON.stringify({ code, email: email.trim().toLowerCase(), exp: expires });
   const token = Buffer.from(data).toString('base64url');
   const hmac = crypto.createHmac('sha256', secret).update(token).digest('hex');
+
+  console.log('[SEND] Code for', email.trim(), '→', code, 'expires:', new Date(expires).toISOString());
 
   try {
     const emailRes = await fetch('https://api.resend.com/emails', {
@@ -91,15 +95,23 @@ async function handleSend(req, res) {
 async function handleVerify(req, res) {
   const { token, hmac, code } = req.body || {};
 
+  console.log('[VERIFY] Received:', { hasToken: !!token, hasHmac: !!hmac, hasCode: !!code, codeLen: code ? code.length : 0 });
+
   if (!token || !hmac || !code) {
-    return res.status(400).json({ error: 'Missing params' });
+    const missing = [];
+    if (!token) missing.push('token');
+    if (!hmac) missing.push('hmac');
+    if (!code) missing.push('code');
+    console.log('[VERIFY] Missing params:', missing.join(', '));
+    return res.status(400).json({ error: 'missing_params', message: 'Date lipsă: ' + missing.join(', ') + '. Retrimite codul.' });
   }
 
   // Verify HMAC
   const secret = getSecret();
   const expectedHmac = crypto.createHmac('sha256', secret).update(token).digest('hex');
   if (hmac !== expectedHmac) {
-    return res.status(400).json({ error: 'Token invalid' });
+    console.log('[VERIFY] HMAC mismatch. Expected:', expectedHmac.substring(0, 12) + '... Got:', hmac.substring(0, 12) + '...');
+    return res.status(400).json({ error: 'token_invalid', message: 'Token invalid. Retrimite codul.' });
   }
 
   // Decode and check
@@ -107,17 +119,21 @@ async function handleVerify(req, res) {
   try {
     data = JSON.parse(Buffer.from(token, 'base64url').toString());
   } catch (e) {
-    return res.status(400).json({ error: 'Token invalid' });
+    console.log('[VERIFY] Token decode failed:', e.message);
+    return res.status(400).json({ error: 'token_invalid', message: 'Token corupt. Retrimite codul.' });
   }
 
   if (Date.now() > data.exp) {
+    console.log('[VERIFY] Expired. Now:', Date.now(), 'Exp:', data.exp, 'Diff:', Math.round((Date.now() - data.exp) / 1000) + 's');
     return res.status(400).json({ error: 'expired', message: 'Codul a expirat. Retrimite un cod nou.' });
   }
 
   if (data.code !== code.trim()) {
-    return res.status(400).json({ error: 'wrong_code', message: 'Cod incorect.' });
+    console.log('[VERIFY] Code mismatch. Expected:', data.code, 'Got:', code.trim());
+    return res.status(400).json({ error: 'wrong_code', message: 'Cod incorect. Verifică și încearcă din nou.' });
   }
 
+  console.log('[VERIFY] Success for:', data.email);
   return res.status(200).json({ ok: true, verified: true, email: data.email });
 }
 
