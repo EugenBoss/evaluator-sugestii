@@ -1210,13 +1210,27 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 
 <div class="onboard-overlay" id="onboardPopup" onclick="if(event.target===this)closeOnboard()">
 <div class="onboard-box">
-<h3 id="onboardTitle">Cum funcționează</h3>
-<div class="onboard-steps">
-<div class="onboard-step"><div class="step-num">1</div><div class="step-text"><strong>Scrie sugestia</strong><br>Introdu sau lipește sugestia hipnotică pe care vrei să o evaluezi.</div></div>
-<div class="onboard-step"><div class="step-num">2</div><div class="step-text"><strong>Primești evaluare</strong><br>AI-ul analizează pe criterii obiective și îți dă scor normalizat la 100.</div></div>
-<div class="onboard-step"><div class="step-num">3</div><div class="step-text"><strong>Îmbunătățește</strong><br>Primești probleme identificate, versiune îmbunătățită și explicații.</div></div>
+<div style="font-size:2rem;margin-bottom:12px">👋</div>
+<h3 id="onboardTitle">Bine ai venit!</h3>
+<div style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;margin-bottom:24px">Platforma creează și evaluează sugestii hipnotice cu inteligență artificială. Cu ce vrei să începi?</div>
+<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+<div onclick="closeOnboard();navigateTo('generator')" style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg-input);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent-green)'" onmouseout="this.style.borderColor='var(--border-subtle)'">
+<div style="width:42px;height:42px;border-radius:10px;background:rgba(46,204,113,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem">✨</div>
+<div style="text-align:left"><div style="font-size:0.95rem;font-weight:700;color:var(--text-heading)">Am o problemă și vreau sugestii</div><div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px">Generatorul creează sugestii personalizate pe tema ta.</div></div>
+<div style="margin-left:auto;color:var(--accent-green);font-weight:600">→</div>
 </div>
-<button class="btn-primary" onclick="closeOnboard()" style="width:100%;justify-content:center">Am înțeles →</button>
+<div onclick="closeOnboard();navigateTo('evaluator')" style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg-input);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent-blue)'" onmouseout="this.style.borderColor='var(--border-subtle)'">
+<div style="width:42px;height:42px;border-radius:10px;background:rgba(79,193,233,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem">📊</div>
+<div style="text-align:left"><div style="font-size:0.95rem;font-weight:700;color:var(--text-heading)">Am o sugestie și vreau s-o evaluez</div><div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px">Scor pe 17 criterii + versiune îmbunătățită.</div></div>
+<div style="margin-left:auto;color:var(--accent-blue);font-weight:600">→</div>
+</div>
+<div onclick="closeOnboard();navigateTo('antrenament')" style="display:flex;align-items:center;gap:14px;padding:16px;background:var(--bg-input);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);cursor:pointer;transition:all 0.2s" onmouseover="this.style.borderColor='var(--accent-gold)'" onmouseout="this.style.borderColor='var(--border-subtle)'">
+<div style="width:42px;height:42px;border-radius:10px;background:rgba(246,212,76,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.3rem">🎯</div>
+<div style="text-align:left"><div style="font-size:0.95rem;font-weight:700;color:var(--text-heading)">Vreau să mă antrenez</div><div style="font-size:0.8rem;color:var(--text-muted);margin-top:2px">Brief terapeutic → scrie sugestia → feedback instant.</div></div>
+<div style="margin-left:auto;color:var(--accent-gold);font-weight:600">→</div>
+</div>
+</div>
+<div onclick="closeOnboard()" style="font-size:0.82rem;color:var(--text-muted);cursor:pointer;text-align:center;padding:8px">Doar explorez — închide</div>
 </div>
 </div>
 <div class="lead-overlay" id="leadGate" onclick="if(event.target===this)closeLeadGate()">
@@ -1409,7 +1423,7 @@ function detectLang(){const s=localStorage.getItem('eval_lang');if(s&&T[s])retur
 function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.documentElement.lang=l;const sel=document.getElementById('langSelect');if(sel)sel.value=l;applyTranslations();renderGuide();initCountryDropdown()}
 function t(k){return(T[currentLang]&&T[currentLang][k])||T.en[k]||T.ro[k]||k}
 function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.getAttribute('data-i18n'));if(v)el.textContent=v});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.getAttribute('data-i18n-placeholder'));if(v)el.placeholder=v})}
-function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s)}
+function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s);if(s==='generator'||s==='evaluator'||s==='antrenament')showInlineHint(s)}
 function handleHash(){navigateTo(window.location.hash.replace('#','')||'generator')}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function initCountryDropdown(){const sel=document.getElementById('leadCountry');if(!sel||sel.options.length>1)return;sel.innerHTML='';const defCode=currentLang==='ro'?'+40':currentLang==='pt'?'+351':currentLang==='es'?'+34':currentLang==='fr'?'+33':currentLang==='de'?'+49':'+44';CC.forEach(c=>{const o=document.createElement('option');o.value=c.c;o.textContent=c.f+' '+c.c;if(c.c===defCode)o.selected=true;sel.appendChild(o)})}
@@ -1472,7 +1486,7 @@ function storePendingLead(data){_pendingLead=data;try{sessionStorage.setItem('_p
 function clearPendingLead(){_pendingLead=null;try{sessionStorage.removeItem('_pendingLead')}catch(e){}}
 function getPendingLead(){if(_pendingLead)return _pendingLead;try{const s=sessionStorage.getItem('_pendingLead');if(s)return JSON.parse(s)}catch(e){}return null}
 function buildLeadPayload(lead,evalData,leadType){return{name:lead?.name||'',email:lead?.email||'',phone:lead?.phone||'',source:lead?.source||'evaluator-sugestii',tier:lead?.tier||currentTier,content_type:lead?.content_type||currentContentType,email_verified:lead?.email_verified||'',gdpr_consent:lead?.gdpr_consent||'',gdpr_timestamp:lead?.gdpr_timestamp||'',device:lead?.device||(window.innerWidth<=768?'mobile':'desktop'),lang:lead?.lang||currentLang,timestamp:new Date().toISOString(),suggestion_text:evalData?.suggestion_text||'',score:evalData?.score||'',detected_type:evalData?.detected_type||'',level:evalData?.level||'',lead_type:leadType||''}}
-function trackEvaluation(inputText,result,source){const pending=getPendingLead();const lead=pending||{name:localStorage.getItem('eval_lead_name')||'',email:localStorage.getItem('eval_lead_email')||'',phone:localStorage.getItem('eval_lead_phone')||'',source:source||'evaluator-sugestii',tier:currentTier,content_type:currentContentType,email_verified:localStorage.getItem('eval_lead_email')?'da':'',gdpr_consent:localStorage.getItem('eval_lead_email')?'da':'',gdpr_timestamp:'',device:window.innerWidth<=768?'mobile':'desktop',lang:currentLang};const evalData={suggestion_text:(inputText||'').substring(0,500),score:result?.scor_total||0,detected_type:result?.tip_detectat||'',level:getScoreLevel(result?.scor_total||0).level};const lt=lead.email?'complet':'anonim';const payload=buildLeadPayload(lead,evalData,lt);fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});if(pending)clearPendingLead();saveToHistory(inputText,result,source);updateStreak();incrementTotalCount()}
+function trackEvaluation(inputText,result,source){const pending=getPendingLead();const lead=pending||{name:localStorage.getItem('eval_lead_name')||'',email:localStorage.getItem('eval_lead_email')||'',phone:localStorage.getItem('eval_lead_phone')||'',source:source||'evaluator-sugestii',tier:currentTier,content_type:currentContentType,email_verified:localStorage.getItem('eval_lead_email')?'da':'',gdpr_consent:localStorage.getItem('eval_lead_email')?'da':'',gdpr_timestamp:'',device:window.innerWidth<=768?'mobile':'desktop',lang:currentLang};const evalData={suggestion_text:(inputText||'').substring(0,500),score:result?.scor_total||0,detected_type:result?.tip_detectat||'',level:getScoreLevel(result?.scor_total||0).level};const lt=lead.email?'complet':'anonim';const payload=buildLeadPayload(lead,evalData,lt);fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});if(pending)clearPendingLead();saveToHistory(inputText,result,source);updateStreak();incrementTotalCount();dismissModuleHints('evaluator');dismissModuleHints('antrenament')}
 function flushPartialLead(){const pending=getPendingLead();if(!pending)return;const payload=buildLeadPayload(pending,null,'partial');try{navigator.sendBeacon('/api/lead',new Blob([JSON.stringify(payload)],{type:'application/json'}))}catch(e){fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{})}clearPendingLead()}
 window.addEventListener('beforeunload',flushPartialLead);
 window.addEventListener('pagehide',flushPartialLead);
@@ -1565,8 +1579,37 @@ function renderGuide(){const el=document.getElementById('guideContent');if(!el)r
 function toggleAccordion(id){const it=document.getElementById(id),bd=it.querySelector('.accordion-body'),ct=it.querySelector('.accordion-content');if(it.classList.contains('open')){bd.style.maxHeight='0';it.classList.remove('open')}else{bd.style.maxHeight=ct.scrollHeight+40+'px';it.classList.add('open')}}
 
 // ===== ONBOARDING =====
-function showOnboard(){if(localStorage.getItem('eval_onboard_done'))return;document.getElementById('onboardPopup').classList.add('visible')}
+function showOnboard(){if(localStorage.getItem('eval_onboard_done'))return;if(localStorage.getItem('eval_total_count')&&parseInt(localStorage.getItem('eval_total_count'))>0)return;document.getElementById('onboardPopup').classList.add('visible')}
 function closeOnboard(){document.getElementById('onboardPopup').classList.remove('visible');localStorage.setItem('eval_onboard_done','1')}
+function showInlineHint(moduleId){
+  var key='hint_seen_'+moduleId;
+  if(localStorage.getItem(key))return;
+  var isRo=!currentLang||currentLang==='ro';
+  var hints={
+    generator:{icon:'\uD83D\uDCA1',text:isRo?'Descrie problema \xeen cuvintele tale (ex: \u201Eanxietate \xeenainte de examene\u201D) \u0219i alege intensitatea dorit\u0103. Generatorul creeaz\u0103 sugestii personalizate.':'Describe your problem in your own words (e.g., "anxiety before exams") and choose the desired intensity. The Generator creates personalized suggestions.'},
+    evaluator:{icon:'\uD83D\uDCA1',text:isRo?'Lipeste sau scrie sugestia hipnotic\u0103 \xeen c\xe2mpul de text. AI-ul o analizeaz\u0103 pe 3\u201317 criterii \u0219i-\u021bi d\u0103 scor + versiune \xeembun\u0103t\u0103\u021bit\u0103.':'Paste or write the hypnotic suggestion in the text field. AI analyzes it on 3\u201317 criteria and gives you a score + improved version.'},
+    antrenament:{icon:'\uD83D\uDCA1',text:isRo?'Alege un brief terapeutic, scrie o sugestie hipnotic\u0103 pentru el, apoi prime\u0219ti evaluare automat\u0103. Cel mai bun mod de a \xeenv\u0103\u021ba.':'Choose a therapeutic brief, write a suggestion for it, then get automatic evaluation. The best way to learn.'}
+  };
+  var h=hints[moduleId];
+  if(!h)return;
+  var target=document.getElementById('sec-'+moduleId);
+  if(!target)return;
+  var existing=target.querySelector('.inline-hint');
+  if(existing)return;
+  var div=document.createElement('div');
+  div.className='inline-hint';
+  div.style.cssText='background:rgba(79,193,233,0.06);border:1px solid rgba(79,193,233,0.2);border-radius:10px;padding:14px 16px;margin-bottom:20px;display:flex;align-items:flex-start;gap:10px;animation:fadeIn 0.3s ease';
+  div.innerHTML='<span style="font-size:1.2rem;flex-shrink:0">'+h.icon+'</span><div style="flex:1;font-size:0.85rem;color:var(--text-secondary);line-height:1.6">'+h.text+'</div><span onclick="this.parentElement.remove();localStorage.setItem(\''+key+'\',\'1\')" style="color:var(--text-muted);cursor:pointer;font-size:1.1rem;flex-shrink:0;padding:0 4px">\u2715</span>';
+  var firstChild=target.querySelector('.section-title,.section-tag,h1');
+  if(firstChild&&firstChild.nextSibling){firstChild.parentNode.insertBefore(div,firstChild.nextElementSibling?.nextElementSibling||firstChild.nextSibling)}
+  else{target.prepend(div)}
+}
+function dismissModuleHints(moduleId){
+  var key='hint_seen_'+moduleId;
+  localStorage.setItem(key,'1');
+  var el=document.querySelector('#sec-'+moduleId+' .inline-hint');
+  if(el)el.remove();
+}
 
 
 // ===== COURSE RECOMMENDER =====
@@ -1952,7 +1995,7 @@ function renderGenResult(data){
   }).catch(function(){document.getElementById('genResults').innerHTML=h});
 
   document.getElementById('genResults').innerHTML=h;
-  updateStreak();incrementTotalCount();
+  updateStreak();incrementTotalCount();dismissModuleHints('generator');
   document.querySelectorAll('#genWizard .gen-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('genStepResult').classList.add('active');
   document.getElementById('genStepResult').scrollIntoView({behavior:'smooth',block:'start'});
