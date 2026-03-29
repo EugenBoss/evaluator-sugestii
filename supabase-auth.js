@@ -760,7 +760,7 @@
   async function _saveEvalToSupabase(entry) {
     if (!_sb || !_sbUser) return;
     try {
-      await _sb.from('evaluations').insert({
+      const { data, error } = await _sb.from('evaluations').insert({
         user_id: _sbUser.id,
         suggestion_text: entry.text || '',
         suggestion_type: entry.tip || '',
@@ -778,6 +778,7 @@
         local_id: entry.id || null,
         created_at: entry.date || new Date().toISOString(),
       });
+      if (error) console.warn('Supabase eval insert error:', error.message, error.code, error.details);
     } catch (err) {
       console.warn('Supabase eval save error:', err);
     }
@@ -786,7 +787,7 @@
   async function _saveGenToSupabase(entry) {
     if (!_sb || !_sbUser) return;
     try {
-      await _sb.from('generations').insert({
+      const { data, error } = await _sb.from('generations').insert({
         user_id: _sbUser.id,
         problem_text: entry.problem_text || '',
         category: entry.category || '',
@@ -802,6 +803,8 @@
         local_id: entry.local_id || null,
         created_at: entry.created_at || new Date().toISOString(),
       });
+      if (error) console.warn('Supabase gen insert error:', error.message, error.code, error.details);
+      else console.log('Supabase gen saved OK');
     } catch (err) {
       console.warn('Supabase gen save error:', err);
     }

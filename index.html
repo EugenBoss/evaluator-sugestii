@@ -2506,7 +2506,7 @@ function saveGenToHistory(gs,result){
   const entry={
     id:'g_'+Date.now()+'_'+Math.random().toString(36).substr(2,4),
     date:new Date().toISOString(),
-    text:(gs.problemFree||gs.category||'').substring(0,800),
+    text:(gs.problemFree||gs.problem||gs.category||'').substring(0,800),
     scor:0,
     tier:gs.level||'simplu',
     tip:gs.category||'—',
@@ -2526,7 +2526,7 @@ function saveGenToHistory(gs,result){
   setHistory(hist);
   if(window._sbAuth&&window._sbAuth.saveGen){
     window._sbAuth.saveGen({
-      problem_text:gs.problemFree||'',
+      problem_text:gs.problemFree||gs.problem||gs.category||'',
       category:gs.category||'',
       intensity:gs.intensity||0,
       level:gs.level||'simplu',
