@@ -135,6 +135,39 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 .improved-card{margin-top:20px}.improved-card h3{font-size:1rem;font-weight:700;color:var(--accent-green);margin-bottom:12px;display:flex;align-items:center;gap:8px}
 .improved-text{padding:16px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm);font-size:0.92rem;line-height:1.7;color:var(--text-primary);font-style:italic}
 .changes-text{margin-top:12px;padding:16px;background:var(--bg-card);border-radius:var(--radius-sm);font-size:0.88rem;line-height:1.6;color:var(--text-secondary)}
+.lp-hero{background:linear-gradient(160deg,rgba(15,31,40,0.95) 0%,rgba(79,193,233,0.12) 50%,rgba(246,212,76,0.06) 100%);border:1px solid var(--border-card);border-radius:var(--radius);padding:48px 36px 40px;margin-bottom:28px;position:relative;overflow:hidden;text-align:center}
+.lp-hero::before{content:'';position:absolute;top:-60%;right:-20%;width:400px;height:400px;background:radial-gradient(circle,rgba(79,193,233,0.08) 0%,transparent 70%);pointer-events:none}
+.lp-hero-tag{font-family:var(--font-mono);font-size:0.72rem;color:var(--accent-blue);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:16px;opacity:0.8}
+.lp-hero h1{font-size:2.2rem;font-weight:700;color:var(--text-heading);letter-spacing:-0.03em;line-height:1.25;margin-bottom:12px}
+.lp-hero h1 em{font-style:normal;color:var(--accent-gold)}
+.lp-hero-sub{font-size:1.05rem;color:var(--text-secondary);line-height:1.7;margin-bottom:28px;max-width:520px;margin-left:auto;margin-right:auto}
+.lp-problems{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:28px}
+.lp-pill{padding:10px 18px;background:rgba(255,255,255,0.04);border:1px solid var(--border-subtle);border-radius:24px;font-size:0.85rem;color:var(--text-secondary);cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.lp-pill:hover{border-color:var(--accent-blue);color:var(--text-heading);background:rgba(79,193,233,0.08)}
+.lp-pill:active{transform:scale(0.97)}
+.lp-cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.lp-proof{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;padding:18px 0}
+.lp-proof-item{display:flex;align-items:center;gap:8px;font-size:0.85rem;color:var(--text-secondary)}
+.lp-proof-item strong{font-size:1.15rem;color:var(--text-heading);font-weight:700}
+.lp-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:32px}
+.lp-step{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:28px 20px;text-align:center;position:relative}
+.lp-step-num{width:36px;height:36px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:700;margin-bottom:14px}
+.lp-step h4{font-size:0.95rem;font-weight:700;color:var(--text-heading);margin-bottom:6px}
+.lp-step p{font-size:0.82rem;color:var(--text-muted);line-height:1.5}
+.lp-step-arrow{display:none;position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--border-subtle);font-size:1.2rem}
+.lp-benefits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:32px}
+.lp-benefit{background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:24px 20px;display:flex;gap:14px;align-items:flex-start}
+.lp-benefit-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.4rem}
+.lp-benefit h4{font-size:0.92rem;font-weight:600;color:var(--text-heading);margin-bottom:4px}
+.lp-benefit p{font-size:0.82rem;color:var(--text-muted);line-height:1.5}
+.lp-quote{background:rgba(246,212,76,0.04);border:1px solid rgba(246,212,76,0.15);border-radius:var(--radius);padding:28px 24px;margin-bottom:32px;text-align:center}
+.lp-quote blockquote{font-size:1rem;color:var(--text-secondary);line-height:1.7;font-style:italic;margin-bottom:12px}
+.lp-quote cite{font-size:0.82rem;color:var(--accent-gold);font-style:normal;font-weight:600}
+.lp-final-cta{background:linear-gradient(135deg,var(--bg-card) 0%,rgba(79,193,233,0.1) 100%);border:1px solid rgba(79,193,233,0.25);border-radius:var(--radius);padding:36px 28px;text-align:center;margin-bottom:28px}
+.lp-final-cta h3{font-size:1.4rem;font-weight:700;color:var(--text-heading);margin-bottom:8px}
+.lp-final-cta p{font-size:0.9rem;color:var(--text-secondary);margin-bottom:20px;line-height:1.6}
+@media(max-width:768px){.lp-hero{padding:32px 20px 28px}.lp-hero h1{font-size:1.6rem}.lp-steps{grid-template-columns:1fr}.lp-step-arrow{display:none}.lp-proof{gap:16px}.lp-problems{gap:6px}.lp-pill{font-size:0.8rem;padding:8px 14px}}
+@media(min-width:769px){.lp-step-arrow{display:block}}
 .home-hero{background:linear-gradient(135deg,var(--bg-card) 0%,rgba(79,193,233,0.08) 100%);border:1px solid var(--border-card);border-radius:var(--radius);padding:40px 36px;margin-bottom:28px;position:relative;overflow:hidden}
 .home-hero::after{content:none}
 .home-hero h2{font-size:1.8rem;font-weight:700;color:var(--text-heading);letter-spacing:-0.02em;margin-bottom:10px;line-height:1.3}
@@ -823,23 +856,116 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 </aside>
 <main class="main">
 <section class="page-section active" id="sec-acasa">
-<div class="section-tag" data-i18n="home_tag">Platforma ta de evaluare</div>
-<h1 class="section-title" data-i18n="home_title">Cât de bine comunici cu Subconștientul?</h1>
-<p class="section-desc" data-i18n="home_desc">Primul instrument din lume care evaluează calitatea textului sugestiilor hipnotice pe criterii obiective.</p>
-<div class="home-hero"><h2 data-i18n="hero_title">Scrie. Evaluează. Îmbunătățește.</h2><p data-i18n="hero_desc">Introdu sugestia ta hipnotică și primești evaluare pe criterii validate, scor normalizat la 100 și o versiune îmbunătățită cu explicații.</p><div class="home-hero-btns"><button class="btn-primary" onclick="navigateTo('generator')" data-i18n="hero_cta">Generează sugestii →</button><button class="btn-secondary" onclick="loadExample()" data-i18n="hero_example">Încearcă un exemplu</button></div></div>
-<div class="card-grid" style="margin-bottom:28px">
-<div class="card stat-card"><div class="stat-icon" style="background:rgba(79,193,233,0.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#4FC1E9" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div><div class="stat-num">17</div><div class="stat-label" data-i18n="stat_criteria">Criterii de evaluare</div></div></div>
-<div class="card stat-card"><div class="stat-icon" style="background:rgba(246,212,76,0.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#F6D44C" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div><div class="stat-num">100</div><div class="stat-label" data-i18n="stat_max">Scor maxim</div></div></div>
-<div class="card stat-card"><div class="stat-icon" style="background:rgba(46,204,113,0.12)"><svg viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="stat-num">AI</div><div class="stat-label" data-i18n="stat_ai_label">Evaluat de Claude</div></div></div>
+
+<!-- HERO -->
+<div class="lp-hero">
+<div class="lp-hero-tag">Puterea Minții · Generator de Sugestii Hipnotice</div>
+<h1>Ce <em>te apasă</em> în această perioadă?</h1>
+<div class="lp-hero-sub">Spune-ne ce simți — și primești sugestii hipnotice personalizate, create de inteligență artificială, pe baza a 17 criterii validate de specialiști.</div>
+
+<div class="lp-problems">
+<span class="lp-pill" onclick="lpGoGen('Anxietate și atacuri de panică')">😰 Anxietate</span>
+<span class="lp-pill" onclick="lpGoGen('Lipsa de încredere în sine')">💔 Încredere în sine</span>
+<span class="lp-pill" onclick="lpGoGen('Insomnie și probleme cu somnul')">🌙 Somn</span>
+<span class="lp-pill" onclick="lpGoGen('Stres și burnout')">🔥 Burnout</span>
+<span class="lp-pill" onclick="lpGoGen('Probleme în relații')">💑 Relații</span>
+<span class="lp-pill" onclick="lpGoGen('Procrastinare și lipsă de motivație')">⏳ Motivație</span>
 </div>
-<h3 class="toolkit-heading" data-i18n="toolkit_title">Instrumentele tale</h3>
-<p class="toolkit-sub" data-i18n="toolkit_desc">Tot ce ai nevoie pentru sugestii hipnotice de calitate profesională.</p>
-<div class="card-grid">
-<div class="card toolkit-card" onclick="navigateTo('evaluator')"><div class="toolkit-icon" style="background:rgba(231,76,94,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#e74c5e" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4 data-i18n="tool_eval_title">Evaluator</h4><p data-i18n="tool_eval_desc">Evaluează sugestii pe criterii obiective.</p></div>
-<div class="card toolkit-card" onclick="navigateTo('antrenament')"><div class="toolkit-icon" style="background:rgba(246,212,76,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#F6D44C" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h4 data-i18n="tool_train_title">Antrenament</h4><p data-i18n="tool_train_desc">Brief terapeutic, scrie sugestia, evaluează.</p></div>
-<div class="card toolkit-card" onclick="navigateTo('generator')"><div class="toolkit-icon" style="background:rgba(46,204,113,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h4 data-i18n="tool_gen_title">Generator</h4><p data-i18n="tool_gen_desc">Primești sugestii personalizate, gata de folosit.</p></div>
-<div class="card toolkit-card" onclick="navigateTo('ghid')"><div class="toolkit-icon" style="background:rgba(79,193,233,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#4FC1E9" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/></svg></div><h4 data-i18n="tool_guide_title">Ghid</h4><p data-i18n="tool_guide_desc">Principii, criterii, lanțul cauzal.</p></div>
+
+<div class="lp-cta-row">
+<button class="btn-primary" onclick="navigateTo('generator')" style="font-size:1rem;padding:14px 28px;background:var(--accent-gold);color:#0f1f28">✨ Generează sugestii gratuit →</button>
+<button class="btn-secondary" onclick="loadExample()" style="font-size:0.9rem;padding:12px 20px">Încearcă un exemplu</button>
 </div>
+</div>
+
+<!-- SOCIAL PROOF STRIP -->
+<div class="lp-proof">
+<div class="lp-proof-item"><span style="font-size:1.3rem">✨</span><div><strong id="lpProofCount">1,247</strong>+<br>evaluări realizate</div></div>
+<div class="lp-proof-item"><span style="font-size:1.3rem">🎯</span><div><strong>17</strong><br>criterii validate</div></div>
+<div class="lp-proof-item"><span style="font-size:1.3rem">🧠</span><div><strong>AI</strong><br>antrenat pe hipnoză</div></div>
+<div class="lp-proof-item"><span style="font-size:1.3rem">🌍</span><div><strong>6</strong><br>limbi disponibile</div></div>
+</div>
+
+<!-- 3 STEPS -->
+<h3 class="toolkit-heading" style="text-align:center;font-size:1.15rem;margin-bottom:6px">Cum funcționează?</h3>
+<p class="toolkit-sub" style="text-align:center">3 pași simpli. Fără cont obligatoriu. Gratuit.</p>
+<div class="lp-steps">
+<div class="lp-step">
+<div class="lp-step-num" style="background:rgba(79,193,233,0.12);color:var(--accent-blue)">1</div>
+<h4>Spune ce simți</h4>
+<p>Descrie în cuvintele tale problema care te preocupă — anxietate, relații, somn, încredere.</p>
+<span class="lp-step-arrow">→</span>
+</div>
+<div class="lp-step">
+<div class="lp-step-num" style="background:rgba(46,204,113,0.12);color:var(--accent-green)">2</div>
+<h4>Primești sugestii</h4>
+<p>AI-ul generează sugestii hipnotice personalizate pe tema ta, cu ancorare senzorială și ritm terapeutic.</p>
+<span class="lp-step-arrow">→</span>
+</div>
+<div class="lp-step">
+<div class="lp-step-num" style="background:rgba(246,212,76,0.12);color:var(--accent-gold)">3</div>
+<h4>Evaluează și crești</h4>
+<p>Evaluatorul îți arată scorul, punctele forte, ce lipsește — și cum să îmbunătățești fiecare sugestie.</p>
+</div>
+</div>
+
+<!-- BENEFITS -->
+<div class="lp-benefits">
+<div class="lp-benefit">
+<div class="lp-benefit-icon" style="background:rgba(79,193,233,0.1)">🎧</div>
+<div>
+<h4>Sugestii gata de folosit</h4>
+<p>Citește-le cu voce lină înainte de somn sau înregistrează-le. Subconștientul ascultă.</p>
+</div>
+</div>
+<div class="lp-benefit">
+<div class="lp-benefit-icon" style="background:rgba(246,212,76,0.1)">📊</div>
+<div>
+<h4>Scor obiectiv, nu păreri</h4>
+<p>17 criterii validate: formulare pozitivă, ancorare VAKOG, ritm, gradualitate, activare emoțională.</p>
+</div>
+</div>
+<div class="lp-benefit">
+<div class="lp-benefit-icon" style="background:rgba(46,204,113,0.1)">🔬</div>
+<div>
+<h4>Laboratorul NLP inclus</h4>
+<p>Scanner VAKOG, Analizor Milton Model, Detector Meta Model, Meta Programs — toate gratuite.</p>
+</div>
+</div>
+<div class="lp-benefit">
+<div class="lp-benefit-icon" style="background:rgba(231,76,94,0.1)">🎯</div>
+<div>
+<h4>Antrenament cu feedback</h4>
+<p>14 brief-uri terapeutice. Scrii sugestia. Primești evaluare instantanee. Înveți din greșeli.</p>
+</div>
+</div>
+</div>
+
+<!-- QUOTE -->
+<div class="lp-quote">
+<blockquote>„Nu poți vindeca ce nu poți comunica. Sugestia hipnotică e podul dintre dorință și schimbare — iar calitatea podului contează."</blockquote>
+<cite>— Eugen Popa, Președinte Asociația Română de Hipnoză</cite>
+</div>
+
+<!-- TOOLKIT -->
+<h3 class="toolkit-heading" style="text-align:center;font-size:1.1rem;margin-bottom:6px">Explorează instrumentele</h3>
+<p class="toolkit-sub" style="text-align:center">Fiecare modul te ajută dintr-un unghi diferit.</p>
+<div class="card-grid" style="margin-bottom:24px">
+<div class="card toolkit-card" onclick="navigateTo('generator')"><div class="toolkit-icon" style="background:rgba(46,204,113,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#2ecc71" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><h4 data-i18n="tool_gen_title">Generator</h4><p>Descrie problema → primești sugestii personalizate.</p></div>
+<div class="card toolkit-card" onclick="navigateTo('evaluator')"><div class="toolkit-icon" style="background:rgba(231,76,94,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#e74c5e" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4 data-i18n="tool_eval_title">Evaluator</h4><p>Scor pe 17 criterii + versiune îmbunătățită.</p></div>
+<div class="card toolkit-card" onclick="navigateTo('laborator')"><div class="toolkit-icon" style="background:rgba(79,193,233,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#4FC1E9" stroke-width="2"><path d="M9 3h6v5l4 7H5l4-7V3z"/><line x1="5" y1="20" x2="19" y2="20"/></svg></div><h4>Laborator NLP</h4><p>VAKOG · Milton Model · Meta Programs.</p></div>
+<div class="card toolkit-card" onclick="navigateTo('antrenament')"><div class="toolkit-icon" style="background:rgba(246,212,76,0.15)"><svg viewBox="0 0 24 24" fill="none" stroke="#F6D44C" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><h4 data-i18n="tool_train_title">Antrenament</h4><p>Brief terapeutic → scrie → evaluare automată.</p></div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="lp-final-cta">
+<h3>Începe acum — e gratuit</h3>
+<p>Spune-ne ce te preocupă și primești sugestii hipnotice personalizate în mai puțin de 30 de secunde.</p>
+<div class="lp-cta-row">
+<button class="btn-primary" onclick="navigateTo('generator')" style="font-size:1rem;padding:14px 28px;background:var(--accent-gold);color:#0f1f28">✨ Generează sugestii →</button>
+</div>
+</div>
+
 <div id="acasaRecs"></div>
 </section>
 <section class="page-section" id="sec-evaluator">
@@ -2892,6 +3018,18 @@ function drawHistChart(entries){
 }
 // ===== END ISTORIC =====
 
+// ===== LANDING PAGE HELPERS =====
+function lpGoGen(problem){
+  navigateTo('generator');
+  setTimeout(function(){
+    var ta=document.getElementById('genProblemFree')||document.querySelector('#genWizard textarea');
+    if(ta){ta.value=problem;ta.dispatchEvent(new Event('input',{bubbles:true}))}
+  },300);
+}
+function updateLpProof(){
+  var el=document.getElementById('lpProofCount');
+  if(el)el.textContent=getTotalEvalCount().toLocaleString();
+}
 // ===== STREAK + SOCIAL PROOF =====
 function getStreak(){
   const last=localStorage.getItem('eval_streak_date')||'';
@@ -2941,7 +3079,7 @@ function getTotalEvalCount(){
 function incrementTotalCount(){
   const c=parseInt(localStorage.getItem('eval_total_count')||'0');
   localStorage.setItem('eval_total_count',(c+1).toString());
-  renderSocialProof();
+  renderSocialProof();updateLpProof();
 }
 function renderSocialProof(){
   const el=document.getElementById('socialProofText');
@@ -2966,7 +3104,7 @@ function renderEvalNextSteps(){
 // ===== INIT =====
 document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();navigateTo(a.getAttribute('data-section'))})});
 window.addEventListener('hashchange',handleHash);
-(function(){checkStripeSuccess();checkLibStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter();renderStreakBadge();renderSocialProof()})();
+(function(){checkStripeSuccess();checkLibStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter();renderStreakBadge();renderSocialProof();updateLpProof()})();
 </script>
 <script src="/supabase-auth.js"></script>
 </body>
