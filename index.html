@@ -1118,6 +1118,13 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="card lab-card" onclick="openLabInstrument('milton')"><div class="lab-icon" style="background:rgba(246,212,76,0.12)">🔤</div><h4 data-i18n="lab_milton_title">Analizor Milton Model</h4><p data-i18n="lab_milton_desc">Detectează cele 27 pattern-uri. Evaluează diversitatea și corectitudinea.</p></div>
 <div class="card lab-card" onclick="openLabInstrument('metamodel')"><div class="lab-icon" style="background:rgba(231,76,94,0.12)">🔍</div><h4 data-i18n="lab_meta_title">Detector Meta Model</h4><p data-i18n="lab_meta_desc">Violări intenționate vs accidentale. 4 clasificări cu fix-uri recomandate.</p></div>
 <div class="card lab-card" onclick="openLabInstrument('metaprograms')"><div class="lab-icon" style="background:rgba(46,204,113,0.12)">🧭</div><h4 data-i18n="lab_mp_title">Verificator Meta Programs</h4><p data-i18n="lab_mp_desc">Profil text pe 10 dimensiuni. Compatibilitate client ideal vs dificil.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('logice')"><div class="lab-icon" style="background:rgba(155,89,182,0.12)">🏗️</div><h4>Niveluri Logice Dilts</h4><p>Mediu, Comportament, Capabilitate, Convingere, Identitate, Spiritual.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('presupozitii')"><div class="lab-icon" style="background:rgba(243,156,18,0.12)">🔮</div><h4>Analizor Presupoziții</h4><p>Detectează cele 29 forme de presupoziții din textul tău.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('reframing')"><div class="lab-icon" style="background:rgba(52,152,219,0.12)">🔄</div><h4>Analizor Reframing</h4><p>Detectează pattern-uri Mind-Lines: 26 moduri de a reîncadra sensul.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('submodalitati')"><div class="lab-icon" style="background:rgba(231,76,94,0.12)">🎛️</div><h4>Detector Submodalități</h4><p>Identifică limbajul submodalităților: mărime, distanță, luminozitate, volum.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('ancore')"><div class="lab-icon" style="background:rgba(46,204,113,0.12)">⚓</div><h4>Detector Ancore</h4><p>Identifică ancorări, stacking, chaining și colapsare de ancore.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('quiz')"><div class="lab-icon" style="background:rgba(246,212,76,0.12)">🎮</div><h4>Quiz Pattern</h4><p>Fragment de sugestie → ghicește tipul, pattern-ul, canalul. Gamificare.</p></div>
+<div class="card lab-card" onclick="openLabInstrument('metafore')"><div class="lab-icon" style="background:rgba(79,193,233,0.12)">🌿</div><h4>Scanner Metafore</h4><p>Categorizează metaforele terapeutice: orientaționale, ontologice, structurale.</p></div>
 </div>
 </div>
 <div class="lab-instrument" id="labVakog">
@@ -1151,6 +1158,62 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labMetaprogramsInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('metaprograms')"></textarea><div class="eval-footer"><span class="char-count" id="labMetaprogramsCount">0 / 3000</span><button class="btn-primary" id="labMetaprogramsBtn" onclick="runLabInstrument('metaprograms')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
 <div class="loading-overlay" id="labMetaprogramsLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)" data-i18n="lab_mp_loading">Analizez Meta Programs...</div></div>
 <div id="labMetaprogramsResult"></div>
+</div>
+<div class="lab-instrument" id="labLogice">
+<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🏗️ Niveluri Logice Dilts</h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Pe ce niveluri logice operează sugestia? Mediu, Comportament, Capabilitate, Convingere, Identitate, Spiritual.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labLogiceInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('logice')"></textarea><div class="eval-footer"><span class="char-count" id="labLogiceCount">0 / 3000</span><button class="btn-primary" id="labLogiceBtn" onclick="runLabInstrument('logice')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labLogiceLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Analizez nivelurile logice...</div></div>
+<div id="labLogiceResult"></div>
+</div>
+<div class="lab-instrument" id="labPresupozitii">
+<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🔮 Analizor Presupoziții</h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Detectează cele 29 forme de presupoziții lingvistice din textul tău.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labPresupozitiiInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('presupozitii')"></textarea><div class="eval-footer"><span class="char-count" id="labPresupozitiiCount">0 / 3000</span><button class="btn-primary" id="labPresupozitiiBtn" onclick="runLabInstrument('presupozitii')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labPresupozitiiLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Detectez presupozițiile...</div></div>
+<div id="labPresupozitiiResult"></div>
+</div>
+<div class="lab-instrument" id="labReframing">
+<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🔄 Analizor Reframing</h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Detectează pattern-uri Mind-Lines: cele 26 moduri de a reîncadra sensul unei experiențe.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labReframingInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('reframing')"></textarea><div class="eval-footer"><span class="char-count" id="labReframingCount">0 / 3000</span><button class="btn-primary" id="labReframingBtn" onclick="runLabInstrument('reframing')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labReframingLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Analizez pattern-urile de reframing...</div></div>
+<div id="labReframingResult"></div>
+</div>
+<div class="lab-instrument" id="labSubmodalitati">
+<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🎛️ Detector Submodalități</h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Identifică limbajul submodalităților: dimensiuni vizuale, auditive și kinestezice din text.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labSubmodalitatiInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('submodalitati')"></textarea><div class="eval-footer"><span class="char-count" id="labSubmodalitatiCount">0 / 3000</span><button class="btn-primary" id="labSubmodalitatiBtn" onclick="runLabInstrument('submodalitati')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labSubmodalitatiLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Detectez submodalitățile...</div></div>
+<div id="labSubmodalitatiResult"></div>
+</div>
+<div class="lab-instrument" id="labAncore">
+<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">⚓ Detector Ancore</h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Identifică tipuri de ancorare: simplu, stacking, chaining, colapsare. Plus Parts și Timeline.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labAncoreInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('ancore')"></textarea><div class="eval-footer"><span class="char-count" id="labAncoreCount">0 / 3000</span><button class="btn-primary" id="labAncoreBtn" onclick="runLabInstrument('ancore')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labAncoreLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Detectez ancorele...</div></div>
+<div id="labAncoreResult"></div>
+</div>
+<div class="lab-instrument" id="labQuiz">
+<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🎮 Quiz Pattern Recognition</h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Fragment de sugestie → ghicește tipul, pattern-ul, canalul. Testează-ți cunoștințele NLP!</p>
+<div class="card" style="padding:24px;text-align:center"><button class="btn-primary" id="labQuizBtn" onclick="runLabQuiz()" style="background:var(--accent-gold);color:#0f1f28;font-size:1rem;padding:14px 28px">🎮 Generează provocare →</button></div>
+<div class="loading-overlay" id="labQuizLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Generez provocarea...</div></div>
+<div id="labQuizResult"></div>
+</div>
+<div class="lab-instrument" id="labMetafore">
+<button class="lab-back" onclick="closeLabInstrument()">← Înapoi la Laborator</button>
+<h2 style="font-size:1.3rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">🌿 Scanner Metafore</h2>
+<p style="font-size:0.88rem;color:var(--text-secondary);margin-bottom:20px">Categorizează metaforele din text: orientaționale, ontologice, structurale, terapeutice.</p>
+<div class="card eval-input-card"><label data-i18n="lab_input_label">Textul de analizat</label><textarea id="labMetaforeInput" class="eval-textarea" data-i18n-placeholder="lab_input_placeholder" placeholder="Lipește sugestia sau scriptul aici..." oninput="updateLabCharCount('metafore')"></textarea><div class="eval-footer"><span class="char-count" id="labMetaforeCount">0 / 3000</span><button class="btn-primary" id="labMetaforeBtn" onclick="runLabInstrument('metafore')"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg><span data-i18n="lab_analyze">Analizează</span></button></div></div>
+<div class="loading-overlay" id="labMetaforeLoading"><div class="loading-spinner"></div><div style="font-size:1rem;font-weight:600;color:var(--text-heading)">Scanez metaforele...</div></div>
+<div id="labMetaforeResult"></div>
 </div>
 </section>
 <section class="page-section" id="sec-biblioteca">
@@ -2372,6 +2435,113 @@ CELE 10 EVALUABILE PE TEXT:
 Returnează DOAR JSON valid:
 {"meta_programs":{"directie":{"dominant":"spre","pct_spre":80,"pct_dinspre":20,"markeri_spre":["..."],"markeri_dinspre":["..."]},"referinta":{"dominant":"intern","markeri":["..."]},"optiuni_proceduri":{"dominant":"proceduri","markeri":["..."]},"proactiv_reactiv":{"dominant":"reactiv","markeri":["..."]},"chunk_size":{"dominant":"specific","markeri":["..."]},"self_other":{"dominant":"self"},"asociat_disociat":{"dominant":"asociat","markeri":["..."]},"operatori_modali":{"dominant":"posibilitate","markeri":["..."]},"nivel_logic":{"dominant":"Capabilitate","secundar":"Identitate"},"temporalitate":{"dominant":"prezent","pct":90}},"profil_sugestie":"...","compatibilitate":{"tip_client_ideal":"...","tip_client_dificil":"..."},"recomandari":["..."]}
 
+Limba: română cu diacritice corecte.`,
+
+logice:`Ești un analizor expert de Niveluri Logice Dilts (Robert Dilts). Identifici pe ce niveluri logice operează fiecare propoziție din text.
+
+CELE 6 NIVELURI (de jos în sus):
+1. MEDIU — unde, când, cu cine (context extern)
+2. COMPORTAMENT — ce faci, acțiuni specifice
+3. CAPABILITATE — cum faci, abilități, strategii
+4. CONVINGERE/VALOARE — de ce, ce e important, ce crezi
+5. IDENTITATE — cine ești, rolul tău
+6. SPIRITUAL/MISIUNE — pentru cine altcineva, scop mai mare
+
+REGULI: Sugestiile cele mai puternice urcă de la Mediu spre Identitate/Spiritual. O sugestie care rămâne la Comportament nu schimbă persoana. O sugestie care sare direct la Identitate fără fundație senzorială e necredibilă.
+
+Returnează DOAR JSON valid:
+{"niveluri":[{"text":"fragment","nivel":"capabilitate","explicatie":"de ce e acest nivel"}],"distributie":{"mediu":0,"comportament":0,"capabilitate":0,"convingere":0,"identitate":0,"spiritual":0},"nivel_dominant":"","traiectorie":"ascendenta|descendenta|plata|haotica","scor_profunzime":0,"evaluare":"","recomandari":[""]}
+
+Limba: română cu diacritice corecte.`,
+
+presupozitii:`Ești un detector expert de presupoziții lingvistice. Identifici FIECARE presupoziție din text.
+
+CELE 29 FORME (din doc 20 Puterea Minții):
+1.Existență 2.Temporală 3.Conștiință 4.Ordinală 5.Schimbare stare 6.Adverb comentariu 7.Clauze relative restrictive 8.Clauze relative non-restrictive 9.Contrafactual condițional 10.Pseudocleavage 11.Cuantificatori selectivi 12.Negație 13.Conjuncție temporală 14.Implicatură conversațională 15.Comparație 16.Cauză-efect 17.Echivalență complexă 18.Performativ pierdut 19.Presupoziție de necesitate 20.Presupoziție de posibilitate 21.Inclusivă/Exclusivă (sau) 22.Iterativă (din nou, încă) 23.Predicat factic (a realiza, a ști) 24.Presupoziție de alegere 25.Adjective/adverbe scalare 26.Cuvinte de schimbare (a deveni, a transforma) 27.Verbe implicative 28.Presupoziție de viteză 29.Emfază
+
+Returnează DOAR JSON valid:
+{"presupozitii":[{"text":"pe măsură ce te relaxezi","forma":"temporala","id":2,"efect":"presupune că relaxarea e inevitabilă","calitate":"puternica|subtila|forțata"}],"total":0,"top_forme":[""],"evaluare":"","efect_cumulativ":"","scor_sofisticare":0,"recomandari":[""]}
+
+Limba: română cu diacritice corecte.`,
+
+reframing:`Ești un analizor expert de Reframing (Mind-Lines, L. Michael Hall). Detectezi pattern-uri de reîncadrare a sensului.
+
+CELE 26 MIND-LINES (7 direcții × pattern-uri):
+DEFRAMING: #1 Specificitate (chunk down), #2 Detalizare strategie, #3 Contra-exemplu, #4 Inversare pozitiv-negativ, #5 Meta-framing absurditate
+CONTENT REFRAMING: #6 Reîncadrare context, #7 Reîncadrare sens
+OUTFRAMING — TEMPORAL: #8 Model world→real world, #9 Consecințe, #10 Intenție pozitivă, #11 Prima cauză
+OUTFRAMING — CONCEPTUAL: #12 Criteriu/valoare superioară, #13 Aligning beliefs, #14 Reîncadrare identitate, #15 Toate 3 pozițiile perceptuale
+OUTFRAMING — META-STATING: #16 Meta-stare pe experiență, #17 Model of the world, #18 Aplicare la sine, #19 Meta-framing cu ecologie
+ANALOGICAL: #20 Metaforă/Poveste, #21 Realitate vs hartă
+PRE-FRAMING/POST-FRAMING: #22 Pre-framing, #23 Post-framing, #24 Gestionare obiecții, #25 Pattern interrupt, #26 Reîncadrare stacking (multiple simultan)
+
+Returnează DOAR JSON valid:
+{"reframing_uri":[{"text":"fragment","pattern":"reîncadrare_sens","id":7,"directie":"content","explicatie":"...","efect":"..."}],"total":0,"directii_active":[""],"complexitate":"simplu|combinat|stacked","scor_reframing":0,"evaluare":"","recomandari":[""]}
+
+Limba: română cu diacritice corecte.`,
+
+submodalitati:`Ești un detector expert de submodalități (Bandler). Identifici limbajul submodalităților din text.
+
+SUBMODALITĂȚI PER CANAL:
+VIZUALE: luminozitate, dimensiune, distanță, culoare/alb-negru, focalizare, cadru/panoramic, 2D/3D, poziție, mișcare, contrast, transparență
+AUDITIVE: volum, tonalitate, tempo, ritm, direcție, localizare, durată, mono/stereo, claritate
+KINESTEZICE: intensitate, localizare corp, temperatură, textură, presiune, durată, greutate, mișcare internă, puls/vibrație
+
+REGULI: Submodalitățile DRIVER-e (cele care schimbă starea masiv) sunt cele mai importante. De obicei: luminozitate (V), volum (A), intensitate (K).
+
+Returnează DOAR JSON valid:
+{"submodalitati":[{"text":"fragment","canal":"V","submodalitate":"luminozitate","shift":"creste|scade|neutru","explicatie":""}],"per_canal":{"V":[],"A":[],"K":[]},"drivers_detectate":[""],"total":0,"evaluare":"","recomandari":[""]}
+
+Limba: română cu diacritice corecte.`,
+
+ancore:`Ești un detector expert de tehnici de ancorare NLP. Identifici ancorări, stacking, chaining, colapsare din text. Detectezi și tehnici Parts Therapy și Timeline.
+
+TIPURI ANCORE:
+1.SIMPLĂ — stimul unic → stare (ex: "când atingi degetele...")
+2.STACKING — multiple stări pe aceeași ancoră
+3.CHAINING — lanț de ancore (stare1→stare2→stare3)
+4.COLAPSARE — două ancore opuse activate simultan
+5.SLIDING ANCHOR — ancoră cu intensitate graduală
+
+TEHNICI CONECTATE:
+PARTS: comunicare cu părți, negociere, integrare
+TIMELINE: regresie, future pacing, reimprinting, disociere temporală
+
+Returnează DOAR JSON valid:
+{"ancore":[{"text":"fragment","tip":"simpla|stacking|chaining|colapsare|sliding","stare_target":"","canal_ancora":"V|A|K","explicatie":""}],"parts":[{"text":"","tip":"comunicare|negociere|integrare","explicatie":""}],"timeline":[{"text":"","tip":"regresie|future_pacing|reimprinting|disociere","explicatie":""}],"total_ancore":0,"total_parts":0,"total_timeline":0,"evaluare":"","recomandari":[""]}
+
+Limba: română cu diacritice corecte.`,
+
+quiz:`Ești un generator de provocări NLP pentru testarea cunoștințelor. Generezi UN SINGUR fragment de sugestie hipnotică (2-3 propoziții) și formulezi 3 întrebări despre el cu câte 4 variante de răspuns fiecare.
+
+TIPURI ÎNTREBĂRI (alege 3 diferite):
+A.Tip sugestie (directă/indirectă/mixtă)
+B.Pattern Milton Model predominant
+C.Canal VAKOG dominant
+D.Nivel logic Dilts
+E.Meta Program activat
+F.Tip de presupoziție
+G.Tehnica principală (ancorare/reframing/disociere/etc)
+
+Returnează DOAR JSON valid:
+{"fragment":"text sugestie 2-3 propoziții","intrebari":[{"intrebare":"Ce tip de sugestie este?","variante":["Directă","Indirectă","Mixtă","Afirmație"],"raspuns_corect":1,"explicatie":"E indirectă pentru că..."}],"dificultate":"ușor|mediu|avansat"}
+
+Limba: română cu diacritice corecte. Fragment în română.`,
+
+metafore:`Ești un scanner expert de metafore terapeutice (bazat pe Lakoff & Johnson, Gordon, Lawley & Tompkins, Austin MoM).
+
+CLASIFICARE METAFORE:
+STRUCTURAL: domeniu-sursă → domeniu-țintă (ex: "mintea e un calculator")
+ORIENTAȚIONAL: sus-jos, interior-exterior, înainte-înapoi (ex: "te scufunzi mai adânc")
+ONTOLOGIC: container, substanță, entitate (ex: "emoțiile se revarsă")
+TERAPEUTIC: călătorie, transformare, creștere, vindecare, eliberare
+CATEGORIE MoM (Austin): vizual, auditiv, kinestezic, olfactiv, gustativ
+
+REGULI: Metaforele cele mai puternice sunt SENZORIALE (creează film) nu CONCEPTUALE (explică ideea). Metaforele implicite (integrate natural) > metaforele explicite ("e ca și cum...").
+
+Returnează DOAR JSON valid:
+{"metafore":[{"text":"fragment","tip":"structural|orientational|ontologic|terapeutic","subtip":"","domeniu_sursa":"","domeniu_tinta":"","senzorialitate":"senzoriala|conceptuala","implicit_explicit":"implicita|explicita","efect":""}],"total":0,"tip_dominant":"","senzorialitate_pct":0,"evaluare":"","recomandari":[""]}
+
 Limba: română cu diacritice corecte.`
 };
 
@@ -2426,6 +2596,12 @@ async function runLabInstrument(id){
     else if(id==='milton')renderLabMilton(j,res);
     else if(id==='metamodel')renderLabMetamodel(j,res);
     else if(id==='metaprograms')renderLabMetaprograms(j,res);
+    else if(id==='logice')renderLabGeneric(j,res,'Niveluri Logice Dilts','🏗️','#9b59b6');
+    else if(id==='presupozitii')renderLabGeneric(j,res,'Analizor Presupoziții','🔮','#f39c12');
+    else if(id==='reframing')renderLabGeneric(j,res,'Analizor Reframing','🔄','#3498db');
+    else if(id==='submodalitati')renderLabGeneric(j,res,'Detector Submodalități','🎛️','#e74c5e');
+    else if(id==='ancore')renderLabGeneric(j,res,'Detector Ancore','⚓','#2ecc71');
+    else if(id==='metafore')renderLabGeneric(j,res,'Scanner Metafore','🌿','#4FC1E9');
     saveLabToHistory(id,input,j);
   }catch(e){lo.classList.remove('visible');btn.disabled=false;res.innerHTML='<div class="card" style="padding:20px;color:var(--accent-red);text-align:center">'+t('lab_error')+'</div>';console.error(e)}
 }
@@ -2768,6 +2944,75 @@ function saveGenToHistory(gs,result){
       created_at:entry.date
     });
   }
+}
+
+function renderLabGeneric(data,container,title,icon,color){
+  let h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:'+color+';margin-bottom:16px">'+icon+' '+title+'</h3>';
+  // Score if present
+  var score=data.scor_profunzime||data.scor_sofisticare||data.scor_reframing||0;
+  if(score){h+='<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><div class="score-circle" style="width:70px;height:70px;--score-color:'+color+';--score-pct:'+score*10+'%;background:var(--bg-input)"><span class="score-num" style="font-size:1.3rem">'+score+'</span><span class="score-max">/10</span></div><div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.5">'+(data.evaluare||'')+'</div></div>'}
+  else if(data.evaluare){h+='<div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.6;margin-bottom:16px;padding:12px;background:var(--bg-input);border-radius:var(--radius-sm)">'+escHtml(data.evaluare)+'</div>'}
+  // Items list (generic for any array of detected items)
+  var items=data.niveluri||data.presupozitii||data.reframing_uri||data.submodalitati||data.metafore||data.ancore||[];
+  if(items.length){h+='<div style="margin-bottom:16px"><strong style="font-size:0.82rem;color:var(--text-muted)">DETECTATE ('+items.length+'):</strong><div style="display:flex;flex-direction:column;gap:8px;margin-top:10px">';
+    items.forEach(function(it){var label=it.nivel||it.forma||it.pattern||it.submodalitate||it.tip||'';var txt=it.text||'';var expl=it.explicatie||it.efect||'';h+='<div style="padding:10px 14px;background:var(--bg-input);border-radius:var(--radius-sm);border-left:3px solid '+color+'"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px"><span style="font-size:0.82rem;font-weight:700;color:'+color+'">'+escHtml(label)+'</span>'+(it.calitate?'<span class="lab-tag" style="font-size:0.7rem">'+escHtml(it.calitate)+'</span>':'')+'</div>'+(txt?'<div style="font-size:0.85rem;color:var(--text-primary);margin-bottom:4px">"'+escHtml(txt)+'"</div>':'')+(expl?'<div style="font-size:0.8rem;color:var(--text-muted)">'+escHtml(expl)+'</div>':'')+'</div>'});
+    h+='</div></div>'}
+  // Parts + Timeline for ancore
+  if(data.parts&&data.parts.length){h+='<div style="margin-bottom:12px"><strong style="font-size:0.82rem;color:var(--text-muted)">PARTS THERAPY ('+data.parts.length+'):</strong>';data.parts.forEach(function(p){h+='<div style="margin-top:6px;font-size:0.85rem;padding:8px 12px;background:var(--bg-input);border-radius:var(--radius-sm);border-left:3px solid var(--accent-gold)"><strong>'+escHtml(p.tip||'')+'</strong>: "'+escHtml(p.text||'')+'"'+(p.explicatie?' — '+escHtml(p.explicatie):'')+'</div>'});h+='</div>'}
+  if(data.timeline&&data.timeline.length){h+='<div style="margin-bottom:12px"><strong style="font-size:0.82rem;color:var(--text-muted)">TIMELINE ('+data.timeline.length+'):</strong>';data.timeline.forEach(function(tl){h+='<div style="margin-top:6px;font-size:0.85rem;padding:8px 12px;background:var(--bg-input);border-radius:var(--radius-sm);border-left:3px solid var(--accent-blue)"><strong>'+escHtml(tl.tip||'')+'</strong>: "'+escHtml(tl.text||'')+'"'+(tl.explicatie?' — '+escHtml(tl.explicatie):'')+'</div>'});h+='</div>'}
+  // Distribution bars if present
+  var dist=data.distributie||{};
+  if(Object.keys(dist).length){h+='<div style="margin-bottom:14px">';var dMax=Math.max(...Object.values(dist),1);Object.entries(dist).forEach(function(e){var pct=Math.round(e[1]/dMax*100);h+='<div class="lab-stat-bar"><span class="lab-sb-label" style="color:'+color+'">'+e[0].charAt(0).toUpperCase()+e[0].slice(1)+'</span><div class="lab-sb-track"><div class="lab-sb-fill" style="width:'+pct+'%;background:'+color+'"></div></div><span class="lab-sb-val">'+e[1]+'</span></div>'});h+='</div>'}
+  // Recommendations
+  if(data.recomandari&&data.recomandari.length){h+='<div style="margin-top:14px"><strong style="font-size:0.82rem;color:var(--text-muted)">'+t('lab_recommendations')+':</strong>';data.recomandari.forEach(function(r){if(r)h+='<div style="margin-top:6px;font-size:0.85rem;color:var(--text-secondary);padding-left:12px;border-left:2px solid '+color+'">'+escHtml(r)+'</div>'});h+='</div>'}
+  h+='</div>';container.innerHTML=h;container.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function renderLabQuiz(data,container){
+  var h='<div class="card lab-result-card"><h3 style="font-size:1rem;font-weight:700;color:var(--accent-gold);margin-bottom:16px">🎮 Provocare NLP</h3>';
+  h+='<div style="padding:16px;background:var(--bg-input);border-radius:var(--radius-sm);font-size:0.95rem;color:var(--text-primary);line-height:1.7;margin-bottom:20px;border-left:3px solid var(--accent-gold);font-style:italic">"'+escHtml(data.fragment||'')+'"</div>';
+  if(data.dificultate){h+='<div style="margin-bottom:16px"><span class="lab-tag" style="font-size:0.75rem">Dificultate: '+escHtml(data.dificultate)+'</span></div>'}
+  if(data.intrebari&&data.intrebari.length){
+    data.intrebari.forEach(function(q,qi){
+      h+='<div style="margin-bottom:20px;padding:16px;background:rgba(246,212,76,0.04);border:1px solid rgba(246,212,76,0.15);border-radius:var(--radius-sm)"><div style="font-size:0.92rem;font-weight:700;color:var(--text-heading);margin-bottom:12px">'+(qi+1)+'. '+escHtml(q.intrebare||'')+'</div><div style="display:flex;flex-direction:column;gap:8px">';
+      (q.variante||[]).forEach(function(v,vi){
+        var isCorrect=vi===q.raspuns_corect;
+        h+='<div class="quiz-opt" data-q="'+qi+'" data-v="'+vi+'" onclick="revealQuizAnswer(this,'+isCorrect+')" style="padding:10px 14px;background:var(--bg-input);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);cursor:pointer;font-size:0.88rem;color:var(--text-secondary);transition:all 0.2s">'+(String.fromCharCode(65+vi))+'. '+escHtml(v)+'</div>';
+      });
+      h+='</div><div class="quiz-expl" id="quizExpl'+qi+'" style="display:none;margin-top:10px;padding:10px 14px;background:rgba(46,204,113,0.06);border:1px solid rgba(46,204,113,0.2);border-radius:var(--radius-sm);font-size:0.82rem;color:var(--text-secondary)">'+escHtml(q.explicatie||'')+'</div></div>';
+    });
+  }
+  h+='<div style="margin-top:16px;text-align:center"><button class="btn-primary" onclick="runLabQuiz()" style="background:var(--accent-gold);color:#0f1f28">🎮 Altă provocare →</button></div>';
+  h+='</div>';container.innerHTML=h;container.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function revealQuizAnswer(el,isCorrect){
+  var q=el.getAttribute('data-q');
+  var opts=document.querySelectorAll('.quiz-opt[data-q="'+q+'"]');
+  opts.forEach(function(o){o.style.pointerEvents='none';o.style.opacity='0.6'});
+  if(isCorrect){el.style.background='rgba(46,204,113,0.15)';el.style.borderColor='var(--accent-green)';el.style.color='var(--accent-green)';el.style.opacity='1';el.style.fontWeight='700'}
+  else{el.style.background='rgba(231,76,94,0.15)';el.style.borderColor='var(--accent-red)';el.style.color='var(--accent-red)';el.style.opacity='1'}
+  var expl=document.getElementById('quizExpl'+q);
+  if(expl)expl.style.display='block';
+}
+
+async function runLabQuiz(){
+  if(!hasLeadAccess()){showLeadGate(function(){runLabQuiz()});return}
+  if(getLabHourUsage('quiz')>=3){alert(t('lab_limit'));return}
+  var btn=document.getElementById('labQuizBtn');
+  var lo=document.getElementById('labQuizLoading');
+  var res=document.getElementById('labQuizResult');
+  btn.disabled=true;res.innerHTML='';lo.classList.add('visible');
+  var sp=LAB_PROMPTS.quiz+(LI[currentLang]||LI.en);
+  try{
+    var r=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({system:sp,messages:[{role:'user',content:'Generează o provocare NLP de dificultate medie.'}],temperature:0.8,tier:'laborator',fingerprint:_deviceFingerprint,email:getEvalEmail(),max_tokens:2000,content_type:'laborator_quiz',lang:currentLang})});
+    if(!r.ok)throw new Error('API');
+    var d=await r.json();
+    var tx=d.content?.[0]?.text||'';
+    var j;try{j=JSON.parse(tx.replace(/```json\s*/g,'').replace(/```/g,'').trim())}catch(e){var m=tx.match(/\{[\s\S]*\}/);if(m)j=JSON.parse(m[0]);else throw new Error('JSON')}
+    incrLabUsage('quiz');lo.classList.remove('visible');btn.disabled=false;
+    renderLabQuiz(j,res);
+  }catch(e){lo.classList.remove('visible');btn.disabled=false;res.innerHTML='<div class="card" style="padding:20px;color:var(--accent-red);text-align:center">'+t('lab_error')+'</div>';console.error(e)}
 }
 
 function saveLabToHistory(instrId,input,result){
