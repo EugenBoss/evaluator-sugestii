@@ -64,11 +64,11 @@ function checkRateLimit(ip, fingerprint, email, tier, charCount) {
   const limits = {
     basic:       { perHour: 5,  perDay: Infinity, charsPerHour: Infinity },
     avansat:     { perHour: 3,  perDay: 7,        charsPerHour: Infinity },
-    expert:      { perHour: 10, perDay: Infinity,  charsPerHour: 60000 },
-    gen_simplu:  { perHour: 3,  perDay: 5,        charsPerHour: Infinity },
-    gen_avansat: { perHour: 3,  perDay: 5,        charsPerHour: Infinity },
-    gen_expert:  { perHour: 2,  perDay: 3,        charsPerHour: Infinity },
-    laborator:   { perHour: 3,  perDay: 10,       charsPerHour: Infinity }
+    expert:      { perHour: 30, perDay: 30,       charsPerHour: Infinity },
+    gen_simplu:  { perHour: 3,  perDay: 3,        charsPerHour: Infinity },
+    gen_avansat: { perHour: 5,  perDay: 5,        charsPerHour: Infinity },
+    gen_expert:  { perHour: 10, perDay: 30,       charsPerHour: Infinity },
+    laborator:   { perHour: 5,  perDay: 15,       charsPerHour: Infinity }
   };
 
   const limit = limits[tier] || limits.basic;
@@ -81,11 +81,6 @@ function checkRateLimit(ip, fingerprint, email, tier, charCount) {
     const remHours = 24 - new Date().getHours();
     return { allowed: false, reason: `rate_limit_day`, remaining: remHours, unit: 'hours' };
   }
-  if (tier === 'expert' && (maxCharsHour + charCount) > limit.charsPerHour) {
-    const remMin = 60 - new Date().getMinutes();
-    return { allowed: false, reason: `char_limit_hour`, remaining: remMin, unit: 'min' };
-  }
-
   return { allowed: true };
 }
 

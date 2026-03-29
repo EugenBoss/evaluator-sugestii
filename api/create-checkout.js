@@ -1,6 +1,7 @@
 // ============================================
 // CREATE CHECKOUT — /api/create-checkout.js
-// Creates Stripe Checkout session for Premium upgrade
+// Creates Stripe Checkout for Creștere or Transformare
+// Plans: crestere_lunar, transformare_lunar, transformare_anual
 // ============================================
 
 export default async function handler(req, res) {
@@ -16,20 +17,23 @@ export default async function handler(req, res) {
   const { plan, email, user_id, lang } = req.body || {};
 
   if (!email) return res.status(400).json({ error: 'Email required' });
-  if (!plan || !['monthly', 'annual'].includes(plan)) {
-    return res.status(400).json({ error: 'Plan must be monthly or annual' });
-  }
 
-  const priceId = plan === 'monthly'
-    ? process.env.STRIPE_PRICE_MONTHLY
-    : process.env.STRIPE_PRICE_ANNUAL;
+  // Map plan to price ID
+  const priceMap = {
+    crestere_lunar: process.env.STRIPE_PRICE_CRESTERE_LUNAR,
+    transformare_lunar: process.env.STRIPE_PRICE_TRANSFORMARE_LUNAR,
+    transformare_anual: process.env.STRIPE_PRICE_TRANSFORMARE_ANUAL,
+    // Legacy support
+    monthly: process.env.STRIPE_PRICE_TRANSFORMARE_LUNAR || process.env.STRIPE_PRICE_MONTHLY,
+    annual: process.env.STRIPE_PRICE_TRANSFORMARE_ANUAL || process.env.STRIPE_PRICE_ANNUAL,
+  };
 
-  if (!priceId) return res.status(500).json({ error: 'Price ID not configured' });
+  const priceId = priceMap[plan];
+  if (!priceId) return res.status(400).json({ error: 'Invalid plan: ' + plan });
 
   const baseUrl = process.env.NEXT_PUBLIC_URL || 'https://evaluator.putereamintii.ro';
 
   try {
-    // Use Stripe API directly (no SDK needed — keeps bundle small)
     const params = new URLSearchParams();
     params.append('mode', 'subscription');
     params.append('customer_email', email);
@@ -42,6 +46,8 @@ export default async function handler(req, res) {
     if (user_id) {
       params.append('metadata[supabase_user_id]', user_id);
     }
+    // Pass plan name in metadata for webhook
+    params.append('metadata[plan]', plan);
     const stripeLocale = { ro: 'ro', en: 'en', es: 'es', fr: 'fr', de: 'de', pt: 'pt-BR' }[lang] || 'ro';
     params.append('locale', stripeLocale);
 

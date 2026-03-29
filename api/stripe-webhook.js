@@ -1,8 +1,7 @@
 // ============================================
 // STRIPE WEBHOOK — /api/stripe-webhook.js
-// No SDK — uses raw fetch + crypto for signature verification
-// Handles: checkout.session.completed, invoice.paid,
-//          customer.subscription.updated, customer.subscription.deleted
+// No SDK — raw fetch + crypto for signature
+// Maps price_id → tier + subscription_plan
 // ============================================
 
 import crypto from 'crypto';
@@ -11,7 +10,26 @@ export const config = {
   api: { bodyParser: false },
 };
 
-// --- Stripe signature verification (no SDK needed) ---
+// --- Price → Plan mapping ---
+const PRICE_PLAN_MAP = {
+  'price_1TGGWdEQCf9MHQbjsA9L6qav': { tier: 'crestere', plan: 'crestere_lunar' },
+  'price_1TGGZIEQCf9MHQbjp5NjnaRf': { tier: 'transformare', plan: 'transformare_lunar' },
+  'price_1TGGa6EQCf9MHQbjJwiRf9jR': { tier: 'transformare', plan: 'transformare_anual' },
+};
+
+function getPlanFromSubscription(subscription) {
+  const priceId = subscription?.items?.data?.[0]?.price?.id;
+  if (priceId && PRICE_PLAN_MAP[priceId]) return PRICE_PLAN_MAP[priceId];
+  // Fallback: check metadata from checkout
+  const metaPlan = subscription?.metadata?.plan;
+  if (metaPlan === 'crestere_lunar') return { tier: 'crestere', plan: 'crestere_lunar' };
+  if (metaPlan === 'transformare_lunar') return { tier: 'transformare', plan: 'transformare_lunar' };
+  if (metaPlan === 'transformare_anual') return { tier: 'transformare', plan: 'transformare_anual' };
+  // Legacy fallback
+  return { tier: 'crestere', plan: 'crestere_lunar' };
+}
+
+// --- Stripe signature verification ---
 function verifyStripeSignature(payload, sigHeader, secret) {
   const parts = sigHeader.split(',').reduce((acc, part) => {
     const [key, value] = part.split('=');
@@ -24,7 +42,6 @@ function verifyStripeSignature(payload, sigHeader, secret) {
 
   if (!timestamp || !signature) return false;
 
-  // Reject if timestamp is older than 5 minutes
   const age = Math.floor(Date.now() / 1000) - parseInt(timestamp);
   if (age > 300) return false;
 
@@ -133,11 +150,13 @@ export default async function handler(req, res) {
 
         // Get subscription details from Stripe
         const subscription = await stripeGet(`/subscriptions/${subscriptionId}`);
+        const { tier, plan } = getPlanFromSubscription(subscription);
 
         await supabaseAdmin('PATCH', 'profiles',
           `id=eq.${profileId}`,
           {
-            tier: 'premium',
+            tier,
+            subscription_plan: plan,
             stripe_customer_id: stripeCustomerId,
             stripe_subscription_id: subscriptionId,
             stripe_subscription_status: subscription.status,
@@ -147,7 +166,7 @@ export default async function handler(req, res) {
           }
         );
 
-        console.log(`✅ Premium activated for ${customerEmail}`);
+        console.log(`✅ ${tier} (${plan}) activated for ${customerEmail}`);
         break;
       }
 
@@ -160,10 +179,13 @@ export default async function handler(req, res) {
         if (!subscriptionId) break;
 
         const subscription = await stripeGet(`/subscriptions/${subscriptionId}`);
+        const { tier, plan } = getPlanFromSubscription(subscription);
 
         await supabaseAdmin('PATCH', 'profiles',
           `stripe_subscription_id=eq.${subscriptionId}`,
           {
+            tier,
+            subscription_plan: plan,
             stripe_subscription_status: 'active',
             stripe_current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
             updated_at: new Date().toISOString(),
@@ -173,20 +195,25 @@ export default async function handler(req, res) {
       }
 
       // ==========================================
-      // SUBSCRIPTION CHANGED
+      // SUBSCRIPTION CHANGED (upgrade/downgrade)
       // ==========================================
       case 'customer.subscription.updated': {
         const subscription = event.data.object;
         const status = subscription.status;
+        const { tier, plan } = getPlanFromSubscription(subscription);
 
         const updates = {
           stripe_subscription_status: status,
           stripe_current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+          subscription_plan: plan,
           updated_at: new Date().toISOString(),
         };
 
         if (status === 'canceled' || status === 'unpaid') {
           updates.tier = 'free';
+          updates.subscription_plan = null;
+        } else {
+          updates.tier = tier;
         }
 
         await supabaseAdmin('PATCH', 'profiles',
@@ -206,6 +233,7 @@ export default async function handler(req, res) {
           `stripe_subscription_id=eq.${subscription.id}`,
           {
             tier: 'free',
+            subscription_plan: null,
             stripe_subscription_status: 'canceled',
             updated_at: new Date().toISOString(),
           }
