@@ -1,8 +1,4 @@
 {
-  "rewrites": [
-    { "source": "/api/send-code", "destination": "/api/send-verification" },
-    { "source": "/api/verify-code", "destination": "/api/send-verification" }
-  ],
   "headers": [
     {
       "source": "/(.*)",
