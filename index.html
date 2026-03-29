@@ -898,6 +898,61 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="lp-proof-item"><span style="font-size:1.3rem">🌍</span><div><strong>6</strong><br>limbi disponibile</div></div>
 </div>
 
+<!-- DAILY CHALLENGE -->
+<div id="dailyChallengeCard" class="card" style="margin:24px 0;padding:24px;border-color:rgba(246,212,76,0.3);background:linear-gradient(135deg,var(--bg-card) 0%,rgba(246,212,76,0.04) 100%);display:none">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:12px">
+<span style="font-size:1.4rem">🎯</span>
+<div style="font-size:0.95rem;font-weight:700;color:var(--accent-gold)" data-i18n="dc_title">Provocarea zilei</div>
+<div id="dcStreakBadge" style="margin-left:auto;font-size:0.72rem;font-weight:600;padding:3px 8px;border-radius:10px;background:rgba(246,212,76,0.12);color:var(--accent-gold);display:none"></div>
+</div>
+<div id="dcBriefContent">
+<div id="dcCategory" style="font-size:0.72rem;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px"></div>
+<div id="dcBriefText" style="font-size:0.9rem;color:var(--text-secondary);line-height:1.6;margin-bottom:16px"></div>
+<div id="dcInputWrap">
+<textarea id="dcSuggestionInput" style="width:100%;min-height:100px;padding:14px;border:1px solid var(--border-input);border-radius:var(--radius-sm);background:var(--bg-input);color:var(--text-primary);font-family:var(--font-main);font-size:0.9rem;line-height:1.6;resize:vertical;outline:none" data-i18n-placeholder="dc_input_ph"></textarea>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+<span id="dcCharCount" style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted)">0</span>
+<button class="btn-primary" onclick="submitDailyChallenge()" id="dcSubmitBtn" style="background:var(--accent-gold);color:#0f1f28" data-i18n="dc_submit">Evaluează →</button>
+</div>
+</div>
+</div>
+<div id="dcResultWrap" style="display:none">
+<div style="display:flex;align-items:center;gap:16px;margin-bottom:12px;flex-wrap:wrap">
+<div id="dcScoreCircle" style="width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;font-weight:700;flex-shrink:0"></div>
+<div style="flex:1;min-width:150px">
+<div id="dcResultLevel" style="font-size:0.88rem;font-weight:600;margin-bottom:4px"></div>
+<div id="dcBenchText" style="font-size:0.82rem;color:var(--text-secondary)"></div>
+</div>
+</div>
+<div id="dcComeBack" style="font-size:0.85rem;color:var(--text-muted);padding:10px 14px;background:rgba(246,212,76,0.06);border-radius:var(--radius-sm);margin-top:10px;text-align:center"></div>
+<div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+<button class="btn-secondary" onclick="navigateTo('laborator')" style="font-size:0.82rem" data-i18n="dc_cta_lab">Analizează în Lab NLP →</button>
+<button class="btn-secondary" onclick="navigateTo('evaluator')" style="font-size:0.82rem" data-i18n="dc_cta_eval">Evaluează altă sugestie →</button>
+</div>
+</div>
+<div id="dcLoadingWrap" style="display:none;text-align:center;padding:20px">
+<div class="loading-spinner" style="margin:0 auto 10px"></div>
+<div style="font-size:0.85rem;color:var(--text-muted)" data-i18n="dc_loading">Se evaluează provocarea...</div>
+</div>
+</div>
+
+<!-- DAILY CHALLENGE END -->
+
+<!-- SUGGESTION OF THE WEEK -->
+<div id="weekSuggestionCard" class="card" style="margin:0 0 24px;padding:20px;border-color:rgba(79,193,233,0.25);display:none">
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+<span style="font-size:1.3rem">📜</span>
+<div style="font-size:0.88rem;font-weight:700;color:var(--accent-blue)" data-i18n="ws_title">Sugestia săptămânii</div>
+</div>
+<div id="wsTitle" style="font-size:0.95rem;font-weight:600;color:var(--text-heading);margin-bottom:6px"></div>
+<div id="wsPreview" style="font-size:0.85rem;color:var(--text-secondary);line-height:1.6;margin-bottom:12px;font-style:italic;max-height:60px;overflow:hidden"></div>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+<span id="wsScore" style="font-size:0.78rem;font-weight:600;padding:4px 10px;border-radius:20px;background:rgba(46,204,113,0.12);color:var(--accent-green)"></span>
+<span id="wsCategory" style="font-size:0.72rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em"></span>
+<button class="btn-secondary" onclick="openWeekSuggestion()" style="margin-left:auto;font-size:0.82rem;padding:8px 16px" data-i18n="ws_read">Citește și evaluează →</button>
+</div>
+</div>
+
 <!-- 3 STEPS -->
 <h3 class="toolkit-heading" style="text-align:center;font-size:1.15rem;margin-bottom:6px">Cum funcționează?</h3>
 <p class="toolkit-sub" style="text-align:center">3 pași simpli. Fără cont obligatoriu. Gratuit.</p>
@@ -1297,6 +1352,13 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div style="font-size:0.85rem;font-weight:700;color:var(--text-heading);margin-bottom:12px">💡 Insight-uri personalizate</div>
 <div id="dashInsightsList"></div>
 </div>
+<div class="card" style="padding:20px;margin-bottom:20px" id="dashBadges">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+<div style="font-size:0.85rem;font-weight:700;color:var(--text-heading)">🏆 <span data-i18n="bdg_title">Realizări</span></div>
+<div id="badgeCounter" style="font-size:0.75rem;color:var(--text-muted)"></div>
+</div>
+<div id="dashBadgeGrid" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+</div>
 </div>
 </section>
 <section class="page-section" id="sec-contact">
@@ -1529,6 +1591,12 @@ const T5={ro:{hist_total:'Evaluări',hist_avg:'Scor mediu',hist_best:'Cel mai bu
 for(const l in T5){if(T[l])Object.assign(T[l],T5[l])}
 const T6={ro:{mastery_title:'Nivel de Maestrie',mastery_activity:'Activitate',mastery_quality:'Calitate',mastery_diversity:'Diversitate',mastery_consistency:'Consistență',mastery_milestone_25:'Ai început!',mastery_milestone_50:'La jumătate — continuă!',mastery_milestone_75:'Nivel avansat!',mastery_milestone_90:'Aproape maestru!',bench_title:'Scorul tău vs. Comunitate',bench_avg:'Media comunității',bench_better_than:'Ești mai bun(ă) decât {pct}% din utilizatori',bench_above:'peste medie',bench_below:'sub medie — concentrează-te aici',bench_criteria_title:'Criteriile tale vs. comunitate',bench_focus:'← concentrare recomandată'},en:{mastery_title:'Mastery Level',mastery_activity:'Activity',mastery_quality:'Quality',mastery_diversity:'Diversity',mastery_consistency:'Consistency',mastery_milestone_25:'You started!',mastery_milestone_50:'Halfway — keep going!',mastery_milestone_75:'Advanced level!',mastery_milestone_90:'Almost a master!',bench_title:'Your Score vs. Community',bench_avg:'Community average',bench_better_than:'You\'re better than {pct}% of users',bench_above:'above average',bench_below:'below average — focus here',bench_criteria_title:'Your criteria vs. community',bench_focus:'← recommended focus'},es:{mastery_title:'Nivel de Maestría',mastery_activity:'Actividad',mastery_quality:'Calidad',mastery_diversity:'Diversidad',mastery_consistency:'Consistencia',mastery_milestone_25:'¡Empezaste!',mastery_milestone_50:'¡A la mitad — sigue!',mastery_milestone_75:'¡Nivel avanzado!',mastery_milestone_90:'¡Casi maestro!',bench_title:'Tu puntuación vs. Comunidad',bench_avg:'Media de la comunidad',bench_better_than:'Eres mejor que el {pct}% de usuarios',bench_above:'sobre la media',bench_below:'bajo la media — enfócate aquí',bench_criteria_title:'Tus criterios vs. comunidad',bench_focus:'← enfoque recomendado'},fr:{mastery_title:'Niveau de Maîtrise',mastery_activity:'Activité',mastery_quality:'Qualité',mastery_diversity:'Diversité',mastery_consistency:'Consistance',mastery_milestone_25:'Vous avez commencé !',mastery_milestone_50:'À mi-chemin — continuez !',mastery_milestone_75:'Niveau avancé !',mastery_milestone_90:'Presque maître !',bench_title:'Votre score vs. Communauté',bench_avg:'Moyenne communauté',bench_better_than:'Meilleur(e) que {pct}% des utilisateurs',bench_above:'au-dessus de la moyenne',bench_below:'en-dessous — à travailler',bench_criteria_title:'Vos critères vs. communauté',bench_focus:'← focus recommandé'},de:{mastery_title:'Meisterschaftsniveau',mastery_activity:'Aktivität',mastery_quality:'Qualität',mastery_diversity:'Vielfalt',mastery_consistency:'Konsistenz',mastery_milestone_25:'Du hast begonnen!',mastery_milestone_50:'Halbzeit — weiter so!',mastery_milestone_75:'Fortgeschritten!',mastery_milestone_90:'Fast ein Meister!',bench_title:'Dein Score vs. Community',bench_avg:'Community-Durchschnitt',bench_better_than:'Besser als {pct}% der Nutzer',bench_above:'über dem Durchschnitt',bench_below:'unter dem Durchschnitt — Fokus hier',bench_criteria_title:'Deine Kriterien vs. Community',bench_focus:'← empfohlener Fokus'},pt:{mastery_title:'Nível de Maestria',mastery_activity:'Atividade',mastery_quality:'Qualidade',mastery_diversity:'Diversidade',mastery_consistency:'Consistência',mastery_milestone_25:'Você começou!',mastery_milestone_50:'Na metade — continue!',mastery_milestone_75:'Nível avançado!',mastery_milestone_90:'Quase mestre!',bench_title:'Sua pontuação vs. Comunidade',bench_avg:'Média da comunidade',bench_better_than:'Melhor que {pct}% dos usuários',bench_above:'acima da média',bench_below:'abaixo da média — foque aqui',bench_criteria_title:'Seus critérios vs. comunidade',bench_focus:'← foco recomendado'}};
 for(const l in T6){if(T[l])Object.assign(T[l],T6[l])}
+const T7={ro:{dc_title:'Provocarea zilei',dc_input_ph:'Scrie sugestia hipnotică pentru acest brief...',dc_submit:'Evaluează →',dc_loading:'Se evaluează provocarea...',dc_come_back:'Revino mâine pentru o provocare nouă!',dc_cta_lab:'Analizează în Lab NLP →',dc_cta_eval:'Evaluează altă sugestie →',dc_streak_label:'{n} zile la rând',dc_avg_time:'Timp mediu: 3 minute',dc_completed_today:'Ai completat provocarea de azi!'},en:{dc_title:'Daily Challenge',dc_input_ph:'Write the hypnotic suggestion for this brief...',dc_submit:'Evaluate →',dc_loading:'Evaluating challenge...',dc_come_back:'Come back tomorrow for a new challenge!',dc_cta_lab:'Analyze in NLP Lab →',dc_cta_eval:'Evaluate another suggestion →',dc_streak_label:'{n} day streak',dc_avg_time:'Average time: 3 minutes',dc_completed_today:'You completed today\'s challenge!'},es:{dc_title:'Desafío del día',dc_input_ph:'Escribe la sugestión hipnótica para este brief...',dc_submit:'Evaluar →',dc_loading:'Evaluando desafío...',dc_come_back:'¡Vuelve mañana para un nuevo desafío!',dc_cta_lab:'Analizar en Lab NLP →',dc_cta_eval:'Evaluar otra sugestión →',dc_streak_label:'{n} días seguidos',dc_avg_time:'Tiempo promedio: 3 minutos',dc_completed_today:'¡Completaste el desafío de hoy!'},fr:{dc_title:'Défi du jour',dc_input_ph:'Écrivez la suggestion hypnotique pour ce brief...',dc_submit:'Évaluer →',dc_loading:'Évaluation du défi...',dc_come_back:'Revenez demain pour un nouveau défi !',dc_cta_lab:'Analyser dans le Lab NLP →',dc_cta_eval:'Évaluer une autre suggestion →',dc_streak_label:'{n} jours consécutifs',dc_avg_time:'Temps moyen : 3 minutes',dc_completed_today:'Vous avez complété le défi du jour !'},de:{dc_title:'Tägliche Herausforderung',dc_input_ph:'Schreiben Sie die hypnotische Suggestion für dieses Briefing...',dc_submit:'Bewerten →',dc_loading:'Herausforderung wird bewertet...',dc_come_back:'Kommen Sie morgen für eine neue Herausforderung!',dc_cta_lab:'Im NLP-Labor analysieren →',dc_cta_eval:'Weitere Suggestion bewerten →',dc_streak_label:'{n} Tage in Folge',dc_avg_time:'Durchschnittszeit: 3 Minuten',dc_completed_today:'Sie haben die heutige Herausforderung abgeschlossen!'},pt:{dc_title:'Desafio do dia',dc_input_ph:'Escreva a sugestão hipnótica para este brief...',dc_submit:'Avaliar →',dc_loading:'Avaliando desafio...',dc_come_back:'Volte amanhã para um novo desafio!',dc_cta_lab:'Analisar no Lab NLP →',dc_cta_eval:'Avaliar outra sugestão →',dc_streak_label:'{n} dias seguidos',dc_avg_time:'Tempo médio: 3 minutos',dc_completed_today:'Você completou o desafio de hoje!'}};
+for(const l in T7){if(T[l])Object.assign(T[l],T7[l])}
+const T8={ro:{bdg_title:'Realizări',bdg_unlocked:'deblocate',bdg_locked:'Încă nedeblocat',bdg_first_eval:'Prima evaluare',bdg_first_eval_d:'Ai completat prima evaluare',bdg_first_gen:'Prima generare',bdg_first_gen_d:'Ai generat prima sugestie',bdg_explorer:'Explorator',bdg_explorer_d:'Ai folosit 2 module diferite',bdg_reader:'Cititor',bdg_reader_d:'Ai deschis Ghidul',bdg_challenger:'Provocare acceptată',bdg_challenger_d:'Ai completat o provocare zilnică',bdg_score70:'Scor 70+',bdg_score70_d:'O evaluare cu scor peste 70',bdg_score80:'Scor 80+',bdg_score80_d:'O evaluare cu scor peste 80',bdg_score90:'Scor 90+',bdg_score90_d:'O evaluare cu scor peste 90',bdg_progress:'Progres real',bdg_progress_d:'Media ultimelor 5 mai bună decât primele 5',bdg_perfectionist:'Perfectionist',bdg_perfectionist_d:'3 evaluări consecutive cu scor 80+',bdg_streak3:'3 zile streak',bdg_streak3_d:'3 zile consecutive de utilizare',bdg_streak7:'7 zile streak',bdg_streak7_d:'7 zile consecutive de utilizare',bdg_streak14:'14 zile streak',bdg_streak14_d:'14 zile consecutive de utilizare',bdg_dedicated:'Dedicat',bdg_dedicated_d:'20+ evaluări realizate',bdg_scientist:'Scientist NLP',bdg_scientist_d:'3 instrumente Lab utilizate',bdg_fullstack:'Full stack',bdg_fullstack_d:'Evaluator + Generator + Lab + Antrenament',bdg_master:'Maestru',bdg_master_d:'Scor de Maestrie 90+',bdg_30challenges:'30 provocări',bdg_30challenges_d:'30 provocări zilnice completate',bdg_new:'Badge nou deblocat!',bdg_congrats:'Felicitări!',bdg_dismiss:'Super! →'},en:{bdg_title:'Achievements',bdg_unlocked:'unlocked',bdg_locked:'Not yet unlocked',bdg_first_eval:'First evaluation',bdg_first_eval_d:'You completed your first evaluation',bdg_first_gen:'First generation',bdg_first_gen_d:'You generated your first suggestion',bdg_explorer:'Explorer',bdg_explorer_d:'Used 2 different modules',bdg_reader:'Reader',bdg_reader_d:'Opened the Guide',bdg_challenger:'Challenge accepted',bdg_challenger_d:'Completed a daily challenge',bdg_score70:'Score 70+',bdg_score70_d:'One evaluation with score above 70',bdg_score80:'Score 80+',bdg_score80_d:'One evaluation with score above 80',bdg_score90:'Score 90+',bdg_score90_d:'One evaluation with score above 90',bdg_progress:'Real progress',bdg_progress_d:'Last 5 average better than first 5',bdg_perfectionist:'Perfectionist',bdg_perfectionist_d:'3 consecutive evaluations with score 80+',bdg_streak3:'3 day streak',bdg_streak3_d:'3 consecutive days of usage',bdg_streak7:'7 day streak',bdg_streak7_d:'7 consecutive days of usage',bdg_streak14:'14 day streak',bdg_streak14_d:'14 consecutive days of usage',bdg_dedicated:'Dedicated',bdg_dedicated_d:'20+ evaluations completed',bdg_scientist:'NLP Scientist',bdg_scientist_d:'3 Lab instruments used',bdg_fullstack:'Full stack',bdg_fullstack_d:'Evaluator + Generator + Lab + Training',bdg_master:'Master',bdg_master_d:'Mastery Score 90+',bdg_30challenges:'30 challenges',bdg_30challenges_d:'30 daily challenges completed',bdg_new:'New badge unlocked!',bdg_congrats:'Congratulations!',bdg_dismiss:'Great! →'},es:{bdg_title:'Logros',bdg_unlocked:'desbloqueados',bdg_locked:'Aún no desbloqueado',bdg_first_eval:'Primera evaluación',bdg_first_eval_d:'Completaste tu primera evaluación',bdg_first_gen:'Primera generación',bdg_first_gen_d:'Generaste tu primera sugestión',bdg_explorer:'Explorador',bdg_explorer_d:'Usaste 2 módulos diferentes',bdg_reader:'Lector',bdg_reader_d:'Abriste la Guía',bdg_challenger:'Desafío aceptado',bdg_challenger_d:'Completaste un desafío diario',bdg_score70:'Puntuación 70+',bdg_score70_d:'Una evaluación con puntuación mayor a 70',bdg_score80:'Puntuación 80+',bdg_score80_d:'Una evaluación con puntuación mayor a 80',bdg_score90:'Puntuación 90+',bdg_score90_d:'Una evaluación con puntuación mayor a 90',bdg_progress:'Progreso real',bdg_progress_d:'Media últimas 5 mejor que primeras 5',bdg_perfectionist:'Perfeccionista',bdg_perfectionist_d:'3 evaluaciones consecutivas con 80+',bdg_streak3:'3 días seguidos',bdg_streak3_d:'3 días consecutivos de uso',bdg_streak7:'7 días seguidos',bdg_streak7_d:'7 días consecutivos de uso',bdg_streak14:'14 días seguidos',bdg_streak14_d:'14 días consecutivos de uso',bdg_dedicated:'Dedicado',bdg_dedicated_d:'20+ evaluaciones realizadas',bdg_scientist:'Científico NLP',bdg_scientist_d:'3 instrumentos Lab utilizados',bdg_fullstack:'Full stack',bdg_fullstack_d:'Evaluador + Generador + Lab + Entrenamiento',bdg_master:'Maestro',bdg_master_d:'Puntuación de Maestría 90+',bdg_30challenges:'30 desafíos',bdg_30challenges_d:'30 desafíos diarios completados',bdg_new:'¡Nuevo logro desbloqueado!',bdg_congrats:'¡Felicitaciones!',bdg_dismiss:'¡Genial! →'},fr:{bdg_title:'Réalisations',bdg_unlocked:'débloquées',bdg_locked:'Pas encore débloqué',bdg_first_eval:'Première évaluation',bdg_first_eval_d:'Vous avez complété votre première évaluation',bdg_first_gen:'Première génération',bdg_first_gen_d:'Vous avez généré votre première suggestion',bdg_explorer:'Explorateur',bdg_explorer_d:'2 modules différents utilisés',bdg_reader:'Lecteur',bdg_reader_d:'Vous avez ouvert le Guide',bdg_challenger:'Défi accepté',bdg_challenger_d:'Un défi quotidien complété',bdg_score70:'Score 70+',bdg_score70_d:'Une évaluation avec score supérieur à 70',bdg_score80:'Score 80+',bdg_score80_d:'Une évaluation avec score supérieur à 80',bdg_score90:'Score 90+',bdg_score90_d:'Une évaluation avec score supérieur à 90',bdg_progress:'Progrès réel',bdg_progress_d:'Moyenne des 5 dernières meilleure que les 5 premières',bdg_perfectionist:'Perfectionniste',bdg_perfectionist_d:'3 évaluations consécutives avec 80+',bdg_streak3:'3 jours consécutifs',bdg_streak3_d:'3 jours consécutifs d\'utilisation',bdg_streak7:'7 jours consécutifs',bdg_streak7_d:'7 jours consécutifs d\'utilisation',bdg_streak14:'14 jours consécutifs',bdg_streak14_d:'14 jours consécutifs d\'utilisation',bdg_dedicated:'Dévoué',bdg_dedicated_d:'20+ évaluations réalisées',bdg_scientist:'Scientifique NLP',bdg_scientist_d:'3 instruments Lab utilisés',bdg_fullstack:'Full stack',bdg_fullstack_d:'Évaluateur + Générateur + Lab + Entraînement',bdg_master:'Maître',bdg_master_d:'Score de Maîtrise 90+',bdg_30challenges:'30 défis',bdg_30challenges_d:'30 défis quotidiens complétés',bdg_new:'Nouveau badge débloqué !',bdg_congrats:'Félicitations !',bdg_dismiss:'Super ! →'},de:{bdg_title:'Erfolge',bdg_unlocked:'freigeschaltet',bdg_locked:'Noch nicht freigeschaltet',bdg_first_eval:'Erste Bewertung',bdg_first_eval_d:'Erste Bewertung abgeschlossen',bdg_first_gen:'Erste Generierung',bdg_first_gen_d:'Erste Suggestion generiert',bdg_explorer:'Entdecker',bdg_explorer_d:'2 verschiedene Module genutzt',bdg_reader:'Leser',bdg_reader_d:'Leitfaden geöffnet',bdg_challenger:'Herausforderung angenommen',bdg_challenger_d:'Eine tägliche Herausforderung abgeschlossen',bdg_score70:'Score 70+',bdg_score70_d:'Eine Bewertung mit Score über 70',bdg_score80:'Score 80+',bdg_score80_d:'Eine Bewertung mit Score über 80',bdg_score90:'Score 90+',bdg_score90_d:'Eine Bewertung mit Score über 90',bdg_progress:'Echter Fortschritt',bdg_progress_d:'Durchschnitt der letzten 5 besser als erste 5',bdg_perfectionist:'Perfektionist',bdg_perfectionist_d:'3 aufeinanderfolgende Bewertungen mit 80+',bdg_streak3:'3 Tage Streak',bdg_streak3_d:'3 aufeinanderfolgende Nutzungstage',bdg_streak7:'7 Tage Streak',bdg_streak7_d:'7 aufeinanderfolgende Nutzungstage',bdg_streak14:'14 Tage Streak',bdg_streak14_d:'14 aufeinanderfolgende Nutzungstage',bdg_dedicated:'Engagiert',bdg_dedicated_d:'20+ Bewertungen abgeschlossen',bdg_scientist:'NLP-Wissenschaftler',bdg_scientist_d:'3 Labor-Instrumente genutzt',bdg_fullstack:'Full Stack',bdg_fullstack_d:'Bewerter + Generator + Labor + Training',bdg_master:'Meister',bdg_master_d:'Meisterschafts-Score 90+',bdg_30challenges:'30 Herausforderungen',bdg_30challenges_d:'30 tägliche Herausforderungen abgeschlossen',bdg_new:'Neuer Badge freigeschaltet!',bdg_congrats:'Glückwunsch!',bdg_dismiss:'Super! →'},pt:{bdg_title:'Conquistas',bdg_unlocked:'desbloqueadas',bdg_locked:'Ainda não desbloqueado',bdg_first_eval:'Primeira avaliação',bdg_first_eval_d:'Você completou sua primeira avaliação',bdg_first_gen:'Primeira geração',bdg_first_gen_d:'Você gerou sua primeira sugestão',bdg_explorer:'Explorador',bdg_explorer_d:'Usou 2 módulos diferentes',bdg_reader:'Leitor',bdg_reader_d:'Abriu o Guia',bdg_challenger:'Desafio aceito',bdg_challenger_d:'Completou um desafio diário',bdg_score70:'Pontuação 70+',bdg_score70_d:'Uma avaliação com pontuação acima de 70',bdg_score80:'Pontuação 80+',bdg_score80_d:'Uma avaliação com pontuação acima de 80',bdg_score90:'Pontuação 90+',bdg_score90_d:'Uma avaliação com pontuação acima de 90',bdg_progress:'Progresso real',bdg_progress_d:'Média das últimas 5 melhor que primeiras 5',bdg_perfectionist:'Perfeccionista',bdg_perfectionist_d:'3 avaliações consecutivas com 80+',bdg_streak3:'3 dias seguidos',bdg_streak3_d:'3 dias consecutivos de uso',bdg_streak7:'7 dias seguidos',bdg_streak7_d:'7 dias consecutivos de uso',bdg_streak14:'14 dias seguidos',bdg_streak14_d:'14 dias consecutivos de uso',bdg_dedicated:'Dedicado',bdg_dedicated_d:'20+ avaliações realizadas',bdg_scientist:'Cientista NLP',bdg_scientist_d:'3 instrumentos Lab utilizados',bdg_fullstack:'Full stack',bdg_fullstack_d:'Avaliador + Gerador + Lab + Treinamento',bdg_master:'Mestre',bdg_master_d:'Pontuação de Maestria 90+',bdg_30challenges:'30 desafios',bdg_30challenges_d:'30 desafios diários completados',bdg_new:'Novo badge desbloqueado!',bdg_congrats:'Parabéns!',bdg_dismiss:'Ótimo! →'}};
+for(const l in T8){if(T[l])Object.assign(T[l],T8[l])}
+const T9={ro:{ws_title:'Sugestia săptămânii',ws_read:'Citește și evaluează →',ws_score_label:'Scor'},en:{ws_title:'Suggestion of the week',ws_read:'Read & evaluate →',ws_score_label:'Score'},es:{ws_title:'Sugestión de la semana',ws_read:'Lee y evalúa →',ws_score_label:'Puntuación'},fr:{ws_title:'Suggestion de la semaine',ws_read:'Lire et évaluer →',ws_score_label:'Score'},de:{ws_title:'Suggestion der Woche',ws_read:'Lesen und bewerten →',ws_score_label:'Score'},pt:{ws_title:'Sugestão da semana',ws_read:'Leia e avalie →',ws_score_label:'Pontuação'}};
+for(const l in T9){if(T[l])Object.assign(T[l],T9[l])}
 
 const COMMUNITY_BENCHMARKS={avg:73.4,median:87,p25:62,p50:87,p75:89,criteria:{1:8.5,2:7.1,3:8.1,4:7.6,5:5.9,6:5.6,7:6.4,8:7.2,9:5.3},updated:'2026-03-29'};
 
@@ -1548,7 +1616,7 @@ function detectLang(){const s=localStorage.getItem('eval_lang');if(s&&T[s])retur
 function setLang(l){currentLang=l;localStorage.setItem('eval_lang',l);document.documentElement.lang=l;const sel=document.getElementById('langSelect');if(sel)sel.value=l;applyTranslations();renderGuide();initCountryDropdown()}
 function t(k){return(T[currentLang]&&T[currentLang][k])||T.en[k]||T.ro[k]||k}
 function applyTranslations(){document.querySelectorAll('[data-i18n]').forEach(el=>{const v=t(el.getAttribute('data-i18n'));if(v)el.textContent=v});document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{const v=t(el.getAttribute('data-i18n-placeholder'));if(v)el.placeholder=v})}
-function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='dashboard')renderDashboard();if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s);if(s==='generator'||s==='evaluator'||s==='antrenament')showInlineHint(s)}
+function navigateTo(s){currentSection=s;window.location.hash=s;document.querySelectorAll('.page-section').forEach(x=>x.classList.remove('active'));const tg=document.getElementById('sec-'+s);if(tg)tg.classList.add('active');document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.classList.toggle('active',a.getAttribute('data-section')===s)});if(window.innerWidth<=768){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');document.getElementById('hamburger').classList.remove('open')}window.scrollTo(0,0);if(s==='dashboard')renderDashboard();if(s==='acasa'){renderDailyChallenge();renderWeekSuggestion()}if(s==='ghid')localStorage.setItem('guide_visited','1');if(s==='evaluator')updateUsageMeter();if(s==='biblioteca')renderLibrary();if(s==='istoric')renderHistory();loadPageRecommendations(s);if(s==='generator'||s==='evaluator'||s==='antrenament')showInlineHint(s)}
 function handleHash(){navigateTo(window.location.hash.replace('#','')||'generator')}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open');document.getElementById('hamburger').classList.toggle('open')}
 function initCountryDropdown(){const sel=document.getElementById('leadCountry');if(!sel||sel.options.length>1)return;sel.innerHTML='';const defCode=currentLang==='ro'?'+40':currentLang==='pt'?'+351':currentLang==='es'?'+34':currentLang==='fr'?'+33':currentLang==='de'?'+49':'+44';CC.forEach(c=>{const o=document.createElement('option');o.value=c.c;o.textContent=c.f+' '+c.c;if(c.c===defCode)o.selected=true;sel.appendChild(o)})}
@@ -1611,7 +1679,7 @@ function storePendingLead(data){_pendingLead=data;try{sessionStorage.setItem('_p
 function clearPendingLead(){_pendingLead=null;try{sessionStorage.removeItem('_pendingLead')}catch(e){}}
 function getPendingLead(){if(_pendingLead)return _pendingLead;try{const s=sessionStorage.getItem('_pendingLead');if(s)return JSON.parse(s)}catch(e){}return null}
 function buildLeadPayload(lead,evalData,leadType){return{name:lead?.name||'',email:lead?.email||'',phone:lead?.phone||'',source:lead?.source||'evaluator-sugestii',tier:lead?.tier||currentTier,content_type:lead?.content_type||currentContentType,email_verified:lead?.email_verified||'',gdpr_consent:lead?.gdpr_consent||'',gdpr_timestamp:lead?.gdpr_timestamp||'',device:lead?.device||(window.innerWidth<=768?'mobile':'desktop'),lang:lead?.lang||currentLang,timestamp:new Date().toISOString(),suggestion_text:evalData?.suggestion_text||'',score:evalData?.score||'',detected_type:evalData?.detected_type||'',level:evalData?.level||'',lead_type:leadType||''}}
-function trackEvaluation(inputText,result,source){const pending=getPendingLead();const lead=pending||{name:localStorage.getItem('eval_lead_name')||'',email:localStorage.getItem('eval_lead_email')||'',phone:localStorage.getItem('eval_lead_phone')||'',source:source||'evaluator-sugestii',tier:currentTier,content_type:currentContentType,email_verified:localStorage.getItem('eval_lead_email')?'da':'',gdpr_consent:localStorage.getItem('eval_lead_email')?'da':'',gdpr_timestamp:'',device:window.innerWidth<=768?'mobile':'desktop',lang:currentLang};const evalData={suggestion_text:(inputText||'').substring(0,500),score:result?.scor_total||0,detected_type:result?.tip_detectat||'',level:getScoreLevel(result?.scor_total||0).level};const lt=lead.email?'complet':'anonim';const payload=buildLeadPayload(lead,evalData,lt);fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});if(pending)clearPendingLead();saveToHistory(inputText,result,source);updateStreak();renderMasteryBadge();incrementTotalCount();dismissModuleHints('evaluator');dismissModuleHints('antrenament')}
+function trackEvaluation(inputText,result,source){const pending=getPendingLead();const lead=pending||{name:localStorage.getItem('eval_lead_name')||'',email:localStorage.getItem('eval_lead_email')||'',phone:localStorage.getItem('eval_lead_phone')||'',source:source||'evaluator-sugestii',tier:currentTier,content_type:currentContentType,email_verified:localStorage.getItem('eval_lead_email')?'da':'',gdpr_consent:localStorage.getItem('eval_lead_email')?'da':'',gdpr_timestamp:'',device:window.innerWidth<=768?'mobile':'desktop',lang:currentLang};const evalData={suggestion_text:(inputText||'').substring(0,500),score:result?.scor_total||0,detected_type:result?.tip_detectat||'',level:getScoreLevel(result?.scor_total||0).level};const lt=lead.email?'complet':'anonim';const payload=buildLeadPayload(lead,evalData,lt);fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).catch(()=>{});if(pending)clearPendingLead();saveToHistory(inputText,result,source);updateStreak();renderMasteryBadge();checkBadges();incrementTotalCount();dismissModuleHints('evaluator');dismissModuleHints('antrenament')}
 function flushPartialLead(){const pending=getPendingLead();if(!pending)return;const payload=buildLeadPayload(pending,null,'partial');try{navigator.sendBeacon('/api/lead',new Blob([JSON.stringify(payload)],{type:'application/json'}))}catch(e){fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(()=>{})}clearPendingLead()}
 window.addEventListener('beforeunload',flushPartialLead);
 window.addEventListener('pagehide',flushPartialLead);
@@ -2119,7 +2187,7 @@ function renderGenResult(data){
   }).catch(function(){document.getElementById('genResults').innerHTML=h});
 
   document.getElementById('genResults').innerHTML=h;
-  updateStreak();renderMasteryBadge();incrementTotalCount();dismissModuleHints('generator');
+  updateStreak();renderMasteryBadge();checkBadges();incrementTotalCount();dismissModuleHints('generator');
   document.querySelectorAll('#genWizard .gen-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('genStepResult').classList.add('active');
   document.getElementById('genStepResult').scrollIntoView({behavior:'smooth',block:'start'});
@@ -3366,6 +3434,237 @@ function drawHistChart(entries){
 }
 // ===== END ISTORIC =====
 
+// ===== WEEKLY SUGGESTION =====
+function getWeekOfYear(){var d=new Date();var start=new Date(d.getFullYear(),0,1);var diff=d-start;return Math.floor(diff/(7*86400000))}
+
+var _weekSuggestion=null;
+async function renderWeekSuggestion(){
+  var card=document.getElementById('weekSuggestionCard');
+  if(!card)return;
+  try{
+    var data=await loadLibrary();
+    var sug=data.suggestions||data;
+    if(!sug||!sug.length){card.style.display='none';return}
+    var idx=getWeekOfYear()%sug.length;
+    _weekSuggestion=sug[idx];
+    var s=_weekSuggestion;
+    document.getElementById('wsTitle').textContent=s.title||s.titlu||'';
+    var preview=(s.text||s.sugestie||'').substring(0,150);
+    if((s.text||s.sugestie||'').length>150)preview+='...';
+    document.getElementById('wsPreview').textContent=preview;
+    document.getElementById('wsScore').textContent=t('ws_score_label')+': '+(s.score||s.scor||'—');
+    document.getElementById('wsCategory').textContent=getCatLabel(s.category||s.categorie||'');
+    card.style.display='block';
+  }catch(e){console.error('Week suggestion error:',e);card.style.display='none'}
+}
+
+function openWeekSuggestion(){
+  if(!_weekSuggestion)return;
+  navigateTo('biblioteca');
+  // Try to expand this suggestion in library
+  setTimeout(function(){
+    var text=_weekSuggestion.text||_weekSuggestion.sugestie||'';
+    if(text){
+      navigateTo('evaluator');
+      var ta=document.getElementById('suggestionInput');
+      if(ta){ta.value=text;ta.dispatchEvent(new Event('input'))}
+    }
+  },300);
+}
+
+// ===== DAILY CHALLENGE =====
+function getDayOfYear(){var now=new Date();var start=new Date(now.getFullYear(),0,0);var diff=now-start;return Math.floor(diff/86400000)}
+
+function getDailyBrief(){var idx=getDayOfYear()%TRAIN_BRIEFS.length;return TRAIN_BRIEFS[idx]}
+
+function isDailyChallengeCompleted(){var saved=localStorage.getItem('dc_date');var today=new Date().toISOString().slice(0,10);return saved===today}
+
+function getDailyChallengeResult(){try{return JSON.parse(localStorage.getItem('dc_result')||'null')}catch(e){return null}}
+
+function renderDailyChallenge(){
+  var card=document.getElementById('dailyChallengeCard');
+  if(!card)return;
+  card.style.display='block';
+  var brief=getDailyBrief();
+  var isRo=!currentLang||currentLang==='ro';
+  document.getElementById('dcCategory').textContent=isRo?brief.cat:(brief.cat_en||brief.cat);
+  document.getElementById('dcBriefText').textContent=isRo?brief.desc:(brief.desc_en||brief.desc);
+  // Streak badge
+  var streak=getStreak();
+  var badge=document.getElementById('dcStreakBadge');
+  if(streak.count>=2){badge.style.display='inline';badge.textContent='🔥 '+t('dc_streak_label').replace('{n}',streak.count)}
+  else{badge.style.display='none'}
+
+  if(isDailyChallengeCompleted()){
+    // Show result
+    document.getElementById('dcInputWrap').style.display='none';
+    document.getElementById('dcResultWrap').style.display='block';
+    document.getElementById('dcLoadingWrap').style.display='none';
+    var res=getDailyChallengeResult();
+    if(res){
+      var sc=res.score||0;
+      var lv=getScoreLevel(sc);
+      document.getElementById('dcScoreCircle').textContent=sc;
+      document.getElementById('dcScoreCircle').style.background=lv.color;
+      document.getElementById('dcScoreCircle').style.color=sc>=60?'#0f1f28':'#fff';
+      document.getElementById('dcResultLevel').innerHTML='<span style="color:'+lv.color+'">'+lv.level+'</span> — '+t('dc_completed_today');
+      // Benchmark comparison
+      var bm=COMMUNITY_BENCHMARKS;
+      var pct=0;
+      if(sc<bm.p25)pct=Math.round(sc/bm.p25*25);
+      else if(sc<bm.p50)pct=25+Math.round((sc-bm.p25)/(bm.p50-bm.p25)*25);
+      else if(sc<bm.p75)pct=50+Math.round((sc-bm.p50)/(bm.p75-bm.p50)*25);
+      else pct=75+Math.round((sc-bm.p75)/(100-bm.p75)*25);
+      pct=Math.min(99,Math.max(1,pct));
+      document.getElementById('dcBenchText').textContent=t('bench_better_than').replace('{pct}',pct);
+    }
+    document.getElementById('dcComeBack').textContent=t('dc_come_back');
+  }else{
+    document.getElementById('dcInputWrap').style.display='block';
+    document.getElementById('dcResultWrap').style.display='none';
+    document.getElementById('dcLoadingWrap').style.display='none';
+  }
+  // Char counter
+  var ta=document.getElementById('dcSuggestionInput');
+  if(ta){ta.oninput=function(){document.getElementById('dcCharCount').textContent=ta.value.length}}
+}
+
+async function submitDailyChallenge(){
+  var ta=document.getElementById('dcSuggestionInput');
+  if(!ta||ta.value.trim().length<10)return;
+  var text=ta.value.trim();
+  var brief=getDailyBrief();
+  var isRo=!currentLang||currentLang==='ro';
+
+  document.getElementById('dcInputWrap').style.display='none';
+  document.getElementById('dcLoadingWrap').style.display='block';
+
+  var briefCtx=t('train_brief_ctx').replace('{cat}',isRo?brief.cat:brief.cat_en).replace('{title}',isRo?brief.title:brief.title_en).replace('{desc}',isRo?brief.desc:brief.desc_en);
+  var body={suggestion:text,tier:'avansat',contentType:'sugestie',lang:currentLang||'ro',briefContext:briefCtx};
+
+  try{
+    var resp=await fetch('/api/evaluate',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+    var data=await resp.json();
+    if(data.error)throw new Error(data.error);
+    var sc=data.scor_total||0;
+    localStorage.setItem('dc_date',new Date().toISOString().slice(0,10));
+    localStorage.setItem('dc_result',JSON.stringify({score:sc,level:getScoreLevel(sc).level}));
+    localStorage.setItem('dc_total',(parseInt(localStorage.getItem('dc_total')||'0')+1).toString());
+    // Save to history
+    saveToHistory(text,data,'antrenament');
+    updateStreak();renderMasteryBadge();checkBadges();incrementTotalCount();
+    renderDailyChallenge();
+  }catch(e){
+    console.error('DC error:',e);
+    document.getElementById('dcLoadingWrap').style.display='none';
+    document.getElementById('dcInputWrap').style.display='block';
+  }
+}
+
+// ===== BADGES =====
+const BADGES=[
+{id:'first_eval',icon:'🎯',tk:'bdg_first_eval',dk:'bdg_first_eval_d',cat:'start'},
+{id:'first_gen',icon:'✨',tk:'bdg_first_gen',dk:'bdg_first_gen_d',cat:'start'},
+{id:'explorer',icon:'🔍',tk:'bdg_explorer',dk:'bdg_explorer_d',cat:'start'},
+{id:'reader',icon:'📖',tk:'bdg_reader',dk:'bdg_reader_d',cat:'start'},
+{id:'challenger',icon:'🎲',tk:'bdg_challenger',dk:'bdg_challenger_d',cat:'start'},
+{id:'score70',icon:'⭐',tk:'bdg_score70',dk:'bdg_score70_d',cat:'quality'},
+{id:'score80',icon:'🌟',tk:'bdg_score80',dk:'bdg_score80_d',cat:'quality'},
+{id:'score90',icon:'💫',tk:'bdg_score90',dk:'bdg_score90_d',cat:'quality'},
+{id:'progress',icon:'📈',tk:'bdg_progress',dk:'bdg_progress_d',cat:'quality'},
+{id:'perfectionist',icon:'💎',tk:'bdg_perfectionist',dk:'bdg_perfectionist_d',cat:'quality'},
+{id:'streak3',icon:'🔥',tk:'bdg_streak3',dk:'bdg_streak3_d',cat:'consistency'},
+{id:'streak7',icon:'🔥🔥',tk:'bdg_streak7',dk:'bdg_streak7_d',cat:'consistency'},
+{id:'streak14',icon:'🔥🔥🔥',tk:'bdg_streak14',dk:'bdg_streak14_d',cat:'consistency'},
+{id:'dedicated',icon:'🏅',tk:'bdg_dedicated',dk:'bdg_dedicated_d',cat:'consistency'},
+{id:'scientist',icon:'🔬',tk:'bdg_scientist',dk:'bdg_scientist_d',cat:'diversity'},
+{id:'fullstack',icon:'🛠️',tk:'bdg_fullstack',dk:'bdg_fullstack_d',cat:'diversity'},
+{id:'master',icon:'👑',tk:'bdg_master',dk:'bdg_master_d',cat:'special'},
+{id:'30challenges',icon:'🏆',tk:'bdg_30challenges',dk:'bdg_30challenges_d',cat:'special'}
+];
+
+function getUnlockedBadges(){try{return JSON.parse(localStorage.getItem('badges_unlocked')||'[]')}catch(e){return[]}}
+function saveBadge(id){var arr=getUnlockedBadges();if(!arr.includes(id)){arr.push(id);localStorage.setItem('badges_unlocked',JSON.stringify(arr))}return arr}
+
+function checkBadges(){
+  var hist=getHistory();
+  var evals=hist.filter(function(h){return h.source==='evaluator'||h.source==='antrenament'});
+  var gens=hist.filter(function(h){return h.source==='generator'});
+  var labs=hist.filter(function(h){return (h.source||'').indexOf('laborator')>=0||h.content_type==='laborator'});
+  var scored=evals.filter(function(h){return h.scor>0});
+  var streak=getStreak();
+  var unlocked=getUnlockedBadges();
+  var newBadges=[];
+  function check(id,cond){if(!unlocked.includes(id)&&cond){saveBadge(id);newBadges.push(id)}}
+  // Start
+  check('first_eval',evals.length>=1);
+  check('first_gen',gens.length>=1);
+  var modsUsed=0;
+  if(evals.filter(function(h){return h.source==='evaluator'}).length>0)modsUsed++;
+  if(gens.length>0)modsUsed++;
+  if(labs.length>0)modsUsed++;
+  if(evals.filter(function(h){return h.source==='antrenament'}).length>0)modsUsed++;
+  check('explorer',modsUsed>=2);
+  check('reader',!!localStorage.getItem('guide_visited'));
+  check('challenger',isDailyChallengeCompleted()||parseInt(localStorage.getItem('dc_total')||'0')>=1);
+  // Quality
+  check('score70',scored.some(function(h){return h.scor>=70}));
+  check('score80',scored.some(function(h){return h.scor>=80}));
+  check('score90',scored.some(function(h){return h.scor>=90}));
+  if(scored.length>=10){var last5=scored.slice(0,5);var first5=scored.slice(-5);var lAvg=last5.reduce(function(s,h){return s+h.scor},0)/5;var fAvg=first5.reduce(function(s,h){return s+h.scor},0)/5;check('progress',lAvg>fAvg+3)}
+  if(scored.length>=3){var top3=scored.slice(0,3);check('perfectionist',top3.every(function(h){return h.scor>=80}))}
+  // Consistency
+  check('streak3',streak.count>=3);
+  check('streak7',streak.count>=7);
+  check('streak14',streak.count>=14);
+  check('dedicated',evals.length>=20);
+  // Diversity
+  var labInstruments=new Set();
+  labs.forEach(function(h){if(h.instrument)labInstruments.add(h.instrument)});
+  check('scientist',labInstruments.size>=3);
+  check('fullstack',modsUsed>=4);
+  // Special
+  var m=calculateMastery();
+  check('master',m.total>=90);
+  check('30challenges',parseInt(localStorage.getItem('dc_total')||'0')>=30);
+  // Show popup for first new badge only
+  if(newBadges.length>0){var bdg=BADGES.find(function(b){return b.id===newBadges[0]});if(bdg)showBadgePopup(bdg)}
+  return getUnlockedBadges();
+}
+
+function showBadgePopup(badge){
+  var existing=document.getElementById('badgePopup');
+  if(existing)existing.remove();
+  var div=document.createElement('div');
+  div.id='badgePopup';
+  div.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);animation:fadeIn 0.3s ease';
+  div.innerHTML='<div style="background:var(--bg-card);border:1px solid rgba(246,212,76,0.4);border-radius:var(--radius);padding:32px;text-align:center;max-width:320px;width:90%;animation:fadeIn 0.4s ease">'
+    +'<div style="font-size:0.75rem;color:var(--accent-gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:8px">'+t('bdg_new')+'</div>'
+    +'<div style="font-size:3rem;margin-bottom:8px">'+badge.icon+'</div>'
+    +'<div style="font-size:1.1rem;font-weight:700;color:var(--text-heading);margin-bottom:6px">'+t(badge.tk)+'</div>'
+    +'<div style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:20px;line-height:1.5">'+t(badge.dk)+'</div>'
+    +'<button class="btn-primary" onclick="document.getElementById(\'badgePopup\').remove()" style="background:var(--accent-gold);color:#0f1f28;width:100%;justify-content:center">'+t('bdg_dismiss')+'</button>'
+    +'</div>';
+  document.body.appendChild(div);
+}
+
+function renderBadges(){
+  var grid=document.getElementById('dashBadgeGrid');
+  var counter=document.getElementById('badgeCounter');
+  if(!grid)return;
+  var unlocked=getUnlockedBadges();
+  counter.textContent=unlocked.length+'/'+BADGES.length+' '+t('bdg_unlocked');
+  var h='';
+  BADGES.forEach(function(b){
+    var isUnlocked=unlocked.includes(b.id);
+    var bg=isUnlocked?'rgba(246,212,76,0.12)':'rgba(255,255,255,0.03)';
+    var opacity=isUnlocked?'1':'0.3';
+    var title=isUnlocked?t(b.tk):t('bdg_locked');
+    h+='<div title="'+title+(isUnlocked?' — '+t(b.dk):'')+'" style="width:44px;height:44px;border-radius:10px;background:'+bg+';display:flex;align-items:center;justify-content:center;font-size:1.2rem;opacity:'+opacity+';cursor:default;transition:opacity 0.3s;border:1px solid '+(isUnlocked?'rgba(246,212,76,0.25)':'var(--border-subtle)')+'">'+b.icon+'</div>';
+  });
+  grid.innerHTML=h;
+}
+
 // ===== MASTERY SCORE =====
 function calculateMastery(){
   var hist=getHistory();
@@ -3525,6 +3824,8 @@ function renderDashboard(){
   if(scored.length>=5&&bestScore>=85)ins.push(t('dash_ins_advanced').replace('{best}',bestScore));
   if(ins.length===0)ins.push(t('dash_ins_default'));
   insEl.innerHTML=ins.map(function(i){return '<div class="dash-insight">'+i+'</div>'}).join('');
+  // Badges
+  checkBadges();renderBadges();
 }
 function drawDashChart(entries){
   var canvas=document.getElementById('dashCanvas');if(!canvas)return;
@@ -3644,7 +3945,7 @@ function renderEvalNextSteps(){
 // ===== INIT =====
 document.querySelectorAll('.sidebar-nav a').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();navigateTo(a.getAttribute('data-section'))})});
 window.addEventListener('hashchange',handleHash);
-(function(){checkStripeSuccess();checkLibStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter();renderStreakBadge();renderMasteryBadge();renderSocialProof();updateLpProof()})();
+(function(){checkStripeSuccess();checkLibStripeSuccess();currentLang=detectLang();setLang(currentLang);handleHash();setTimeout(showOnboard,500);updateGenDailyCounter();renderStreakBadge();renderMasteryBadge();renderDailyChallenge();renderWeekSuggestion();renderSocialProof();updateLpProof()})();
 </script>
 <script src="/supabase-auth.js"></script>
 </body>
