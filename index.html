@@ -918,7 +918,7 @@ body{font-family:var(--font-main);background:var(--bg-body);color:var(--text-pri
 <div class="gen-step" id="genStep3">
 <div class="gen-question">Alege nivelul si genereaza</div>
 <div class="gen-level-cards">
-<div class="gen-level-card selected" data-level="simplu" onclick="selectGenLevel(this)"><div class="gl-name">Simplu</div><div class="gl-desc">5 afirmatii + 5 sugestii</div></div>
+<div class="gen-level-card selected" data-level="simplu" onclick="selectGenLevel(this)"><div class="gl-name">Simplu</div><div class="gl-desc">3 afirmatii + 3 sugestii</div></div>
 <div class="gen-level-card" data-level="avansat" onclick="selectGenLevel(this)"><div class="gl-name">Avansat</div><div class="gl-desc">+ 3 sugestii cu scenariu senzorial</div></div>
 <div class="gen-level-card" data-level="expert" onclick="selectGenLevel(this)"><div class="gl-name">Expert</div><div class="gl-desc">+ script complet autohipnoza (5-7 min)</div></div>
 </div>
@@ -1493,19 +1493,30 @@ function genNextStep(n){
   document.getElementById('genStep'+n).classList.add('active');
 }
 
+function _getGenDailyMax(){
+  if(window._sbAuth&&window._sbAuth.getEffectiveTier){
+    const t=window._sbAuth.getEffectiveTier();
+    if(t==='transformare')return 999;
+    if(t==='crestere')return 10;
+    if(t==='free')return 5;
+  }
+  return 3;
+}
+
 function updateGenDailyCounter(){
   const today=new Date().toISOString().slice(0,10);
   const k='pm_gen_'+today;
   const c=parseInt(localStorage.getItem(k)||'0');
+  const mx=_getGenDailyMax();
   const el=document.getElementById('genDailyCounter');
-  if(el)el.textContent=c+' / 5 generari azi';
+  if(el)el.textContent=mx>=999?c+' generari azi':c+' / '+mx+' generari azi';
 }
 
 function checkGenDailyLimit(){
   const today=new Date().toISOString().slice(0,10);
   const k='pm_gen_'+today;
   const c=parseInt(localStorage.getItem(k)||'0');
-  return c<5;
+  return c<_getGenDailyMax();
 }
 
 function recordGenUsage(){
@@ -1533,12 +1544,12 @@ function buildGenPrompt(){
   let levelInstructions='';
   if(level==='simplu'){
     levelInstructions=`NIVEL SIMPLU. Genereaza exact:
-- 5 afirmatii (persoana I, prezent, pozitive, max 50 caractere fiecare)
-- 5 sugestii (persoana II, prezent, min 2 canale VAKOG, max 200 caractere fiecare)
+- 3 afirmatii (persoana I, prezent, pozitive, max 50 caractere fiecare)
+- 3 sugestii (persoana II, prezent, min 2 canale VAKOG, max 200 caractere fiecare)
 - Instructiuni scurte de utilizare
 
 Raspunde DOAR cu JSON valid:
-{"afirmatii":["...","...","...","...","..."],"sugestii":["...","...","...","...","..."],"instructiuni_afirmatii":"...","instructiuni_sugestii":"..."}`;
+{"afirmatii":["...","...","..."],"sugestii":["...","...","..."],"instructiuni_afirmatii":"...","instructiuni_sugestii":"..."}`;
   }else if(level==='avansat'){
     const nameInstr=name?`IMPORTANT: Foloseste prenumele "${name}" O SINGURA DATA, in cea mai puternica sugestie completa. Exemplu: "${name}, simti cum..." sau "...si tu, ${name}, esti..."`:
       'Nu folosesti niciun nume propriu.';
@@ -1602,7 +1613,10 @@ MOTIVATIE SCHIMBARE: ${motivation}/10`;
 
 async function runGenerator(){
   if(!checkGenDailyLimit()){
-    alert('Ai atins limita de 5 generari pe zi. Revino maine!');
+    const mx=_getGenDailyMax();
+    const isRo=!currentLang||currentLang==='ro';
+    if(mx>=999){alert(isRo?'Limită tehnică atinsă. Încearcă mai târziu.':'Technical limit reached. Try later.')}
+    else{alert(isRo?'Ai atins limita de '+mx+' generări pe zi. Revino mâine sau upgradează planul!':'You reached the limit of '+mx+' generations per day. Come back tomorrow or upgrade!')}
     return;
   }
 

@@ -97,7 +97,7 @@
     if (hash && hash.includes('error=')) history.replaceState(null, '', window.location.pathname);
     if (params.get('upgraded') === '1') {
       history.replaceState(null, '', window.location.pathname);
-      setTimeout(() => _showNotification('✅ Premium activat! Bine ai venit.', 'success'), 1000);
+      setTimeout(() => _showNotification('✅ Planul tău e activ! Bine ai venit.', 'success'), 1000);
     }
     // Capture UTM params on first visit
     _captureUtm();
@@ -153,10 +153,14 @@
 
   function _computeEffectiveTier(p) {
     if (!p) return 'anonymous';
-    if (p.training_access) return 'premium';
-    if (p.pm_subscription_tier === 'inner_circle') return 'premium';
-    if (p.stripe_subscription_status === 'active' || p.stripe_subscription_status === 'trialing') return 'premium';
-    if (p.trial_active && new Date(p.trial_expires_at) > new Date()) return 'premium';
+    if (p.training_access) return 'transformare';
+    if (p.pm_subscription_tier === 'inner_circle') return 'transformare';
+    if (p.stripe_subscription_status === 'active' || p.stripe_subscription_status === 'trialing') {
+      if (p.subscription_plan === 'transformare_lunar' || p.subscription_plan === 'transformare_anual') return 'transformare';
+      if (p.subscription_plan === 'crestere_lunar') return 'crestere';
+      return 'crestere'; // fallback if plan is NULL but Stripe active
+    }
+    if (p.trial_active && new Date(p.trial_expires_at) > new Date()) return 'crestere';
     return 'free';
   }
 
@@ -190,10 +194,11 @@
   function _updateUI() {
     _updateAccountBadge();
     if (_sbUser) {
-      const appTier = _effectiveTier === 'premium' ? 'expert' : 'avansat';
+      const hasPaid = _effectiveTier === 'crestere' || _effectiveTier === 'transformare';
+      const appTier = hasPaid ? 'expert' : 'avansat';
       if (typeof window.currentTier !== 'undefined') {
         if (window.currentTier === 'basic') setTierDirect(appTier);
-        else if (window.currentTier === 'avansat' && _effectiveTier === 'premium') setTierDirect('expert');
+        else if (window.currentTier === 'avansat' && hasPaid) setTierDirect('expert');
       }
     }
     _updateTierButtons();
@@ -222,10 +227,11 @@
     }
 
     if (_sbUser) {
-      const tierLabel = _effectiveTier === 'premium' ? '⭐ Premium' : 'Free';
-      const tierColor = _effectiveTier === 'premium' ? 'var(--accent-gold)' : 'var(--accent-blue)';
+      const tierLabels = { transformare: '⭐ Transformare', crestere: '🌱 Creștere', free: 'Free' };
+      const tierLabel = tierLabels[_effectiveTier] || 'Free';
+      const tierColor = _effectiveTier === 'transformare' ? 'var(--accent-gold)' : _effectiveTier === 'crestere' ? 'var(--accent-green)' : 'var(--accent-blue)';
       let trialInfo = '';
-      if (_sbProfile && _sbProfile.trial_active && _effectiveTier === 'premium'
+      if (_sbProfile && _sbProfile.trial_active && (_effectiveTier === 'crestere' || _effectiveTier === 'transformare')
         && _sbProfile.stripe_subscription_status !== 'active' && !_sbProfile.training_access) {
         const daysLeft = Math.max(0, Math.ceil((new Date(_sbProfile.trial_expires_at) - new Date()) / 86400000));
         if (daysLeft > 0) trialInfo = `<span style="font-size:0.72rem;color:var(--accent-orange);margin-left:4px">(trial: ${daysLeft} zile)</span>`;
@@ -246,7 +252,8 @@
   function _updateTierButtons() {
     const btns = document.querySelectorAll('.tier-toggle button');
     if (btns.length < 3) return;
-    if (_effectiveTier === 'premium') btns[2].textContent = btns[2].textContent.replace(' 🔒', '');
+    const hasPaid = _effectiveTier === 'crestere' || _effectiveTier === 'transformare';
+    if (hasPaid) btns[2].textContent = btns[2].textContent.replace(' 🔒', '');
     if (_sbUser) btns[1].textContent = btns[1].textContent.replace(' 🔒', '');
   }
 
@@ -700,35 +707,52 @@
     if (existing) existing.remove();
     const isRo = !window.currentLang || window.currentLang === 'ro';
     let trialText = '';
-    if (_sbProfile && _sbProfile.trial_active && _effectiveTier === 'premium' && _sbProfile.stripe_subscription_status !== 'active' && !_sbProfile.training_access) {
+    if (_sbProfile && _sbProfile.trial_active && (_effectiveTier === 'crestere' || _effectiveTier === 'transformare') && _sbProfile.stripe_subscription_status !== 'active' && !_sbProfile.training_access) {
       const d = Math.max(0, Math.ceil((new Date(_sbProfile.trial_expires_at) - new Date()) / 86400000));
-      trialText = isRo ? `Ai încă ${d} zile de trial Premium gratuit.` : `${d} days free trial left.`;
+      trialText = isRo ? `Ai încă ${d} zile de trial gratuit.` : `${d} days free trial left.`;
     }
     const modal = document.createElement('div');
     modal.id = 'sbPremiumModal';
-    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.3s ease';
+    modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn 0.3s ease;overflow-y:auto';
     modal.innerHTML = `
-      <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:32px 28px;max-width:520px;width:100%;position:relative">
+      <div style="background:var(--bg-card);border:1px solid var(--border-card);border-radius:var(--radius);padding:32px 24px;max-width:600px;width:100%;position:relative">
         <button onclick="document.getElementById('sbPremiumModal').remove()" style="position:absolute;top:12px;right:12px;border:none;background:none;color:var(--text-muted);font-size:1.2rem;cursor:pointer">✕</button>
-        <div style="text-align:center;margin-bottom:20px">
-          <div style="font-size:0.72rem;font-weight:600;color:var(--accent-gold);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">PREMIUM</div>
-          <h3 style="font-size:1.1rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Deblochează evaluarea Expert' : 'Unlock Expert evaluation'}</h3>
+        <div style="text-align:center;margin-bottom:24px">
+          <h3 style="font-size:1.15rem;font-weight:700;color:var(--text-heading);margin:0 0 8px">${isRo ? 'Alege planul tău' : 'Choose your plan'}</h3>
           ${trialText ? `<p style="font-size:0.82rem;color:var(--accent-orange);margin:0 0 8px">${trialText}</p>` : ''}
-          <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;margin:0">${isRo ? '17 criterii ponderate · Analiză NLP · Radar chart · Script autohipnoză săptămânal · Afirmație zilnică personalizată' : '17 weighted criteria · NLP Analysis · Radar chart'}</p>
+          <p style="font-size:0.85rem;color:var(--text-secondary);margin:0">${isRo ? 'Toate planurile includ 7 zile gratuit.' : 'All plans include a 7-day free trial.'}</p>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-          <div onclick="window._sbAuth.startCheckout('monthly')" style="padding:20px 16px;border:1px solid rgba(246,212,76,0.3);border-radius:var(--radius-sm);cursor:pointer;text-align:center" onmouseover="this.style.borderColor='var(--accent-gold)'" onmouseout="this.style.borderColor='rgba(246,212,76,0.3)'">
-            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:4px">${isRo ? 'Lunar' : 'Monthly'}</div>
-            <div style="font-size:1.3rem;font-weight:700;color:var(--accent-gold)">49 RON</div>
-            <div style="font-size:0.78rem;color:var(--text-muted)">/ ${isRo ? 'lună' : 'month'}</div>
-            <div style="font-size:0.72rem;color:var(--accent-blue);margin-top:6px;font-weight:600">${isRo ? '7 zile gratuit' : '7 days free'}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px">
+          <!-- CARD 1: Creștere -->
+          <div style="padding:22px 16px;border:1px solid var(--border-card);border-radius:var(--radius-sm);text-align:center">
+            <div style="font-size:0.72rem;font-weight:600;color:var(--accent-green);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">🌱 ${isRo ? 'CREȘTERE' : 'GROWTH'}</div>
+            <div style="font-size:1.6rem;font-weight:700;color:var(--text-heading)">19 <span style="font-size:0.85rem;font-weight:400;color:var(--text-muted)">RON</span></div>
+            <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:14px">/ ${isRo ? 'lună' : 'month'}</div>
+            <div style="text-align:left;font-size:0.8rem;color:var(--text-secondary);line-height:1.8;margin-bottom:16px">
+              ✓ ${isRo ? 'Evaluator Expert (17 criterii)' : 'Expert Evaluator (17 criteria)'}<br>
+              ✓ ${isRo ? 'Generator Expert + script' : 'Expert Generator + script'}<br>
+              ✓ ${isRo ? 'Bibliotecă completă' : 'Full Library'}<br>
+              ✓ Radar chart + 4 ${isRo ? 'perspective' : 'perspectives'}
+            </div>
+            <button onclick="window._sbAuth.startCheckout('crestere_lunar')" style="width:100%;padding:11px;border:none;border-radius:6px;background:var(--accent-green);color:#0f1f28;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Începe 7 zile gratuit' : 'Start 7 days free'}</button>
           </div>
-          <div onclick="window._sbAuth.startCheckout('annual')" style="padding:20px 16px;border:2px solid var(--accent-gold);border-radius:var(--radius-sm);cursor:pointer;text-align:center;background:rgba(246,212,76,0.04);position:relative" onmouseover="this.style.background='rgba(246,212,76,0.1)'" onmouseout="this.style.background='rgba(246,212,76,0.04)'">
-            <div style="position:absolute;top:-10px;right:12px;background:var(--accent-gold);color:#0f1f28;font-size:0.68rem;font-weight:700;padding:2px 8px;border-radius:10px">-32%</div>
-            <div style="font-size:0.82rem;color:var(--text-muted);margin-bottom:4px">${isRo ? 'Anual' : 'Annual'}</div>
-            <div style="font-size:1.3rem;font-weight:700;color:var(--accent-gold)">399 RON</div>
-            <div style="font-size:0.78rem;color:var(--text-muted)">/ ${isRo ? 'an' : 'year'} (~33 RON/${isRo ? 'lună' : 'mo'})</div>
-            <div style="font-size:0.72rem;color:var(--accent-blue);margin-top:6px;font-weight:600">${isRo ? '7 zile gratuit' : '7 days free'}</div>
+          <!-- CARD 2: Transformare (highlighted) -->
+          <div style="padding:22px 16px;border:2px solid var(--accent-gold);border-radius:var(--radius-sm);text-align:center;background:rgba(246,212,76,0.03);position:relative">
+            <div style="position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--accent-gold);color:#0f1f28;font-size:0.68rem;font-weight:700;padding:2px 10px;border-radius:10px;white-space:nowrap">${isRo ? 'Recomandat' : 'Recommended'}</div>
+            <div style="font-size:0.72rem;font-weight:600;color:var(--accent-gold);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:8px">⭐ TRANSFORMARE</div>
+            <div id="sbPricingPrice" style="font-size:1.6rem;font-weight:700;color:var(--text-heading)">39 <span style="font-size:0.85rem;font-weight:400;color:var(--text-muted)">RON</span></div>
+            <div id="sbPricingPeriod" style="font-size:0.78rem;color:var(--text-muted);margin-bottom:6px">/ ${isRo ? 'lună' : 'month'}</div>
+            <div style="display:flex;justify-content:center;gap:4px;margin-bottom:14px">
+              <button id="sbToggleMonthly" onclick="window._sbAuth._setPricingToggle('monthly')" style="padding:3px 10px;border:1px solid var(--accent-gold);border-radius:4px;background:var(--accent-gold);color:#0f1f28;font-size:0.72rem;font-weight:600;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Lunar' : 'Monthly'}</button>
+              <button id="sbToggleAnnual" onclick="window._sbAuth._setPricingToggle('annual')" style="padding:3px 10px;border:1px solid var(--border-card);border-radius:4px;background:transparent;color:var(--text-muted);font-size:0.72rem;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Anual -23%' : 'Annual -23%'}</button>
+            </div>
+            <div style="text-align:left;font-size:0.8rem;color:var(--text-secondary);line-height:1.8;margin-bottom:16px">
+              ✓ ${isRo ? 'Tot ce e în Creștere' : 'Everything in Growth'}<br>
+              ✓ ${isRo ? 'Afirmație zilnică personalizată' : 'Personalized daily affirmation'}<br>
+              ✓ ${isRo ? 'Evaluări nelimitate' : 'Unlimited evaluations'}<br>
+              ✓ ${isRo ? 'Acces prioritar funcții noi' : 'Priority access to new features'}
+            </div>
+            <button id="sbTransformareBtn" onclick="window._sbAuth.startCheckout('transformare_lunar')" style="width:100%;padding:11px;border:none;border-radius:6px;background:var(--accent-gold);color:#0f1f28;font-size:0.88rem;font-weight:700;cursor:pointer;font-family:var(--font-main)">${isRo ? 'Începe 7 zile gratuit' : 'Start 7 days free'}</button>
           </div>
         </div>
         <div style="text-align:center;margin-bottom:12px;padding-top:4px;border-top:1px solid var(--border-card)">
@@ -746,6 +770,29 @@
       </div>
     `;
     document.body.appendChild(modal);
+  }
+
+  function _setPricingToggle(mode) {
+    const isRo = !window.currentLang || window.currentLang === 'ro';
+    const priceEl = document.getElementById('sbPricingPrice');
+    const periodEl = document.getElementById('sbPricingPeriod');
+    const btnM = document.getElementById('sbToggleMonthly');
+    const btnA = document.getElementById('sbToggleAnnual');
+    const checkoutBtn = document.getElementById('sbTransformareBtn');
+    if (!priceEl) return;
+    if (mode === 'annual') {
+      priceEl.innerHTML = '359 <span style="font-size:0.85rem;font-weight:400;color:var(--text-muted)">RON</span>';
+      periodEl.textContent = '/ ' + (isRo ? 'an (~30 RON/lună)' : 'year (~30 RON/mo)');
+      btnA.style.background = 'var(--accent-gold)'; btnA.style.color = '#0f1f28'; btnA.style.fontWeight = '600'; btnA.style.borderColor = 'var(--accent-gold)';
+      btnM.style.background = 'transparent'; btnM.style.color = 'var(--text-muted)'; btnM.style.fontWeight = '400'; btnM.style.borderColor = 'var(--border-card)';
+      if (checkoutBtn) checkoutBtn.setAttribute('onclick', "window._sbAuth.startCheckout('transformare_anual')");
+    } else {
+      priceEl.innerHTML = '39 <span style="font-size:0.85rem;font-weight:400;color:var(--text-muted)">RON</span>';
+      periodEl.textContent = '/ ' + (isRo ? 'lună' : 'month');
+      btnM.style.background = 'var(--accent-gold)'; btnM.style.color = '#0f1f28'; btnM.style.fontWeight = '600'; btnM.style.borderColor = 'var(--accent-gold)';
+      btnA.style.background = 'transparent'; btnA.style.color = 'var(--text-muted)'; btnA.style.fontWeight = '400'; btnA.style.borderColor = 'var(--border-card)';
+      if (checkoutBtn) checkoutBtn.setAttribute('onclick', "window._sbAuth.startCheckout('transformare_lunar')");
+    }
   }
 
   function _showNotification(text, type) {
@@ -1006,7 +1053,7 @@
       const data = await res.json();
 
       if (data.ok) {
-        msgDiv.textContent = isRo ? '✅ Acces Premium activat permanent!' : '✅ Permanent Premium access activated!';
+        msgDiv.textContent = isRo ? '✅ Acces Transformare activat permanent!' : '✅ Permanent Transformare access activated!';
         msgDiv.style.color = 'var(--accent-green, #4CAF50)';
         msgDiv.style.display = 'block';
         // Refresh profile
@@ -1015,7 +1062,7 @@
         setTimeout(() => {
           const modal = document.getElementById('sbPremiumModal');
           if (modal) modal.remove();
-          _showNotification(isRo ? '✅ Premium activat! Acces permanent la Expert.' : '✅ Premium activated! Permanent Expert access.', 'success');
+          _showNotification(isRo ? '✅ Acces Training activat! Toate funcțiile deblocate.' : '✅ Training access activated! All features unlocked.', 'success');
         }, 1200);
       } else {
         msgDiv.textContent = data.error || (isRo ? 'Cod invalid.' : 'Invalid code.');
@@ -1035,11 +1082,11 @@
 
   // --- OVERRIDES ---
   window.hasLeadAccess = function () { return _sbUser ? true : localStorage.getItem('eval_lead_ok') === '1'; };
-  window.hasExpertAccess = function () { return _effectiveTier === 'premium' ? true : localStorage.getItem('eval_expert_ok') === '1'; };
+  window.hasExpertAccess = function () { return (_effectiveTier === 'crestere' || _effectiveTier === 'transformare') ? true : localStorage.getItem('eval_expert_ok') === '1'; };
   window.showLeadGate = function (cb) { if (_sbUser) { if (cb) cb(); return; } window._pendingTierAfterAuth = 'avansat'; showAuthModal('signup', cb); };
   window.showExpertGate = function (cb) {
     if (!_sbUser) { window._pendingTierAfterAuth = 'expert'; showAuthModal('signup', cb); return; }
-    if (_effectiveTier === 'premium') { if (cb) cb(); return; }
+    if (_effectiveTier === 'crestere' || _effectiveTier === 'transformare') { if (cb) cb(); return; }
     showPremiumModal();
   };
   const _orig = window.getEvalEmail;
@@ -1048,7 +1095,7 @@
   window._sbAuth = {
     init: initSupabaseAuth, showAuthModal, showPremiumModal, doAuth, doVerifyOtp,
     doForgotSendCode, doForgotResetPassword,
-    signIn, signOut, startCheckout,
+    signIn, signOut, startCheckout, _setPricingToggle,
     showTrainingCodeInput, activateTrainingCode,
     saveEval: _saveEvalToSupabase, saveGen: _saveGenToSupabase, syncHistory: _syncHistory,
     getUser: () => _sbUser, getProfile: () => _sbProfile, getEffectiveTier: () => _effectiveTier, isReady: () => _authReady, refreshProfile: _loadProfile,
