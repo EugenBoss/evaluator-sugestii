@@ -216,7 +216,7 @@ async function sendAffirmationEmail(apiKey, toEmail, userName, affirmationText, 
       'Authorization': `Bearer ${apiKey}`
     },
     body: JSON.stringify({
-      from: 'Puterea Minții <noreply@putereamintii.ro>',
+      from: 'Puterea Minții <noreply@evaluator.putereamintii.ro>',
       to: toEmail,
       subject: `✨ Afirmația ta de azi — ${themeName}`,
       html
