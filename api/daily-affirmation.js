@@ -1,11 +1,10 @@
 // api/daily-affirmation.js — Vercel Serverless Function (ESM)
 // Called by cron-job.org daily at 7:00 AM EET
 // Generates personalized affirmation for paid subscribers (Creștere + Transformare)
-// Uses: Supabase (query users + save), Claude (generate), Resend (email)
+// Uses: Supabase (query profiles + save), Claude (generate), Resend (email)
 
 export default async function handler(req, res) {
-  // Only POST allowed (cron-job.org sends GET by default — configure it to POST)
-  // Also accept GET for cron-job.org compatibility
+  // Accept GET (cron-job.org default) and POST
   if (req.method !== 'POST' && req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
@@ -28,35 +27,27 @@ export default async function handler(req, res) {
   const today = new Date().toISOString().slice(0, 10);
 
   try {
-    // 1. Get all users with active paid subscriptions (Creștere or Transformare)
-    const subsResp = await fetch(`${SUPABASE_URL}/rest/v1/subscriptions?status=eq.active&tier=in.(crestere,transformare)&select=user_id,tier`, {
+    // 1. Get paid users from profiles table (tier = crestere or transformare)
+    const profilesResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/profiles?tier=in.(crestere,transformare)&select=id,email,display_name,tier,affirmation_theme,stripe_subscription_status`, {
       headers: {
         'apikey': SUPABASE_SERVICE_KEY,
         'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
       }
     });
-    const subscribers = await subsResp.json();
+    const allProfiles = await profilesResp.json();
 
-    if (!subscribers || !Array.isArray(subscribers) || subscribers.length === 0) {
+    // Filter: must have email
+    const subscribers = (Array.isArray(allProfiles) ? allProfiles : []).filter(p => p.email);
+
+    if (subscribers.length === 0) {
       return res.status(200).json({ message: 'No active subscribers', count: 0 });
     }
 
-    // 2. Get user profiles (email + name + affirmation_theme)
-    const userIds = subscribers.map(s => s.user_id);
-    const profilesResp = await fetch(`${SUPABASE_URL}/rest/v1/profiles?id=in.(${userIds.join(',')})&select=id,email,full_name,affirmation_theme`, {
-      headers: {
-        'apikey': SUPABASE_SERVICE_KEY,
-        'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
-      }
-    });
-    const profiles = await profilesResp.json();
-    const profileMap = {};
-    if (Array.isArray(profiles)) {
-      profiles.forEach(p => { profileMap[p.id] = p; });
-    }
-
-    // 3. Check which users already got today's affirmation (skip duplicates)
-    const existingResp = await fetch(`${SUPABASE_URL}/rest/v1/affirmations?date=eq.${today}&user_id=in.(${userIds.join(',')})&select=user_id`, {
+    // 2. Check which users already got today's affirmation (skip duplicates)
+    const userIds = subscribers.map(s => s.id);
+    const existingResp = await fetch(
+      `${SUPABASE_URL}/rest/v1/affirmations?date=eq.${today}&user_id=in.(${userIds.join(',')})&select=user_id`, {
       headers: {
         'apikey': SUPABASE_SERVICE_KEY,
         'Authorization': `Bearer ${SUPABASE_SERVICE_KEY}`
@@ -65,7 +56,7 @@ export default async function handler(req, res) {
     const existing = await existingResp.json();
     const alreadySent = new Set((Array.isArray(existing) ? existing : []).map(e => e.user_id));
 
-    // 4. Process each subscriber
+    // 3. Process each subscriber
     const results = [];
     const THEMES = {
       anxietate: 'Anxietate, frici și atacuri de panică',
@@ -83,32 +74,25 @@ export default async function handler(req, res) {
     };
     const themeKeys = Object.keys(THEMES);
 
-    for (const sub of subscribers) {
-      if (alreadySent.has(sub.user_id)) {
-        results.push({ user_id: sub.user_id, status: 'skipped_duplicate' });
-        continue;
-      }
-
-      const profile = profileMap[sub.user_id];
-      if (!profile || !profile.email) {
-        results.push({ user_id: sub.user_id, status: 'skipped_no_email' });
+    for (const profile of subscribers) {
+      if (alreadySent.has(profile.id)) {
+        results.push({ user_id: profile.id, status: 'skipped_duplicate' });
         continue;
       }
 
       // Determine theme
       let themeKey = profile.affirmation_theme || 'auto';
       if (themeKey === 'auto' || !THEMES[themeKey]) {
-        // Random theme from the 12 categories
         themeKey = themeKeys[Math.floor(Math.random() * themeKeys.length)];
       }
       const themeName = THEMES[themeKey];
-      const userName = profile.full_name || '';
+      const userName = profile.display_name || '';
 
       try {
-        // 5. Generate affirmation with Claude
+        // 4. Generate affirmation with Claude
         const affirmationText = await generateAffirmation(ANTHROPIC_API_KEY, themeName, userName);
 
-        // 6. Save to Supabase
+        // 5. Save to Supabase
         await fetch(`${SUPABASE_URL}/rest/v1/affirmations`, {
           method: 'POST',
           headers: {
@@ -118,7 +102,7 @@ export default async function handler(req, res) {
             'Prefer': 'return=minimal'
           },
           body: JSON.stringify({
-            user_id: sub.user_id,
+            user_id: profile.id,
             date: today,
             text: affirmationText,
             theme: themeKey,
@@ -126,12 +110,12 @@ export default async function handler(req, res) {
           })
         });
 
-        // 7. Send email via Resend
+        // 6. Send email via Resend
         await sendAffirmationEmail(RESEND_API_KEY, profile.email, userName, affirmationText, themeName);
 
-        results.push({ user_id: sub.user_id, status: 'sent', theme: themeKey });
+        results.push({ user_id: profile.id, status: 'sent', theme: themeKey });
       } catch (err) {
-        results.push({ user_id: sub.user_id, status: 'error', error: err.message });
+        results.push({ user_id: profile.id, status: 'error', error: err.message });
       }
     }
 
